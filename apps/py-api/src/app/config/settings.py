@@ -133,9 +133,12 @@ class Settings(BaseSettings):
     debug: bool = False
 
     # Application settings (By default retrieved from pyproject.toml)
-    name: str = Field(default="Kickstarter API", description="The name of the application")
+    name: str = Field(default="Tectonic API", description="The name of the application")
     version: str = Field(default="0.1.0", description="The version of the application")
-    description: str = Field(default="A minimal FastAPI application", description="The description of the application")
+    description: str = Field(
+        default="A minimal FastAPI application",
+        description="The description of the application",
+    )
 
     # API settings
     docs_url: str = Field("/docs", description="The URL of the docs")

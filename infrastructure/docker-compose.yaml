@@ -1,11 +1,11 @@
-name: kickstarter
+name: tectonic
 services:
   postgres:
     image: postgres:16
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=kickstart
+      - POSTGRES_DB=tectonic
     ports:
       - 5432:5432
   redis:

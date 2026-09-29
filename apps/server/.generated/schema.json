@@ -315,8 +315,8 @@
     }
   },
   "info": {
-    "title": "Kickstart API",
-    "description": "The Kickstart API description",
+    "title": "Tectonic API",
+    "description": "The Tectonic API description",
     "version": "1.0",
     "contact": {}
   },

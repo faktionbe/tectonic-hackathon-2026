@@ -17,8 +17,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   const config = new DocumentBuilder()
-    .setTitle('Kickstart API')
-    .setDescription('The Kickstart API description')
+    .setTitle('Tectonic API')
+    .setDescription('The Tectonic API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

@@ -21,7 +21,7 @@ export function useAppConfig(): {
   const { t } = useTranslation();
   const router = useRouter();
   return {
-    name: 'Kickstart',
+    name: 'Tectonic',
     logo: <Rocket className='h-8 w-8 p-2' />,
     items: [
       {
