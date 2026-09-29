@@ -1,0 +1,24 @@
+{
+  "name": "@repo/shared",
+  "version": "1.0.0",
+  "description": "Library that contains shared types & utils",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "lodash.groupby": "^4.6.0",
+    "lodash.keyby": "^4.6.0",
+    "lodash.uniq": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/lodash.groupby": "^4.6.9",
+    "@types/lodash.keyby": "^4.6.9",
+    "@types/lodash.uniq": "^4.5.9"
+  }
+}

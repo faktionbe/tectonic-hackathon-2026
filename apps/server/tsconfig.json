@@ -1,0 +1,14 @@
+{
+  "extends": "@faktion-com/tsconfig/node.json",
+  "compilerOptions": {
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
