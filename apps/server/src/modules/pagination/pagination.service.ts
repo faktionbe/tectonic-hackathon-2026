@@ -40,6 +40,7 @@ interface OffsetPaginationParams<
   pagination: OffsetPagination;
   where?: FindManyArgs<M>['where'];
   select?: FindManyArgs<M>['select'];
+  include?: object;
   orderBy?: keyof T;
 }
 
@@ -100,6 +101,7 @@ export class PaginationService {
     orderBy: _orderBy = 'createdAt',
     pagination: _pagination,
     select,
+    include,
   }: OffsetPaginationParams<T, M>) {
     const pagination = offsetPaginationSchema.parse(_pagination);
     const orderBy = {
@@ -111,7 +113,7 @@ export class PaginationService {
       skip: pagination.pageIndex * pagination.pageSize,
       orderBy,
       where,
-      select,
+      ...(include === undefined ? { select } : { include }),
     };
 
     const [results, total] = await Promise.all([

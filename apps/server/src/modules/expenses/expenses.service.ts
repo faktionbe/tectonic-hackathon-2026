@@ -1,61 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import type {
-  Expense,
-  ExpenseCategory,
-  ExpenseChannel,
-  ExpenseDirection,
-  ExpenseEssentiality,
-  ExpenseStatus,
-  ExpenseType,
-} from '@repo/contracts';
-import { Prisma } from '@repo/database';
+import type { Expense, ExpenseDetail, ExpenseListItem } from '@repo/contracts';
 
 import {
-  orUndefined,
-  toIsoDate,
-  toOptIsoDate,
-  toOptIsoDateTime,
-} from '@/modules/common/utils/serialization';
+  expenseDetailInclude,
+  expenseListInclude,
+  type ExpenseListRow,
+  toExpense,
+  toExpenseDetail,
+  toExpenseListItem,
+} from '@/modules/common/mappers/financial-records';
 import {
   type CreateExpense,
   type UpdateExpense,
 } from '@/modules/expenses/models/expense.dto';
 import { PaginationService } from '@/modules/pagination/pagination.service';
-import type { OffsetPagination } from '@/modules/pagination/pagination.utils';
+import type {
+  OffsetPagination,
+  OffsetPaginationResult,
+} from '@/modules/pagination/pagination.utils';
 import { PrismaService } from '@/modules/prisma/prisma.service';
 
-type ExpenseRow = Prisma.expenseGetPayload<Record<string, never>>;
-
-function toExpenseDto(row: ExpenseRow): Expense {
-  return {
-    id: row.id,
-    accountId: row.account_id,
-    iban: orUndefined(row.iban),
-    amount: Number(row.amount),
-    currency: row.currency,
-    direction: row.direction as ExpenseDirection,
-    bookingDate: toIsoDate(row.booking_date),
-    valueDate: toOptIsoDate(row.value_date),
-    transactionTimestamp: toOptIsoDateTime(row.transaction_timestamp),
-    type: row.type as ExpenseType,
-    status: row.status as ExpenseStatus,
-    description: orUndefined(row.description),
-    structuredReference: orUndefined(row.structured_reference),
-    mcc: orUndefined(row.mcc),
-    channel: orUndefined(row.channel) as ExpenseChannel | undefined,
-    balanceAfter:
-      row.balance_after === null ? undefined : Number(row.balance_after),
-    city: orUndefined(row.city),
-    countryCode: orUndefined(row.country_code),
-    category: orUndefined(row.category) as ExpenseCategory | undefined,
-    subCategory: orUndefined(row.sub_category),
-    essentiality: orUndefined(row.essentiality) as
-      | ExpenseEssentiality
-      | undefined,
-    counterpartyId: orUndefined(row.counterparty_id),
-    subscriptionId: orUndefined(row.subscription_id),
-  };
-}
+const toExpenseDate = (value: string | undefined): Date | undefined =>
+  value === undefined ? undefined : new Date(value);
 
 @Injectable()
 export class ExpensesService {
@@ -64,27 +30,33 @@ export class ExpensesService {
     private readonly paginationService: PaginationService
   ) {}
 
-  async findAll(pagination: OffsetPagination) {
+  async findAll(
+    pagination: OffsetPagination
+  ): Promise<OffsetPaginationResult<ExpenseListItem>> {
     const page = await this.paginationService.offsetPaginate<
-      ExpenseRow,
+      ExpenseListRow,
       'expense'
     >({
-      model: this.prisma.expense,
+      model: this.prisma.expense as never,
       pagination,
       orderBy: 'createdAt',
+      include: expenseListInclude,
     });
     return {
       ...page,
-      data: (page.data as Array<ExpenseRow>).map(toExpenseDto),
+      data: (page.data as Array<ExpenseListRow>).map(toExpenseListItem),
     };
   }
 
-  async findOne(id: string): Promise<Expense> {
-    const row = await this.prisma.expense.findUnique({ where: { id } });
+  async findOne(id: string): Promise<ExpenseDetail> {
+    const row = await this.prisma.expense.findUnique({
+      where: { id },
+      include: expenseDetailInclude,
+    });
     if (!row) {
       throw new NotFoundException(`Expense ${id} not found`);
     }
-    return toExpenseDto(row);
+    return toExpenseDetail(row);
   }
 
   async create(dto: CreateExpense): Promise<Expense> {
@@ -95,13 +67,16 @@ export class ExpensesService {
         amount: dto.amount,
         currency: dto.currency,
         direction: dto.direction,
-        booking_date: new Date(dto.bookingDate),
-        value_date: dto.valueDate ? new Date(dto.valueDate) : undefined,
-        transaction_timestamp: dto.transactionTimestamp
-          ? new Date(dto.transactionTimestamp)
-          : undefined,
+        booking_date: toExpenseDate(dto.bookingDate),
+        transaction_date: toExpenseDate(dto.transactionDate),
+        value_date: toExpenseDate(dto.valueDate),
+        transaction_timestamp: toExpenseDate(dto.transactionTimestamp),
         type: dto.type,
         status: dto.status,
+        purpose: dto.purpose,
+        failure_reason: dto.failureReason,
+        original_expense_id: dto.originalExpenseId,
+        counterparty_account_id: dto.counterpartyAccountId,
         description: dto.description,
         structured_reference: dto.structuredReference,
         mcc: dto.mcc,
@@ -116,7 +91,7 @@ export class ExpensesService {
         subscription_id: dto.subscriptionId,
       },
     });
-    return toExpenseDto(row);
+    return toExpense(row);
   }
 
   async update(id: string, dto: UpdateExpense): Promise<Expense> {
@@ -129,13 +104,16 @@ export class ExpensesService {
         amount: dto.amount,
         currency: dto.currency,
         direction: dto.direction,
-        booking_date: dto.bookingDate ? new Date(dto.bookingDate) : undefined,
-        value_date: dto.valueDate ? new Date(dto.valueDate) : undefined,
-        transaction_timestamp: dto.transactionTimestamp
-          ? new Date(dto.transactionTimestamp)
-          : undefined,
+        booking_date: toExpenseDate(dto.bookingDate),
+        transaction_date: toExpenseDate(dto.transactionDate),
+        value_date: toExpenseDate(dto.valueDate),
+        transaction_timestamp: toExpenseDate(dto.transactionTimestamp),
         type: dto.type,
         status: dto.status,
+        purpose: dto.purpose,
+        failure_reason: dto.failureReason,
+        original_expense_id: dto.originalExpenseId,
+        counterparty_account_id: dto.counterpartyAccountId,
         description: dto.description,
         structured_reference: dto.structuredReference,
         mcc: dto.mcc,
@@ -150,7 +128,7 @@ export class ExpensesService {
         subscription_id: dto.subscriptionId,
       },
     });
-    return toExpenseDto(row);
+    return toExpense(row);
   }
 
   async remove(id: string): Promise<Expense> {

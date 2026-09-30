@@ -428,6 +428,18 @@ export const ModelName = {
   mastra_workflow_snapshot: 'mastra_workflow_snapshot',
   mastra_workspace_versions: 'mastra_workspace_versions',
   mastra_workspaces: 'mastra_workspaces',
+  financial_holder: 'financial_holder',
+  account: 'account',
+  account_holder: 'account_holder',
+  loan: 'loan',
+  loan_borrower: 'loan_borrower',
+  credit_card: 'credit_card',
+  credit_card_holder: 'credit_card_holder',
+  investment: 'investment',
+  investment_holder: 'investment_holder',
+  insurance: 'insurance',
+  insurance_policyholder: 'insurance_policyholder',
+  insurance_insured_person: 'insurance_insured_person',
   party: 'party',
   subscription: 'subscription',
   expense: 'expense'
@@ -446,7 +458,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "profile" | "mastra_agent_versions" | "mastra_agents" | "mastra_ai_spans" | "mastra_background_tasks" | "mastra_channel_config" | "mastra_channel_installations" | "mastra_dataset_items" | "mastra_dataset_versions" | "mastra_datasets" | "mastra_experiment_results" | "mastra_experiments" | "mastra_favorites" | "mastra_knowledge_activity" | "mastra_knowledge_cursors" | "mastra_knowledge_mentions" | "mastra_knowledge_nodes" | "mastra_knowledge_records" | "mastra_knowledge_semantic_outbox" | "mastra_mcp_client_versions" | "mastra_mcp_clients" | "mastra_mcp_server_versions" | "mastra_mcp_servers" | "mastra_messages" | "mastra_observational_memory" | "mastra_prompt_block_versions" | "mastra_prompt_blocks" | "mastra_resources" | "mastra_schedule_triggers" | "mastra_schedules" | "mastra_scorer_definition_versions" | "mastra_scorer_definitions" | "mastra_scorers" | "mastra_skill_blobs" | "mastra_skill_versions" | "mastra_skills" | "mastra_thread_state" | "mastra_threads" | "mastra_tool_provider_connections" | "mastra_workflow_definitions" | "mastra_workflow_snapshot" | "mastra_workspace_versions" | "mastra_workspaces" | "party" | "subscription" | "expense"
+    modelProps: "user" | "profile" | "mastra_agent_versions" | "mastra_agents" | "mastra_ai_spans" | "mastra_background_tasks" | "mastra_channel_config" | "mastra_channel_installations" | "mastra_dataset_items" | "mastra_dataset_versions" | "mastra_datasets" | "mastra_experiment_results" | "mastra_experiments" | "mastra_favorites" | "mastra_knowledge_activity" | "mastra_knowledge_cursors" | "mastra_knowledge_mentions" | "mastra_knowledge_nodes" | "mastra_knowledge_records" | "mastra_knowledge_semantic_outbox" | "mastra_mcp_client_versions" | "mastra_mcp_clients" | "mastra_mcp_server_versions" | "mastra_mcp_servers" | "mastra_messages" | "mastra_observational_memory" | "mastra_prompt_block_versions" | "mastra_prompt_blocks" | "mastra_resources" | "mastra_schedule_triggers" | "mastra_schedules" | "mastra_scorer_definition_versions" | "mastra_scorer_definitions" | "mastra_scorers" | "mastra_skill_blobs" | "mastra_skill_versions" | "mastra_skills" | "mastra_thread_state" | "mastra_threads" | "mastra_tool_provider_connections" | "mastra_workflow_definitions" | "mastra_workflow_snapshot" | "mastra_workspace_versions" | "mastra_workspaces" | "financial_holder" | "account" | "account_holder" | "loan" | "loan_borrower" | "credit_card" | "credit_card_holder" | "investment" | "investment_holder" | "insurance" | "insurance_policyholder" | "insurance_insured_person" | "party" | "subscription" | "expense"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3706,6 +3718,894 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    financial_holder: {
+      payload: Prisma.$financial_holderPayload<ExtArgs>
+      fields: Prisma.financial_holderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.financial_holderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.financial_holderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>
+        }
+        findFirst: {
+          args: Prisma.financial_holderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.financial_holderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>
+        }
+        findMany: {
+          args: Prisma.financial_holderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>[]
+        }
+        create: {
+          args: Prisma.financial_holderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>
+        }
+        createMany: {
+          args: Prisma.financial_holderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.financial_holderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>[]
+        }
+        delete: {
+          args: Prisma.financial_holderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>
+        }
+        update: {
+          args: Prisma.financial_holderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>
+        }
+        deleteMany: {
+          args: Prisma.financial_holderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.financial_holderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.financial_holderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>[]
+        }
+        upsert: {
+          args: Prisma.financial_holderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$financial_holderPayload>
+        }
+        aggregate: {
+          args: Prisma.Financial_holderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinancial_holder>
+        }
+        groupBy: {
+          args: Prisma.financial_holderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Financial_holderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.financial_holderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Financial_holderCountAggregateOutputType> | number
+        }
+      }
+    }
+    account: {
+      payload: Prisma.$accountPayload<ExtArgs>
+      fields: Prisma.accountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.accountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.accountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>
+        }
+        findFirst: {
+          args: Prisma.accountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.accountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>
+        }
+        findMany: {
+          args: Prisma.accountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>[]
+        }
+        create: {
+          args: Prisma.accountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>
+        }
+        createMany: {
+          args: Prisma.accountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.accountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>[]
+        }
+        delete: {
+          args: Prisma.accountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>
+        }
+        update: {
+          args: Prisma.accountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>
+        }
+        deleteMany: {
+          args: Prisma.accountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.accountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.accountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>[]
+        }
+        upsert: {
+          args: Prisma.accountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$accountPayload>
+        }
+        aggregate: {
+          args: Prisma.AccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAccount>
+        }
+        groupBy: {
+          args: Prisma.accountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.accountCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AccountCountAggregateOutputType> | number
+        }
+      }
+    }
+    account_holder: {
+      payload: Prisma.$account_holderPayload<ExtArgs>
+      fields: Prisma.account_holderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.account_holderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.account_holderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>
+        }
+        findFirst: {
+          args: Prisma.account_holderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.account_holderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>
+        }
+        findMany: {
+          args: Prisma.account_holderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>[]
+        }
+        create: {
+          args: Prisma.account_holderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>
+        }
+        createMany: {
+          args: Prisma.account_holderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.account_holderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>[]
+        }
+        delete: {
+          args: Prisma.account_holderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>
+        }
+        update: {
+          args: Prisma.account_holderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>
+        }
+        deleteMany: {
+          args: Prisma.account_holderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.account_holderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.account_holderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>[]
+        }
+        upsert: {
+          args: Prisma.account_holderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$account_holderPayload>
+        }
+        aggregate: {
+          args: Prisma.Account_holderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAccount_holder>
+        }
+        groupBy: {
+          args: Prisma.account_holderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Account_holderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.account_holderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Account_holderCountAggregateOutputType> | number
+        }
+      }
+    }
+    loan: {
+      payload: Prisma.$loanPayload<ExtArgs>
+      fields: Prisma.loanFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.loanFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.loanFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>
+        }
+        findFirst: {
+          args: Prisma.loanFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.loanFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>
+        }
+        findMany: {
+          args: Prisma.loanFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>[]
+        }
+        create: {
+          args: Prisma.loanCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>
+        }
+        createMany: {
+          args: Prisma.loanCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.loanCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>[]
+        }
+        delete: {
+          args: Prisma.loanDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>
+        }
+        update: {
+          args: Prisma.loanUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>
+        }
+        deleteMany: {
+          args: Prisma.loanDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.loanUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.loanUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>[]
+        }
+        upsert: {
+          args: Prisma.loanUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loanPayload>
+        }
+        aggregate: {
+          args: Prisma.LoanAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLoan>
+        }
+        groupBy: {
+          args: Prisma.loanGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoanGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.loanCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoanCountAggregateOutputType> | number
+        }
+      }
+    }
+    loan_borrower: {
+      payload: Prisma.$loan_borrowerPayload<ExtArgs>
+      fields: Prisma.loan_borrowerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.loan_borrowerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.loan_borrowerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>
+        }
+        findFirst: {
+          args: Prisma.loan_borrowerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.loan_borrowerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>
+        }
+        findMany: {
+          args: Prisma.loan_borrowerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>[]
+        }
+        create: {
+          args: Prisma.loan_borrowerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>
+        }
+        createMany: {
+          args: Prisma.loan_borrowerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.loan_borrowerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>[]
+        }
+        delete: {
+          args: Prisma.loan_borrowerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>
+        }
+        update: {
+          args: Prisma.loan_borrowerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>
+        }
+        deleteMany: {
+          args: Prisma.loan_borrowerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.loan_borrowerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.loan_borrowerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>[]
+        }
+        upsert: {
+          args: Prisma.loan_borrowerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$loan_borrowerPayload>
+        }
+        aggregate: {
+          args: Prisma.Loan_borrowerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLoan_borrower>
+        }
+        groupBy: {
+          args: Prisma.loan_borrowerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Loan_borrowerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.loan_borrowerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Loan_borrowerCountAggregateOutputType> | number
+        }
+      }
+    }
+    credit_card: {
+      payload: Prisma.$credit_cardPayload<ExtArgs>
+      fields: Prisma.credit_cardFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.credit_cardFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.credit_cardFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>
+        }
+        findFirst: {
+          args: Prisma.credit_cardFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.credit_cardFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>
+        }
+        findMany: {
+          args: Prisma.credit_cardFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>[]
+        }
+        create: {
+          args: Prisma.credit_cardCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>
+        }
+        createMany: {
+          args: Prisma.credit_cardCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.credit_cardCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>[]
+        }
+        delete: {
+          args: Prisma.credit_cardDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>
+        }
+        update: {
+          args: Prisma.credit_cardUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>
+        }
+        deleteMany: {
+          args: Prisma.credit_cardDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.credit_cardUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.credit_cardUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>[]
+        }
+        upsert: {
+          args: Prisma.credit_cardUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_cardPayload>
+        }
+        aggregate: {
+          args: Prisma.Credit_cardAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCredit_card>
+        }
+        groupBy: {
+          args: Prisma.credit_cardGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Credit_cardGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.credit_cardCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Credit_cardCountAggregateOutputType> | number
+        }
+      }
+    }
+    credit_card_holder: {
+      payload: Prisma.$credit_card_holderPayload<ExtArgs>
+      fields: Prisma.credit_card_holderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.credit_card_holderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.credit_card_holderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>
+        }
+        findFirst: {
+          args: Prisma.credit_card_holderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.credit_card_holderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>
+        }
+        findMany: {
+          args: Prisma.credit_card_holderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>[]
+        }
+        create: {
+          args: Prisma.credit_card_holderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>
+        }
+        createMany: {
+          args: Prisma.credit_card_holderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.credit_card_holderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>[]
+        }
+        delete: {
+          args: Prisma.credit_card_holderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>
+        }
+        update: {
+          args: Prisma.credit_card_holderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>
+        }
+        deleteMany: {
+          args: Prisma.credit_card_holderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.credit_card_holderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.credit_card_holderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>[]
+        }
+        upsert: {
+          args: Prisma.credit_card_holderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$credit_card_holderPayload>
+        }
+        aggregate: {
+          args: Prisma.Credit_card_holderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCredit_card_holder>
+        }
+        groupBy: {
+          args: Prisma.credit_card_holderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Credit_card_holderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.credit_card_holderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Credit_card_holderCountAggregateOutputType> | number
+        }
+      }
+    }
+    investment: {
+      payload: Prisma.$investmentPayload<ExtArgs>
+      fields: Prisma.investmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.investmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.investmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>
+        }
+        findFirst: {
+          args: Prisma.investmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.investmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>
+        }
+        findMany: {
+          args: Prisma.investmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>[]
+        }
+        create: {
+          args: Prisma.investmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>
+        }
+        createMany: {
+          args: Prisma.investmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.investmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>[]
+        }
+        delete: {
+          args: Prisma.investmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>
+        }
+        update: {
+          args: Prisma.investmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.investmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.investmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.investmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.investmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investmentPayload>
+        }
+        aggregate: {
+          args: Prisma.InvestmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInvestment>
+        }
+        groupBy: {
+          args: Prisma.investmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InvestmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.investmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InvestmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    investment_holder: {
+      payload: Prisma.$investment_holderPayload<ExtArgs>
+      fields: Prisma.investment_holderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.investment_holderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.investment_holderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>
+        }
+        findFirst: {
+          args: Prisma.investment_holderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.investment_holderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>
+        }
+        findMany: {
+          args: Prisma.investment_holderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>[]
+        }
+        create: {
+          args: Prisma.investment_holderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>
+        }
+        createMany: {
+          args: Prisma.investment_holderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.investment_holderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>[]
+        }
+        delete: {
+          args: Prisma.investment_holderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>
+        }
+        update: {
+          args: Prisma.investment_holderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>
+        }
+        deleteMany: {
+          args: Prisma.investment_holderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.investment_holderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.investment_holderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>[]
+        }
+        upsert: {
+          args: Prisma.investment_holderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$investment_holderPayload>
+        }
+        aggregate: {
+          args: Prisma.Investment_holderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInvestment_holder>
+        }
+        groupBy: {
+          args: Prisma.investment_holderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Investment_holderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.investment_holderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Investment_holderCountAggregateOutputType> | number
+        }
+      }
+    }
+    insurance: {
+      payload: Prisma.$insurancePayload<ExtArgs>
+      fields: Prisma.insuranceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.insuranceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.insuranceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>
+        }
+        findFirst: {
+          args: Prisma.insuranceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.insuranceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>
+        }
+        findMany: {
+          args: Prisma.insuranceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>[]
+        }
+        create: {
+          args: Prisma.insuranceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>
+        }
+        createMany: {
+          args: Prisma.insuranceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.insuranceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>[]
+        }
+        delete: {
+          args: Prisma.insuranceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>
+        }
+        update: {
+          args: Prisma.insuranceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>
+        }
+        deleteMany: {
+          args: Prisma.insuranceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.insuranceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.insuranceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>[]
+        }
+        upsert: {
+          args: Prisma.insuranceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurancePayload>
+        }
+        aggregate: {
+          args: Prisma.InsuranceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInsurance>
+        }
+        groupBy: {
+          args: Prisma.insuranceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsuranceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.insuranceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsuranceCountAggregateOutputType> | number
+        }
+      }
+    }
+    insurance_policyholder: {
+      payload: Prisma.$insurance_policyholderPayload<ExtArgs>
+      fields: Prisma.insurance_policyholderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.insurance_policyholderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.insurance_policyholderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>
+        }
+        findFirst: {
+          args: Prisma.insurance_policyholderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.insurance_policyholderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>
+        }
+        findMany: {
+          args: Prisma.insurance_policyholderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>[]
+        }
+        create: {
+          args: Prisma.insurance_policyholderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>
+        }
+        createMany: {
+          args: Prisma.insurance_policyholderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.insurance_policyholderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>[]
+        }
+        delete: {
+          args: Prisma.insurance_policyholderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>
+        }
+        update: {
+          args: Prisma.insurance_policyholderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>
+        }
+        deleteMany: {
+          args: Prisma.insurance_policyholderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.insurance_policyholderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.insurance_policyholderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>[]
+        }
+        upsert: {
+          args: Prisma.insurance_policyholderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_policyholderPayload>
+        }
+        aggregate: {
+          args: Prisma.Insurance_policyholderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInsurance_policyholder>
+        }
+        groupBy: {
+          args: Prisma.insurance_policyholderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Insurance_policyholderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.insurance_policyholderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Insurance_policyholderCountAggregateOutputType> | number
+        }
+      }
+    }
+    insurance_insured_person: {
+      payload: Prisma.$insurance_insured_personPayload<ExtArgs>
+      fields: Prisma.insurance_insured_personFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.insurance_insured_personFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.insurance_insured_personFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>
+        }
+        findFirst: {
+          args: Prisma.insurance_insured_personFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.insurance_insured_personFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>
+        }
+        findMany: {
+          args: Prisma.insurance_insured_personFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>[]
+        }
+        create: {
+          args: Prisma.insurance_insured_personCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>
+        }
+        createMany: {
+          args: Prisma.insurance_insured_personCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.insurance_insured_personCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>[]
+        }
+        delete: {
+          args: Prisma.insurance_insured_personDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>
+        }
+        update: {
+          args: Prisma.insurance_insured_personUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>
+        }
+        deleteMany: {
+          args: Prisma.insurance_insured_personDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.insurance_insured_personUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.insurance_insured_personUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>[]
+        }
+        upsert: {
+          args: Prisma.insurance_insured_personUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$insurance_insured_personPayload>
+        }
+        aggregate: {
+          args: Prisma.Insurance_insured_personAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInsurance_insured_person>
+        }
+        groupBy: {
+          args: Prisma.insurance_insured_personGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Insurance_insured_personGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.insurance_insured_personCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Insurance_insured_personCountAggregateOutputType> | number
+        }
+      }
+    }
     party: {
       payload: Prisma.$partyPayload<ExtArgs>
       fields: Prisma.partyFieldRefs
@@ -4006,6 +4906,9 @@ export const ProfileScalarFieldEnum = {
   other_monthly_income: 'other_monthly_income',
   financial_literacy: 'financial_literacy',
   risk_tolerance: 'risk_tolerance',
+  personalization_consent: 'personalization_consent',
+  investment_horizon_months: 'investment_horizon_months',
+  liquidity_reserve_target: 'liquidity_reserve_target',
   goals: 'goals',
   service_interests: 'service_interests',
   monthly_essential_expenses: 'monthly_essential_expenses',
@@ -4894,6 +5797,167 @@ export const Mastra_workspacesScalarFieldEnum = {
 export type Mastra_workspacesScalarFieldEnum = (typeof Mastra_workspacesScalarFieldEnum)[keyof typeof Mastra_workspacesScalarFieldEnum]
 
 
+export const Financial_holderScalarFieldEnum = {
+  id: 'id',
+  profile_id: 'profile_id',
+  display_name: 'display_name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Financial_holderScalarFieldEnum = (typeof Financial_holderScalarFieldEnum)[keyof typeof Financial_holderScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  iban: 'iban',
+  kind: 'kind',
+  purpose: 'purpose',
+  status: 'status',
+  currency: 'currency',
+  balance: 'balance',
+  balance_as_of: 'balance_as_of',
+  overdraft_limit: 'overdraft_limit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const Account_holderScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Account_holderScalarFieldEnum = (typeof Account_holderScalarFieldEnum)[keyof typeof Account_holderScalarFieldEnum]
+
+
+export const LoanScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  kind: 'kind',
+  currency: 'currency',
+  outstanding_balance: 'outstanding_balance',
+  repayment_amount: 'repayment_amount',
+  repayment_cadence: 'repayment_cadence',
+  remaining_term_months: 'remaining_term_months',
+  repayment_account_id: 'repayment_account_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
+
+
+export const Loan_borrowerScalarFieldEnum = {
+  id: 'id',
+  loan_id: 'loan_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Loan_borrowerScalarFieldEnum = (typeof Loan_borrowerScalarFieldEnum)[keyof typeof Loan_borrowerScalarFieldEnum]
+
+
+export const Credit_cardScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  currency: 'currency',
+  credit_limit: 'credit_limit',
+  used_credit: 'used_credit',
+  billing_account_id: 'billing_account_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Credit_cardScalarFieldEnum = (typeof Credit_cardScalarFieldEnum)[keyof typeof Credit_cardScalarFieldEnum]
+
+
+export const Credit_card_holderScalarFieldEnum = {
+  id: 'id',
+  credit_card_id: 'credit_card_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Credit_card_holderScalarFieldEnum = (typeof Credit_card_holderScalarFieldEnum)[keyof typeof Credit_card_holderScalarFieldEnum]
+
+
+export const InvestmentScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  kind: 'kind',
+  currency: 'currency',
+  current_value: 'current_value',
+  valuation_date: 'valuation_date',
+  contribution_amount: 'contribution_amount',
+  contribution_cadence: 'contribution_cadence',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InvestmentScalarFieldEnum = (typeof InvestmentScalarFieldEnum)[keyof typeof InvestmentScalarFieldEnum]
+
+
+export const Investment_holderScalarFieldEnum = {
+  id: 'id',
+  investment_id: 'investment_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Investment_holderScalarFieldEnum = (typeof Investment_holderScalarFieldEnum)[keyof typeof Investment_holderScalarFieldEnum]
+
+
+export const InsuranceScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  kind: 'kind',
+  is_employer_provided: 'is_employer_provided',
+  loan_id: 'loan_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InsuranceScalarFieldEnum = (typeof InsuranceScalarFieldEnum)[keyof typeof InsuranceScalarFieldEnum]
+
+
+export const Insurance_policyholderScalarFieldEnum = {
+  id: 'id',
+  insurance_id: 'insurance_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Insurance_policyholderScalarFieldEnum = (typeof Insurance_policyholderScalarFieldEnum)[keyof typeof Insurance_policyholderScalarFieldEnum]
+
+
+export const Insurance_insured_personScalarFieldEnum = {
+  id: 'id',
+  insurance_id: 'insurance_id',
+  holder_id: 'holder_id',
+  coverage_percentage: 'coverage_percentage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Insurance_insured_personScalarFieldEnum = (typeof Insurance_insured_personScalarFieldEnum)[keyof typeof Insurance_insured_personScalarFieldEnum]
+
+
 export const PartyScalarFieldEnum = {
   id: 'id',
   kind: 'kind',
@@ -4943,10 +6007,13 @@ export const ExpenseScalarFieldEnum = {
   currency: 'currency',
   direction: 'direction',
   booking_date: 'booking_date',
+  transaction_date: 'transaction_date',
   value_date: 'value_date',
   transaction_timestamp: 'transaction_timestamp',
   type: 'type',
   status: 'status',
+  failure_reason: 'failure_reason',
+  purpose: 'purpose',
   description: 'description',
   structured_reference: 'structured_reference',
   mcc: 'mcc',
@@ -4958,7 +6025,9 @@ export const ExpenseScalarFieldEnum = {
   sub_category: 'sub_category',
   essentiality: 'essentiality',
   counterparty_id: 'counterparty_id',
+  counterparty_account_id: 'counterparty_account_id',
   subscription_id: 'subscription_id',
+  original_expense_id: 'original_expense_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -5292,6 +6361,18 @@ export type GlobalOmitConfig = {
   mastra_workflow_snapshot?: Prisma.mastra_workflow_snapshotOmit
   mastra_workspace_versions?: Prisma.mastra_workspace_versionsOmit
   mastra_workspaces?: Prisma.mastra_workspacesOmit
+  financial_holder?: Prisma.financial_holderOmit
+  account?: Prisma.accountOmit
+  account_holder?: Prisma.account_holderOmit
+  loan?: Prisma.loanOmit
+  loan_borrower?: Prisma.loan_borrowerOmit
+  credit_card?: Prisma.credit_cardOmit
+  credit_card_holder?: Prisma.credit_card_holderOmit
+  investment?: Prisma.investmentOmit
+  investment_holder?: Prisma.investment_holderOmit
+  insurance?: Prisma.insuranceOmit
+  insurance_policyholder?: Prisma.insurance_policyholderOmit
+  insurance_insured_person?: Prisma.insurance_insured_personOmit
   party?: Prisma.partyOmit
   subscription?: Prisma.subscriptionOmit
   expense?: Prisma.expenseOmit
