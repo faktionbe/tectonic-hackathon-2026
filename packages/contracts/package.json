@@ -1,0 +1,14 @@
+{
+  "name": "@repo/contracts",
+  "version": "1.0.0",
+  "description": "Library that contains contracts for the KBC application",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}
