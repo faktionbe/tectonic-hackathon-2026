@@ -38,6 +38,7 @@ export type Profile = {
   firstName: Scalars['String']['output'];
   id: Scalars['String']['output'];
   lastName: Scalars['String']['output'];
+  profileId?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -53,6 +54,7 @@ export type ProfileQuery = {
   profile: {
     __typename?: 'Profile';
     id: string;
+    profileId?: string | null;
     email: string;
     firstName: string;
     lastName: string;
@@ -63,6 +65,7 @@ export const ProfileDocument = gql`
   query profile {
     profile {
       id
+      profileId
       email
       firstName
       lastName
@@ -103,6 +106,21 @@ export function useProfileLazyQuery(
     options
   );
 }
+// @ts-ignore
+export function useProfileSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ProfileQuery,
+    ProfileQueryVariables
+  >
+): Apollo.UseSuspenseQueryResult<ProfileQuery, ProfileQueryVariables>;
+export function useProfileSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<ProfileQuery, ProfileQueryVariables>
+): Apollo.UseSuspenseQueryResult<
+  ProfileQuery | undefined,
+  ProfileQueryVariables
+>;
 export function useProfileSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken

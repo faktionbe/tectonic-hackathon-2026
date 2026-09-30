@@ -31,6 +31,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     return {
       id: props.id,
+      profileId: props.profile_id,
       email: props.email,
       role: props.role,
       firstName: props.first_name,

@@ -1,6 +1,7 @@
 query profile {
   profile {
     id
+    profileId
     email
     firstName
     lastName

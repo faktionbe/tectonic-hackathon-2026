@@ -1342,6 +1342,10 @@
           "id": {
             "type": "string"
           },
+          "profileId": {
+            "nullable": true,
+            "type": "string"
+          },
           "firstName": {
             "type": "string"
           },
@@ -1367,6 +1371,7 @@
         },
         "required": [
           "id",
+          "profileId",
           "firstName",
           "lastName",
           "email",

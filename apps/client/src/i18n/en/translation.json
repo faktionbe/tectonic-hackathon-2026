@@ -24,10 +24,28 @@
     }
   },
   "chat": {
-    "empty": "Ask Kate about accounts, cards, or savings.",
     "author": {
-      "user": "Lotte Vermeulen",
-      "assistant": "Kate"
+      "user": "Lotte Vermeulen"
+    },
+    "agentSelector": {
+      "label": "Choose an agent"
+    },
+    "agents": {
+      "agent": {
+        "name": "Kate",
+        "description": "Everyday banking questions and product guidance",
+        "empty": "Ask Kate about accounts, cards, or savings."
+      },
+      "savings-advice-agent": {
+        "name": "Savings Advice",
+        "description": "Personalized savings and investment advice",
+        "empty": "Ask for savings advice. Include your customer id so the agent can look up your finances."
+      },
+      "expense-insight-agent": {
+        "name": "Expense Insights",
+        "description": "Spending patterns and life-event signals from your transactions",
+        "empty": "Ask the Expense Insights agent to analyse your spending."
+      }
     },
     "error": "Something went wrong sending your message. Try again.",
     "scrollToEnd": "Scroll to latest messages",

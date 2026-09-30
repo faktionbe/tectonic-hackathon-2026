@@ -54,9 +54,9 @@ export const mastra = new Mastra({
     apiRoutes: [
       expenseAnalysisRoute,
       savingsAdviceRoute,
+      // Resolves `:agentId` against each Agent's `id` (agent, savings-advice-agent, expense-insight-agent).
       chatRoute({
-        path: '/chat',
-        agent: 'agent',
+        path: '/chat/:agentId',
         version: 'v7',
       }),
     ],

@@ -22,7 +22,7 @@
     "@faktion": {
       "url": "https://registry.faktion.com/api/registry/bearer/{name}",
       "headers": {
-        "Authorization": "Bearer ${REGISTRY_BEARER_TOKEN}"
+        "Authorization": "Bearer g8HxGyz3Jaln0rniNzLRB8ir+g/cc1J6CICUirx/laQ="
       }
     }
   }

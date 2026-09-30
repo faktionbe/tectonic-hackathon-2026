@@ -28,6 +28,7 @@ const isoDateTimeFromDate = z.preprocess((val) => {
 export const profileResponseSchema = z
   .object({
     id: z.string(),
+    profileId: z.string().nullable(),
     firstName: z.string(),
     lastName: z.string(),
     email: z.string(),
