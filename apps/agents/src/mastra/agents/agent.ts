@@ -8,7 +8,10 @@ import {
   WORKSPACE_TOOLS,
 } from '@mastra/core/workspace';
 import { Memory } from '@mastra/memory';
-import { pathToFileURL } from 'node:url';
+import {
+  formatProductsForPrompt,
+  PRODUCT_CATEGORIES,
+} from '@repo/kbc-products';
 
 import { startScheduleTool, stopScheduleTool } from '../tools/schedule-tools';
 
@@ -36,28 +39,33 @@ const workspace = new Workspace({
   },
 });
 
+const suggestedPrompts = [
+  "What's the difference between a current account and a savings account?",
+  'What should I watch out for with a credit card or an overdraft?',
+  'Which KBC product fits a short-term cash buffer?',
+];
+
+const instructions = `You are Kate, KBC's digital assistant in the banking app. Help with paying, saving, investing, borrowing, and insurance in plain language. Reply in the user's language. When they write in English, answer in English. Keep answers short. When the goal is unclear, ask one clarifying question. When they greet you without a task, invite them to ask about everyday accounts, cards, or a short-term cash buffer.
+
+Explain products using only the catalogue below. Match a product to a stated situation using its "Relevant for" and "Watch out" lines. Mention KBC Mobile / KBC Touch, cards, Wero, and everyday accounts when they fit. Use EUR for amounts.
+
+Do not invent balances, rates, fees, approvals, holdings, or returns. Do not execute payments, transfers, card blocks, or product applications. Do not give personalized savings or investment advice, and do not guarantee returns. Do not diagnose financial stress or life events. For fraud, a lost card, or a complaint, tell the customer to contact KBC through the app or a branch. Stay on KBC retail products.
+
+Do not use the workspace, shell, web fetch, or schedules unless the customer explicitly asks to save a note or look up a public page. Never use them to demo weather, stocks, or web pages.
+
+Product catalogue:
+
+${formatProductsForPrompt([...PRODUCT_CATEGORIES])}`;
+
 export const agent = new Agent({
   id: 'agent',
-  name: 'Agent',
+  name: 'Kate',
   description:
-    'A general-purpose assistant that can research, manage tasks, work with local files, run approved commands, and create recurring schedules.',
+    "KBC's digital assistant for everyday banking questions and simple product guidance in the app.",
   metadata: {
-    suggestedPrompts: [
-      "What's the weather in Austin this weekend?",
-      "What's the SPCX stock price right now?",
-      'Build a Japanese sakura festival landing page.',
-    ],
+    suggestedPrompts,
   },
-  instructions: `You are a friendly starter agent for exploring what Mastra can do. Help the user try useful capabilities, build small projects, answer current questions, and shape this harness into a starting point for future work.
-
-Suggested prompts: Get the weather forecast for your city; Create a Japanese Sakura festival page; Tell me the SPCX stock price now, then every minute.
-
-When the user greets you or does not have a specific task, invite them to try the suggested prompts.
-
-Ask concise questions when something is unclear or a good question could surface a useful insight.
-
-For local file changes, end with a plain-text URL using ${pathToFileURL(`${workspacePath}/`).href}; avoid Markdown links, localhost, /workspace, relative paths, and static-file servers.
-`,
+  instructions,
   model: 'openrouter/openai/gpt-5.6-terra',
   defaultOptions: {
     maxSteps: 100,

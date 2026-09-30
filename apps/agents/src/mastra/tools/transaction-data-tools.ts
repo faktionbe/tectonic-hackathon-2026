@@ -12,6 +12,7 @@ import {
   getMockTransactionDataset,
 } from '../expense-analysis/mock-transaction-data';
 import { analysisPeriodSchema } from '../schemas/expense-analysis';
+import { expenseMetricsSchema } from '../schemas/expense-metrics';
 
 const customerIdSchema = z.object({
   customerId: z.string().min(1).describe('Customer identifier'),
@@ -97,18 +98,20 @@ export const computeExpenseMetricsTool = createTool({
   }),
   outputSchema: z.object({
     period: analysisPeriodSchema,
-    metrics: z.unknown(),
+    metrics: expenseMetricsSchema,
   }),
   execute: async ({ customerId, period, homeCountryCode }) => {
     const dataset = getMockTransactionDataset(customerId);
     const expenses = filterExpensesByPeriod(dataset.expenses, period);
-    const metrics = computeExpenseMetrics({
-      expenses,
-      parties: dataset.parties,
-      subscriptions: dataset.subscriptions,
-      period,
-      homeCountryCode: homeCountryCode ?? dataset.homeCountryCode,
-    });
+    const metrics = expenseMetricsSchema.parse(
+      computeExpenseMetrics({
+        expenses,
+        parties: dataset.parties,
+        subscriptions: dataset.subscriptions,
+        period,
+        homeCountryCode: homeCountryCode ?? dataset.homeCountryCode,
+      })
+    );
 
     return {
       period: metrics.period,

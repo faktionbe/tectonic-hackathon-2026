@@ -1,8 +1,6 @@
 # agents
 
-Welcome to your new [Mastra](https://mastra.ai) project! We're excited to see what you build.
-
-This starter provides you with a general-purpose Mastra agent that can research current information, manage multi-step tasks, work with local files, run approved shell commands, and create recurring schedules.
+Mastra agents for the KBC banking app. The main chat agent is Kate, KBC's digital assistant for everyday banking questions and simple product guidance.
 
 ## Features
 
@@ -24,11 +22,11 @@ pnpm dev
 
 Open [http://localhost:4111](http://localhost:4111) in your browser to access [Mastra Studio](https://mastra.ai/docs/studio/overview).
 
-Select **Agent** in Mastra Studio and try one of these prompts:
+Select **Kate** in Mastra Studio and try one of these prompts:
 
-- `Get the weather forecast for Austin this weekend.`
-- `Create a landing page for a Japanese sakura festival.`
-- `Check the SPCX stock price now, then check it every minute.`
+- `What's the difference between a current account and a savings account?`
+- `What should I watch out for with a credit card or an overdraft?`
+- `Which KBC product fits a short-term cash buffer?`
 
 The agent asks for approval before it changes files or runs commands. When it creates a schedule, it returns an ID that you can use to pause the schedule.
 

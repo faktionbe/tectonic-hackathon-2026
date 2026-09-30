@@ -21,7 +21,33 @@
     "lint": {},
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "@repo/shared#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "@repo/openapi#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "@repo/contracts#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "@repo/kbc-products#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "@repo/database#dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build", "^build"]
     },
     "format": {
       "cache": false,
