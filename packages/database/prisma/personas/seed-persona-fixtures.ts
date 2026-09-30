@@ -13,6 +13,8 @@ import type {
 
 import type { Prisma, PrismaClient } from '../../generated/prisma/client';
 
+import { hash } from '../utils/hash';
+
 import {
   fixtureId,
   fixtureTimestamp,
@@ -20,6 +22,15 @@ import {
 } from './fixture-builder';
 import { createPersonaFixtures } from './fixtures';
 import { validatePersonaFixtures } from './validate-fixtures';
+
+/** Shared demo password for every persona login account. */
+const PERSONA_PASSWORD = 'password123';
+
+const emailFor = (firstName: string, lastName: string): string => {
+  const slug = (value: string): string =>
+    value.toLowerCase().replace(/[^a-z0-9]+/gu, '');
+  return `${slug(firstName)}.${slug(lastName)}@kbc.be`;
+};
 
 const timestamp = new Date(fixtureTimestamp);
 const timestamps = { createdAt: timestamp, updatedAt: timestamp };
@@ -313,6 +324,7 @@ export const seedPersonaFixtures = async (
 ): Promise<void> => {
   const fixtures = createPersonaFixtures();
   validatePersonaFixtures(fixtures);
+  const personaPassword = await hash(PERSONA_PASSWORD);
   await client.$transaction(
     async (tx) => {
       for (const value of fixtures.profiles) {
@@ -334,6 +346,24 @@ export const seedPersonaFixtures = async (
           where: { id: value.id },
           create: data,
           update: data,
+        });
+
+        // One login account per persona profile, linked 1:1 to the profile.
+        const email = emailFor(data.first_name, data.last_name);
+        await tx.user.upsert({
+          where: { profile_id: value.id },
+          create: {
+            email,
+            password: personaPassword,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            profile_id: value.id,
+          },
+          update: {
+            email,
+            first_name: data.first_name,
+            last_name: data.last_name,
+          },
         });
       }
       for (const value of fixtures.holders) {
