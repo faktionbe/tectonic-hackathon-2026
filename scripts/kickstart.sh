@@ -122,8 +122,23 @@ setup_pnpm() {
 
     # Corepack was removed from the Node distribution in Node 25+; install it
     # from npm when missing so package.json#packageManager still works.
+    # Corepack also links pnpm, pnpx, yarn, and yarnpkg. A standalone global
+    # pnpm in this Node prefix makes `npm install -g corepack` fail with EEXIST.
     if ! command_exists corepack; then
         echo "📦 Installing Corepack..."
+        local node_bin
+        node_bin="$(dirname "$(command -v node)")"
+        if [ -e "${node_bin}/pnpm" ] || [ -e "${node_bin}/pnpx" ] || [ -e "${node_bin}/yarn" ] || [ -e "${node_bin}/yarnpkg" ]; then
+            echo "📦 Removing existing pnpm/yarn bins so Corepack can replace them..."
+            npm uninstall -g pnpm yarn >/dev/null 2>&1 || true
+            rm -f \
+                "${node_bin}/pnpm" \
+                "${node_bin}/pnpx" \
+                "${node_bin}/pn" \
+                "${node_bin}/pnx" \
+                "${node_bin}/yarn" \
+                "${node_bin}/yarnpkg"
+        fi
         npm install -g corepack@latest
     fi
 
@@ -139,6 +154,32 @@ setup_pnpm() {
 
     echo "📦 Preparing ${package_manager}..."
     corepack prepare "${package_manager}" --activate
+
+    # Corepack reuses ~/.cache/node/corepack even when the recorded bin path is
+    # stale. Older builds stored pnpm 11+ as bin/pnpm.cjs; those releases ship
+    # bin/pnpm.mjs, so `pnpm` then fails with MODULE_NOT_FOUND.
+    if ! pnpm --version >/dev/null 2>&1; then
+        echo "📦 Cached package manager cannot run; reinstalling it..."
+        local corepack_home pm_name pm_version
+        if [ -n "${COREPACK_HOME:-}" ]; then
+            corepack_home="${COREPACK_HOME}"
+        elif [ -n "${XDG_CACHE_HOME:-}" ]; then
+            corepack_home="${XDG_CACHE_HOME}/node/corepack"
+        elif [ -n "${LOCALAPPDATA:-}" ]; then
+            corepack_home="${LOCALAPPDATA}/node/corepack"
+        elif [ "$(detect_os)" = "windows" ]; then
+            corepack_home="${HOME}/AppData/Local/node/corepack"
+        else
+            corepack_home="${HOME}/.cache/node/corepack"
+        fi
+        pm_name="${package_manager%%@*}"
+        pm_version="${package_manager#*@}"
+        pm_version="${pm_version%%+*}"
+        if [ -n "${pm_name}" ] && [ -n "${pm_version}" ]; then
+            rm -rf "${corepack_home}/v1/${pm_name}/${pm_version}"
+        fi
+        corepack prepare "${package_manager}" --activate
+    fi
 
     if ! pnpm --version >/dev/null 2>&1; then
         echo "❌ pnpm is not runnable after Corepack prepare"
