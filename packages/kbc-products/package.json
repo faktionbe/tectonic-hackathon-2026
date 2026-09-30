@@ -1,7 +1,7 @@
 {
-  "name": "@repo/contracts",
+  "name": "@repo/kbc-products",
   "version": "1.0.0",
-  "description": "Library that contains contracts for the KBC application",
+  "description": "Static KBC product catalog for retrieval and LLM prompt context",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -15,12 +15,11 @@
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
-    "test": "tsup --config tsup.test.config.ts && node --test dist/test/*.test.mjs",
-    "typecheck": "tsc --noEmit && tsc --project test/tsconfig.json",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest run"
   },
-  "dependencies": {
-    "zod": "^4.6.5"
+  "devDependencies": {
+    "vitest": "^5.0.2"
   }
 }
