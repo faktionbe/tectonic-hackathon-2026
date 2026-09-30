@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const clientEnvSchema = z.object({
   VITE_ENVIRONMENT: z.enum(['local', 'development', 'qa', 'production']),
   VITE_BACKEND_URL: z.string().url(),
+  VITE_AGENTS_URL: z.string().url(),
 });
 
 /**

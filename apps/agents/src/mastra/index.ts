@@ -1,3 +1,4 @@
+import { chatRoute } from '@mastra/ai-sdk';
 import { Mastra } from '@mastra/core/mastra';
 import { PostgresStore } from '@mastra/pg';
 
@@ -13,6 +14,15 @@ export const mastra = new Mastra({
     id: 'mastra-storage',
     connectionString: env.DATABASE_URL,
   }),
+  server: {
+    apiRoutes: [
+      chatRoute({
+        path: '/chat',
+        agent: 'agent',
+        version: 'v7',
+      }),
+    ],
+  },
   // observability: new Observability({
   //   configs: {
   //     default: {
