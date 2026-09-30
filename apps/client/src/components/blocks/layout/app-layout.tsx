@@ -26,9 +26,9 @@ const AppLayout: FC<AppLayoutProps> = ({ children }) => {
   const breadcrumbs = useBreadcrumbs();
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className='h-svh'>
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className='min-h-0'>
         <header className='group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear'>
           <div className='flex items-center gap-2 px-4'>
             <SidebarTrigger className='-ml-1' />
@@ -62,7 +62,7 @@ const AppLayout: FC<AppLayoutProps> = ({ children }) => {
             </Breadcrumb>
           </div>
         </header>
-        <main className='m-4 flex h-full flex-col gap-4 overflow-auto'>
+        <main className='m-4 flex min-h-0 flex-1 flex-col gap-4 overflow-hidden'>
           {children}
         </main>
       </SidebarInset>

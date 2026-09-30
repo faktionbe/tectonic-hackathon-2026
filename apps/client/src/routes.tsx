@@ -9,8 +9,7 @@ import { z } from 'zod';
 import AppLayout from '@/components/blocks/layout/app-layout';
 import Centered from '@/components/blocks/layout/centered';
 import type { AuthContextProps } from '@/providers/auth-provider';
-import Item from '@/routes/(app)/(items)/item';
-import Items from '@/routes/(app)/(items)/items';
+import ChatScreen from '@/routes/(app)/chat';
 import Login from '@/routes/(auth)/login';
 import Root from '@/routes/root';
 
@@ -27,7 +26,7 @@ const indexRoute = createRoute({
   path: '/',
   beforeLoad: ({ context }) => {
     if (context.auth?.isAuthenticated) {
-      throw redirect({ to: '/app/items' });
+      throw redirect({ to: '/app/chat' });
     } else {
       throw redirect({ to: '/auth/login' });
     }
@@ -54,7 +53,7 @@ const loginRoute = createRoute({
     if (context.auth?.isAuthenticated) {
       throw redirect({
         to: decodeURIComponent(
-          search.redirect ?? encodeURIComponent('/app/items')
+          search.redirect ?? encodeURIComponent('/app/chat')
         ),
       });
     }
@@ -82,20 +81,14 @@ const appRoute = createRoute({
   ),
 });
 
-const itemsRoute = createRoute({
+const chatRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: 'items',
-  component: Items,
-});
-
-const itemRoute = createRoute({
-  getParentRoute: () => appRoute,
-  path: 'items/$itemId',
-  component: Item,
+  path: 'chat',
+  component: ChatScreen,
 });
 
 export const routes = rootRoute.addChildren([
   indexRoute,
   authRoute.addChildren([loginRoute]),
-  appRoute.addChildren([itemsRoute, itemRoute]),
+  appRoute.addChildren([chatRoute]),
 ]);
