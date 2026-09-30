@@ -1,7 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport, isTextUIPart, type UIMessage } from 'ai';
+import {
+  DefaultChatTransport,
+  isTextUIPart,
+  isToolUIPart,
+  type UIMessage,
+} from 'ai';
 import { ChevronDownIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -10,10 +15,13 @@ import {
   ChatAvatar,
   ChatBubble,
   ChatComposer,
+  type ChatComposerHandle,
   ChatEmpty,
   ChatMessage,
   ChatMessageHeader,
   ChatMessages,
+  ChatTool,
+  type ChatToolPart,
   ChatTypingIndicator,
 } from '@/components/ui/chat';
 import {
@@ -29,10 +37,12 @@ import { useProfileQuery } from '@/graphql/generated';
 import { useAuth } from '@/providers/auth-provider';
 
 const CHAT_THREAD_STORAGE_KEY = 'chat.threadId';
-const CHAT_SESSION_STARTED_STORAGE_KEY = 'chat.sessionStartedThreadId';
 
 const buildSessionStartMessage = (profileId: string): string =>
   `Session started for account: "${profileId}"`;
+
+const initialMessageStorageKey = (threadId: string): string =>
+  `chat.initialMessageSent.${threadId}`;
 
 const CHAT_AGENT_IDS = [
   'agent',
@@ -73,6 +83,47 @@ const getMessageText = (message: UIMessage): string =>
     .filter(isTextUIPart)
     .map((part) => part.text)
     .join('');
+
+interface TextSegment {
+  kind: 'text';
+  key: string;
+  text: string;
+}
+
+interface ToolSegment {
+  kind: 'tool';
+  key: string;
+  part: ChatToolPart;
+}
+
+type MessageSegment = TextSegment | ToolSegment;
+
+/**
+ * Splits message parts into renderable segments, preserving order and merging adjacent text parts.
+ */
+const getMessageSegments = (message: UIMessage): Array<MessageSegment> => {
+  const segments: Array<MessageSegment> = [];
+
+  message.parts.forEach((part, index) => {
+    if (isTextUIPart(part)) {
+      const previous = segments.at(-1);
+      if (previous?.kind === 'text') {
+        previous.text += part.text;
+        return;
+      }
+      segments.push({ kind: 'text', key: `text-${index}`, text: part.text });
+      return;
+    }
+
+    if (isToolUIPart(part)) {
+      segments.push({ kind: 'tool', key: part.toolCallId, part });
+    }
+  });
+
+  return segments.filter(
+    (segment) => segment.kind !== 'text' || segment.text.length > 0
+  );
+};
 
 /**
  * Attributes every assistant message to the agent selected when the preceding user message was sent.
@@ -183,21 +234,38 @@ const ChatScreen = () => {
     transport,
   });
 
+  const composerRef = useRef<ChatComposerHandle>(null);
+  const initialMessageSentRef = useRef(false);
+
+  const sendChatText = useCallback(
+    (text: string, messageAgentId: ChatAgentId) => {
+      sendMessage({ text, metadata: { agentId: messageAgentId } }).catch(
+        () => undefined
+      );
+    },
+    [sendMessage]
+  );
+
   useEffect(() => {
-    if (!profileId || status !== 'ready') {
+    if (!profileId || status !== 'ready' || initialMessageSentRef.current) {
       return;
     }
 
-    if (sessionStorage.getItem(CHAT_SESSION_STARTED_STORAGE_KEY) === threadId) {
+    if (sessionStorage.getItem(initialMessageStorageKey(threadId)) === '1') {
+      initialMessageSentRef.current = true;
       return;
     }
 
-    sessionStorage.setItem(CHAT_SESSION_STARTED_STORAGE_KEY, threadId);
-    sendMessage({
-      text: buildSessionStartMessage(profileId),
-      metadata: { agentId: DEFAULT_CHAT_AGENT_ID },
-    }).catch(() => undefined);
-  }, [profileId, sendMessage, status, threadId]);
+    initialMessageSentRef.current = true;
+    sessionStorage.setItem(initialMessageStorageKey(threadId), '1');
+
+    const initialText = buildSessionStartMessage(profileId);
+    if (composerRef.current) {
+      composerRef.current.send(initialText);
+    } else {
+      sendChatText(initialText, DEFAULT_CHAT_AGENT_ID);
+    }
+  }, [profileId, sendChatText, status, threadId]);
 
   const messageAgentIds = useMemo(
     () => getMessageAgentIds(messages),
@@ -215,9 +283,27 @@ const ChatScreen = () => {
           (part) => isTextUIPart(part) && part.text.length > 0
         )));
 
-  const handleSend = (text: string): void => {
-    sendMessage({ text, metadata: { agentId } }).catch(() => undefined);
-  };
+  const handleComposerSend = useCallback(
+    (text: string) => {
+      const messageAgentId =
+        text === buildSessionStartMessage(profileId ?? '')
+          ? DEFAULT_CHAT_AGENT_ID
+          : agentId;
+      sendChatText(text, messageAgentId);
+    },
+    [agentId, profileId, sendChatText]
+  );
+
+  const visibleMessages = useMemo(
+    () =>
+      messages.filter(
+        (message) =>
+          message.role !== 'user' ||
+          profileId === null ||
+          getMessageText(message) !== buildSessionStartMessage(profileId)
+      ),
+    [messages, profileId]
+  );
 
   return (
     <Chat
@@ -227,11 +313,11 @@ const ChatScreen = () => {
         defaultScrollPosition: 'last-anchor',
         scrollPreviousItemPeek: 64,
       }}>
-      {messages.length === 0 && !showTyping ? (
+      {visibleMessages.length === 0 && !showTyping ? (
         <ChatEmpty>{t(`chat.agents.${agentId}.empty`)}</ChatEmpty>
       ) : (
         <ChatMessages>
-          {messages.map((message) => {
+          {visibleMessages.map((message) => {
             if (message.role === 'system') {
               return null;
             }
@@ -242,7 +328,7 @@ const ChatScreen = () => {
             const name = isUser
               ? t('chat.author.user')
               : t(`chat.agents.${messageAgentId}.name`);
-            const text = getMessageText(message);
+            const segments = getMessageSegments(message);
 
             return (
               <ChatMessage
@@ -257,13 +343,24 @@ const ChatScreen = () => {
                   />
                 }>
                 <ChatMessageHeader>{name}</ChatMessageHeader>
-                <ChatBubble>
-                  {isUser ? (
-                    <span className='whitespace-pre-line'>{text}</span>
+                {segments.map((segment) =>
+                  segment.kind === 'tool' ? (
+                    <ChatTool
+                      key={segment.key}
+                      part={segment.part}
+                    />
                   ) : (
-                    <Response>{text}</Response>
-                  )}
-                </ChatBubble>
+                    <ChatBubble key={segment.key}>
+                      {isUser ? (
+                        <span className='whitespace-pre-line'>
+                          {segment.text}
+                        </span>
+                      ) : (
+                        <Response>{segment.text}</Response>
+                      )}
+                    </ChatBubble>
+                  )
+                )}
               </ChatMessage>
             );
           })}
@@ -282,7 +379,8 @@ const ChatScreen = () => {
         </p>
       )}
       <ChatComposer
-        onSend={handleSend}
+        ref={composerRef}
+        onSend={handleComposerSend}
         isPending={isPending}>
         <ChatAgentSelector
           value={agentId}
