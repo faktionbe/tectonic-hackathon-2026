@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from '@tanstack/react-router';
-import { Command } from 'lucide-react';
 
 import { NavMain } from '@/components/blocks/sidebar/nav-main';
 import { NavUser } from '@/components/blocks/sidebar/nav-user';
@@ -18,7 +17,7 @@ import { useAppConfig } from '@/hooks/use-app-config';
 export const AppSidebar = ({
   ...props
 }: React.ComponentProps<typeof Sidebar>) => {
-  const { name } = useAppConfig();
+  const { name, logo } = useAppConfig();
   return (
     <Sidebar
       variant='inset'
@@ -30,8 +29,8 @@ export const AppSidebar = ({
               size='lg'
               asChild>
               <Link to={'/'}>
-                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
-                  <Command className='size-4' />
+                <div className='flex aspect-square size-8 items-center justify-center overflow-hidden rounded-lg bg-white'>
+                  {logo}
                 </div>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
                   <span className='truncate font-semibold'>{name}</span>
