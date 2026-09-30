@@ -45,6 +45,9 @@ model profile {
   other_monthly_income           Decimal?  @db.Decimal(14, 2)
   financial_literacy             String?
   risk_tolerance                 String?
+  personalization_consent        Boolean?
+  investment_horizon_months      Int?
+  liquidity_reserve_target       Decimal?  @db.Decimal(14, 2)
   goals                          String[]  @default([])
   service_interests              String[]  @default([])
   monthly_essential_expenses     Decimal?  @db.Decimal(14, 2)
@@ -64,6 +67,8 @@ model profile {
   notes                          String?   @db.Text
   createdAt                      DateTime  @default(now())
   updatedAt                      DateTime  @updatedAt
+
+  financial_holder financial_holder?
 
   @@index([last_name, first_name])
   @@index([postal_code])
@@ -956,6 +961,195 @@ enum role {
   ADMIN
 }
 
+model financial_holder {
+  id           String   @id @default(uuid(7))
+  profile_id   String?  @unique
+  profile      profile? @relation(fields: [profile_id], references: [id], onDelete: SetNull)
+  display_name String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  accounts            account_holder[]
+  loans               loan_borrower[]
+  credit_cards        credit_card_holder[]
+  investments         investment_holder[]
+  insurance_policies  insurance_policyholder[]
+  insurance_coverages insurance_insured_person[]
+}
+
+model account {
+  id              String    @id @default(uuid(7))
+  provider_name   String?
+  iban            String?
+  kind            String?
+  purpose         String?
+  status          String?
+  currency        String?   @db.Char(3)
+  balance         Decimal?  @db.Decimal(14, 2)
+  balance_as_of   DateTime?
+  overdraft_limit Decimal?  @db.Decimal(14, 2)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  holders               account_holder[]
+  expenses              expense[]        @relation("AccountExpenses")
+  counterparty_expenses expense[]        @relation("ExpenseCounterpartyAccount")
+  subscriptions         subscription[]   @relation("SubscriptionAccount")
+  loans                 loan[]           @relation("LoanRepaymentAccount")
+  credit_cards          credit_card[]    @relation("CreditCardBillingAccount")
+}
+
+model account_holder {
+  id         String           @id @default(uuid(7))
+  account_id String
+  account    account          @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  holder_id  String
+  holder     financial_holder @relation(fields: [holder_id], references: [id], onDelete: Restrict)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  @@unique([account_id, holder_id])
+  @@index([holder_id])
+}
+
+model loan {
+  id                    String   @id @default(uuid(7))
+  provider_name         String?
+  product_name          String?
+  kind                  String?
+  currency              String?  @db.Char(3)
+  outstanding_balance   Decimal? @db.Decimal(14, 2)
+  repayment_amount      Decimal? @db.Decimal(14, 2)
+  repayment_cadence     String?
+  remaining_term_months Int?
+  repayment_account_id  String?
+  repayment_account     account? @relation("LoanRepaymentAccount", fields: [repayment_account_id], references: [id], onDelete: SetNull)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  borrowers loan_borrower[]
+  insurance insurance[]
+
+  @@index([repayment_account_id])
+}
+
+model loan_borrower {
+  id        String           @id @default(uuid(7))
+  loan_id   String
+  loan      loan             @relation(fields: [loan_id], references: [id], onDelete: Cascade)
+  holder_id String
+  holder    financial_holder @relation(fields: [holder_id], references: [id], onDelete: Restrict)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@unique([loan_id, holder_id])
+  @@index([holder_id])
+}
+
+model credit_card {
+  id                 String   @id @default(uuid(7))
+  provider_name      String?
+  product_name       String?
+  currency           String?  @db.Char(3)
+  credit_limit       Decimal? @db.Decimal(14, 2)
+  used_credit        Decimal? @db.Decimal(14, 2)
+  billing_account_id String?
+  billing_account    account? @relation("CreditCardBillingAccount", fields: [billing_account_id], references: [id], onDelete: SetNull)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  holders credit_card_holder[]
+
+  @@index([billing_account_id])
+}
+
+model credit_card_holder {
+  id             String           @id @default(uuid(7))
+  credit_card_id String
+  credit_card    credit_card      @relation(fields: [credit_card_id], references: [id], onDelete: Cascade)
+  holder_id      String
+  holder         financial_holder @relation(fields: [holder_id], references: [id], onDelete: Restrict)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@unique([credit_card_id, holder_id])
+  @@index([holder_id])
+}
+
+model investment {
+  id                   String    @id @default(uuid(7))
+  provider_name        String?
+  product_name         String?
+  kind                 String?
+  currency             String?   @db.Char(3)
+  current_value        Decimal?  @db.Decimal(14, 2)
+  valuation_date       DateTime? @db.Date
+  contribution_amount  Decimal?  @db.Decimal(14, 2)
+  contribution_cadence String?
+  status               String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  holders investment_holder[]
+}
+
+model investment_holder {
+  id            String           @id @default(uuid(7))
+  investment_id String
+  investment    investment       @relation(fields: [investment_id], references: [id], onDelete: Cascade)
+  holder_id     String
+  holder        financial_holder @relation(fields: [holder_id], references: [id], onDelete: Restrict)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@unique([investment_id, holder_id])
+  @@index([holder_id])
+}
+
+model insurance {
+  id                   String   @id @default(uuid(7))
+  provider_name        String?
+  product_name         String?
+  kind                 String?
+  is_employer_provided Boolean?
+  loan_id              String?
+  loan                 loan?    @relation(fields: [loan_id], references: [id], onDelete: SetNull)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  policyholders   insurance_policyholder[]
+  insured_persons insurance_insured_person[]
+
+  @@index([loan_id])
+}
+
+model insurance_policyholder {
+  id           String           @id @default(uuid(7))
+  insurance_id String
+  insurance    insurance        @relation(fields: [insurance_id], references: [id], onDelete: Cascade)
+  holder_id    String
+  holder       financial_holder @relation(fields: [holder_id], references: [id], onDelete: Restrict)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@unique([insurance_id, holder_id])
+  @@index([holder_id])
+}
+
+model insurance_insured_person {
+  id                  String           @id @default(uuid(7))
+  insurance_id        String
+  insurance           insurance        @relation(fields: [insurance_id], references: [id], onDelete: Cascade)
+  holder_id           String
+  holder              financial_holder @relation(fields: [holder_id], references: [id], onDelete: Restrict)
+  coverage_percentage Decimal?         @db.Decimal(5, 2)
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+
+  @@unique([insurance_id, holder_id])
+  @@index([holder_id])
+}
+
 model party {
   id           String  @id @default(uuid(7))
   kind         String
@@ -977,6 +1171,7 @@ model party {
 model subscription {
   id                String    @id @default(uuid(7))
   account_id        String
+  account           account   @relation("SubscriptionAccount", fields: [account_id], references: [id], onDelete: Restrict)
   counterparty_id   String
   counterparty      party     @relation(fields: [counterparty_id], references: [id])
   kind              String
@@ -984,8 +1179,8 @@ model subscription {
   creditor_id       String?
   status            String
   category          String?
-  cadence           String
-  amount            Decimal   @db.Decimal(14, 2)
+  cadence           String?
+  amount            Decimal?  @db.Decimal(14, 2)
   currency          String    @default("EUR") @db.Char(3)
   next_payment_date DateTime? @db.Date
   first_charged_at  DateTime? @db.Date
@@ -997,39 +1192,52 @@ model subscription {
   updatedAt DateTime @updatedAt
 
   expenses expense[]
+
+  @@index([account_id])
 }
 
 model expense {
-  id                    String        @id @default(uuid(7))
-  account_id            String
-  iban                  String?
-  amount                Decimal       @db.Decimal(14, 2)
-  currency              String        @default("EUR") @db.Char(3)
-  direction             String
-  booking_date          DateTime      @db.Date
-  value_date            DateTime?     @db.Date
-  transaction_timestamp DateTime?
-  type                  String
-  status                String
-  description           String?
-  structured_reference  String?
-  mcc                   String?
-  channel               String?
-  balance_after         Decimal?      @db.Decimal(14, 2)
-  city                  String?
-  country_code          String?
-  category              String?
-  sub_category          String?
-  essentiality          String?
-  counterparty_id       String?
-  counterparty          party?        @relation(fields: [counterparty_id], references: [id])
-  subscription_id       String?
-  subscription          subscription? @relation(fields: [subscription_id], references: [id])
+  id                      String        @id @default(uuid(7))
+  account_id              String
+  account                 account       @relation("AccountExpenses", fields: [account_id], references: [id], onDelete: Restrict)
+  iban                    String?
+  amount                  Decimal       @db.Decimal(14, 2)
+  currency                String        @default("EUR") @db.Char(3)
+  direction               String
+  booking_date            DateTime?     @db.Date
+  transaction_date        DateTime?     @db.Date
+  value_date              DateTime?     @db.Date
+  transaction_timestamp   DateTime?
+  type                    String
+  status                  String
+  failure_reason          String?
+  purpose                 String?
+  description             String?
+  structured_reference    String?
+  mcc                     String?
+  channel                 String?
+  balance_after           Decimal?      @db.Decimal(14, 2)
+  city                    String?
+  country_code            String?
+  category                String?
+  sub_category            String?
+  essentiality            String?
+  counterparty_id         String?
+  counterparty            party?        @relation(fields: [counterparty_id], references: [id])
+  counterparty_account_id String?
+  counterparty_account    account?      @relation("ExpenseCounterpartyAccount", fields: [counterparty_account_id], references: [id], onDelete: SetNull)
+  subscription_id         String?
+  subscription            subscription? @relation(fields: [subscription_id], references: [id])
+  original_expense_id     String?
+  original_expense        expense?      @relation("ExpenseOriginal", fields: [original_expense_id], references: [id], onDelete: SetNull)
+  related_expenses        expense[]     @relation("ExpenseOriginal")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([account_id])
   @@index([counterparty_id])
+  @@index([counterparty_account_id])
   @@index([subscription_id])
+  @@index([original_expense_id])
 }

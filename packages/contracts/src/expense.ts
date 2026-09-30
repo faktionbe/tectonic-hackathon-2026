@@ -50,9 +50,27 @@ export const expenseTypeSchema = z.enum([
 
 export type ExpenseType = z.infer<typeof expenseTypeSchema>;
 
-export const expenseStatusSchema = z.enum(['PENDING', 'BOOKED', 'REVERSED']);
+export const expenseStatusSchema = z.enum([
+  'PENDING',
+  'BOOKED',
+  'REVERSED',
+  'ATTEMPTED',
+  'BLOCKED',
+  'REJECTED',
+]);
 
 export type ExpenseStatus = z.infer<typeof expenseStatusSchema>;
+
+export const expensePurposeSchema = z.enum([
+  'SALARY',
+  'PENSION',
+  'BUSINESS_INCOME',
+  'HOUSEHOLD_SUPPORT',
+  'OWN_ACCOUNT_TRANSFER',
+  'OTHER',
+]);
+
+export type ExpensePurpose = z.infer<typeof expensePurposeSchema>;
 
 export const expenseChannelSchema = z.enum([
   'POS',
@@ -73,7 +91,7 @@ export const expenseEssentialitySchema = z.enum([
 
 export type ExpenseEssentiality = z.infer<typeof expenseEssentialitySchema>;
 
-/** A single booked (or pending) transaction line on an account. */
+/** An account transaction or an unbooked payment attempt. */
 export const expenseSchema = z
   .object({
     id: z.string(),
@@ -81,12 +99,14 @@ export const expenseSchema = z
     iban: z.string().optional(),
 
     amount: z.number().positive().meta({
-      description: 'Absolute booked amount (always positive); see direction',
+      description:
+        'Absolute transaction amount (always positive); see direction',
     }),
     currency: z.string().length(3).meta({ description: 'ISO 4217 code' }),
     direction: expenseDirectionSchema,
 
-    bookingDate: z.iso.date(),
+    bookingDate: z.iso.date().optional(),
+    transactionDate: z.iso.date().optional(),
     valueDate: z.iso.date().optional(),
     transactionTimestamp: z.iso.datetime().optional().meta({
       description: 'Authorization moment; key for right-moment triggers',
@@ -94,6 +114,10 @@ export const expenseSchema = z
 
     type: expenseTypeSchema,
     status: expenseStatusSchema,
+    purpose: expensePurposeSchema.optional(),
+    failureReason: z.string().optional(),
+    originalExpenseId: z.string().optional(),
+    counterpartyAccountId: z.string().optional(),
 
     description: z
       .string()
@@ -129,3 +153,37 @@ export const expenseSchema = z
   .meta({ id: 'Expense' });
 
 export type Expense = z.infer<typeof expenseSchema>;
+
+// Keep cross-field checks separate so DTOs can still use .omit() and .partial().
+export const validatedExpenseSchema = expenseSchema
+  .superRefine((expense, context) => {
+    const isBooked =
+      expense.status === expenseStatusSchema.enum.BOOKED ||
+      expense.status === expenseStatusSchema.enum.REVERSED;
+
+    if (isBooked) {
+      if (expense.bookingDate === undefined) {
+        context.addIssue({
+          code: 'custom',
+          path: ['bookingDate'],
+          message: 'Booked and reversed transactions require a booking date',
+        });
+      }
+      return;
+    }
+
+    if (
+      expense.transactionDate === undefined &&
+      expense.transactionTimestamp === undefined
+    ) {
+      context.addIssue({
+        code: 'custom',
+        path: ['transactionDate'],
+        message:
+          'Unbooked transactions require a transaction date or timestamp',
+      });
+    }
+  })
+  .meta({ id: 'ValidatedExpense' });
+
+export type ValidatedExpense = z.infer<typeof validatedExpenseSchema>;
