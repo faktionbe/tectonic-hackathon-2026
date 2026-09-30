@@ -44,10 +44,13 @@ export type ExpenseMinAggregateOutputType = {
   currency: string | null
   direction: string | null
   booking_date: Date | null
+  transaction_date: Date | null
   value_date: Date | null
   transaction_timestamp: Date | null
   type: string | null
   status: string | null
+  failure_reason: string | null
+  purpose: string | null
   description: string | null
   structured_reference: string | null
   mcc: string | null
@@ -59,7 +62,9 @@ export type ExpenseMinAggregateOutputType = {
   sub_category: string | null
   essentiality: string | null
   counterparty_id: string | null
+  counterparty_account_id: string | null
   subscription_id: string | null
+  original_expense_id: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,10 +77,13 @@ export type ExpenseMaxAggregateOutputType = {
   currency: string | null
   direction: string | null
   booking_date: Date | null
+  transaction_date: Date | null
   value_date: Date | null
   transaction_timestamp: Date | null
   type: string | null
   status: string | null
+  failure_reason: string | null
+  purpose: string | null
   description: string | null
   structured_reference: string | null
   mcc: string | null
@@ -87,7 +95,9 @@ export type ExpenseMaxAggregateOutputType = {
   sub_category: string | null
   essentiality: string | null
   counterparty_id: string | null
+  counterparty_account_id: string | null
   subscription_id: string | null
+  original_expense_id: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -100,10 +110,13 @@ export type ExpenseCountAggregateOutputType = {
   currency: number
   direction: number
   booking_date: number
+  transaction_date: number
   value_date: number
   transaction_timestamp: number
   type: number
   status: number
+  failure_reason: number
+  purpose: number
   description: number
   structured_reference: number
   mcc: number
@@ -115,7 +128,9 @@ export type ExpenseCountAggregateOutputType = {
   sub_category: number
   essentiality: number
   counterparty_id: number
+  counterparty_account_id: number
   subscription_id: number
+  original_expense_id: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -140,10 +155,13 @@ export type ExpenseMinAggregateInputType = {
   currency?: true
   direction?: true
   booking_date?: true
+  transaction_date?: true
   value_date?: true
   transaction_timestamp?: true
   type?: true
   status?: true
+  failure_reason?: true
+  purpose?: true
   description?: true
   structured_reference?: true
   mcc?: true
@@ -155,7 +173,9 @@ export type ExpenseMinAggregateInputType = {
   sub_category?: true
   essentiality?: true
   counterparty_id?: true
+  counterparty_account_id?: true
   subscription_id?: true
+  original_expense_id?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -168,10 +188,13 @@ export type ExpenseMaxAggregateInputType = {
   currency?: true
   direction?: true
   booking_date?: true
+  transaction_date?: true
   value_date?: true
   transaction_timestamp?: true
   type?: true
   status?: true
+  failure_reason?: true
+  purpose?: true
   description?: true
   structured_reference?: true
   mcc?: true
@@ -183,7 +206,9 @@ export type ExpenseMaxAggregateInputType = {
   sub_category?: true
   essentiality?: true
   counterparty_id?: true
+  counterparty_account_id?: true
   subscription_id?: true
+  original_expense_id?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -196,10 +221,13 @@ export type ExpenseCountAggregateInputType = {
   currency?: true
   direction?: true
   booking_date?: true
+  transaction_date?: true
   value_date?: true
   transaction_timestamp?: true
   type?: true
   status?: true
+  failure_reason?: true
+  purpose?: true
   description?: true
   structured_reference?: true
   mcc?: true
@@ -211,7 +239,9 @@ export type ExpenseCountAggregateInputType = {
   sub_category?: true
   essentiality?: true
   counterparty_id?: true
+  counterparty_account_id?: true
   subscription_id?: true
+  original_expense_id?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -310,11 +340,14 @@ export type ExpenseGroupByOutputType = {
   amount: runtime.Decimal
   currency: string
   direction: string
-  booking_date: Date
+  booking_date: Date | null
+  transaction_date: Date | null
   value_date: Date | null
   transaction_timestamp: Date | null
   type: string
   status: string
+  failure_reason: string | null
+  purpose: string | null
   description: string | null
   structured_reference: string | null
   mcc: string | null
@@ -326,7 +359,9 @@ export type ExpenseGroupByOutputType = {
   sub_category: string | null
   essentiality: string | null
   counterparty_id: string | null
+  counterparty_account_id: string | null
   subscription_id: string | null
+  original_expense_id: string | null
   createdAt: Date
   updatedAt: Date
   _count: ExpenseCountAggregateOutputType | null
@@ -361,11 +396,14 @@ export type expenseWhereInput = {
   amount?: Prisma.DecimalFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFilter<"expense"> | string
   direction?: Prisma.StringFilter<"expense"> | string
-  booking_date?: Prisma.DateTimeFilter<"expense"> | Date | string
+  booking_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
+  transaction_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
   value_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
   transaction_timestamp?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
   type?: Prisma.StringFilter<"expense"> | string
   status?: Prisma.StringFilter<"expense"> | string
+  failure_reason?: Prisma.StringNullableFilter<"expense"> | string | null
+  purpose?: Prisma.StringNullableFilter<"expense"> | string | null
   description?: Prisma.StringNullableFilter<"expense"> | string | null
   structured_reference?: Prisma.StringNullableFilter<"expense"> | string | null
   mcc?: Prisma.StringNullableFilter<"expense"> | string | null
@@ -377,11 +415,17 @@ export type expenseWhereInput = {
   sub_category?: Prisma.StringNullableFilter<"expense"> | string | null
   essentiality?: Prisma.StringNullableFilter<"expense"> | string | null
   counterparty_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  counterparty_account_id?: Prisma.StringNullableFilter<"expense"> | string | null
   subscription_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  original_expense_id?: Prisma.StringNullableFilter<"expense"> | string | null
   createdAt?: Prisma.DateTimeFilter<"expense"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"expense"> | Date | string
+  account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.accountWhereInput>
   counterparty?: Prisma.XOR<Prisma.PartyNullableScalarRelationFilter, Prisma.partyWhereInput> | null
+  counterparty_account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.accountWhereInput> | null
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.subscriptionWhereInput> | null
+  original_expense?: Prisma.XOR<Prisma.ExpenseNullableScalarRelationFilter, Prisma.expenseWhereInput> | null
+  related_expenses?: Prisma.ExpenseListRelationFilter
 }
 
 export type expenseOrderByWithRelationInput = {
@@ -391,11 +435,14 @@ export type expenseOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   direction?: Prisma.SortOrder
-  booking_date?: Prisma.SortOrder
+  booking_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  transaction_date?: Prisma.SortOrderInput | Prisma.SortOrder
   value_date?: Prisma.SortOrderInput | Prisma.SortOrder
   transaction_timestamp?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  failure_reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  purpose?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   structured_reference?: Prisma.SortOrderInput | Prisma.SortOrder
   mcc?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -407,11 +454,17 @@ export type expenseOrderByWithRelationInput = {
   sub_category?: Prisma.SortOrderInput | Prisma.SortOrder
   essentiality?: Prisma.SortOrderInput | Prisma.SortOrder
   counterparty_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  counterparty_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
   subscription_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  original_expense_id?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  account?: Prisma.accountOrderByWithRelationInput
   counterparty?: Prisma.partyOrderByWithRelationInput
+  counterparty_account?: Prisma.accountOrderByWithRelationInput
   subscription?: Prisma.subscriptionOrderByWithRelationInput
+  original_expense?: Prisma.expenseOrderByWithRelationInput
+  related_expenses?: Prisma.expenseOrderByRelationAggregateInput
 }
 
 export type expenseWhereUniqueInput = Prisma.AtLeast<{
@@ -424,11 +477,14 @@ export type expenseWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.DecimalFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFilter<"expense"> | string
   direction?: Prisma.StringFilter<"expense"> | string
-  booking_date?: Prisma.DateTimeFilter<"expense"> | Date | string
+  booking_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
+  transaction_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
   value_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
   transaction_timestamp?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
   type?: Prisma.StringFilter<"expense"> | string
   status?: Prisma.StringFilter<"expense"> | string
+  failure_reason?: Prisma.StringNullableFilter<"expense"> | string | null
+  purpose?: Prisma.StringNullableFilter<"expense"> | string | null
   description?: Prisma.StringNullableFilter<"expense"> | string | null
   structured_reference?: Prisma.StringNullableFilter<"expense"> | string | null
   mcc?: Prisma.StringNullableFilter<"expense"> | string | null
@@ -440,11 +496,17 @@ export type expenseWhereUniqueInput = Prisma.AtLeast<{
   sub_category?: Prisma.StringNullableFilter<"expense"> | string | null
   essentiality?: Prisma.StringNullableFilter<"expense"> | string | null
   counterparty_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  counterparty_account_id?: Prisma.StringNullableFilter<"expense"> | string | null
   subscription_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  original_expense_id?: Prisma.StringNullableFilter<"expense"> | string | null
   createdAt?: Prisma.DateTimeFilter<"expense"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"expense"> | Date | string
+  account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.accountWhereInput>
   counterparty?: Prisma.XOR<Prisma.PartyNullableScalarRelationFilter, Prisma.partyWhereInput> | null
+  counterparty_account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.accountWhereInput> | null
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.subscriptionWhereInput> | null
+  original_expense?: Prisma.XOR<Prisma.ExpenseNullableScalarRelationFilter, Prisma.expenseWhereInput> | null
+  related_expenses?: Prisma.ExpenseListRelationFilter
 }, "id">
 
 export type expenseOrderByWithAggregationInput = {
@@ -454,11 +516,14 @@ export type expenseOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   direction?: Prisma.SortOrder
-  booking_date?: Prisma.SortOrder
+  booking_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  transaction_date?: Prisma.SortOrderInput | Prisma.SortOrder
   value_date?: Prisma.SortOrderInput | Prisma.SortOrder
   transaction_timestamp?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  failure_reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  purpose?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   structured_reference?: Prisma.SortOrderInput | Prisma.SortOrder
   mcc?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -470,7 +535,9 @@ export type expenseOrderByWithAggregationInput = {
   sub_category?: Prisma.SortOrderInput | Prisma.SortOrder
   essentiality?: Prisma.SortOrderInput | Prisma.SortOrder
   counterparty_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  counterparty_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
   subscription_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  original_expense_id?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.expenseCountOrderByAggregateInput
@@ -490,11 +557,14 @@ export type expenseScalarWhereWithAggregatesInput = {
   amount?: Prisma.DecimalWithAggregatesFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringWithAggregatesFilter<"expense"> | string
   direction?: Prisma.StringWithAggregatesFilter<"expense"> | string
-  booking_date?: Prisma.DateTimeWithAggregatesFilter<"expense"> | Date | string
+  booking_date?: Prisma.DateTimeNullableWithAggregatesFilter<"expense"> | Date | string | null
+  transaction_date?: Prisma.DateTimeNullableWithAggregatesFilter<"expense"> | Date | string | null
   value_date?: Prisma.DateTimeNullableWithAggregatesFilter<"expense"> | Date | string | null
   transaction_timestamp?: Prisma.DateTimeNullableWithAggregatesFilter<"expense"> | Date | string | null
   type?: Prisma.StringWithAggregatesFilter<"expense"> | string
   status?: Prisma.StringWithAggregatesFilter<"expense"> | string
+  failure_reason?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
+  purpose?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   structured_reference?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   mcc?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
@@ -506,23 +576,27 @@ export type expenseScalarWhereWithAggregatesInput = {
   sub_category?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   essentiality?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   counterparty_id?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
+  counterparty_account_id?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   subscription_id?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
+  original_expense_id?: Prisma.StringNullableWithAggregatesFilter<"expense"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"expense"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"expense"> | Date | string
 }
 
 export type expenseCreateInput = {
   id?: string
-  account_id: string
   iban?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -535,8 +609,12 @@ export type expenseCreateInput = {
   essentiality?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutExpensesInput
   counterparty?: Prisma.partyCreateNestedOneWithoutExpensesInput
+  counterparty_account?: Prisma.accountCreateNestedOneWithoutCounterparty_expensesInput
   subscription?: Prisma.subscriptionCreateNestedOneWithoutExpensesInput
+  original_expense?: Prisma.expenseCreateNestedOneWithoutRelated_expensesInput
+  related_expenses?: Prisma.expenseCreateNestedManyWithoutOriginal_expenseInput
 }
 
 export type expenseUncheckedCreateInput = {
@@ -546,11 +624,14 @@ export type expenseUncheckedCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -562,23 +643,28 @@ export type expenseUncheckedCreateInput = {
   sub_category?: string | null
   essentiality?: string | null
   counterparty_id?: string | null
+  counterparty_account_id?: string | null
   subscription_id?: string | null
+  original_expense_id?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  related_expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput
 }
 
 export type expenseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
   iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -591,8 +677,12 @@ export type expenseUpdateInput = {
   essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutExpensesNestedInput
   counterparty?: Prisma.partyUpdateOneWithoutExpensesNestedInput
+  counterparty_account?: Prisma.accountUpdateOneWithoutCounterparty_expensesNestedInput
   subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
+  original_expense?: Prisma.expenseUpdateOneWithoutRelated_expensesNestedInput
+  related_expenses?: Prisma.expenseUpdateManyWithoutOriginal_expenseNestedInput
 }
 
 export type expenseUncheckedUpdateInput = {
@@ -602,11 +692,14 @@ export type expenseUncheckedUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -618,9 +711,12 @@ export type expenseUncheckedUpdateInput = {
   sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  related_expenses?: Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput
 }
 
 export type expenseCreateManyInput = {
@@ -630,11 +726,14 @@ export type expenseCreateManyInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -646,23 +745,27 @@ export type expenseCreateManyInput = {
   sub_category?: string | null
   essentiality?: string | null
   counterparty_id?: string | null
+  counterparty_account_id?: string | null
   subscription_id?: string | null
+  original_expense_id?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type expenseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
   iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -684,11 +787,14 @@ export type expenseUncheckedUpdateManyInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -700,7 +806,9 @@ export type expenseUncheckedUpdateManyInput = {
   sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -715,6 +823,11 @@ export type expenseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ExpenseNullableScalarRelationFilter = {
+  is?: Prisma.expenseWhereInput | null
+  isNot?: Prisma.expenseWhereInput | null
+}
+
 export type expenseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   account_id?: Prisma.SortOrder
@@ -723,10 +836,13 @@ export type expenseCountOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   direction?: Prisma.SortOrder
   booking_date?: Prisma.SortOrder
+  transaction_date?: Prisma.SortOrder
   value_date?: Prisma.SortOrder
   transaction_timestamp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  failure_reason?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   description?: Prisma.SortOrder
   structured_reference?: Prisma.SortOrder
   mcc?: Prisma.SortOrder
@@ -738,7 +854,9 @@ export type expenseCountOrderByAggregateInput = {
   sub_category?: Prisma.SortOrder
   essentiality?: Prisma.SortOrder
   counterparty_id?: Prisma.SortOrder
+  counterparty_account_id?: Prisma.SortOrder
   subscription_id?: Prisma.SortOrder
+  original_expense_id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -756,10 +874,13 @@ export type expenseMaxOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   direction?: Prisma.SortOrder
   booking_date?: Prisma.SortOrder
+  transaction_date?: Prisma.SortOrder
   value_date?: Prisma.SortOrder
   transaction_timestamp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  failure_reason?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   description?: Prisma.SortOrder
   structured_reference?: Prisma.SortOrder
   mcc?: Prisma.SortOrder
@@ -771,7 +892,9 @@ export type expenseMaxOrderByAggregateInput = {
   sub_category?: Prisma.SortOrder
   essentiality?: Prisma.SortOrder
   counterparty_id?: Prisma.SortOrder
+  counterparty_account_id?: Prisma.SortOrder
   subscription_id?: Prisma.SortOrder
+  original_expense_id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -784,10 +907,13 @@ export type expenseMinOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   direction?: Prisma.SortOrder
   booking_date?: Prisma.SortOrder
+  transaction_date?: Prisma.SortOrder
   value_date?: Prisma.SortOrder
   transaction_timestamp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  failure_reason?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   description?: Prisma.SortOrder
   structured_reference?: Prisma.SortOrder
   mcc?: Prisma.SortOrder
@@ -799,7 +925,9 @@ export type expenseMinOrderByAggregateInput = {
   sub_category?: Prisma.SortOrder
   essentiality?: Prisma.SortOrder
   counterparty_id?: Prisma.SortOrder
+  counterparty_account_id?: Prisma.SortOrder
   subscription_id?: Prisma.SortOrder
+  original_expense_id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -807,6 +935,90 @@ export type expenseMinOrderByAggregateInput = {
 export type expenseSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   balance_after?: Prisma.SortOrder
+}
+
+export type expenseCreateNestedManyWithoutAccountInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutAccountInput, Prisma.expenseUncheckedCreateWithoutAccountInput> | Prisma.expenseCreateWithoutAccountInput[] | Prisma.expenseUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutAccountInput | Prisma.expenseCreateOrConnectWithoutAccountInput[]
+  createMany?: Prisma.expenseCreateManyAccountInputEnvelope
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+}
+
+export type expenseCreateNestedManyWithoutCounterparty_accountInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutCounterparty_accountInput, Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput> | Prisma.expenseCreateWithoutCounterparty_accountInput[] | Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput | Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput[]
+  createMany?: Prisma.expenseCreateManyCounterparty_accountInputEnvelope
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+}
+
+export type expenseUncheckedCreateNestedManyWithoutAccountInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutAccountInput, Prisma.expenseUncheckedCreateWithoutAccountInput> | Prisma.expenseCreateWithoutAccountInput[] | Prisma.expenseUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutAccountInput | Prisma.expenseCreateOrConnectWithoutAccountInput[]
+  createMany?: Prisma.expenseCreateManyAccountInputEnvelope
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+}
+
+export type expenseUncheckedCreateNestedManyWithoutCounterparty_accountInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutCounterparty_accountInput, Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput> | Prisma.expenseCreateWithoutCounterparty_accountInput[] | Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput | Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput[]
+  createMany?: Prisma.expenseCreateManyCounterparty_accountInputEnvelope
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+}
+
+export type expenseUpdateManyWithoutAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutAccountInput, Prisma.expenseUncheckedCreateWithoutAccountInput> | Prisma.expenseCreateWithoutAccountInput[] | Prisma.expenseUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutAccountInput | Prisma.expenseCreateOrConnectWithoutAccountInput[]
+  upsert?: Prisma.expenseUpsertWithWhereUniqueWithoutAccountInput | Prisma.expenseUpsertWithWhereUniqueWithoutAccountInput[]
+  createMany?: Prisma.expenseCreateManyAccountInputEnvelope
+  set?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  disconnect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  delete?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  update?: Prisma.expenseUpdateWithWhereUniqueWithoutAccountInput | Prisma.expenseUpdateWithWhereUniqueWithoutAccountInput[]
+  updateMany?: Prisma.expenseUpdateManyWithWhereWithoutAccountInput | Prisma.expenseUpdateManyWithWhereWithoutAccountInput[]
+  deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+}
+
+export type expenseUpdateManyWithoutCounterparty_accountNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutCounterparty_accountInput, Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput> | Prisma.expenseCreateWithoutCounterparty_accountInput[] | Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput | Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput[]
+  upsert?: Prisma.expenseUpsertWithWhereUniqueWithoutCounterparty_accountInput | Prisma.expenseUpsertWithWhereUniqueWithoutCounterparty_accountInput[]
+  createMany?: Prisma.expenseCreateManyCounterparty_accountInputEnvelope
+  set?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  disconnect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  delete?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  update?: Prisma.expenseUpdateWithWhereUniqueWithoutCounterparty_accountInput | Prisma.expenseUpdateWithWhereUniqueWithoutCounterparty_accountInput[]
+  updateMany?: Prisma.expenseUpdateManyWithWhereWithoutCounterparty_accountInput | Prisma.expenseUpdateManyWithWhereWithoutCounterparty_accountInput[]
+  deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+}
+
+export type expenseUncheckedUpdateManyWithoutAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutAccountInput, Prisma.expenseUncheckedCreateWithoutAccountInput> | Prisma.expenseCreateWithoutAccountInput[] | Prisma.expenseUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutAccountInput | Prisma.expenseCreateOrConnectWithoutAccountInput[]
+  upsert?: Prisma.expenseUpsertWithWhereUniqueWithoutAccountInput | Prisma.expenseUpsertWithWhereUniqueWithoutAccountInput[]
+  createMany?: Prisma.expenseCreateManyAccountInputEnvelope
+  set?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  disconnect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  delete?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  update?: Prisma.expenseUpdateWithWhereUniqueWithoutAccountInput | Prisma.expenseUpdateWithWhereUniqueWithoutAccountInput[]
+  updateMany?: Prisma.expenseUpdateManyWithWhereWithoutAccountInput | Prisma.expenseUpdateManyWithWhereWithoutAccountInput[]
+  deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+}
+
+export type expenseUncheckedUpdateManyWithoutCounterparty_accountNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutCounterparty_accountInput, Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput> | Prisma.expenseCreateWithoutCounterparty_accountInput[] | Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput | Prisma.expenseCreateOrConnectWithoutCounterparty_accountInput[]
+  upsert?: Prisma.expenseUpsertWithWhereUniqueWithoutCounterparty_accountInput | Prisma.expenseUpsertWithWhereUniqueWithoutCounterparty_accountInput[]
+  createMany?: Prisma.expenseCreateManyCounterparty_accountInputEnvelope
+  set?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  disconnect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  delete?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  update?: Prisma.expenseUpdateWithWhereUniqueWithoutCounterparty_accountInput | Prisma.expenseUpdateWithWhereUniqueWithoutCounterparty_accountInput[]
+  updateMany?: Prisma.expenseUpdateManyWithWhereWithoutCounterparty_accountInput | Prisma.expenseUpdateManyWithWhereWithoutCounterparty_accountInput[]
+  deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
 }
 
 export type expenseCreateNestedManyWithoutCounterpartyInput = {
@@ -893,18 +1105,86 @@ export type expenseUncheckedUpdateManyWithoutSubscriptionNestedInput = {
   deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
 }
 
-export type expenseCreateWithoutCounterpartyInput = {
+export type expenseCreateNestedOneWithoutRelated_expensesInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutRelated_expensesInput, Prisma.expenseUncheckedCreateWithoutRelated_expensesInput>
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutRelated_expensesInput
+  connect?: Prisma.expenseWhereUniqueInput
+}
+
+export type expenseCreateNestedManyWithoutOriginal_expenseInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutOriginal_expenseInput, Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput> | Prisma.expenseCreateWithoutOriginal_expenseInput[] | Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput | Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput[]
+  createMany?: Prisma.expenseCreateManyOriginal_expenseInputEnvelope
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+}
+
+export type expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutOriginal_expenseInput, Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput> | Prisma.expenseCreateWithoutOriginal_expenseInput[] | Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput | Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput[]
+  createMany?: Prisma.expenseCreateManyOriginal_expenseInputEnvelope
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+}
+
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type expenseUpdateOneWithoutRelated_expensesNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutRelated_expensesInput, Prisma.expenseUncheckedCreateWithoutRelated_expensesInput>
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutRelated_expensesInput
+  upsert?: Prisma.expenseUpsertWithoutRelated_expensesInput
+  disconnect?: Prisma.expenseWhereInput | boolean
+  delete?: Prisma.expenseWhereInput | boolean
+  connect?: Prisma.expenseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.expenseUpdateToOneWithWhereWithoutRelated_expensesInput, Prisma.expenseUpdateWithoutRelated_expensesInput>, Prisma.expenseUncheckedUpdateWithoutRelated_expensesInput>
+}
+
+export type expenseUpdateManyWithoutOriginal_expenseNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutOriginal_expenseInput, Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput> | Prisma.expenseCreateWithoutOriginal_expenseInput[] | Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput | Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput[]
+  upsert?: Prisma.expenseUpsertWithWhereUniqueWithoutOriginal_expenseInput | Prisma.expenseUpsertWithWhereUniqueWithoutOriginal_expenseInput[]
+  createMany?: Prisma.expenseCreateManyOriginal_expenseInputEnvelope
+  set?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  disconnect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  delete?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  update?: Prisma.expenseUpdateWithWhereUniqueWithoutOriginal_expenseInput | Prisma.expenseUpdateWithWhereUniqueWithoutOriginal_expenseInput[]
+  updateMany?: Prisma.expenseUpdateManyWithWhereWithoutOriginal_expenseInput | Prisma.expenseUpdateManyWithWhereWithoutOriginal_expenseInput[]
+  deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+}
+
+export type expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput = {
+  create?: Prisma.XOR<Prisma.expenseCreateWithoutOriginal_expenseInput, Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput> | Prisma.expenseCreateWithoutOriginal_expenseInput[] | Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput[]
+  connectOrCreate?: Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput | Prisma.expenseCreateOrConnectWithoutOriginal_expenseInput[]
+  upsert?: Prisma.expenseUpsertWithWhereUniqueWithoutOriginal_expenseInput | Prisma.expenseUpsertWithWhereUniqueWithoutOriginal_expenseInput[]
+  createMany?: Prisma.expenseCreateManyOriginal_expenseInputEnvelope
+  set?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  disconnect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  delete?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  connect?: Prisma.expenseWhereUniqueInput | Prisma.expenseWhereUniqueInput[]
+  update?: Prisma.expenseUpdateWithWhereUniqueWithoutOriginal_expenseInput | Prisma.expenseUpdateWithWhereUniqueWithoutOriginal_expenseInput[]
+  updateMany?: Prisma.expenseUpdateManyWithWhereWithoutOriginal_expenseInput | Prisma.expenseUpdateManyWithWhereWithoutOriginal_expenseInput[]
+  deleteMany?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+}
+
+export type expenseCreateWithoutAccountInput = {
   id?: string
-  account_id: string
   iban?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -917,7 +1197,231 @@ export type expenseCreateWithoutCounterpartyInput = {
   essentiality?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  counterparty?: Prisma.partyCreateNestedOneWithoutExpensesInput
+  counterparty_account?: Prisma.accountCreateNestedOneWithoutCounterparty_expensesInput
   subscription?: Prisma.subscriptionCreateNestedOneWithoutExpensesInput
+  original_expense?: Prisma.expenseCreateNestedOneWithoutRelated_expensesInput
+  related_expenses?: Prisma.expenseCreateNestedManyWithoutOriginal_expenseInput
+}
+
+export type expenseUncheckedCreateWithoutAccountInput = {
+  id?: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  subscription_id?: string | null
+  original_expense_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  related_expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput
+}
+
+export type expenseCreateOrConnectWithoutAccountInput = {
+  where: Prisma.expenseWhereUniqueInput
+  create: Prisma.XOR<Prisma.expenseCreateWithoutAccountInput, Prisma.expenseUncheckedCreateWithoutAccountInput>
+}
+
+export type expenseCreateManyAccountInputEnvelope = {
+  data: Prisma.expenseCreateManyAccountInput | Prisma.expenseCreateManyAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type expenseCreateWithoutCounterparty_accountInput = {
+  id?: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutExpensesInput
+  counterparty?: Prisma.partyCreateNestedOneWithoutExpensesInput
+  subscription?: Prisma.subscriptionCreateNestedOneWithoutExpensesInput
+  original_expense?: Prisma.expenseCreateNestedOneWithoutRelated_expensesInput
+  related_expenses?: Prisma.expenseCreateNestedManyWithoutOriginal_expenseInput
+}
+
+export type expenseUncheckedCreateWithoutCounterparty_accountInput = {
+  id?: string
+  account_id: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  subscription_id?: string | null
+  original_expense_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  related_expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput
+}
+
+export type expenseCreateOrConnectWithoutCounterparty_accountInput = {
+  where: Prisma.expenseWhereUniqueInput
+  create: Prisma.XOR<Prisma.expenseCreateWithoutCounterparty_accountInput, Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput>
+}
+
+export type expenseCreateManyCounterparty_accountInputEnvelope = {
+  data: Prisma.expenseCreateManyCounterparty_accountInput | Prisma.expenseCreateManyCounterparty_accountInput[]
+  skipDuplicates?: boolean
+}
+
+export type expenseUpsertWithWhereUniqueWithoutAccountInput = {
+  where: Prisma.expenseWhereUniqueInput
+  update: Prisma.XOR<Prisma.expenseUpdateWithoutAccountInput, Prisma.expenseUncheckedUpdateWithoutAccountInput>
+  create: Prisma.XOR<Prisma.expenseCreateWithoutAccountInput, Prisma.expenseUncheckedCreateWithoutAccountInput>
+}
+
+export type expenseUpdateWithWhereUniqueWithoutAccountInput = {
+  where: Prisma.expenseWhereUniqueInput
+  data: Prisma.XOR<Prisma.expenseUpdateWithoutAccountInput, Prisma.expenseUncheckedUpdateWithoutAccountInput>
+}
+
+export type expenseUpdateManyWithWhereWithoutAccountInput = {
+  where: Prisma.expenseScalarWhereInput
+  data: Prisma.XOR<Prisma.expenseUpdateManyMutationInput, Prisma.expenseUncheckedUpdateManyWithoutAccountInput>
+}
+
+export type expenseScalarWhereInput = {
+  AND?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+  OR?: Prisma.expenseScalarWhereInput[]
+  NOT?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
+  id?: Prisma.StringFilter<"expense"> | string
+  account_id?: Prisma.StringFilter<"expense"> | string
+  iban?: Prisma.StringNullableFilter<"expense"> | string | null
+  amount?: Prisma.DecimalFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFilter<"expense"> | string
+  direction?: Prisma.StringFilter<"expense"> | string
+  booking_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
+  transaction_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
+  value_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
+  transaction_timestamp?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
+  type?: Prisma.StringFilter<"expense"> | string
+  status?: Prisma.StringFilter<"expense"> | string
+  failure_reason?: Prisma.StringNullableFilter<"expense"> | string | null
+  purpose?: Prisma.StringNullableFilter<"expense"> | string | null
+  description?: Prisma.StringNullableFilter<"expense"> | string | null
+  structured_reference?: Prisma.StringNullableFilter<"expense"> | string | null
+  mcc?: Prisma.StringNullableFilter<"expense"> | string | null
+  channel?: Prisma.StringNullableFilter<"expense"> | string | null
+  balance_after?: Prisma.DecimalNullableFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.StringNullableFilter<"expense"> | string | null
+  country_code?: Prisma.StringNullableFilter<"expense"> | string | null
+  category?: Prisma.StringNullableFilter<"expense"> | string | null
+  sub_category?: Prisma.StringNullableFilter<"expense"> | string | null
+  essentiality?: Prisma.StringNullableFilter<"expense"> | string | null
+  counterparty_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  counterparty_account_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  subscription_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  original_expense_id?: Prisma.StringNullableFilter<"expense"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"expense"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"expense"> | Date | string
+}
+
+export type expenseUpsertWithWhereUniqueWithoutCounterparty_accountInput = {
+  where: Prisma.expenseWhereUniqueInput
+  update: Prisma.XOR<Prisma.expenseUpdateWithoutCounterparty_accountInput, Prisma.expenseUncheckedUpdateWithoutCounterparty_accountInput>
+  create: Prisma.XOR<Prisma.expenseCreateWithoutCounterparty_accountInput, Prisma.expenseUncheckedCreateWithoutCounterparty_accountInput>
+}
+
+export type expenseUpdateWithWhereUniqueWithoutCounterparty_accountInput = {
+  where: Prisma.expenseWhereUniqueInput
+  data: Prisma.XOR<Prisma.expenseUpdateWithoutCounterparty_accountInput, Prisma.expenseUncheckedUpdateWithoutCounterparty_accountInput>
+}
+
+export type expenseUpdateManyWithWhereWithoutCounterparty_accountInput = {
+  where: Prisma.expenseScalarWhereInput
+  data: Prisma.XOR<Prisma.expenseUpdateManyMutationInput, Prisma.expenseUncheckedUpdateManyWithoutCounterparty_accountInput>
+}
+
+export type expenseCreateWithoutCounterpartyInput = {
+  id?: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutExpensesInput
+  counterparty_account?: Prisma.accountCreateNestedOneWithoutCounterparty_expensesInput
+  subscription?: Prisma.subscriptionCreateNestedOneWithoutExpensesInput
+  original_expense?: Prisma.expenseCreateNestedOneWithoutRelated_expensesInput
+  related_expenses?: Prisma.expenseCreateNestedManyWithoutOriginal_expenseInput
 }
 
 export type expenseUncheckedCreateWithoutCounterpartyInput = {
@@ -927,11 +1431,14 @@ export type expenseUncheckedCreateWithoutCounterpartyInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -942,9 +1449,12 @@ export type expenseUncheckedCreateWithoutCounterpartyInput = {
   category?: string | null
   sub_category?: string | null
   essentiality?: string | null
+  counterparty_account_id?: string | null
   subscription_id?: string | null
+  original_expense_id?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  related_expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput
 }
 
 export type expenseCreateOrConnectWithoutCounterpartyInput = {
@@ -973,49 +1483,20 @@ export type expenseUpdateManyWithWhereWithoutCounterpartyInput = {
   data: Prisma.XOR<Prisma.expenseUpdateManyMutationInput, Prisma.expenseUncheckedUpdateManyWithoutCounterpartyInput>
 }
 
-export type expenseScalarWhereInput = {
-  AND?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
-  OR?: Prisma.expenseScalarWhereInput[]
-  NOT?: Prisma.expenseScalarWhereInput | Prisma.expenseScalarWhereInput[]
-  id?: Prisma.StringFilter<"expense"> | string
-  account_id?: Prisma.StringFilter<"expense"> | string
-  iban?: Prisma.StringNullableFilter<"expense"> | string | null
-  amount?: Prisma.DecimalFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  currency?: Prisma.StringFilter<"expense"> | string
-  direction?: Prisma.StringFilter<"expense"> | string
-  booking_date?: Prisma.DateTimeFilter<"expense"> | Date | string
-  value_date?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
-  transaction_timestamp?: Prisma.DateTimeNullableFilter<"expense"> | Date | string | null
-  type?: Prisma.StringFilter<"expense"> | string
-  status?: Prisma.StringFilter<"expense"> | string
-  description?: Prisma.StringNullableFilter<"expense"> | string | null
-  structured_reference?: Prisma.StringNullableFilter<"expense"> | string | null
-  mcc?: Prisma.StringNullableFilter<"expense"> | string | null
-  channel?: Prisma.StringNullableFilter<"expense"> | string | null
-  balance_after?: Prisma.DecimalNullableFilter<"expense"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  city?: Prisma.StringNullableFilter<"expense"> | string | null
-  country_code?: Prisma.StringNullableFilter<"expense"> | string | null
-  category?: Prisma.StringNullableFilter<"expense"> | string | null
-  sub_category?: Prisma.StringNullableFilter<"expense"> | string | null
-  essentiality?: Prisma.StringNullableFilter<"expense"> | string | null
-  counterparty_id?: Prisma.StringNullableFilter<"expense"> | string | null
-  subscription_id?: Prisma.StringNullableFilter<"expense"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"expense"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"expense"> | Date | string
-}
-
 export type expenseCreateWithoutSubscriptionInput = {
   id?: string
-  account_id: string
   iban?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -1028,7 +1509,11 @@ export type expenseCreateWithoutSubscriptionInput = {
   essentiality?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutExpensesInput
   counterparty?: Prisma.partyCreateNestedOneWithoutExpensesInput
+  counterparty_account?: Prisma.accountCreateNestedOneWithoutCounterparty_expensesInput
+  original_expense?: Prisma.expenseCreateNestedOneWithoutRelated_expensesInput
+  related_expenses?: Prisma.expenseCreateNestedManyWithoutOriginal_expenseInput
 }
 
 export type expenseUncheckedCreateWithoutSubscriptionInput = {
@@ -1038,11 +1523,14 @@ export type expenseUncheckedCreateWithoutSubscriptionInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -1054,8 +1542,11 @@ export type expenseUncheckedCreateWithoutSubscriptionInput = {
   sub_category?: string | null
   essentiality?: string | null
   counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  original_expense_id?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  related_expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput
 }
 
 export type expenseCreateOrConnectWithoutSubscriptionInput = {
@@ -1084,18 +1575,20 @@ export type expenseUpdateManyWithWhereWithoutSubscriptionInput = {
   data: Prisma.XOR<Prisma.expenseUpdateManyMutationInput, Prisma.expenseUncheckedUpdateManyWithoutSubscriptionInput>
 }
 
-export type expenseCreateManyCounterpartyInput = {
+export type expenseCreateWithoutRelated_expensesInput = {
   id?: string
-  account_id: string
   iban?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -1106,104 +1599,30 @@ export type expenseCreateManyCounterpartyInput = {
   category?: string | null
   sub_category?: string | null
   essentiality?: string | null
-  subscription_id?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutExpensesInput
+  counterparty?: Prisma.partyCreateNestedOneWithoutExpensesInput
+  counterparty_account?: Prisma.accountCreateNestedOneWithoutCounterparty_expensesInput
+  subscription?: Prisma.subscriptionCreateNestedOneWithoutExpensesInput
+  original_expense?: Prisma.expenseCreateNestedOneWithoutRelated_expensesInput
 }
 
-export type expenseUpdateWithoutCounterpartyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
-  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
-}
-
-export type expenseUncheckedUpdateWithoutCounterpartyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
-  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type expenseUncheckedUpdateManyWithoutCounterpartyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
-  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type expenseCreateManySubscriptionInput = {
+export type expenseUncheckedCreateWithoutRelated_expensesInput = {
   id?: string
   account_id: string
   iban?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   direction: string
-  booking_date: Date | string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
   value_date?: Date | string | null
   transaction_timestamp?: Date | string | null
   type: string
   status: string
+  failure_reason?: string | null
+  purpose?: string | null
   description?: string | null
   structured_reference?: string | null
   mcc?: string | null
@@ -1215,22 +1634,265 @@ export type expenseCreateManySubscriptionInput = {
   sub_category?: string | null
   essentiality?: string | null
   counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  subscription_id?: string | null
+  original_expense_id?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type expenseUpdateWithoutSubscriptionInput = {
+export type expenseCreateOrConnectWithoutRelated_expensesInput = {
+  where: Prisma.expenseWhereUniqueInput
+  create: Prisma.XOR<Prisma.expenseCreateWithoutRelated_expensesInput, Prisma.expenseUncheckedCreateWithoutRelated_expensesInput>
+}
+
+export type expenseCreateWithoutOriginal_expenseInput = {
+  id?: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutExpensesInput
+  counterparty?: Prisma.partyCreateNestedOneWithoutExpensesInput
+  counterparty_account?: Prisma.accountCreateNestedOneWithoutCounterparty_expensesInput
+  subscription?: Prisma.subscriptionCreateNestedOneWithoutExpensesInput
+  related_expenses?: Prisma.expenseCreateNestedManyWithoutOriginal_expenseInput
+}
+
+export type expenseUncheckedCreateWithoutOriginal_expenseInput = {
+  id?: string
+  account_id: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  subscription_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  related_expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutOriginal_expenseInput
+}
+
+export type expenseCreateOrConnectWithoutOriginal_expenseInput = {
+  where: Prisma.expenseWhereUniqueInput
+  create: Prisma.XOR<Prisma.expenseCreateWithoutOriginal_expenseInput, Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput>
+}
+
+export type expenseCreateManyOriginal_expenseInputEnvelope = {
+  data: Prisma.expenseCreateManyOriginal_expenseInput | Prisma.expenseCreateManyOriginal_expenseInput[]
+  skipDuplicates?: boolean
+}
+
+export type expenseUpsertWithoutRelated_expensesInput = {
+  update: Prisma.XOR<Prisma.expenseUpdateWithoutRelated_expensesInput, Prisma.expenseUncheckedUpdateWithoutRelated_expensesInput>
+  create: Prisma.XOR<Prisma.expenseCreateWithoutRelated_expensesInput, Prisma.expenseUncheckedCreateWithoutRelated_expensesInput>
+  where?: Prisma.expenseWhereInput
+}
+
+export type expenseUpdateToOneWithWhereWithoutRelated_expensesInput = {
+  where?: Prisma.expenseWhereInput
+  data: Prisma.XOR<Prisma.expenseUpdateWithoutRelated_expensesInput, Prisma.expenseUncheckedUpdateWithoutRelated_expensesInput>
+}
+
+export type expenseUpdateWithoutRelated_expensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutExpensesNestedInput
+  counterparty?: Prisma.partyUpdateOneWithoutExpensesNestedInput
+  counterparty_account?: Prisma.accountUpdateOneWithoutCounterparty_expensesNestedInput
+  subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
+  original_expense?: Prisma.expenseUpdateOneWithoutRelated_expensesNestedInput
+}
+
+export type expenseUncheckedUpdateWithoutRelated_expensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   account_id?: Prisma.StringFieldUpdateOperationsInput | string
   iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type expenseUpsertWithWhereUniqueWithoutOriginal_expenseInput = {
+  where: Prisma.expenseWhereUniqueInput
+  update: Prisma.XOR<Prisma.expenseUpdateWithoutOriginal_expenseInput, Prisma.expenseUncheckedUpdateWithoutOriginal_expenseInput>
+  create: Prisma.XOR<Prisma.expenseCreateWithoutOriginal_expenseInput, Prisma.expenseUncheckedCreateWithoutOriginal_expenseInput>
+}
+
+export type expenseUpdateWithWhereUniqueWithoutOriginal_expenseInput = {
+  where: Prisma.expenseWhereUniqueInput
+  data: Prisma.XOR<Prisma.expenseUpdateWithoutOriginal_expenseInput, Prisma.expenseUncheckedUpdateWithoutOriginal_expenseInput>
+}
+
+export type expenseUpdateManyWithWhereWithoutOriginal_expenseInput = {
+  where: Prisma.expenseScalarWhereInput
+  data: Prisma.XOR<Prisma.expenseUpdateManyMutationInput, Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseInput>
+}
+
+export type expenseCreateManyAccountInput = {
+  id?: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  subscription_id?: string | null
+  original_expense_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type expenseCreateManyCounterparty_accountInput = {
+  id?: string
+  account_id: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  subscription_id?: string | null
+  original_expense_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type expenseUpdateWithoutAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1244,6 +1906,368 @@ export type expenseUpdateWithoutSubscriptionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   counterparty?: Prisma.partyUpdateOneWithoutExpensesNestedInput
+  counterparty_account?: Prisma.accountUpdateOneWithoutCounterparty_expensesNestedInput
+  subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
+  original_expense?: Prisma.expenseUpdateOneWithoutRelated_expensesNestedInput
+  related_expenses?: Prisma.expenseUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateWithoutAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  related_expenses?: Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateManyWithoutAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type expenseUpdateWithoutCounterparty_accountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutExpensesNestedInput
+  counterparty?: Prisma.partyUpdateOneWithoutExpensesNestedInput
+  subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
+  original_expense?: Prisma.expenseUpdateOneWithoutRelated_expensesNestedInput
+  related_expenses?: Prisma.expenseUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateWithoutCounterparty_accountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  related_expenses?: Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateManyWithoutCounterparty_accountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type expenseCreateManyCounterpartyInput = {
+  id?: string
+  account_id: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_account_id?: string | null
+  subscription_id?: string | null
+  original_expense_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type expenseUpdateWithoutCounterpartyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutExpensesNestedInput
+  counterparty_account?: Prisma.accountUpdateOneWithoutCounterparty_expensesNestedInput
+  subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
+  original_expense?: Prisma.expenseUpdateOneWithoutRelated_expensesNestedInput
+  related_expenses?: Prisma.expenseUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateWithoutCounterpartyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  related_expenses?: Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateManyWithoutCounterpartyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type expenseCreateManySubscriptionInput = {
+  id?: string
+  account_id: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  original_expense_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type expenseUpdateWithoutSubscriptionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutExpensesNestedInput
+  counterparty?: Prisma.partyUpdateOneWithoutExpensesNestedInput
+  counterparty_account?: Prisma.accountUpdateOneWithoutCounterparty_expensesNestedInput
+  original_expense?: Prisma.expenseUpdateOneWithoutRelated_expensesNestedInput
+  related_expenses?: Prisma.expenseUpdateManyWithoutOriginal_expenseNestedInput
 }
 
 export type expenseUncheckedUpdateWithoutSubscriptionInput = {
@@ -1253,11 +2277,14 @@ export type expenseUncheckedUpdateWithoutSubscriptionInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1269,8 +2296,11 @@ export type expenseUncheckedUpdateWithoutSubscriptionInput = {
   sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  related_expenses?: Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput
 }
 
 export type expenseUncheckedUpdateManyWithoutSubscriptionInput = {
@@ -1280,11 +2310,14 @@ export type expenseUncheckedUpdateManyWithoutSubscriptionInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   direction?: Prisma.StringFieldUpdateOperationsInput | string
-  booking_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1296,10 +2329,171 @@ export type expenseUncheckedUpdateManyWithoutSubscriptionInput = {
   sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  original_expense_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type expenseCreateManyOriginal_expenseInput = {
+  id?: string
+  account_id: string
+  iban?: string | null
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  direction: string
+  booking_date?: Date | string | null
+  transaction_date?: Date | string | null
+  value_date?: Date | string | null
+  transaction_timestamp?: Date | string | null
+  type: string
+  status: string
+  failure_reason?: string | null
+  purpose?: string | null
+  description?: string | null
+  structured_reference?: string | null
+  mcc?: string | null
+  channel?: string | null
+  balance_after?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: string | null
+  country_code?: string | null
+  category?: string | null
+  sub_category?: string | null
+  essentiality?: string | null
+  counterparty_id?: string | null
+  counterparty_account_id?: string | null
+  subscription_id?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type expenseUpdateWithoutOriginal_expenseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutExpensesNestedInput
+  counterparty?: Prisma.partyUpdateOneWithoutExpensesNestedInput
+  counterparty_account?: Prisma.accountUpdateOneWithoutCounterparty_expensesNestedInput
+  subscription?: Prisma.subscriptionUpdateOneWithoutExpensesNestedInput
+  related_expenses?: Prisma.expenseUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateWithoutOriginal_expenseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  related_expenses?: Prisma.expenseUncheckedUpdateManyWithoutOriginal_expenseNestedInput
+}
+
+export type expenseUncheckedUpdateManyWithoutOriginal_expenseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  iban?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  direction?: Prisma.StringFieldUpdateOperationsInput | string
+  booking_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  value_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  transaction_timestamp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  failure_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structured_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balance_after?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sub_category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  essentiality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  counterparty_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscription_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type ExpenseCountOutputType
+ */
+
+export type ExpenseCountOutputType = {
+  related_expenses: number
+}
+
+export type ExpenseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  related_expenses?: boolean | ExpenseCountOutputTypeCountRelated_expensesArgs
+}
+
+/**
+ * ExpenseCountOutputType without action
+ */
+export type ExpenseCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExpenseCountOutputType
+   */
+  select?: Prisma.ExpenseCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ExpenseCountOutputType without action
+ */
+export type ExpenseCountOutputTypeCountRelated_expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.expenseWhereInput
+}
 
 
 export type expenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1310,10 +2504,13 @@ export type expenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   currency?: boolean
   direction?: boolean
   booking_date?: boolean
+  transaction_date?: boolean
   value_date?: boolean
   transaction_timestamp?: boolean
   type?: boolean
   status?: boolean
+  failure_reason?: boolean
+  purpose?: boolean
   description?: boolean
   structured_reference?: boolean
   mcc?: boolean
@@ -1325,11 +2522,18 @@ export type expenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sub_category?: boolean
   essentiality?: boolean
   counterparty_id?: boolean
+  counterparty_account_id?: boolean
   subscription_id?: boolean
+  original_expense_id?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.expense$counterpartyArgs<ExtArgs>
+  counterparty_account?: boolean | Prisma.expense$counterparty_accountArgs<ExtArgs>
   subscription?: boolean | Prisma.expense$subscriptionArgs<ExtArgs>
+  original_expense?: boolean | Prisma.expense$original_expenseArgs<ExtArgs>
+  related_expenses?: boolean | Prisma.expense$related_expensesArgs<ExtArgs>
+  _count?: boolean | Prisma.ExpenseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expense"]>
 
 export type expenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1340,10 +2544,13 @@ export type expenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currency?: boolean
   direction?: boolean
   booking_date?: boolean
+  transaction_date?: boolean
   value_date?: boolean
   transaction_timestamp?: boolean
   type?: boolean
   status?: boolean
+  failure_reason?: boolean
+  purpose?: boolean
   description?: boolean
   structured_reference?: boolean
   mcc?: boolean
@@ -1355,11 +2562,16 @@ export type expenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sub_category?: boolean
   essentiality?: boolean
   counterparty_id?: boolean
+  counterparty_account_id?: boolean
   subscription_id?: boolean
+  original_expense_id?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.expense$counterpartyArgs<ExtArgs>
+  counterparty_account?: boolean | Prisma.expense$counterparty_accountArgs<ExtArgs>
   subscription?: boolean | Prisma.expense$subscriptionArgs<ExtArgs>
+  original_expense?: boolean | Prisma.expense$original_expenseArgs<ExtArgs>
 }, ExtArgs["result"]["expense"]>
 
 export type expenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1370,10 +2582,13 @@ export type expenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currency?: boolean
   direction?: boolean
   booking_date?: boolean
+  transaction_date?: boolean
   value_date?: boolean
   transaction_timestamp?: boolean
   type?: boolean
   status?: boolean
+  failure_reason?: boolean
+  purpose?: boolean
   description?: boolean
   structured_reference?: boolean
   mcc?: boolean
@@ -1385,11 +2600,16 @@ export type expenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sub_category?: boolean
   essentiality?: boolean
   counterparty_id?: boolean
+  counterparty_account_id?: boolean
   subscription_id?: boolean
+  original_expense_id?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.expense$counterpartyArgs<ExtArgs>
+  counterparty_account?: boolean | Prisma.expense$counterparty_accountArgs<ExtArgs>
   subscription?: boolean | Prisma.expense$subscriptionArgs<ExtArgs>
+  original_expense?: boolean | Prisma.expense$original_expenseArgs<ExtArgs>
 }, ExtArgs["result"]["expense"]>
 
 export type expenseSelectScalar = {
@@ -1400,10 +2620,13 @@ export type expenseSelectScalar = {
   currency?: boolean
   direction?: boolean
   booking_date?: boolean
+  transaction_date?: boolean
   value_date?: boolean
   transaction_timestamp?: boolean
   type?: boolean
   status?: boolean
+  failure_reason?: boolean
+  purpose?: boolean
   description?: boolean
   structured_reference?: boolean
   mcc?: boolean
@@ -1415,30 +2638,47 @@ export type expenseSelectScalar = {
   sub_category?: boolean
   essentiality?: boolean
   counterparty_id?: boolean
+  counterparty_account_id?: boolean
   subscription_id?: boolean
+  original_expense_id?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type expenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "account_id" | "iban" | "amount" | "currency" | "direction" | "booking_date" | "value_date" | "transaction_timestamp" | "type" | "status" | "description" | "structured_reference" | "mcc" | "channel" | "balance_after" | "city" | "country_code" | "category" | "sub_category" | "essentiality" | "counterparty_id" | "subscription_id" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
+export type expenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "account_id" | "iban" | "amount" | "currency" | "direction" | "booking_date" | "transaction_date" | "value_date" | "transaction_timestamp" | "type" | "status" | "failure_reason" | "purpose" | "description" | "structured_reference" | "mcc" | "channel" | "balance_after" | "city" | "country_code" | "category" | "sub_category" | "essentiality" | "counterparty_id" | "counterparty_account_id" | "subscription_id" | "original_expense_id" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
 export type expenseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.expense$counterpartyArgs<ExtArgs>
+  counterparty_account?: boolean | Prisma.expense$counterparty_accountArgs<ExtArgs>
   subscription?: boolean | Prisma.expense$subscriptionArgs<ExtArgs>
+  original_expense?: boolean | Prisma.expense$original_expenseArgs<ExtArgs>
+  related_expenses?: boolean | Prisma.expense$related_expensesArgs<ExtArgs>
+  _count?: boolean | Prisma.ExpenseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type expenseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.expense$counterpartyArgs<ExtArgs>
+  counterparty_account?: boolean | Prisma.expense$counterparty_accountArgs<ExtArgs>
   subscription?: boolean | Prisma.expense$subscriptionArgs<ExtArgs>
+  original_expense?: boolean | Prisma.expense$original_expenseArgs<ExtArgs>
 }
 export type expenseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.expense$counterpartyArgs<ExtArgs>
+  counterparty_account?: boolean | Prisma.expense$counterparty_accountArgs<ExtArgs>
   subscription?: boolean | Prisma.expense$subscriptionArgs<ExtArgs>
+  original_expense?: boolean | Prisma.expense$original_expenseArgs<ExtArgs>
 }
 
 export type $expensePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "expense"
   objects: {
+    account: Prisma.$accountPayload<ExtArgs>
     counterparty: Prisma.$partyPayload<ExtArgs> | null
+    counterparty_account: Prisma.$accountPayload<ExtArgs> | null
     subscription: Prisma.$subscriptionPayload<ExtArgs> | null
+    original_expense: Prisma.$expensePayload<ExtArgs> | null
+    related_expenses: Prisma.$expensePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1447,11 +2687,14 @@ export type $expensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     amount: runtime.Decimal
     currency: string
     direction: string
-    booking_date: Date
+    booking_date: Date | null
+    transaction_date: Date | null
     value_date: Date | null
     transaction_timestamp: Date | null
     type: string
     status: string
+    failure_reason: string | null
+    purpose: string | null
     description: string | null
     structured_reference: string | null
     mcc: string | null
@@ -1463,7 +2706,9 @@ export type $expensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     sub_category: string | null
     essentiality: string | null
     counterparty_id: string | null
+    counterparty_account_id: string | null
     subscription_id: string | null
+    original_expense_id: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["expense"]>
@@ -1860,8 +3105,12 @@ readonly fields: expenseFieldRefs;
  */
 export interface Prisma__expenseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  account<T extends Prisma.accountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.accountDefaultArgs<ExtArgs>>): Prisma.Prisma__accountClient<runtime.Types.Result.GetResult<Prisma.$accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   counterparty<T extends Prisma.expense$counterpartyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expense$counterpartyArgs<ExtArgs>>): Prisma.Prisma__partyClient<runtime.Types.Result.GetResult<Prisma.$partyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  counterparty_account<T extends Prisma.expense$counterparty_accountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expense$counterparty_accountArgs<ExtArgs>>): Prisma.Prisma__accountClient<runtime.Types.Result.GetResult<Prisma.$accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subscription<T extends Prisma.expense$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expense$subscriptionArgs<ExtArgs>>): Prisma.Prisma__subscriptionClient<runtime.Types.Result.GetResult<Prisma.$subscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  original_expense<T extends Prisma.expense$original_expenseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expense$original_expenseArgs<ExtArgs>>): Prisma.Prisma__expenseClient<runtime.Types.Result.GetResult<Prisma.$expensePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  related_expenses<T extends Prisma.expense$related_expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.expense$related_expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$expensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1898,10 +3147,13 @@ export interface expenseFieldRefs {
   readonly currency: Prisma.FieldRef<"expense", 'String'>
   readonly direction: Prisma.FieldRef<"expense", 'String'>
   readonly booking_date: Prisma.FieldRef<"expense", 'DateTime'>
+  readonly transaction_date: Prisma.FieldRef<"expense", 'DateTime'>
   readonly value_date: Prisma.FieldRef<"expense", 'DateTime'>
   readonly transaction_timestamp: Prisma.FieldRef<"expense", 'DateTime'>
   readonly type: Prisma.FieldRef<"expense", 'String'>
   readonly status: Prisma.FieldRef<"expense", 'String'>
+  readonly failure_reason: Prisma.FieldRef<"expense", 'String'>
+  readonly purpose: Prisma.FieldRef<"expense", 'String'>
   readonly description: Prisma.FieldRef<"expense", 'String'>
   readonly structured_reference: Prisma.FieldRef<"expense", 'String'>
   readonly mcc: Prisma.FieldRef<"expense", 'String'>
@@ -1913,7 +3165,9 @@ export interface expenseFieldRefs {
   readonly sub_category: Prisma.FieldRef<"expense", 'String'>
   readonly essentiality: Prisma.FieldRef<"expense", 'String'>
   readonly counterparty_id: Prisma.FieldRef<"expense", 'String'>
+  readonly counterparty_account_id: Prisma.FieldRef<"expense", 'String'>
   readonly subscription_id: Prisma.FieldRef<"expense", 'String'>
+  readonly original_expense_id: Prisma.FieldRef<"expense", 'String'>
   readonly createdAt: Prisma.FieldRef<"expense", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"expense", 'DateTime'>
 }
@@ -2336,6 +3590,25 @@ export type expense$counterpartyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * expense.counterparty_account
+ */
+export type expense$counterparty_accountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the account
+   */
+  select?: Prisma.accountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the account
+   */
+  omit?: Prisma.accountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.accountInclude<ExtArgs> | null
+  where?: Prisma.accountWhereInput
+}
+
+/**
  * expense.subscription
  */
 export type expense$subscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2352,6 +3625,49 @@ export type expense$subscriptionArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.subscriptionInclude<ExtArgs> | null
   where?: Prisma.subscriptionWhereInput
+}
+
+/**
+ * expense.original_expense
+ */
+export type expense$original_expenseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the expense
+   */
+  select?: Prisma.expenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the expense
+   */
+  omit?: Prisma.expenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.expenseInclude<ExtArgs> | null
+  where?: Prisma.expenseWhereInput
+}
+
+/**
+ * expense.related_expenses
+ */
+export type expense$related_expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the expense
+   */
+  select?: Prisma.expenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the expense
+   */
+  omit?: Prisma.expenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.expenseInclude<ExtArgs> | null
+  where?: Prisma.expenseWhereInput
+  orderBy?: Prisma.expenseOrderByWithRelationInput | Prisma.expenseOrderByWithRelationInput[]
+  cursor?: Prisma.expenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpenseScalarFieldEnum | Prisma.ExpenseScalarFieldEnum[]
 }
 
 /**
