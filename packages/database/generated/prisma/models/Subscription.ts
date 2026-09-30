@@ -270,8 +270,8 @@ export type SubscriptionGroupByOutputType = {
   creditor_id: string | null
   status: string
   category: string | null
-  cadence: string
-  amount: runtime.Decimal
+  cadence: string | null
+  amount: runtime.Decimal | null
   currency: string
   next_payment_date: Date | null
   first_charged_at: Date | null
@@ -314,8 +314,8 @@ export type subscriptionWhereInput = {
   creditor_id?: Prisma.StringNullableFilter<"subscription"> | string | null
   status?: Prisma.StringFilter<"subscription"> | string
   category?: Prisma.StringNullableFilter<"subscription"> | string | null
-  cadence?: Prisma.StringFilter<"subscription"> | string
-  amount?: Prisma.DecimalFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.StringNullableFilter<"subscription"> | string | null
+  amount?: Prisma.DecimalNullableFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFilter<"subscription"> | string
   next_payment_date?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
   first_charged_at?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
@@ -324,6 +324,7 @@ export type subscriptionWhereInput = {
   cancellable?: Prisma.BoolNullableFilter<"subscription"> | boolean | null
   createdAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
+  account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.accountWhereInput>
   counterparty?: Prisma.XOR<Prisma.PartyScalarRelationFilter, Prisma.partyWhereInput>
   expenses?: Prisma.ExpenseListRelationFilter
 }
@@ -337,8 +338,8 @@ export type subscriptionOrderByWithRelationInput = {
   creditor_id?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
-  cadence?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
+  cadence?: Prisma.SortOrderInput | Prisma.SortOrder
+  amount?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
   next_payment_date?: Prisma.SortOrderInput | Prisma.SortOrder
   first_charged_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -347,6 +348,7 @@ export type subscriptionOrderByWithRelationInput = {
   cancellable?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  account?: Prisma.accountOrderByWithRelationInput
   counterparty?: Prisma.partyOrderByWithRelationInput
   expenses?: Prisma.expenseOrderByRelationAggregateInput
 }
@@ -363,8 +365,8 @@ export type subscriptionWhereUniqueInput = Prisma.AtLeast<{
   creditor_id?: Prisma.StringNullableFilter<"subscription"> | string | null
   status?: Prisma.StringFilter<"subscription"> | string
   category?: Prisma.StringNullableFilter<"subscription"> | string | null
-  cadence?: Prisma.StringFilter<"subscription"> | string
-  amount?: Prisma.DecimalFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.StringNullableFilter<"subscription"> | string | null
+  amount?: Prisma.DecimalNullableFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFilter<"subscription"> | string
   next_payment_date?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
   first_charged_at?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
@@ -373,6 +375,7 @@ export type subscriptionWhereUniqueInput = Prisma.AtLeast<{
   cancellable?: Prisma.BoolNullableFilter<"subscription"> | boolean | null
   createdAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
+  account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.accountWhereInput>
   counterparty?: Prisma.XOR<Prisma.PartyScalarRelationFilter, Prisma.partyWhereInput>
   expenses?: Prisma.ExpenseListRelationFilter
 }, "id">
@@ -386,8 +389,8 @@ export type subscriptionOrderByWithAggregationInput = {
   creditor_id?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
-  cadence?: Prisma.SortOrder
-  amount?: Prisma.SortOrder
+  cadence?: Prisma.SortOrderInput | Prisma.SortOrder
+  amount?: Prisma.SortOrderInput | Prisma.SortOrder
   currency?: Prisma.SortOrder
   next_payment_date?: Prisma.SortOrderInput | Prisma.SortOrder
   first_charged_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -415,8 +418,8 @@ export type subscriptionScalarWhereWithAggregatesInput = {
   creditor_id?: Prisma.StringNullableWithAggregatesFilter<"subscription"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"subscription"> | string
   category?: Prisma.StringNullableWithAggregatesFilter<"subscription"> | string | null
-  cadence?: Prisma.StringWithAggregatesFilter<"subscription"> | string
-  amount?: Prisma.DecimalWithAggregatesFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.StringNullableWithAggregatesFilter<"subscription"> | string | null
+  amount?: Prisma.DecimalNullableWithAggregatesFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringWithAggregatesFilter<"subscription"> | string
   next_payment_date?: Prisma.DateTimeNullableWithAggregatesFilter<"subscription"> | Date | string | null
   first_charged_at?: Prisma.DateTimeNullableWithAggregatesFilter<"subscription"> | Date | string | null
@@ -429,14 +432,13 @@ export type subscriptionScalarWhereWithAggregatesInput = {
 
 export type subscriptionCreateInput = {
   id?: string
-  account_id: string
   kind: string
   mandate_id?: string | null
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -445,6 +447,7 @@ export type subscriptionCreateInput = {
   cancellable?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutSubscriptionsInput
   counterparty: Prisma.partyCreateNestedOneWithoutSubscriptionsInput
   expenses?: Prisma.expenseCreateNestedManyWithoutSubscriptionInput
 }
@@ -458,8 +461,8 @@ export type subscriptionUncheckedCreateInput = {
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -473,14 +476,13 @@ export type subscriptionUncheckedCreateInput = {
 
 export type subscriptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
   kind?: Prisma.StringFieldUpdateOperationsInput | string
   mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -489,6 +491,7 @@ export type subscriptionUpdateInput = {
   cancellable?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutSubscriptionsNestedInput
   counterparty?: Prisma.partyUpdateOneRequiredWithoutSubscriptionsNestedInput
   expenses?: Prisma.expenseUpdateManyWithoutSubscriptionNestedInput
 }
@@ -502,8 +505,8 @@ export type subscriptionUncheckedUpdateInput = {
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -524,8 +527,8 @@ export type subscriptionCreateManyInput = {
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -538,14 +541,13 @@ export type subscriptionCreateManyInput = {
 
 export type subscriptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
   kind?: Prisma.StringFieldUpdateOperationsInput | string
   mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -565,8 +567,8 @@ export type subscriptionUncheckedUpdateManyInput = {
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -665,6 +667,48 @@ export type SubscriptionNullableScalarRelationFilter = {
   isNot?: Prisma.subscriptionWhereInput | null
 }
 
+export type subscriptionCreateNestedManyWithoutAccountInput = {
+  create?: Prisma.XOR<Prisma.subscriptionCreateWithoutAccountInput, Prisma.subscriptionUncheckedCreateWithoutAccountInput> | Prisma.subscriptionCreateWithoutAccountInput[] | Prisma.subscriptionUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.subscriptionCreateOrConnectWithoutAccountInput | Prisma.subscriptionCreateOrConnectWithoutAccountInput[]
+  createMany?: Prisma.subscriptionCreateManyAccountInputEnvelope
+  connect?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+}
+
+export type subscriptionUncheckedCreateNestedManyWithoutAccountInput = {
+  create?: Prisma.XOR<Prisma.subscriptionCreateWithoutAccountInput, Prisma.subscriptionUncheckedCreateWithoutAccountInput> | Prisma.subscriptionCreateWithoutAccountInput[] | Prisma.subscriptionUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.subscriptionCreateOrConnectWithoutAccountInput | Prisma.subscriptionCreateOrConnectWithoutAccountInput[]
+  createMany?: Prisma.subscriptionCreateManyAccountInputEnvelope
+  connect?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+}
+
+export type subscriptionUpdateManyWithoutAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.subscriptionCreateWithoutAccountInput, Prisma.subscriptionUncheckedCreateWithoutAccountInput> | Prisma.subscriptionCreateWithoutAccountInput[] | Prisma.subscriptionUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.subscriptionCreateOrConnectWithoutAccountInput | Prisma.subscriptionCreateOrConnectWithoutAccountInput[]
+  upsert?: Prisma.subscriptionUpsertWithWhereUniqueWithoutAccountInput | Prisma.subscriptionUpsertWithWhereUniqueWithoutAccountInput[]
+  createMany?: Prisma.subscriptionCreateManyAccountInputEnvelope
+  set?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  disconnect?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  delete?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  connect?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  update?: Prisma.subscriptionUpdateWithWhereUniqueWithoutAccountInput | Prisma.subscriptionUpdateWithWhereUniqueWithoutAccountInput[]
+  updateMany?: Prisma.subscriptionUpdateManyWithWhereWithoutAccountInput | Prisma.subscriptionUpdateManyWithWhereWithoutAccountInput[]
+  deleteMany?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
+}
+
+export type subscriptionUncheckedUpdateManyWithoutAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.subscriptionCreateWithoutAccountInput, Prisma.subscriptionUncheckedCreateWithoutAccountInput> | Prisma.subscriptionCreateWithoutAccountInput[] | Prisma.subscriptionUncheckedCreateWithoutAccountInput[]
+  connectOrCreate?: Prisma.subscriptionCreateOrConnectWithoutAccountInput | Prisma.subscriptionCreateOrConnectWithoutAccountInput[]
+  upsert?: Prisma.subscriptionUpsertWithWhereUniqueWithoutAccountInput | Prisma.subscriptionUpsertWithWhereUniqueWithoutAccountInput[]
+  createMany?: Prisma.subscriptionCreateManyAccountInputEnvelope
+  set?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  disconnect?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  delete?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  connect?: Prisma.subscriptionWhereUniqueInput | Prisma.subscriptionWhereUniqueInput[]
+  update?: Prisma.subscriptionUpdateWithWhereUniqueWithoutAccountInput | Prisma.subscriptionUpdateWithWhereUniqueWithoutAccountInput[]
+  updateMany?: Prisma.subscriptionUpdateManyWithWhereWithoutAccountInput | Prisma.subscriptionUpdateManyWithWhereWithoutAccountInput[]
+  deleteMany?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
+}
+
 export type subscriptionCreateNestedManyWithoutCounterpartyInput = {
   create?: Prisma.XOR<Prisma.subscriptionCreateWithoutCounterpartyInput, Prisma.subscriptionUncheckedCreateWithoutCounterpartyInput> | Prisma.subscriptionCreateWithoutCounterpartyInput[] | Prisma.subscriptionUncheckedCreateWithoutCounterpartyInput[]
   connectOrCreate?: Prisma.subscriptionCreateOrConnectWithoutCounterpartyInput | Prisma.subscriptionCreateOrConnectWithoutCounterpartyInput[]
@@ -707,14 +751,6 @@ export type subscriptionUncheckedUpdateManyWithoutCounterpartyNestedInput = {
   deleteMany?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
 }
 
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
 export type subscriptionCreateNestedOneWithoutExpensesInput = {
   create?: Prisma.XOR<Prisma.subscriptionCreateWithoutExpensesInput, Prisma.subscriptionUncheckedCreateWithoutExpensesInput>
   connectOrCreate?: Prisma.subscriptionCreateOrConnectWithoutExpensesInput
@@ -731,16 +767,15 @@ export type subscriptionUpdateOneWithoutExpensesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.subscriptionUpdateToOneWithWhereWithoutExpensesInput, Prisma.subscriptionUpdateWithoutExpensesInput>, Prisma.subscriptionUncheckedUpdateWithoutExpensesInput>
 }
 
-export type subscriptionCreateWithoutCounterpartyInput = {
+export type subscriptionCreateWithoutAccountInput = {
   id?: string
-  account_id: string
   kind: string
   mandate_id?: string | null
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -749,6 +784,99 @@ export type subscriptionCreateWithoutCounterpartyInput = {
   cancellable?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  counterparty: Prisma.partyCreateNestedOneWithoutSubscriptionsInput
+  expenses?: Prisma.expenseCreateNestedManyWithoutSubscriptionInput
+}
+
+export type subscriptionUncheckedCreateWithoutAccountInput = {
+  id?: string
+  counterparty_id: string
+  kind: string
+  mandate_id?: string | null
+  creditor_id?: string | null
+  status: string
+  category?: string | null
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  next_payment_date?: Date | string | null
+  first_charged_at?: Date | string | null
+  last_charged_at?: Date | string | null
+  occurrence_count?: number | null
+  cancellable?: boolean | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  expenses?: Prisma.expenseUncheckedCreateNestedManyWithoutSubscriptionInput
+}
+
+export type subscriptionCreateOrConnectWithoutAccountInput = {
+  where: Prisma.subscriptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.subscriptionCreateWithoutAccountInput, Prisma.subscriptionUncheckedCreateWithoutAccountInput>
+}
+
+export type subscriptionCreateManyAccountInputEnvelope = {
+  data: Prisma.subscriptionCreateManyAccountInput | Prisma.subscriptionCreateManyAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type subscriptionUpsertWithWhereUniqueWithoutAccountInput = {
+  where: Prisma.subscriptionWhereUniqueInput
+  update: Prisma.XOR<Prisma.subscriptionUpdateWithoutAccountInput, Prisma.subscriptionUncheckedUpdateWithoutAccountInput>
+  create: Prisma.XOR<Prisma.subscriptionCreateWithoutAccountInput, Prisma.subscriptionUncheckedCreateWithoutAccountInput>
+}
+
+export type subscriptionUpdateWithWhereUniqueWithoutAccountInput = {
+  where: Prisma.subscriptionWhereUniqueInput
+  data: Prisma.XOR<Prisma.subscriptionUpdateWithoutAccountInput, Prisma.subscriptionUncheckedUpdateWithoutAccountInput>
+}
+
+export type subscriptionUpdateManyWithWhereWithoutAccountInput = {
+  where: Prisma.subscriptionScalarWhereInput
+  data: Prisma.XOR<Prisma.subscriptionUpdateManyMutationInput, Prisma.subscriptionUncheckedUpdateManyWithoutAccountInput>
+}
+
+export type subscriptionScalarWhereInput = {
+  AND?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
+  OR?: Prisma.subscriptionScalarWhereInput[]
+  NOT?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
+  id?: Prisma.StringFilter<"subscription"> | string
+  account_id?: Prisma.StringFilter<"subscription"> | string
+  counterparty_id?: Prisma.StringFilter<"subscription"> | string
+  kind?: Prisma.StringFilter<"subscription"> | string
+  mandate_id?: Prisma.StringNullableFilter<"subscription"> | string | null
+  creditor_id?: Prisma.StringNullableFilter<"subscription"> | string | null
+  status?: Prisma.StringFilter<"subscription"> | string
+  category?: Prisma.StringNullableFilter<"subscription"> | string | null
+  cadence?: Prisma.StringNullableFilter<"subscription"> | string | null
+  amount?: Prisma.DecimalNullableFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFilter<"subscription"> | string
+  next_payment_date?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
+  first_charged_at?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
+  last_charged_at?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
+  occurrence_count?: Prisma.IntNullableFilter<"subscription"> | number | null
+  cancellable?: Prisma.BoolNullableFilter<"subscription"> | boolean | null
+  createdAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
+}
+
+export type subscriptionCreateWithoutCounterpartyInput = {
+  id?: string
+  kind: string
+  mandate_id?: string | null
+  creditor_id?: string | null
+  status: string
+  category?: string | null
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  next_payment_date?: Date | string | null
+  first_charged_at?: Date | string | null
+  last_charged_at?: Date | string | null
+  occurrence_count?: number | null
+  cancellable?: boolean | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutSubscriptionsInput
   expenses?: Prisma.expenseCreateNestedManyWithoutSubscriptionInput
 }
 
@@ -760,8 +888,8 @@ export type subscriptionUncheckedCreateWithoutCounterpartyInput = {
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -799,40 +927,15 @@ export type subscriptionUpdateManyWithWhereWithoutCounterpartyInput = {
   data: Prisma.XOR<Prisma.subscriptionUpdateManyMutationInput, Prisma.subscriptionUncheckedUpdateManyWithoutCounterpartyInput>
 }
 
-export type subscriptionScalarWhereInput = {
-  AND?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
-  OR?: Prisma.subscriptionScalarWhereInput[]
-  NOT?: Prisma.subscriptionScalarWhereInput | Prisma.subscriptionScalarWhereInput[]
-  id?: Prisma.StringFilter<"subscription"> | string
-  account_id?: Prisma.StringFilter<"subscription"> | string
-  counterparty_id?: Prisma.StringFilter<"subscription"> | string
-  kind?: Prisma.StringFilter<"subscription"> | string
-  mandate_id?: Prisma.StringNullableFilter<"subscription"> | string | null
-  creditor_id?: Prisma.StringNullableFilter<"subscription"> | string | null
-  status?: Prisma.StringFilter<"subscription"> | string
-  category?: Prisma.StringNullableFilter<"subscription"> | string | null
-  cadence?: Prisma.StringFilter<"subscription"> | string
-  amount?: Prisma.DecimalFilter<"subscription"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  currency?: Prisma.StringFilter<"subscription"> | string
-  next_payment_date?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
-  first_charged_at?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
-  last_charged_at?: Prisma.DateTimeNullableFilter<"subscription"> | Date | string | null
-  occurrence_count?: Prisma.IntNullableFilter<"subscription"> | number | null
-  cancellable?: Prisma.BoolNullableFilter<"subscription"> | boolean | null
-  createdAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"subscription"> | Date | string
-}
-
 export type subscriptionCreateWithoutExpensesInput = {
   id?: string
-  account_id: string
   kind: string
   mandate_id?: string | null
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -841,6 +944,7 @@ export type subscriptionCreateWithoutExpensesInput = {
   cancellable?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  account: Prisma.accountCreateNestedOneWithoutSubscriptionsInput
   counterparty: Prisma.partyCreateNestedOneWithoutSubscriptionsInput
 }
 
@@ -853,8 +957,8 @@ export type subscriptionUncheckedCreateWithoutExpensesInput = {
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -883,14 +987,13 @@ export type subscriptionUpdateToOneWithWhereWithoutExpensesInput = {
 
 export type subscriptionUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
   kind?: Prisma.StringFieldUpdateOperationsInput | string
   mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -899,6 +1002,7 @@ export type subscriptionUpdateWithoutExpensesInput = {
   cancellable?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutSubscriptionsNestedInput
   counterparty?: Prisma.partyUpdateOneRequiredWithoutSubscriptionsNestedInput
 }
 
@@ -911,8 +1015,90 @@ export type subscriptionUncheckedUpdateWithoutExpensesInput = {
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occurrence_count?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cancellable?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type subscriptionCreateManyAccountInput = {
+  id?: string
+  counterparty_id: string
+  kind: string
+  mandate_id?: string | null
+  creditor_id?: string | null
+  status: string
+  category?: string | null
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  next_payment_date?: Date | string | null
+  first_charged_at?: Date | string | null
+  last_charged_at?: Date | string | null
+  occurrence_count?: number | null
+  cancellable?: boolean | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type subscriptionUpdateWithoutAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
+  mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occurrence_count?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cancellable?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  counterparty?: Prisma.partyUpdateOneRequiredWithoutSubscriptionsNestedInput
+  expenses?: Prisma.expenseUpdateManyWithoutSubscriptionNestedInput
+}
+
+export type subscriptionUncheckedUpdateWithoutAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  counterparty_id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
+  mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occurrence_count?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cancellable?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenses?: Prisma.expenseUncheckedUpdateManyWithoutSubscriptionNestedInput
+}
+
+export type subscriptionUncheckedUpdateManyWithoutAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  counterparty_id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.StringFieldUpdateOperationsInput | string
+  mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -931,8 +1117,8 @@ export type subscriptionCreateManyCounterpartyInput = {
   creditor_id?: string | null
   status: string
   category?: string | null
-  cadence: string
-  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: string
   next_payment_date?: Date | string | null
   first_charged_at?: Date | string | null
@@ -945,14 +1131,13 @@ export type subscriptionCreateManyCounterpartyInput = {
 
 export type subscriptionUpdateWithoutCounterpartyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  account_id?: Prisma.StringFieldUpdateOperationsInput | string
   kind?: Prisma.StringFieldUpdateOperationsInput | string
   mandate_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -961,6 +1146,7 @@ export type subscriptionUpdateWithoutCounterpartyInput = {
   cancellable?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.accountUpdateOneRequiredWithoutSubscriptionsNestedInput
   expenses?: Prisma.expenseUpdateManyWithoutSubscriptionNestedInput
 }
 
@@ -972,8 +1158,8 @@ export type subscriptionUncheckedUpdateWithoutCounterpartyInput = {
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -993,8 +1179,8 @@ export type subscriptionUncheckedUpdateManyWithoutCounterpartyInput = {
   creditor_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cadence?: Prisma.StringFieldUpdateOperationsInput | string
-  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  cadence?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   next_payment_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   first_charged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1055,6 +1241,7 @@ export type subscriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   cancellable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.partyDefaultArgs<ExtArgs>
   expenses?: boolean | Prisma.subscription$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1079,6 +1266,7 @@ export type subscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   cancellable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.partyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -1101,6 +1289,7 @@ export type subscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   cancellable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.partyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
@@ -1127,20 +1316,24 @@ export type subscriptionSelectScalar = {
 
 export type subscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "account_id" | "counterparty_id" | "kind" | "mandate_id" | "creditor_id" | "status" | "category" | "cadence" | "amount" | "currency" | "next_payment_date" | "first_charged_at" | "last_charged_at" | "occurrence_count" | "cancellable" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
 export type subscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.partyDefaultArgs<ExtArgs>
   expenses?: boolean | Prisma.subscription$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type subscriptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.partyDefaultArgs<ExtArgs>
 }
 export type subscriptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  account?: boolean | Prisma.accountDefaultArgs<ExtArgs>
   counterparty?: boolean | Prisma.partyDefaultArgs<ExtArgs>
 }
 
 export type $subscriptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "subscription"
   objects: {
+    account: Prisma.$accountPayload<ExtArgs>
     counterparty: Prisma.$partyPayload<ExtArgs>
     expenses: Prisma.$expensePayload<ExtArgs>[]
   }
@@ -1153,8 +1346,8 @@ export type $subscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     creditor_id: string | null
     status: string
     category: string | null
-    cadence: string
-    amount: runtime.Decimal
+    cadence: string | null
+    amount: runtime.Decimal | null
     currency: string
     next_payment_date: Date | null
     first_charged_at: Date | null
@@ -1557,6 +1750,7 @@ readonly fields: subscriptionFieldRefs;
  */
 export interface Prisma__subscriptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  account<T extends Prisma.accountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.accountDefaultArgs<ExtArgs>>): Prisma.Prisma__accountClient<runtime.Types.Result.GetResult<Prisma.$accountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   counterparty<T extends Prisma.partyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.partyDefaultArgs<ExtArgs>>): Prisma.Prisma__partyClient<runtime.Types.Result.GetResult<Prisma.$partyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   expenses<T extends Prisma.subscription$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.subscription$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$expensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**

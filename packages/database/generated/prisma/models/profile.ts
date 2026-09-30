@@ -31,6 +31,8 @@ export type ProfileAvgAggregateOutputType = {
   monthly_housing_cost: runtime.Decimal | null
   monthly_net_income: runtime.Decimal | null
   other_monthly_income: runtime.Decimal | null
+  investment_horizon_months: number | null
+  liquidity_reserve_target: runtime.Decimal | null
   monthly_essential_expenses: runtime.Decimal | null
   monthly_discretionary_expenses: runtime.Decimal | null
   monthly_savings_target: runtime.Decimal | null
@@ -48,6 +50,8 @@ export type ProfileSumAggregateOutputType = {
   monthly_housing_cost: runtime.Decimal | null
   monthly_net_income: runtime.Decimal | null
   other_monthly_income: runtime.Decimal | null
+  investment_horizon_months: number | null
+  liquidity_reserve_target: runtime.Decimal | null
   monthly_essential_expenses: runtime.Decimal | null
   monthly_discretionary_expenses: runtime.Decimal | null
   monthly_savings_target: runtime.Decimal | null
@@ -85,6 +89,9 @@ export type ProfileMinAggregateOutputType = {
   other_monthly_income: runtime.Decimal | null
   financial_literacy: string | null
   risk_tolerance: string | null
+  personalization_consent: boolean | null
+  investment_horizon_months: number | null
+  liquidity_reserve_target: runtime.Decimal | null
   monthly_essential_expenses: runtime.Decimal | null
   monthly_discretionary_expenses: runtime.Decimal | null
   monthly_savings_target: runtime.Decimal | null
@@ -129,6 +136,9 @@ export type ProfileMaxAggregateOutputType = {
   other_monthly_income: runtime.Decimal | null
   financial_literacy: string | null
   risk_tolerance: string | null
+  personalization_consent: boolean | null
+  investment_horizon_months: number | null
+  liquidity_reserve_target: runtime.Decimal | null
   monthly_essential_expenses: runtime.Decimal | null
   monthly_discretionary_expenses: runtime.Decimal | null
   monthly_savings_target: runtime.Decimal | null
@@ -173,6 +183,9 @@ export type ProfileCountAggregateOutputType = {
   other_monthly_income: number
   financial_literacy: number
   risk_tolerance: number
+  personalization_consent: number
+  investment_horizon_months: number
+  liquidity_reserve_target: number
   goals: number
   service_interests: number
   monthly_essential_expenses: number
@@ -201,6 +214,8 @@ export type ProfileAvgAggregateInputType = {
   monthly_housing_cost?: true
   monthly_net_income?: true
   other_monthly_income?: true
+  investment_horizon_months?: true
+  liquidity_reserve_target?: true
   monthly_essential_expenses?: true
   monthly_discretionary_expenses?: true
   monthly_savings_target?: true
@@ -218,6 +233,8 @@ export type ProfileSumAggregateInputType = {
   monthly_housing_cost?: true
   monthly_net_income?: true
   other_monthly_income?: true
+  investment_horizon_months?: true
+  liquidity_reserve_target?: true
   monthly_essential_expenses?: true
   monthly_discretionary_expenses?: true
   monthly_savings_target?: true
@@ -255,6 +272,9 @@ export type ProfileMinAggregateInputType = {
   other_monthly_income?: true
   financial_literacy?: true
   risk_tolerance?: true
+  personalization_consent?: true
+  investment_horizon_months?: true
+  liquidity_reserve_target?: true
   monthly_essential_expenses?: true
   monthly_discretionary_expenses?: true
   monthly_savings_target?: true
@@ -299,6 +319,9 @@ export type ProfileMaxAggregateInputType = {
   other_monthly_income?: true
   financial_literacy?: true
   risk_tolerance?: true
+  personalization_consent?: true
+  investment_horizon_months?: true
+  liquidity_reserve_target?: true
   monthly_essential_expenses?: true
   monthly_discretionary_expenses?: true
   monthly_savings_target?: true
@@ -343,6 +366,9 @@ export type ProfileCountAggregateInputType = {
   other_monthly_income?: true
   financial_literacy?: true
   risk_tolerance?: true
+  personalization_consent?: true
+  investment_horizon_months?: true
+  liquidity_reserve_target?: true
   goals?: true
   service_interests?: true
   monthly_essential_expenses?: true
@@ -476,6 +502,9 @@ export type ProfileGroupByOutputType = {
   other_monthly_income: runtime.Decimal | null
   financial_literacy: string | null
   risk_tolerance: string | null
+  personalization_consent: boolean | null
+  investment_horizon_months: number | null
+  liquidity_reserve_target: runtime.Decimal | null
   goals: string[]
   service_interests: string[]
   monthly_essential_expenses: runtime.Decimal | null
@@ -545,6 +574,9 @@ export type profileWhereInput = {
   other_monthly_income?: Prisma.DecimalNullableFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.StringNullableFilter<"profile"> | string | null
   risk_tolerance?: Prisma.StringNullableFilter<"profile"> | string | null
+  personalization_consent?: Prisma.BoolNullableFilter<"profile"> | boolean | null
+  investment_horizon_months?: Prisma.IntNullableFilter<"profile"> | number | null
+  liquidity_reserve_target?: Prisma.DecimalNullableFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.StringNullableListFilter<"profile">
   service_interests?: Prisma.StringNullableListFilter<"profile">
   monthly_essential_expenses?: Prisma.DecimalNullableFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -564,6 +596,7 @@ export type profileWhereInput = {
   notes?: Prisma.StringNullableFilter<"profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"profile"> | Date | string
+  financial_holder?: Prisma.XOR<Prisma.Financial_holderNullableScalarRelationFilter, Prisma.financial_holderWhereInput> | null
 }
 
 export type profileOrderByWithRelationInput = {
@@ -591,6 +624,9 @@ export type profileOrderByWithRelationInput = {
   other_monthly_income?: Prisma.SortOrderInput | Prisma.SortOrder
   financial_literacy?: Prisma.SortOrderInput | Prisma.SortOrder
   risk_tolerance?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalization_consent?: Prisma.SortOrderInput | Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrderInput | Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrderInput | Prisma.SortOrder
   goals?: Prisma.SortOrder
   service_interests?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -610,6 +646,7 @@ export type profileOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  financial_holder?: Prisma.financial_holderOrderByWithRelationInput
 }
 
 export type profileWhereUniqueInput = Prisma.AtLeast<{
@@ -640,6 +677,9 @@ export type profileWhereUniqueInput = Prisma.AtLeast<{
   other_monthly_income?: Prisma.DecimalNullableFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.StringNullableFilter<"profile"> | string | null
   risk_tolerance?: Prisma.StringNullableFilter<"profile"> | string | null
+  personalization_consent?: Prisma.BoolNullableFilter<"profile"> | boolean | null
+  investment_horizon_months?: Prisma.IntNullableFilter<"profile"> | number | null
+  liquidity_reserve_target?: Prisma.DecimalNullableFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.StringNullableListFilter<"profile">
   service_interests?: Prisma.StringNullableListFilter<"profile">
   monthly_essential_expenses?: Prisma.DecimalNullableFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -659,6 +699,7 @@ export type profileWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"profile"> | string | null
   createdAt?: Prisma.DateTimeFilter<"profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"profile"> | Date | string
+  financial_holder?: Prisma.XOR<Prisma.Financial_holderNullableScalarRelationFilter, Prisma.financial_holderWhereInput> | null
 }, "id" | "email" | "customer_reference">
 
 export type profileOrderByWithAggregationInput = {
@@ -686,6 +727,9 @@ export type profileOrderByWithAggregationInput = {
   other_monthly_income?: Prisma.SortOrderInput | Prisma.SortOrder
   financial_literacy?: Prisma.SortOrderInput | Prisma.SortOrder
   risk_tolerance?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalization_consent?: Prisma.SortOrderInput | Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrderInput | Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrderInput | Prisma.SortOrder
   goals?: Prisma.SortOrder
   service_interests?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -740,6 +784,9 @@ export type profileScalarWhereWithAggregatesInput = {
   other_monthly_income?: Prisma.DecimalNullableWithAggregatesFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.StringNullableWithAggregatesFilter<"profile"> | string | null
   risk_tolerance?: Prisma.StringNullableWithAggregatesFilter<"profile"> | string | null
+  personalization_consent?: Prisma.BoolNullableWithAggregatesFilter<"profile"> | boolean | null
+  investment_horizon_months?: Prisma.IntNullableWithAggregatesFilter<"profile"> | number | null
+  liquidity_reserve_target?: Prisma.DecimalNullableWithAggregatesFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.StringNullableListFilter<"profile">
   service_interests?: Prisma.StringNullableListFilter<"profile">
   monthly_essential_expenses?: Prisma.DecimalNullableWithAggregatesFilter<"profile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -786,6 +833,9 @@ export type profileCreateInput = {
   other_monthly_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: string | null
   risk_tolerance?: string | null
+  personalization_consent?: boolean | null
+  investment_horizon_months?: number | null
+  liquidity_reserve_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileCreategoalsInput | string[]
   service_interests?: Prisma.profileCreateservice_interestsInput | string[]
   monthly_essential_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -805,6 +855,7 @@ export type profileCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  financial_holder?: Prisma.financial_holderCreateNestedOneWithoutProfileInput
 }
 
 export type profileUncheckedCreateInput = {
@@ -832,6 +883,9 @@ export type profileUncheckedCreateInput = {
   other_monthly_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: string | null
   risk_tolerance?: string | null
+  personalization_consent?: boolean | null
+  investment_horizon_months?: number | null
+  liquidity_reserve_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileCreategoalsInput | string[]
   service_interests?: Prisma.profileCreateservice_interestsInput | string[]
   monthly_essential_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -851,6 +905,7 @@ export type profileUncheckedCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  financial_holder?: Prisma.financial_holderUncheckedCreateNestedOneWithoutProfileInput
 }
 
 export type profileUpdateInput = {
@@ -878,6 +933,9 @@ export type profileUpdateInput = {
   other_monthly_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk_tolerance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalization_consent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  investment_horizon_months?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  liquidity_reserve_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileUpdategoalsInput | string[]
   service_interests?: Prisma.profileUpdateservice_interestsInput | string[]
   monthly_essential_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -897,6 +955,7 @@ export type profileUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financial_holder?: Prisma.financial_holderUpdateOneWithoutProfileNestedInput
 }
 
 export type profileUncheckedUpdateInput = {
@@ -924,6 +983,9 @@ export type profileUncheckedUpdateInput = {
   other_monthly_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk_tolerance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalization_consent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  investment_horizon_months?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  liquidity_reserve_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileUpdategoalsInput | string[]
   service_interests?: Prisma.profileUpdateservice_interestsInput | string[]
   monthly_essential_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -943,6 +1005,7 @@ export type profileUncheckedUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financial_holder?: Prisma.financial_holderUncheckedUpdateOneWithoutProfileNestedInput
 }
 
 export type profileCreateManyInput = {
@@ -970,6 +1033,9 @@ export type profileCreateManyInput = {
   other_monthly_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: string | null
   risk_tolerance?: string | null
+  personalization_consent?: boolean | null
+  investment_horizon_months?: number | null
+  liquidity_reserve_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileCreategoalsInput | string[]
   service_interests?: Prisma.profileCreateservice_interestsInput | string[]
   monthly_essential_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1016,6 +1082,9 @@ export type profileUpdateManyMutationInput = {
   other_monthly_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk_tolerance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalization_consent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  investment_horizon_months?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  liquidity_reserve_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileUpdategoalsInput | string[]
   service_interests?: Prisma.profileUpdateservice_interestsInput | string[]
   monthly_essential_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1062,6 +1131,9 @@ export type profileUncheckedUpdateManyInput = {
   other_monthly_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   financial_literacy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk_tolerance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalization_consent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  investment_horizon_months?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  liquidity_reserve_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   goals?: Prisma.profileUpdategoalsInput | string[]
   service_interests?: Prisma.profileUpdateservice_interestsInput | string[]
   monthly_essential_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1116,6 +1188,9 @@ export type profileCountOrderByAggregateInput = {
   other_monthly_income?: Prisma.SortOrder
   financial_literacy?: Prisma.SortOrder
   risk_tolerance?: Prisma.SortOrder
+  personalization_consent?: Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrder
   goals?: Prisma.SortOrder
   service_interests?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrder
@@ -1142,6 +1217,8 @@ export type profileAvgOrderByAggregateInput = {
   monthly_housing_cost?: Prisma.SortOrder
   monthly_net_income?: Prisma.SortOrder
   other_monthly_income?: Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrder
   monthly_discretionary_expenses?: Prisma.SortOrder
   monthly_savings_target?: Prisma.SortOrder
@@ -1179,6 +1256,9 @@ export type profileMaxOrderByAggregateInput = {
   other_monthly_income?: Prisma.SortOrder
   financial_literacy?: Prisma.SortOrder
   risk_tolerance?: Prisma.SortOrder
+  personalization_consent?: Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrder
   monthly_discretionary_expenses?: Prisma.SortOrder
   monthly_savings_target?: Prisma.SortOrder
@@ -1223,6 +1303,9 @@ export type profileMinOrderByAggregateInput = {
   other_monthly_income?: Prisma.SortOrder
   financial_literacy?: Prisma.SortOrder
   risk_tolerance?: Prisma.SortOrder
+  personalization_consent?: Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrder
   monthly_discretionary_expenses?: Prisma.SortOrder
   monthly_savings_target?: Prisma.SortOrder
@@ -1247,6 +1330,8 @@ export type profileSumOrderByAggregateInput = {
   monthly_housing_cost?: Prisma.SortOrder
   monthly_net_income?: Prisma.SortOrder
   other_monthly_income?: Prisma.SortOrder
+  investment_horizon_months?: Prisma.SortOrder
+  liquidity_reserve_target?: Prisma.SortOrder
   monthly_essential_expenses?: Prisma.SortOrder
   monthly_discretionary_expenses?: Prisma.SortOrder
   monthly_savings_target?: Prisma.SortOrder
@@ -1257,6 +1342,11 @@ export type profileSumOrderByAggregateInput = {
   mortgage_balance?: Prisma.SortOrder
   consumer_debt_balance?: Prisma.SortOrder
   other_debt_balance?: Prisma.SortOrder
+}
+
+export type ProfileNullableScalarRelationFilter = {
+  is?: Prisma.profileWhereInput | null
+  isNot?: Prisma.profileWhereInput | null
 }
 
 export type profileCreategoalsInput = {
@@ -1291,6 +1381,18 @@ export type NullableDecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type profileUpdategoalsInput = {
   set?: string[]
   push?: string | string[]
@@ -1301,8 +1403,232 @@ export type profileUpdateservice_interestsInput = {
   push?: string | string[]
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
+export type profileCreateNestedOneWithoutFinancial_holderInput = {
+  create?: Prisma.XOR<Prisma.profileCreateWithoutFinancial_holderInput, Prisma.profileUncheckedCreateWithoutFinancial_holderInput>
+  connectOrCreate?: Prisma.profileCreateOrConnectWithoutFinancial_holderInput
+  connect?: Prisma.profileWhereUniqueInput
+}
+
+export type profileUpdateOneWithoutFinancial_holderNestedInput = {
+  create?: Prisma.XOR<Prisma.profileCreateWithoutFinancial_holderInput, Prisma.profileUncheckedCreateWithoutFinancial_holderInput>
+  connectOrCreate?: Prisma.profileCreateOrConnectWithoutFinancial_holderInput
+  upsert?: Prisma.profileUpsertWithoutFinancial_holderInput
+  disconnect?: Prisma.profileWhereInput | boolean
+  delete?: Prisma.profileWhereInput | boolean
+  connect?: Prisma.profileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.profileUpdateToOneWithWhereWithoutFinancial_holderInput, Prisma.profileUpdateWithoutFinancial_holderInput>, Prisma.profileUncheckedUpdateWithoutFinancial_holderInput>
+}
+
+export type profileCreateWithoutFinancial_holderInput = {
+  id?: string
+  first_name: string
+  last_name: string
+  date_of_birth?: Date | string | null
+  email?: string | null
+  phone?: string | null
+  customer_reference?: string | null
+  marital_status?: string | null
+  dependent_count?: number
+  street?: string | null
+  city?: string | null
+  postal_code?: string | null
+  country?: string | null
+  housing_status?: string | null
+  monthly_housing_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  employment_status?: string | null
+  occupation?: string | null
+  employer?: string | null
+  employment_start_date?: Date | string | null
+  currency?: string
+  monthly_net_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_monthly_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  financial_literacy?: string | null
+  risk_tolerance?: string | null
+  personalization_consent?: boolean | null
+  investment_horizon_months?: number | null
+  liquidity_reserve_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  goals?: Prisma.profileCreategoalsInput | string[]
+  service_interests?: Prisma.profileCreateservice_interestsInput | string[]
+  monthly_essential_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_discretionary_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_savings_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  liquid_savings?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  investment_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pension_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  real_estate_value?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  mortgage_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  consumer_debt_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_debt_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  has_life_insurance?: boolean | null
+  has_home_insurance?: boolean | null
+  has_health_insurance?: boolean | null
+  has_brokerage_account?: boolean | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type profileUncheckedCreateWithoutFinancial_holderInput = {
+  id?: string
+  first_name: string
+  last_name: string
+  date_of_birth?: Date | string | null
+  email?: string | null
+  phone?: string | null
+  customer_reference?: string | null
+  marital_status?: string | null
+  dependent_count?: number
+  street?: string | null
+  city?: string | null
+  postal_code?: string | null
+  country?: string | null
+  housing_status?: string | null
+  monthly_housing_cost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  employment_status?: string | null
+  occupation?: string | null
+  employer?: string | null
+  employment_start_date?: Date | string | null
+  currency?: string
+  monthly_net_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_monthly_income?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  financial_literacy?: string | null
+  risk_tolerance?: string | null
+  personalization_consent?: boolean | null
+  investment_horizon_months?: number | null
+  liquidity_reserve_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  goals?: Prisma.profileCreategoalsInput | string[]
+  service_interests?: Prisma.profileCreateservice_interestsInput | string[]
+  monthly_essential_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_discretionary_expenses?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_savings_target?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  liquid_savings?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  investment_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pension_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  real_estate_value?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  mortgage_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  consumer_debt_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_debt_balance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  has_life_insurance?: boolean | null
+  has_home_insurance?: boolean | null
+  has_health_insurance?: boolean | null
+  has_brokerage_account?: boolean | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type profileCreateOrConnectWithoutFinancial_holderInput = {
+  where: Prisma.profileWhereUniqueInput
+  create: Prisma.XOR<Prisma.profileCreateWithoutFinancial_holderInput, Prisma.profileUncheckedCreateWithoutFinancial_holderInput>
+}
+
+export type profileUpsertWithoutFinancial_holderInput = {
+  update: Prisma.XOR<Prisma.profileUpdateWithoutFinancial_holderInput, Prisma.profileUncheckedUpdateWithoutFinancial_holderInput>
+  create: Prisma.XOR<Prisma.profileCreateWithoutFinancial_holderInput, Prisma.profileUncheckedCreateWithoutFinancial_holderInput>
+  where?: Prisma.profileWhereInput
+}
+
+export type profileUpdateToOneWithWhereWithoutFinancial_holderInput = {
+  where?: Prisma.profileWhereInput
+  data: Prisma.XOR<Prisma.profileUpdateWithoutFinancial_holderInput, Prisma.profileUncheckedUpdateWithoutFinancial_holderInput>
+}
+
+export type profileUpdateWithoutFinancial_holderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customer_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dependent_count?: Prisma.IntFieldUpdateOperationsInput | number
+  street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postal_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  housing_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthly_housing_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  employment_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employment_start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  monthly_net_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_monthly_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  financial_literacy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  risk_tolerance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalization_consent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  investment_horizon_months?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  liquidity_reserve_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  goals?: Prisma.profileUpdategoalsInput | string[]
+  service_interests?: Prisma.profileUpdateservice_interestsInput | string[]
+  monthly_essential_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_discretionary_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_savings_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  liquid_savings?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  investment_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pension_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  real_estate_value?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  mortgage_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  consumer_debt_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_debt_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  has_life_insurance?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  has_home_insurance?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  has_health_insurance?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  has_brokerage_account?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type profileUncheckedUpdateWithoutFinancial_holderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customer_reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dependent_count?: Prisma.IntFieldUpdateOperationsInput | number
+  street?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postal_code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  housing_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthly_housing_cost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  employment_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employment_start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  monthly_net_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_monthly_income?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  financial_literacy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  risk_tolerance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalization_consent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  investment_horizon_months?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  liquidity_reserve_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  goals?: Prisma.profileUpdategoalsInput | string[]
+  service_interests?: Prisma.profileUpdateservice_interestsInput | string[]
+  monthly_essential_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_discretionary_expenses?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthly_savings_target?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  liquid_savings?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  investment_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pension_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  real_estate_value?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  mortgage_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  consumer_debt_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  other_debt_balance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  has_life_insurance?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  has_home_insurance?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  has_health_insurance?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  has_brokerage_account?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1332,6 +1658,9 @@ export type profileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   other_monthly_income?: boolean
   financial_literacy?: boolean
   risk_tolerance?: boolean
+  personalization_consent?: boolean
+  investment_horizon_months?: boolean
+  liquidity_reserve_target?: boolean
   goals?: boolean
   service_interests?: boolean
   monthly_essential_expenses?: boolean
@@ -1351,6 +1680,7 @@ export type profileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  financial_holder?: boolean | Prisma.profile$financial_holderArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
 export type profileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1378,6 +1708,9 @@ export type profileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   other_monthly_income?: boolean
   financial_literacy?: boolean
   risk_tolerance?: boolean
+  personalization_consent?: boolean
+  investment_horizon_months?: boolean
+  liquidity_reserve_target?: boolean
   goals?: boolean
   service_interests?: boolean
   monthly_essential_expenses?: boolean
@@ -1424,6 +1757,9 @@ export type profileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   other_monthly_income?: boolean
   financial_literacy?: boolean
   risk_tolerance?: boolean
+  personalization_consent?: boolean
+  investment_horizon_months?: boolean
+  liquidity_reserve_target?: boolean
   goals?: boolean
   service_interests?: boolean
   monthly_essential_expenses?: boolean
@@ -1470,6 +1806,9 @@ export type profileSelectScalar = {
   other_monthly_income?: boolean
   financial_literacy?: boolean
   risk_tolerance?: boolean
+  personalization_consent?: boolean
+  investment_horizon_months?: boolean
+  liquidity_reserve_target?: boolean
   goals?: boolean
   service_interests?: boolean
   monthly_essential_expenses?: boolean
@@ -1491,11 +1830,18 @@ export type profileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "date_of_birth" | "email" | "phone" | "customer_reference" | "marital_status" | "dependent_count" | "street" | "city" | "postal_code" | "country" | "housing_status" | "monthly_housing_cost" | "employment_status" | "occupation" | "employer" | "employment_start_date" | "currency" | "monthly_net_income" | "other_monthly_income" | "financial_literacy" | "risk_tolerance" | "goals" | "service_interests" | "monthly_essential_expenses" | "monthly_discretionary_expenses" | "monthly_savings_target" | "liquid_savings" | "investment_balance" | "pension_balance" | "real_estate_value" | "mortgage_balance" | "consumer_debt_balance" | "other_debt_balance" | "has_life_insurance" | "has_home_insurance" | "has_health_insurance" | "has_brokerage_account" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+export type profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "date_of_birth" | "email" | "phone" | "customer_reference" | "marital_status" | "dependent_count" | "street" | "city" | "postal_code" | "country" | "housing_status" | "monthly_housing_cost" | "employment_status" | "occupation" | "employer" | "employment_start_date" | "currency" | "monthly_net_income" | "other_monthly_income" | "financial_literacy" | "risk_tolerance" | "personalization_consent" | "investment_horizon_months" | "liquidity_reserve_target" | "goals" | "service_interests" | "monthly_essential_expenses" | "monthly_discretionary_expenses" | "monthly_savings_target" | "liquid_savings" | "investment_balance" | "pension_balance" | "real_estate_value" | "mortgage_balance" | "consumer_debt_balance" | "other_debt_balance" | "has_life_insurance" | "has_home_insurance" | "has_health_insurance" | "has_brokerage_account" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+export type profileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  financial_holder?: boolean | Prisma.profile$financial_holderArgs<ExtArgs>
+}
+export type profileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type profileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $profilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "profile"
-  objects: {}
+  objects: {
+    financial_holder: Prisma.$financial_holderPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     first_name: string
@@ -1521,6 +1867,9 @@ export type $profilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     other_monthly_income: runtime.Decimal | null
     financial_literacy: string | null
     risk_tolerance: string | null
+    personalization_consent: boolean | null
+    investment_horizon_months: number | null
+    liquidity_reserve_target: runtime.Decimal | null
     goals: string[]
     service_interests: string[]
     monthly_essential_expenses: runtime.Decimal | null
@@ -1934,6 +2283,7 @@ readonly fields: profileFieldRefs;
  */
 export interface Prisma__profileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  financial_holder<T extends Prisma.profile$financial_holderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.profile$financial_holderArgs<ExtArgs>>): Prisma.Prisma__financial_holderClient<runtime.Types.Result.GetResult<Prisma.$financial_holderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1987,6 +2337,9 @@ export interface profileFieldRefs {
   readonly other_monthly_income: Prisma.FieldRef<"profile", 'Decimal'>
   readonly financial_literacy: Prisma.FieldRef<"profile", 'String'>
   readonly risk_tolerance: Prisma.FieldRef<"profile", 'String'>
+  readonly personalization_consent: Prisma.FieldRef<"profile", 'Boolean'>
+  readonly investment_horizon_months: Prisma.FieldRef<"profile", 'Int'>
+  readonly liquidity_reserve_target: Prisma.FieldRef<"profile", 'Decimal'>
   readonly goals: Prisma.FieldRef<"profile", 'String[]'>
   readonly service_interests: Prisma.FieldRef<"profile", 'String[]'>
   readonly monthly_essential_expenses: Prisma.FieldRef<"profile", 'Decimal'>
@@ -2023,6 +2376,10 @@ export type profileFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
+  /**
    * Filter, which profile to fetch.
    */
   where: Prisma.profileWhereUniqueInput
@@ -2041,6 +2398,10 @@ export type profileFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
+  /**
    * Filter, which profile to fetch.
    */
   where: Prisma.profileWhereUniqueInput
@@ -2058,6 +2419,10 @@ export type profileFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the profile
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
   /**
    * Filter, which profile to fetch.
    */
@@ -2107,6 +2472,10 @@ export type profileFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
+  /**
    * Filter, which profile to fetch.
    */
   where?: Prisma.profileWhereInput
@@ -2154,6 +2523,10 @@ export type profileFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the profile
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
   /**
    * Filter, which profiles to fetch.
    */
@@ -2203,6 +2576,10 @@ export type profileCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
+  /**
    * The data needed to create a profile.
    */
   data: Prisma.XOR<Prisma.profileCreateInput, Prisma.profileUncheckedCreateInput>
@@ -2250,6 +2627,10 @@ export type profileUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the profile
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
   /**
    * The data needed to update a profile.
    */
@@ -2317,6 +2698,10 @@ export type profileUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
+  /**
    * The filter to search for the profile to update in case it exists.
    */
   where: Prisma.profileWhereUniqueInput
@@ -2343,6 +2728,10 @@ export type profileDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
+  /**
    * Filter which profile to delete.
    */
   where: Prisma.profileWhereUniqueInput
@@ -2363,6 +2752,25 @@ export type profileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * profile.financial_holder
+ */
+export type profile$financial_holderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the financial_holder
+   */
+  select?: Prisma.financial_holderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the financial_holder
+   */
+  omit?: Prisma.financial_holderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.financial_holderInclude<ExtArgs> | null
+  where?: Prisma.financial_holderWhereInput
+}
+
+/**
  * profile without action
  */
 export type profileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2374,4 +2782,8 @@ export type profileDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the profile
    */
   omit?: Prisma.profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.profileInclude<ExtArgs> | null
 }

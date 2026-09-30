@@ -95,6 +95,18 @@ export const ModelName = {
   mastra_workflow_snapshot: 'mastra_workflow_snapshot',
   mastra_workspace_versions: 'mastra_workspace_versions',
   mastra_workspaces: 'mastra_workspaces',
+  financial_holder: 'financial_holder',
+  account: 'account',
+  account_holder: 'account_holder',
+  loan: 'loan',
+  loan_borrower: 'loan_borrower',
+  credit_card: 'credit_card',
+  credit_card_holder: 'credit_card_holder',
+  investment: 'investment',
+  investment_holder: 'investment_holder',
+  insurance: 'insurance',
+  insurance_policyholder: 'insurance_policyholder',
+  insurance_insured_person: 'insurance_insured_person',
   party: 'party',
   subscription: 'subscription',
   expense: 'expense'
@@ -155,6 +167,9 @@ export const ProfileScalarFieldEnum = {
   other_monthly_income: 'other_monthly_income',
   financial_literacy: 'financial_literacy',
   risk_tolerance: 'risk_tolerance',
+  personalization_consent: 'personalization_consent',
+  investment_horizon_months: 'investment_horizon_months',
+  liquidity_reserve_target: 'liquidity_reserve_target',
   goals: 'goals',
   service_interests: 'service_interests',
   monthly_essential_expenses: 'monthly_essential_expenses',
@@ -1043,6 +1058,167 @@ export const Mastra_workspacesScalarFieldEnum = {
 export type Mastra_workspacesScalarFieldEnum = (typeof Mastra_workspacesScalarFieldEnum)[keyof typeof Mastra_workspacesScalarFieldEnum]
 
 
+export const Financial_holderScalarFieldEnum = {
+  id: 'id',
+  profile_id: 'profile_id',
+  display_name: 'display_name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Financial_holderScalarFieldEnum = (typeof Financial_holderScalarFieldEnum)[keyof typeof Financial_holderScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  iban: 'iban',
+  kind: 'kind',
+  purpose: 'purpose',
+  status: 'status',
+  currency: 'currency',
+  balance: 'balance',
+  balance_as_of: 'balance_as_of',
+  overdraft_limit: 'overdraft_limit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const Account_holderScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Account_holderScalarFieldEnum = (typeof Account_holderScalarFieldEnum)[keyof typeof Account_holderScalarFieldEnum]
+
+
+export const LoanScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  kind: 'kind',
+  currency: 'currency',
+  outstanding_balance: 'outstanding_balance',
+  repayment_amount: 'repayment_amount',
+  repayment_cadence: 'repayment_cadence',
+  remaining_term_months: 'remaining_term_months',
+  repayment_account_id: 'repayment_account_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
+
+
+export const Loan_borrowerScalarFieldEnum = {
+  id: 'id',
+  loan_id: 'loan_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Loan_borrowerScalarFieldEnum = (typeof Loan_borrowerScalarFieldEnum)[keyof typeof Loan_borrowerScalarFieldEnum]
+
+
+export const Credit_cardScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  currency: 'currency',
+  credit_limit: 'credit_limit',
+  used_credit: 'used_credit',
+  billing_account_id: 'billing_account_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Credit_cardScalarFieldEnum = (typeof Credit_cardScalarFieldEnum)[keyof typeof Credit_cardScalarFieldEnum]
+
+
+export const Credit_card_holderScalarFieldEnum = {
+  id: 'id',
+  credit_card_id: 'credit_card_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Credit_card_holderScalarFieldEnum = (typeof Credit_card_holderScalarFieldEnum)[keyof typeof Credit_card_holderScalarFieldEnum]
+
+
+export const InvestmentScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  kind: 'kind',
+  currency: 'currency',
+  current_value: 'current_value',
+  valuation_date: 'valuation_date',
+  contribution_amount: 'contribution_amount',
+  contribution_cadence: 'contribution_cadence',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InvestmentScalarFieldEnum = (typeof InvestmentScalarFieldEnum)[keyof typeof InvestmentScalarFieldEnum]
+
+
+export const Investment_holderScalarFieldEnum = {
+  id: 'id',
+  investment_id: 'investment_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Investment_holderScalarFieldEnum = (typeof Investment_holderScalarFieldEnum)[keyof typeof Investment_holderScalarFieldEnum]
+
+
+export const InsuranceScalarFieldEnum = {
+  id: 'id',
+  provider_name: 'provider_name',
+  product_name: 'product_name',
+  kind: 'kind',
+  is_employer_provided: 'is_employer_provided',
+  loan_id: 'loan_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InsuranceScalarFieldEnum = (typeof InsuranceScalarFieldEnum)[keyof typeof InsuranceScalarFieldEnum]
+
+
+export const Insurance_policyholderScalarFieldEnum = {
+  id: 'id',
+  insurance_id: 'insurance_id',
+  holder_id: 'holder_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Insurance_policyholderScalarFieldEnum = (typeof Insurance_policyholderScalarFieldEnum)[keyof typeof Insurance_policyholderScalarFieldEnum]
+
+
+export const Insurance_insured_personScalarFieldEnum = {
+  id: 'id',
+  insurance_id: 'insurance_id',
+  holder_id: 'holder_id',
+  coverage_percentage: 'coverage_percentage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Insurance_insured_personScalarFieldEnum = (typeof Insurance_insured_personScalarFieldEnum)[keyof typeof Insurance_insured_personScalarFieldEnum]
+
+
 export const PartyScalarFieldEnum = {
   id: 'id',
   kind: 'kind',
@@ -1092,10 +1268,13 @@ export const ExpenseScalarFieldEnum = {
   currency: 'currency',
   direction: 'direction',
   booking_date: 'booking_date',
+  transaction_date: 'transaction_date',
   value_date: 'value_date',
   transaction_timestamp: 'transaction_timestamp',
   type: 'type',
   status: 'status',
+  failure_reason: 'failure_reason',
+  purpose: 'purpose',
   description: 'description',
   structured_reference: 'structured_reference',
   mcc: 'mcc',
@@ -1107,7 +1286,9 @@ export const ExpenseScalarFieldEnum = {
   sub_category: 'sub_category',
   essentiality: 'essentiality',
   counterparty_id: 'counterparty_id',
+  counterparty_account_id: 'counterparty_account_id',
   subscription_id: 'subscription_id',
+  original_expense_id: 'original_expense_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

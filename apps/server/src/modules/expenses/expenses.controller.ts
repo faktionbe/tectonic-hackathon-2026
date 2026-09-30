@@ -10,7 +10,7 @@ import {
   SerializeOptions,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
-import { expenseSchema } from '@repo/contracts';
+import { expenseDetailSchema, expenseSchema } from '@repo/contracts';
 
 import { Auth } from '@/modules/auth/auth.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
@@ -46,8 +46,8 @@ export class ExpensesController {
   @Get(':id')
   @Auth()
   @ApiOperation({ operationId: 'getExpense', summary: 'Get an expense' })
-  @ApiOkResponse({ standardSchema: expenseSchema })
-  @SerializeOptions({ schema: expenseSchema })
+  @ApiOkResponse({ standardSchema: expenseDetailSchema })
+  @SerializeOptions({ schema: expenseDetailSchema })
   async findOne(@Param('id') id: string) {
     return this.expensesService.findOne(id);
   }

@@ -10,7 +10,7 @@ import {
   SerializeOptions,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
-import { subscriptionSchema } from '@repo/contracts';
+import { subscriptionDetailSchema, subscriptionSchema } from '@repo/contracts';
 
 import { Auth } from '@/modules/auth/auth.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
@@ -52,8 +52,8 @@ export class SubscriptionsController {
     operationId: 'getSubscription',
     summary: 'Get a subscription',
   })
-  @ApiOkResponse({ standardSchema: subscriptionSchema })
-  @SerializeOptions({ schema: subscriptionSchema })
+  @ApiOkResponse({ standardSchema: subscriptionDetailSchema })
+  @SerializeOptions({ schema: subscriptionDetailSchema })
   async findOne(@Param('id') id: string) {
     return this.subscriptionsService.findOne(id);
   }

@@ -260,6 +260,66 @@ export type mastra_workspace_versions = Prisma.mastra_workspace_versionsModel
  */
 export type mastra_workspaces = Prisma.mastra_workspacesModel
 /**
+ * Model financial_holder
+ * 
+ */
+export type financial_holder = Prisma.financial_holderModel
+/**
+ * Model account
+ * 
+ */
+export type account = Prisma.accountModel
+/**
+ * Model account_holder
+ * 
+ */
+export type account_holder = Prisma.account_holderModel
+/**
+ * Model loan
+ * 
+ */
+export type loan = Prisma.loanModel
+/**
+ * Model loan_borrower
+ * 
+ */
+export type loan_borrower = Prisma.loan_borrowerModel
+/**
+ * Model credit_card
+ * 
+ */
+export type credit_card = Prisma.credit_cardModel
+/**
+ * Model credit_card_holder
+ * 
+ */
+export type credit_card_holder = Prisma.credit_card_holderModel
+/**
+ * Model investment
+ * 
+ */
+export type investment = Prisma.investmentModel
+/**
+ * Model investment_holder
+ * 
+ */
+export type investment_holder = Prisma.investment_holderModel
+/**
+ * Model insurance
+ * 
+ */
+export type insurance = Prisma.insuranceModel
+/**
+ * Model insurance_policyholder
+ * 
+ */
+export type insurance_policyholder = Prisma.insurance_policyholderModel
+/**
+ * Model insurance_insured_person
+ * 
+ */
+export type insurance_insured_person = Prisma.insurance_insured_personModel
+/**
  * Model party
  * 
  */

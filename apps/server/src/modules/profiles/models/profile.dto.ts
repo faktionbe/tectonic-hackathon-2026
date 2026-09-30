@@ -1,6 +1,7 @@
 import {
   financialGoalSchema,
   type Profile,
+  profileListItemSchema,
   profileSchema,
   serviceInterestSchema,
 } from '@repo/contracts';
@@ -47,6 +48,7 @@ export const profileResponseSchema = profileSchema
     monthlyHousingCost: moneyFromDecimal,
     monthlyNetIncome: moneyFromDecimal,
     otherMonthlyIncome: moneyFromDecimal,
+    liquidityReserveTarget: moneyFromDecimal,
     monthlyEssentialExpenses: moneyFromDecimal,
     monthlyDiscretionaryExpenses: moneyFromDecimal,
     monthlySavingsTarget: moneyFromDecimal,
@@ -96,7 +98,7 @@ export const updateProfileSchema = profileWritableSchema
 export type UpdateProfileRequest = z.infer<typeof updateProfileSchema>;
 
 export const offsetPaginatedProfilesSchema = offsetPaginatedResultSchema(
-  profileResponseSchema
+  profileListItemSchema
 ).meta({ id: 'OffsetPaginatedProfiles' });
 
 export type OffsetPaginatedProfiles = z.infer<
@@ -129,6 +131,9 @@ const profileColumnByField = {
   otherMonthlyIncome: 'other_monthly_income',
   financialLiteracy: 'financial_literacy',
   riskTolerance: 'risk_tolerance',
+  personalizationConsent: 'personalization_consent',
+  investmentHorizonMonths: 'investment_horizon_months',
+  liquidityReserveTarget: 'liquidity_reserve_target',
   goals: 'goals',
   serviceInterests: 'service_interests',
   monthlyEssentialExpenses: 'monthly_essential_expenses',
