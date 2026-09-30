@@ -5,7 +5,7 @@ import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.uti
 
 export const createExpenseSchema = expenseSchema
   .omit({ id: true })
-  .meta({ id: 'CreateExpense' });
+  .meta({ id: 'CreateExpenseRequest' });
 
 export type CreateExpense = z.infer<typeof createExpenseSchema>;
 
@@ -14,7 +14,7 @@ export const updateExpenseSchema = createExpenseSchema
   .refine((value) => Object.keys(value).length > 0, {
     message: 'At least one field must be provided',
   })
-  .meta({ id: 'UpdateExpense' });
+  .meta({ id: 'UpdateExpenseRequest' });
 
 export type UpdateExpense = z.infer<typeof updateExpenseSchema>;
 

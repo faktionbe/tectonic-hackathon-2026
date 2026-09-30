@@ -714,10 +714,10 @@ export interface PartiesPage {
   totalPages: number;
 }
 
-export type CreatePartyKind =
-  (typeof CreatePartyKind)[keyof typeof CreatePartyKind];
+export type CreatePartyRequestKind =
+  (typeof CreatePartyRequestKind)[keyof typeof CreatePartyRequestKind];
 
-export const CreatePartyKind = {
+export const CreatePartyRequestKind = {
   MERCHANT: 'MERCHANT',
   PERSON: 'PERSON',
 } as const;
@@ -725,10 +725,10 @@ export const CreatePartyKind = {
 /**
  * Merchant's typical category (merchant only)
  */
-export type CreatePartyCategory =
-  (typeof CreatePartyCategory)[keyof typeof CreatePartyCategory];
+export type CreatePartyRequestCategory =
+  (typeof CreatePartyRequestCategory)[keyof typeof CreatePartyRequestCategory];
 
-export const CreatePartyCategory = {
+export const CreatePartyRequestCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -746,8 +746,8 @@ export const CreatePartyCategory = {
   OTHER: 'OTHER',
 } as const;
 
-export interface CreateParty {
-  kind: CreatePartyKind;
+export interface CreatePartyRequest {
+  kind: CreatePartyRequestKind;
   /** Legal/display name of the merchant or person */
   name: string;
   iban?: string;
@@ -757,7 +757,7 @@ export interface CreateParty {
    */
   countryCode?: string;
   /** Merchant's typical category (merchant only) */
-  category?: CreatePartyCategory;
+  category?: CreatePartyRequestCategory;
   /** Merchant only */
   logoUrl?: string;
   /** Merchant only */
@@ -766,10 +766,10 @@ export interface CreateParty {
   externalId?: string;
 }
 
-export type UpdatePartyKind =
-  (typeof UpdatePartyKind)[keyof typeof UpdatePartyKind];
+export type UpdatePartyRequestKind =
+  (typeof UpdatePartyRequestKind)[keyof typeof UpdatePartyRequestKind];
 
-export const UpdatePartyKind = {
+export const UpdatePartyRequestKind = {
   MERCHANT: 'MERCHANT',
   PERSON: 'PERSON',
 } as const;
@@ -777,10 +777,10 @@ export const UpdatePartyKind = {
 /**
  * Merchant's typical category (merchant only)
  */
-export type UpdatePartyCategory =
-  (typeof UpdatePartyCategory)[keyof typeof UpdatePartyCategory];
+export type UpdatePartyRequestCategory =
+  (typeof UpdatePartyRequestCategory)[keyof typeof UpdatePartyRequestCategory];
 
-export const UpdatePartyCategory = {
+export const UpdatePartyRequestCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -798,8 +798,8 @@ export const UpdatePartyCategory = {
   OTHER: 'OTHER',
 } as const;
 
-export interface UpdateParty {
-  kind?: UpdatePartyKind;
+export interface UpdatePartyRequest {
+  kind?: UpdatePartyRequestKind;
   /** Legal/display name of the merchant or person */
   name?: string;
   iban?: string;
@@ -809,7 +809,7 @@ export interface UpdateParty {
    */
   countryCode?: string;
   /** Merchant's typical category (merchant only) */
-  category?: UpdatePartyCategory;
+  category?: UpdatePartyRequestCategory;
   /** Merchant only */
   logoUrl?: string;
   /** Merchant only */
@@ -957,18 +957,18 @@ export interface ExpensesPage {
   totalPages: number;
 }
 
-export type CreateExpenseDirection =
-  (typeof CreateExpenseDirection)[keyof typeof CreateExpenseDirection];
+export type CreateExpenseRequestDirection =
+  (typeof CreateExpenseRequestDirection)[keyof typeof CreateExpenseRequestDirection];
 
-export const CreateExpenseDirection = {
+export const CreateExpenseRequestDirection = {
   DEBIT: 'DEBIT',
   CREDIT: 'CREDIT',
 } as const;
 
-export type CreateExpenseType =
-  (typeof CreateExpenseType)[keyof typeof CreateExpenseType];
+export type CreateExpenseRequestType =
+  (typeof CreateExpenseRequestType)[keyof typeof CreateExpenseRequestType];
 
-export const CreateExpenseType = {
+export const CreateExpenseRequestType = {
   CARD_PAYMENT: 'CARD_PAYMENT',
   CONTACTLESS: 'CONTACTLESS',
   SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
@@ -982,19 +982,19 @@ export const CreateExpenseType = {
   OTHER: 'OTHER',
 } as const;
 
-export type CreateExpenseStatus =
-  (typeof CreateExpenseStatus)[keyof typeof CreateExpenseStatus];
+export type CreateExpenseRequestStatus =
+  (typeof CreateExpenseRequestStatus)[keyof typeof CreateExpenseRequestStatus];
 
-export const CreateExpenseStatus = {
+export const CreateExpenseRequestStatus = {
   PENDING: 'PENDING',
   BOOKED: 'BOOKED',
   REVERSED: 'REVERSED',
 } as const;
 
-export type CreateExpenseChannel =
-  (typeof CreateExpenseChannel)[keyof typeof CreateExpenseChannel];
+export type CreateExpenseRequestChannel =
+  (typeof CreateExpenseRequestChannel)[keyof typeof CreateExpenseRequestChannel];
 
-export const CreateExpenseChannel = {
+export const CreateExpenseRequestChannel = {
   POS: 'POS',
   ATM: 'ATM',
   ECOMMERCE: 'ECOMMERCE',
@@ -1003,10 +1003,10 @@ export const CreateExpenseChannel = {
   RECURRING: 'RECURRING',
 } as const;
 
-export type CreateExpenseCategory =
-  (typeof CreateExpenseCategory)[keyof typeof CreateExpenseCategory];
+export type CreateExpenseRequestCategory =
+  (typeof CreateExpenseRequestCategory)[keyof typeof CreateExpenseRequestCategory];
 
-export const CreateExpenseCategory = {
+export const CreateExpenseRequestCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -1027,16 +1027,16 @@ export const CreateExpenseCategory = {
 /**
  * Essential vs discretionary; enables surplus detection
  */
-export type CreateExpenseEssentiality =
-  (typeof CreateExpenseEssentiality)[keyof typeof CreateExpenseEssentiality];
+export type CreateExpenseRequestEssentiality =
+  (typeof CreateExpenseRequestEssentiality)[keyof typeof CreateExpenseRequestEssentiality];
 
-export const CreateExpenseEssentiality = {
+export const CreateExpenseRequestEssentiality = {
   ESSENTIAL: 'ESSENTIAL',
   DISCRETIONARY: 'DISCRETIONARY',
   MIXED: 'MIXED',
 } as const;
 
-export interface CreateExpense {
+export interface CreateExpenseRequest {
   accountId: string;
   iban?: string;
   /**
@@ -1050,7 +1050,7 @@ export interface CreateExpense {
    * @maxLength 3
    */
   currency: string;
-  direction: CreateExpenseDirection;
+  direction: CreateExpenseRequestDirection;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
   bookingDate: string;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
@@ -1060,8 +1060,8 @@ export interface CreateExpense {
    * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
    */
   transactionTimestamp?: string;
-  type: CreateExpenseType;
-  status: CreateExpenseStatus;
+  type: CreateExpenseRequestType;
+  status: CreateExpenseRequestStatus;
   /** Unstructured remittance / statement text */
   description?: string;
   /** Belgian OGM/VCS structured reference +++...+++ */
@@ -1071,7 +1071,7 @@ export interface CreateExpense {
    * @pattern ^\d{4}$
    */
   mcc?: string;
-  channel?: CreateExpenseChannel;
+  channel?: CreateExpenseRequestChannel;
   balanceAfter?: number;
   city?: string;
   /**
@@ -1079,28 +1079,28 @@ export interface CreateExpense {
    * @maxLength 2
    */
   countryCode?: string;
-  category?: CreateExpenseCategory;
+  category?: CreateExpenseRequestCategory;
   subCategory?: string;
   /** Essential vs discretionary; enables surplus detection */
-  essentiality?: CreateExpenseEssentiality;
+  essentiality?: CreateExpenseRequestEssentiality;
   /** Party (merchant or person) on the other side of the line */
   counterpartyId?: string;
   /** Set when this line is a charge of a Subscription */
   subscriptionId?: string;
 }
 
-export type UpdateExpenseDirection =
-  (typeof UpdateExpenseDirection)[keyof typeof UpdateExpenseDirection];
+export type UpdateExpenseRequestDirection =
+  (typeof UpdateExpenseRequestDirection)[keyof typeof UpdateExpenseRequestDirection];
 
-export const UpdateExpenseDirection = {
+export const UpdateExpenseRequestDirection = {
   DEBIT: 'DEBIT',
   CREDIT: 'CREDIT',
 } as const;
 
-export type UpdateExpenseType =
-  (typeof UpdateExpenseType)[keyof typeof UpdateExpenseType];
+export type UpdateExpenseRequestType =
+  (typeof UpdateExpenseRequestType)[keyof typeof UpdateExpenseRequestType];
 
-export const UpdateExpenseType = {
+export const UpdateExpenseRequestType = {
   CARD_PAYMENT: 'CARD_PAYMENT',
   CONTACTLESS: 'CONTACTLESS',
   SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
@@ -1114,19 +1114,19 @@ export const UpdateExpenseType = {
   OTHER: 'OTHER',
 } as const;
 
-export type UpdateExpenseStatus =
-  (typeof UpdateExpenseStatus)[keyof typeof UpdateExpenseStatus];
+export type UpdateExpenseRequestStatus =
+  (typeof UpdateExpenseRequestStatus)[keyof typeof UpdateExpenseRequestStatus];
 
-export const UpdateExpenseStatus = {
+export const UpdateExpenseRequestStatus = {
   PENDING: 'PENDING',
   BOOKED: 'BOOKED',
   REVERSED: 'REVERSED',
 } as const;
 
-export type UpdateExpenseChannel =
-  (typeof UpdateExpenseChannel)[keyof typeof UpdateExpenseChannel];
+export type UpdateExpenseRequestChannel =
+  (typeof UpdateExpenseRequestChannel)[keyof typeof UpdateExpenseRequestChannel];
 
-export const UpdateExpenseChannel = {
+export const UpdateExpenseRequestChannel = {
   POS: 'POS',
   ATM: 'ATM',
   ECOMMERCE: 'ECOMMERCE',
@@ -1135,10 +1135,10 @@ export const UpdateExpenseChannel = {
   RECURRING: 'RECURRING',
 } as const;
 
-export type UpdateExpenseCategory =
-  (typeof UpdateExpenseCategory)[keyof typeof UpdateExpenseCategory];
+export type UpdateExpenseRequestCategory =
+  (typeof UpdateExpenseRequestCategory)[keyof typeof UpdateExpenseRequestCategory];
 
-export const UpdateExpenseCategory = {
+export const UpdateExpenseRequestCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -1159,16 +1159,16 @@ export const UpdateExpenseCategory = {
 /**
  * Essential vs discretionary; enables surplus detection
  */
-export type UpdateExpenseEssentiality =
-  (typeof UpdateExpenseEssentiality)[keyof typeof UpdateExpenseEssentiality];
+export type UpdateExpenseRequestEssentiality =
+  (typeof UpdateExpenseRequestEssentiality)[keyof typeof UpdateExpenseRequestEssentiality];
 
-export const UpdateExpenseEssentiality = {
+export const UpdateExpenseRequestEssentiality = {
   ESSENTIAL: 'ESSENTIAL',
   DISCRETIONARY: 'DISCRETIONARY',
   MIXED: 'MIXED',
 } as const;
 
-export interface UpdateExpense {
+export interface UpdateExpenseRequest {
   accountId?: string;
   iban?: string;
   /**
@@ -1182,7 +1182,7 @@ export interface UpdateExpense {
    * @maxLength 3
    */
   currency?: string;
-  direction?: UpdateExpenseDirection;
+  direction?: UpdateExpenseRequestDirection;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
   bookingDate?: string;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
@@ -1192,8 +1192,8 @@ export interface UpdateExpense {
    * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
    */
   transactionTimestamp?: string;
-  type?: UpdateExpenseType;
-  status?: UpdateExpenseStatus;
+  type?: UpdateExpenseRequestType;
+  status?: UpdateExpenseRequestStatus;
   /** Unstructured remittance / statement text */
   description?: string;
   /** Belgian OGM/VCS structured reference +++...+++ */
@@ -1203,7 +1203,7 @@ export interface UpdateExpense {
    * @pattern ^\d{4}$
    */
   mcc?: string;
-  channel?: UpdateExpenseChannel;
+  channel?: UpdateExpenseRequestChannel;
   balanceAfter?: number;
   city?: string;
   /**
@@ -1211,10 +1211,10 @@ export interface UpdateExpense {
    * @maxLength 2
    */
   countryCode?: string;
-  category?: UpdateExpenseCategory;
+  category?: UpdateExpenseRequestCategory;
   subCategory?: string;
   /** Essential vs discretionary; enables surplus detection */
-  essentiality?: UpdateExpenseEssentiality;
+  essentiality?: UpdateExpenseRequestEssentiality;
   /** Party (merchant or person) on the other side of the line */
   counterpartyId?: string;
   /** Set when this line is a charge of a Subscription */
@@ -1317,27 +1317,27 @@ export interface SubscriptionsPage {
   totalPages: number;
 }
 
-export type CreateSubscriptionKind =
-  (typeof CreateSubscriptionKind)[keyof typeof CreateSubscriptionKind];
+export type CreateSubscriptionRequestKind =
+  (typeof CreateSubscriptionRequestKind)[keyof typeof CreateSubscriptionRequestKind];
 
-export const CreateSubscriptionKind = {
+export const CreateSubscriptionRequestKind = {
   DIRECT_DEBIT: 'DIRECT_DEBIT',
   STANDING_ORDER: 'STANDING_ORDER',
 } as const;
 
-export type CreateSubscriptionStatus =
-  (typeof CreateSubscriptionStatus)[keyof typeof CreateSubscriptionStatus];
+export type CreateSubscriptionRequestStatus =
+  (typeof CreateSubscriptionRequestStatus)[keyof typeof CreateSubscriptionRequestStatus];
 
-export const CreateSubscriptionStatus = {
+export const CreateSubscriptionRequestStatus = {
   ACTIVE: 'ACTIVE',
   PAUSED: 'PAUSED',
   CANCELLED: 'CANCELLED',
 } as const;
 
-export type CreateSubscriptionCategory =
-  (typeof CreateSubscriptionCategory)[keyof typeof CreateSubscriptionCategory];
+export type CreateSubscriptionRequestCategory =
+  (typeof CreateSubscriptionRequestCategory)[keyof typeof CreateSubscriptionRequestCategory];
 
-export const CreateSubscriptionCategory = {
+export const CreateSubscriptionRequestCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -1355,10 +1355,10 @@ export const CreateSubscriptionCategory = {
   OTHER: 'OTHER',
 } as const;
 
-export type CreateSubscriptionCadence =
-  (typeof CreateSubscriptionCadence)[keyof typeof CreateSubscriptionCadence];
+export type CreateSubscriptionRequestCadence =
+  (typeof CreateSubscriptionRequestCadence)[keyof typeof CreateSubscriptionRequestCadence];
 
-export const CreateSubscriptionCadence = {
+export const CreateSubscriptionRequestCadence = {
   WEEKLY: 'WEEKLY',
   MONTHLY: 'MONTHLY',
   QUARTERLY: 'QUARTERLY',
@@ -1366,18 +1366,18 @@ export const CreateSubscriptionCadence = {
   IRREGULAR: 'IRREGULAR',
 } as const;
 
-export interface CreateSubscription {
+export interface CreateSubscriptionRequest {
   accountId: string;
   /** The payee Party (merchant/creditor being paid) */
   counterpartyId: string;
-  kind: CreateSubscriptionKind;
+  kind: CreateSubscriptionRequestKind;
   /** SEPA mandate reference */
   mandateId?: string;
   /** Stable SEPA creditor key */
   creditorId?: string;
-  status: CreateSubscriptionStatus;
-  category?: CreateSubscriptionCategory;
-  cadence: CreateSubscriptionCadence;
+  status: CreateSubscriptionRequestStatus;
+  category?: CreateSubscriptionRequestCategory;
+  cadence: CreateSubscriptionRequestCadence;
   /**
    * Expected/typical charge amount
    * @exclusiveMinimum 0
@@ -1404,27 +1404,27 @@ export interface CreateSubscription {
   cancellable?: boolean;
 }
 
-export type UpdateSubscriptionKind =
-  (typeof UpdateSubscriptionKind)[keyof typeof UpdateSubscriptionKind];
+export type UpdateSubscriptionRequestKind =
+  (typeof UpdateSubscriptionRequestKind)[keyof typeof UpdateSubscriptionRequestKind];
 
-export const UpdateSubscriptionKind = {
+export const UpdateSubscriptionRequestKind = {
   DIRECT_DEBIT: 'DIRECT_DEBIT',
   STANDING_ORDER: 'STANDING_ORDER',
 } as const;
 
-export type UpdateSubscriptionStatus =
-  (typeof UpdateSubscriptionStatus)[keyof typeof UpdateSubscriptionStatus];
+export type UpdateSubscriptionRequestStatus =
+  (typeof UpdateSubscriptionRequestStatus)[keyof typeof UpdateSubscriptionRequestStatus];
 
-export const UpdateSubscriptionStatus = {
+export const UpdateSubscriptionRequestStatus = {
   ACTIVE: 'ACTIVE',
   PAUSED: 'PAUSED',
   CANCELLED: 'CANCELLED',
 } as const;
 
-export type UpdateSubscriptionCategory =
-  (typeof UpdateSubscriptionCategory)[keyof typeof UpdateSubscriptionCategory];
+export type UpdateSubscriptionRequestCategory =
+  (typeof UpdateSubscriptionRequestCategory)[keyof typeof UpdateSubscriptionRequestCategory];
 
-export const UpdateSubscriptionCategory = {
+export const UpdateSubscriptionRequestCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -1442,10 +1442,10 @@ export const UpdateSubscriptionCategory = {
   OTHER: 'OTHER',
 } as const;
 
-export type UpdateSubscriptionCadence =
-  (typeof UpdateSubscriptionCadence)[keyof typeof UpdateSubscriptionCadence];
+export type UpdateSubscriptionRequestCadence =
+  (typeof UpdateSubscriptionRequestCadence)[keyof typeof UpdateSubscriptionRequestCadence];
 
-export const UpdateSubscriptionCadence = {
+export const UpdateSubscriptionRequestCadence = {
   WEEKLY: 'WEEKLY',
   MONTHLY: 'MONTHLY',
   QUARTERLY: 'QUARTERLY',
@@ -1453,18 +1453,18 @@ export const UpdateSubscriptionCadence = {
   IRREGULAR: 'IRREGULAR',
 } as const;
 
-export interface UpdateSubscription {
+export interface UpdateSubscriptionRequest {
   accountId?: string;
   /** The payee Party (merchant/creditor being paid) */
   counterpartyId?: string;
-  kind?: UpdateSubscriptionKind;
+  kind?: UpdateSubscriptionRequestKind;
   /** SEPA mandate reference */
   mandateId?: string;
   /** Stable SEPA creditor key */
   creditorId?: string;
-  status?: UpdateSubscriptionStatus;
-  category?: UpdateSubscriptionCategory;
-  cadence?: UpdateSubscriptionCadence;
+  status?: UpdateSubscriptionRequestStatus;
+  category?: UpdateSubscriptionRequestCategory;
+  cadence?: UpdateSubscriptionRequestCadence;
   /**
    * Expected/typical charge amount
    * @exclusiveMinimum 0
@@ -3035,12 +3035,15 @@ export const useCreatePartyHook = () => {
   const createParty = useCustomAxiosInstance<Party>();
 
   return useCallback(
-    (createParty: BodyType<CreateParty>, signal?: AbortSignal) => {
+    (
+      createPartyRequest: BodyType<CreatePartyRequest>,
+      signal?: AbortSignal
+    ) => {
       return createParty({
         url: `/api/parties`,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        data: createParty,
+        data: createPartyRequest,
         signal,
       });
     },
@@ -3055,13 +3058,13 @@ export const useCreatePartyMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
     TError,
-    { data: BodyType<CreateParty> },
+    { data: BodyType<CreatePartyRequest> },
     TContext
   >;
 }): UseMutationOptions<
   Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
   TError,
-  { data: BodyType<CreateParty> },
+  { data: BodyType<CreatePartyRequest> },
   TContext
 > => {
   const mutationKey = ['createParty'];
@@ -3077,7 +3080,7 @@ export const useCreatePartyMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
-    { data: BodyType<CreateParty> }
+    { data: BodyType<CreatePartyRequest> }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -3090,7 +3093,7 @@ export const useCreatePartyMutationOptions = <
 export type CreatePartyMutationResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>
 >;
-export type CreatePartyMutationBody = BodyType<CreateParty>;
+export type CreatePartyMutationBody = BodyType<CreatePartyRequest>;
 export type CreatePartyMutationError = ErrorType<void>;
 
 /**
@@ -3101,7 +3104,7 @@ export const useCreateParty = <TError = ErrorType<void>, TContext = unknown>(
     mutation?: UseMutationOptions<
       Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
       TError,
-      { data: BodyType<CreateParty> },
+      { data: BodyType<CreatePartyRequest> },
       TContext
     >;
   },
@@ -3109,7 +3112,7 @@ export const useCreateParty = <TError = ErrorType<void>, TContext = unknown>(
 ): UseMutationResult<
   Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
   TError,
-  { data: BodyType<CreateParty> },
+  { data: BodyType<CreatePartyRequest> },
   TContext
 > => {
   return useMutation(useCreatePartyMutationOptions(options), queryClient);
@@ -3284,12 +3287,16 @@ export const useUpdatePartyHook = () => {
   const updateParty = useCustomAxiosInstance<Party>();
 
   return useCallback(
-    (id: string, updateParty: BodyType<UpdateParty>, signal?: AbortSignal) => {
+    (
+      id: string,
+      updatePartyRequest: BodyType<UpdatePartyRequest>,
+      signal?: AbortSignal
+    ) => {
       return updateParty({
         url: `/api/parties/${id}`,
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        data: updateParty,
+        data: updatePartyRequest,
         signal,
       });
     },
@@ -3304,13 +3311,13 @@ export const useUpdatePartyMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
     TError,
-    { id: string; data: BodyType<UpdateParty> },
+    { id: string; data: BodyType<UpdatePartyRequest> },
     TContext
   >;
 }): UseMutationOptions<
   Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
   TError,
-  { id: string; data: BodyType<UpdateParty> },
+  { id: string; data: BodyType<UpdatePartyRequest> },
   TContext
 > => {
   const mutationKey = ['updateParty'];
@@ -3326,7 +3333,7 @@ export const useUpdatePartyMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
-    { id: string; data: BodyType<UpdateParty> }
+    { id: string; data: BodyType<UpdatePartyRequest> }
   > = (props) => {
     const { id, data } = props ?? {};
 
@@ -3339,7 +3346,7 @@ export const useUpdatePartyMutationOptions = <
 export type UpdatePartyMutationResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>
 >;
-export type UpdatePartyMutationBody = BodyType<UpdateParty>;
+export type UpdatePartyMutationBody = BodyType<UpdatePartyRequest>;
 export type UpdatePartyMutationError = ErrorType<void>;
 
 /**
@@ -3350,7 +3357,7 @@ export const useUpdateParty = <TError = ErrorType<void>, TContext = unknown>(
     mutation?: UseMutationOptions<
       Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
       TError,
-      { id: string; data: BodyType<UpdateParty> },
+      { id: string; data: BodyType<UpdatePartyRequest> },
       TContext
     >;
   },
@@ -3358,7 +3365,7 @@ export const useUpdateParty = <TError = ErrorType<void>, TContext = unknown>(
 ): UseMutationResult<
   Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
   TError,
-  { id: string; data: BodyType<UpdateParty> },
+  { id: string; data: BodyType<UpdatePartyRequest> },
   TContext
 > => {
   return useMutation(useUpdatePartyMutationOptions(options), queryClient);
@@ -3618,12 +3625,15 @@ export const useCreateExpenseHook = () => {
   const createExpense = useCustomAxiosInstance<Expense>();
 
   return useCallback(
-    (createExpense: BodyType<CreateExpense>, signal?: AbortSignal) => {
+    (
+      createExpenseRequest: BodyType<CreateExpenseRequest>,
+      signal?: AbortSignal
+    ) => {
       return createExpense({
         url: `/api/expenses`,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        data: createExpense,
+        data: createExpenseRequest,
         signal,
       });
     },
@@ -3638,13 +3648,13 @@ export const useCreateExpenseMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
     TError,
-    { data: BodyType<CreateExpense> },
+    { data: BodyType<CreateExpenseRequest> },
     TContext
   >;
 }): UseMutationOptions<
   Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
   TError,
-  { data: BodyType<CreateExpense> },
+  { data: BodyType<CreateExpenseRequest> },
   TContext
 > => {
   const mutationKey = ['createExpense'];
@@ -3660,7 +3670,7 @@ export const useCreateExpenseMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
-    { data: BodyType<CreateExpense> }
+    { data: BodyType<CreateExpenseRequest> }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -3673,7 +3683,7 @@ export const useCreateExpenseMutationOptions = <
 export type CreateExpenseMutationResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>
 >;
-export type CreateExpenseMutationBody = BodyType<CreateExpense>;
+export type CreateExpenseMutationBody = BodyType<CreateExpenseRequest>;
 export type CreateExpenseMutationError = ErrorType<void>;
 
 /**
@@ -3684,7 +3694,7 @@ export const useCreateExpense = <TError = ErrorType<void>, TContext = unknown>(
     mutation?: UseMutationOptions<
       Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
       TError,
-      { data: BodyType<CreateExpense> },
+      { data: BodyType<CreateExpenseRequest> },
       TContext
     >;
   },
@@ -3692,7 +3702,7 @@ export const useCreateExpense = <TError = ErrorType<void>, TContext = unknown>(
 ): UseMutationResult<
   Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
   TError,
-  { data: BodyType<CreateExpense> },
+  { data: BodyType<CreateExpenseRequest> },
   TContext
 > => {
   return useMutation(useCreateExpenseMutationOptions(options), queryClient);
@@ -3869,14 +3879,14 @@ export const useUpdateExpenseHook = () => {
   return useCallback(
     (
       id: string,
-      updateExpense: BodyType<UpdateExpense>,
+      updateExpenseRequest: BodyType<UpdateExpenseRequest>,
       signal?: AbortSignal
     ) => {
       return updateExpense({
         url: `/api/expenses/${id}`,
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        data: updateExpense,
+        data: updateExpenseRequest,
         signal,
       });
     },
@@ -3891,13 +3901,13 @@ export const useUpdateExpenseMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
     TError,
-    { id: string; data: BodyType<UpdateExpense> },
+    { id: string; data: BodyType<UpdateExpenseRequest> },
     TContext
   >;
 }): UseMutationOptions<
   Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
   TError,
-  { id: string; data: BodyType<UpdateExpense> },
+  { id: string; data: BodyType<UpdateExpenseRequest> },
   TContext
 > => {
   const mutationKey = ['updateExpense'];
@@ -3913,7 +3923,7 @@ export const useUpdateExpenseMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
-    { id: string; data: BodyType<UpdateExpense> }
+    { id: string; data: BodyType<UpdateExpenseRequest> }
   > = (props) => {
     const { id, data } = props ?? {};
 
@@ -3926,7 +3936,7 @@ export const useUpdateExpenseMutationOptions = <
 export type UpdateExpenseMutationResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>
 >;
-export type UpdateExpenseMutationBody = BodyType<UpdateExpense>;
+export type UpdateExpenseMutationBody = BodyType<UpdateExpenseRequest>;
 export type UpdateExpenseMutationError = ErrorType<void>;
 
 /**
@@ -3937,7 +3947,7 @@ export const useUpdateExpense = <TError = ErrorType<void>, TContext = unknown>(
     mutation?: UseMutationOptions<
       Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
       TError,
-      { id: string; data: BodyType<UpdateExpense> },
+      { id: string; data: BodyType<UpdateExpenseRequest> },
       TContext
     >;
   },
@@ -3945,7 +3955,7 @@ export const useUpdateExpense = <TError = ErrorType<void>, TContext = unknown>(
 ): UseMutationResult<
   Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
   TError,
-  { id: string; data: BodyType<UpdateExpense> },
+  { id: string; data: BodyType<UpdateExpenseRequest> },
   TContext
 > => {
   return useMutation(useUpdateExpenseMutationOptions(options), queryClient);
@@ -4209,14 +4219,14 @@ export const useCreateSubscriptionHook = () => {
 
   return useCallback(
     (
-      createSubscription: BodyType<CreateSubscription>,
+      createSubscriptionRequest: BodyType<CreateSubscriptionRequest>,
       signal?: AbortSignal
     ) => {
       return createSubscription({
         url: `/api/subscriptions`,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        data: createSubscription,
+        data: createSubscriptionRequest,
         signal,
       });
     },
@@ -4231,13 +4241,13 @@ export const useCreateSubscriptionMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
     TError,
-    { data: BodyType<CreateSubscription> },
+    { data: BodyType<CreateSubscriptionRequest> },
     TContext
   >;
 }): UseMutationOptions<
   Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
   TError,
-  { data: BodyType<CreateSubscription> },
+  { data: BodyType<CreateSubscriptionRequest> },
   TContext
 > => {
   const mutationKey = ['createSubscription'];
@@ -4253,7 +4263,7 @@ export const useCreateSubscriptionMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
-    { data: BodyType<CreateSubscription> }
+    { data: BodyType<CreateSubscriptionRequest> }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -4266,7 +4276,8 @@ export const useCreateSubscriptionMutationOptions = <
 export type CreateSubscriptionMutationResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>
 >;
-export type CreateSubscriptionMutationBody = BodyType<CreateSubscription>;
+export type CreateSubscriptionMutationBody =
+  BodyType<CreateSubscriptionRequest>;
 export type CreateSubscriptionMutationError = ErrorType<void>;
 
 /**
@@ -4280,7 +4291,7 @@ export const useCreateSubscription = <
     mutation?: UseMutationOptions<
       Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
       TError,
-      { data: BodyType<CreateSubscription> },
+      { data: BodyType<CreateSubscriptionRequest> },
       TContext
     >;
   },
@@ -4288,7 +4299,7 @@ export const useCreateSubscription = <
 ): UseMutationResult<
   Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
   TError,
-  { data: BodyType<CreateSubscription> },
+  { data: BodyType<CreateSubscriptionRequest> },
   TContext
 > => {
   return useMutation(
@@ -4472,14 +4483,14 @@ export const useUpdateSubscriptionHook = () => {
   return useCallback(
     (
       id: string,
-      updateSubscription: BodyType<UpdateSubscription>,
+      updateSubscriptionRequest: BodyType<UpdateSubscriptionRequest>,
       signal?: AbortSignal
     ) => {
       return updateSubscription({
         url: `/api/subscriptions/${id}`,
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        data: updateSubscription,
+        data: updateSubscriptionRequest,
         signal,
       });
     },
@@ -4494,13 +4505,13 @@ export const useUpdateSubscriptionMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
     TError,
-    { id: string; data: BodyType<UpdateSubscription> },
+    { id: string; data: BodyType<UpdateSubscriptionRequest> },
     TContext
   >;
 }): UseMutationOptions<
   Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
   TError,
-  { id: string; data: BodyType<UpdateSubscription> },
+  { id: string; data: BodyType<UpdateSubscriptionRequest> },
   TContext
 > => {
   const mutationKey = ['updateSubscription'];
@@ -4516,7 +4527,7 @@ export const useUpdateSubscriptionMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
-    { id: string; data: BodyType<UpdateSubscription> }
+    { id: string; data: BodyType<UpdateSubscriptionRequest> }
   > = (props) => {
     const { id, data } = props ?? {};
 
@@ -4529,7 +4540,8 @@ export const useUpdateSubscriptionMutationOptions = <
 export type UpdateSubscriptionMutationResult = NonNullable<
   Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>
 >;
-export type UpdateSubscriptionMutationBody = BodyType<UpdateSubscription>;
+export type UpdateSubscriptionMutationBody =
+  BodyType<UpdateSubscriptionRequest>;
 export type UpdateSubscriptionMutationError = ErrorType<void>;
 
 /**
@@ -4543,7 +4555,7 @@ export const useUpdateSubscription = <
     mutation?: UseMutationOptions<
       Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
       TError,
-      { id: string; data: BodyType<UpdateSubscription> },
+      { id: string; data: BodyType<UpdateSubscriptionRequest> },
       TContext
     >;
   },
@@ -4551,7 +4563,7 @@ export const useUpdateSubscription = <
 ): UseMutationResult<
   Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
   TError,
-  { id: string; data: BodyType<UpdateSubscription> },
+  { id: string; data: BodyType<UpdateSubscriptionRequest> },
   TContext
 > => {
   return useMutation(

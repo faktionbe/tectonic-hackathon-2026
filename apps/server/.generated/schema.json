@@ -620,7 +620,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateParty"
+                "$ref": "#/components/schemas/CreatePartyRequest"
               }
             }
           }
@@ -706,7 +706,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateParty"
+                "$ref": "#/components/schemas/UpdatePartyRequest"
               }
             }
           }
@@ -856,7 +856,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateExpense"
+                "$ref": "#/components/schemas/CreateExpenseRequest"
               }
             }
           }
@@ -942,7 +942,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateExpense"
+                "$ref": "#/components/schemas/UpdateExpenseRequest"
               }
             }
           }
@@ -1092,7 +1092,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSubscription"
+                "$ref": "#/components/schemas/CreateSubscriptionRequest"
               }
             }
           }
@@ -1178,7 +1178,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateSubscription"
+                "$ref": "#/components/schemas/UpdateSubscriptionRequest"
               }
             }
           }
@@ -2226,7 +2226,7 @@
         ],
         "additionalProperties": false
       },
-      "CreateParty": {
+      "CreatePartyRequest": {
         "type": "object",
         "properties": {
           "kind": {
@@ -2289,7 +2289,7 @@
           "name"
         ]
       },
-      "UpdateParty": {
+      "UpdatePartyRequest": {
         "type": "object",
         "properties": {
           "kind": {
@@ -2538,7 +2538,7 @@
         ],
         "additionalProperties": false
       },
-      "CreateExpense": {
+      "CreateExpenseRequest": {
         "type": "object",
         "properties": {
           "accountId": {
@@ -2692,7 +2692,7 @@
           "status"
         ]
       },
-      "UpdateExpense": {
+      "UpdateExpenseRequest": {
         "type": "object",
         "properties": {
           "accountId": {
@@ -2983,7 +2983,7 @@
         ],
         "additionalProperties": false
       },
-      "CreateSubscription": {
+      "CreateSubscriptionRequest": {
         "type": "object",
         "properties": {
           "accountId": {
@@ -3093,7 +3093,7 @@
           "currency"
         ]
       },
-      "UpdateSubscription": {
+      "UpdateSubscriptionRequest": {
         "type": "object",
         "properties": {
           "accountId": {

@@ -5,7 +5,7 @@ import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.uti
 
 export const createPartySchema = partySchema
   .omit({ id: true })
-  .meta({ id: 'CreateParty' });
+  .meta({ id: 'CreatePartyRequest' });
 
 export type CreateParty = z.infer<typeof createPartySchema>;
 
@@ -14,7 +14,7 @@ export const updatePartySchema = createPartySchema
   .refine((value) => Object.keys(value).length > 0, {
     message: 'At least one field must be provided',
   })
-  .meta({ id: 'UpdateParty' });
+  .meta({ id: 'UpdatePartyRequest' });
 
 export type UpdateParty = z.infer<typeof updatePartySchema>;
 
