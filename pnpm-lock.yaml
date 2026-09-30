@@ -415,6 +415,9 @@ importers:
       '@prisma/adapter-pg':
         specifier: ^7.7.0
         version: 7.7.0
+      '@repo/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -503,6 +506,8 @@ importers:
       typescript-eslint:
         specifier: ^8.20.0
         version: 8.35.1(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+
+  packages/contracts: {}
 
   packages/database:
     dependencies:
