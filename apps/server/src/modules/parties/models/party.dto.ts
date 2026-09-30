@@ -1,7 +1,11 @@
 import { partySchema } from '@repo/contracts';
 import { z } from 'zod';
 
-import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.utils';
+import {
+  csvToStringArray,
+  offsetPaginatedResultSchema,
+  offsetPaginationSchema,
+} from '@/modules/pagination/pagination.utils';
 
 export const createPartySchema = partySchema
   .omit({ id: true })
@@ -17,6 +21,14 @@ export const updatePartySchema = createPartySchema
   .meta({ id: 'UpdatePartyRequest' });
 
 export type UpdateParty = z.infer<typeof updatePartySchema>;
+
+export const listPartiesQuerySchema = offsetPaginationSchema
+  .extend({
+    ids: csvToStringArray,
+  })
+  .meta({ id: 'ListPartiesQuery' });
+
+export type ListPartiesQuery = z.infer<typeof listPartiesQuerySchema>;
 
 export const partiesPageSchema = offsetPaginatedResultSchema(partySchema).meta({
   id: 'PartiesPage',

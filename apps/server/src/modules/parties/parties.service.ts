@@ -4,9 +4,10 @@ import { Prisma } from '@repo/database';
 
 import { orUndefined } from '@/modules/common/utils/serialization';
 import { PaginationService } from '@/modules/pagination/pagination.service';
-import type { OffsetPagination } from '@/modules/pagination/pagination.utils';
+import type { OffsetPaginationResult } from '@/modules/pagination/pagination.utils';
 import {
   type CreateParty,
+  type ListPartiesQuery,
   type UpdateParty,
 } from '@/modules/parties/models/party.dto';
 import { PrismaService } from '@/modules/prisma/prisma.service';
@@ -27,6 +28,15 @@ function toPartyDto(row: PartyRow): Party {
   };
 }
 
+function buildPartyListWhere(
+  query: ListPartiesQuery
+): Prisma.partyWhereInput | undefined {
+  if (query.ids === undefined || query.ids.length === 0) {
+    return undefined;
+  }
+  return { id: { in: query.ids } };
+}
+
 @Injectable()
 export class PartiesService {
   constructor(
@@ -34,12 +44,15 @@ export class PartiesService {
     private readonly paginationService: PaginationService
   ) {}
 
-  async findAll(pagination: OffsetPagination) {
+  async findAll(
+    query: ListPartiesQuery
+  ): Promise<OffsetPaginationResult<Party>> {
     const page = await this.paginationService.offsetPaginate<PartyRow, 'party'>(
       {
         model: this.prisma.party,
-        pagination,
+        pagination: query,
         orderBy: 'createdAt',
+        where: buildPartyListWhere(query),
       }
     );
     return { ...page, data: (page.data as Array<PartyRow>).map(toPartyDto) };

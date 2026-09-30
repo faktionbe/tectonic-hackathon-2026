@@ -8,6 +8,7 @@ import { AuthResolver } from '@/modules/auth/auth.resolver';
 import { AuthService } from '@/modules/auth/auth.service';
 import { JwtStrategy } from '@/modules/auth/jwt.strategy';
 import { LocalStrategy } from '@/modules/auth/local.strategy';
+import { M2mStrategy } from '@/modules/auth/m2m.strategy';
 
 @Module({
   imports: [
@@ -17,6 +18,12 @@ import { LocalStrategy } from '@/modules/auth/local.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, AuthResolver],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    M2mStrategy,
+    AuthResolver,
+  ],
 })
 export class AuthModule {}

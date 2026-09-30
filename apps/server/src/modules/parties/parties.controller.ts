@@ -9,18 +9,16 @@ import {
   Query,
   SerializeOptions,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { partySchema } from '@repo/contracts';
 
-import { Auth } from '@/modules/auth/auth.decorator';
+import { M2M } from '@/modules/auth/m2m.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
-import {
-  type OffsetPagination,
-  offsetPaginationSchema,
-} from '@/modules/pagination/pagination.utils';
 import {
   type CreateParty,
   createPartySchema,
+  type ListPartiesQuery,
+  listPartiesQuerySchema,
   partiesPageSchema,
   type UpdateParty,
   updatePartySchema,
@@ -32,19 +30,25 @@ export class PartiesController {
   constructor(private readonly partiesService: PartiesService) {}
 
   @Get()
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'getParties', summary: 'List parties' })
   @ApiOffsetPagination()
+  @ApiQuery({
+    name: 'ids',
+    required: false,
+    type: String,
+    description: 'Comma-separated party ids to filter by',
+  })
   @ApiOkResponse({ standardSchema: partiesPageSchema })
   @SerializeOptions({ schema: partiesPageSchema })
   async findAll(
-    @Query({ schema: offsetPaginationSchema }) pagination: OffsetPagination
+    @Query({ schema: listPartiesQuerySchema }) query: ListPartiesQuery
   ) {
-    return this.partiesService.findAll(pagination);
+    return this.partiesService.findAll(query);
   }
 
   @Get(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'getParty', summary: 'Get a party' })
   @ApiOkResponse({ standardSchema: partySchema })
   @SerializeOptions({ schema: partySchema })
@@ -53,7 +57,7 @@ export class PartiesController {
   }
 
   @Post()
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'createParty', summary: 'Create a party' })
   @ApiOkResponse({ standardSchema: partySchema })
   @SerializeOptions({ schema: partySchema })
@@ -62,7 +66,7 @@ export class PartiesController {
   }
 
   @Patch(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'updateParty', summary: 'Update a party' })
   @ApiOkResponse({ standardSchema: partySchema })
   @SerializeOptions({ schema: partySchema })
@@ -74,7 +78,7 @@ export class PartiesController {
   }
 
   @Delete(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'deleteParty', summary: 'Delete a party' })
   @ApiOkResponse({ standardSchema: partySchema })
   @SerializeOptions({ schema: partySchema })

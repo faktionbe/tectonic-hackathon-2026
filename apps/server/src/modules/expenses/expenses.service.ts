@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import type { Expense, ExpenseDetail, ExpenseListItem } from '@repo/contracts';
+import type { Prisma } from '@repo/database';
 
 import {
   expenseDetailInclude,
@@ -11,17 +12,41 @@ import {
 } from '@/modules/common/mappers/financial-records';
 import {
   type CreateExpense,
+  type ListExpensesQuery,
   type UpdateExpense,
 } from '@/modules/expenses/models/expense.dto';
 import { PaginationService } from '@/modules/pagination/pagination.service';
-import type {
-  OffsetPagination,
-  OffsetPaginationResult,
-} from '@/modules/pagination/pagination.utils';
+import type { OffsetPaginationResult } from '@/modules/pagination/pagination.utils';
 import { PrismaService } from '@/modules/prisma/prisma.service';
 
 const toExpenseDate = (value: string | undefined): Date | undefined =>
   value === undefined ? undefined : new Date(value);
+
+function buildExpenseListWhere(
+  query: ListExpensesQuery
+): Prisma.expenseWhereInput | undefined {
+  const where: Prisma.expenseWhereInput = {};
+
+  if (query.accountIds !== undefined && query.accountIds.length > 0) {
+    where.account_id = { in: query.accountIds };
+  }
+
+  if (
+    query.bookingDateFrom !== undefined ||
+    query.bookingDateTo !== undefined
+  ) {
+    where.booking_date = {
+      ...(query.bookingDateFrom !== undefined
+        ? { gte: new Date(query.bookingDateFrom) }
+        : {}),
+      ...(query.bookingDateTo !== undefined
+        ? { lte: new Date(query.bookingDateTo) }
+        : {}),
+    };
+  }
+
+  return Object.keys(where).length > 0 ? where : undefined;
+}
 
 @Injectable()
 export class ExpensesService {
@@ -31,16 +56,17 @@ export class ExpensesService {
   ) {}
 
   async findAll(
-    pagination: OffsetPagination
+    query: ListExpensesQuery
   ): Promise<OffsetPaginationResult<ExpenseListItem>> {
     const page = await this.paginationService.offsetPaginate<
       ExpenseListRow,
       'expense'
     >({
       model: this.prisma.expense as never,
-      pagination,
+      pagination: query,
       orderBy: 'createdAt',
       include: expenseListInclude,
+      where: buildExpenseListWhere(query),
     });
     return {
       ...page,

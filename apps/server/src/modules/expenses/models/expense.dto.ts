@@ -1,7 +1,11 @@
 import { expenseListItemSchema, expenseSchema } from '@repo/contracts';
 import { z } from 'zod';
 
-import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.utils';
+import {
+  csvToStringArray,
+  offsetPaginatedResultSchema,
+  offsetPaginationSchema,
+} from '@/modules/pagination/pagination.utils';
 
 export const createExpenseSchema = expenseSchema
   .omit({ id: true })
@@ -17,6 +21,16 @@ export const updateExpenseSchema = createExpenseSchema
   .meta({ id: 'UpdateExpenseRequest' });
 
 export type UpdateExpense = z.infer<typeof updateExpenseSchema>;
+
+export const listExpensesQuerySchema = offsetPaginationSchema
+  .extend({
+    accountIds: csvToStringArray,
+    bookingDateFrom: z.iso.date().optional(),
+    bookingDateTo: z.iso.date().optional(),
+  })
+  .meta({ id: 'ListExpensesQuery' });
+
+export type ListExpensesQuery = z.infer<typeof listExpensesQuerySchema>;
 
 export const expensesPageSchema = offsetPaginatedResultSchema(
   expenseListItemSchema

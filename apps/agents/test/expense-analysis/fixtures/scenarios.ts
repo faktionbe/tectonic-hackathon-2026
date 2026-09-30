@@ -8,4 +8,4 @@ export {
   spendingAnomalyFixture,
   travelFixture,
   unhealthyLifestyleFixture,
-} from '../../../src/mastra/expense-analysis/transaction-fixtures';
+} from '../../fixtures/transaction-fixtures';

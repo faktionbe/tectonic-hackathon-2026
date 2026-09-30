@@ -2,6 +2,26 @@ import { z } from 'zod';
 
 const orderLiteral = z.enum(['asc', 'desc']);
 
+/** Comma-separated query string → non-empty string array. */
+export const csvToStringArray = z.preprocess(
+  (val) => {
+    if (val === undefined || val === null || val === '') {
+      return undefined;
+    }
+    if (Array.isArray(val)) {
+      return val.map(String).filter((item) => item.length > 0);
+    }
+    if (typeof val === 'string') {
+      return val
+        .split(',')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0);
+    }
+    return undefined;
+  },
+  z.array(z.string().min(1)).optional()
+);
+
 export const cursorPaginationSchema = z.object({
   cursor: z.string().optional(),
   take: z.preprocess((val) => {

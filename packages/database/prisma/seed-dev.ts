@@ -24,6 +24,37 @@ async function main() {
 
   const account_id = 'acc_demo_001';
 
+  const profile = await prisma.profile.create({
+    data: {
+      first_name: 'Ada',
+      last_name: 'Lovelace',
+      date_of_birth: new Date('1990-06-15'),
+      email: 'ada@example.com',
+      country: 'BE',
+      currency: 'EUR',
+      employment_status: 'EMPLOYED',
+      monthly_net_income: 2800,
+      other_monthly_income: 0,
+      financial_literacy: 'DEVELOPING',
+      risk_tolerance: 'CONSERVATIVE',
+      personalization_consent: true,
+      investment_horizon_months: 24,
+      liquidity_reserve_target: 15_000,
+      goals: ['EMERGENCY_FUND'],
+      service_interests: ['SAVINGS'],
+      monthly_essential_expenses: 2000,
+      monthly_discretionary_expenses: 600,
+      liquid_savings: 1500,
+    },
+  });
+
+  const holder = await prisma.financial_holder.create({
+    data: {
+      profile_id: profile.id,
+      display_name: `${profile.first_name} ${profile.last_name}`,
+    },
+  });
+
   await prisma.account.create({
     data: {
       id: account_id,
@@ -31,6 +62,13 @@ async function main() {
       purpose: 'PERSONAL',
       status: 'ACTIVE',
       currency: 'EUR',
+      balance: 2450,
+      balance_as_of: new Date('2026-09-28T12:00:00Z'),
+      holders: {
+        create: {
+          holder_id: holder.id,
+        },
+      },
     },
   });
 
@@ -110,6 +148,8 @@ async function main() {
       },
     ],
   });
+
+  console.log(`Seeded profile id: ${profile.id}`);
 }
 main().catch((error) => {
   console.error(error);
