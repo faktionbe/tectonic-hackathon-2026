@@ -14,7 +14,7 @@ export function buildExpenseAnalysisPrompt(
     '',
     'Use only the tool results as facts. Trust compute_expense_metrics numbers.',
     'Do not invent expenses, merchants, amounts, dates, or countries.',
-    'Then return structured use-case classifications.',
+    'Then return useCases as an object keyed by every label, not as an array.',
   ];
 
   if (input.period) {

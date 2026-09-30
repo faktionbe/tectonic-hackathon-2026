@@ -11,6 +11,7 @@ import type {
   UseCaseResult,
 } from '../../src/mastra/schemas/expense-analysis';
 import { USE_CASE_LABELS } from '../../src/mastra/schemas/expense-analysis';
+import type { LabelFacts } from '../../src/mastra/schemas/financial-insight';
 
 function detectedUseCase(
   overrides: Partial<UseCaseResult> & Pick<UseCaseResult, 'label'>
@@ -103,7 +104,16 @@ describe('generateInsights', () => {
       title: 'Your restaurant spending is up',
       message:
         "You've spent €187 per month on restaurants recently, compared with €126 before.",
-      action: { label: 'Set a budget', type: 'SET_BUDGET' },
+      detail: {
+        label: 'See what changed',
+        transactionIds: ['tx_1', 'tx_2'],
+      },
+      prompt: 'What would you like to do?',
+      actions: [
+        { label: 'Set a budget', type: 'SET_BUDGET' },
+        { label: 'See spending', type: 'SEE_SPENDING' },
+      ],
+      dismiss: { label: 'Dismiss', type: 'DISMISS' },
     });
     expect(agent.generate).toHaveBeenCalledTimes(1);
   });
@@ -160,7 +170,11 @@ describe('generateInsights', () => {
     const result = await generateInsights(analysis, agent);
 
     expect(result.insights).toHaveLength(1);
-    expect(result.insights[0]?.action.type).toBe('REVIEW_FINANCES');
+    expect(result.insights[0]?.actions[0]?.type).toBe('REVIEW_FINANCES');
+    expect(result.insights[0]?.dismiss).toEqual({
+      label: 'Dismiss',
+      type: 'DISMISS',
+    });
     expect(result.insights[0]?.message.length).toBeGreaterThan(0);
   });
 
@@ -181,9 +195,85 @@ describe('generateInsights', () => {
     expect(result.insights[0]).toEqual(
       buildFallbackInsight(detectedUseCase({ label: 'large_lifestyle_change' }))
     );
+    expect(result.insights[0]?.title).not.toMatch(/large lifestyle change/iu);
+    expect(result.insights[0]?.title).not.toMatch(/unhealthy lifestyle/iu);
     expect(result.insights[0]?.message).toContain('€187');
     expect(result.insights[0]?.message).toContain('€126');
     expect(result.insights[0]?.message).not.toContain('€9999');
+  });
+
+  it('builds a restaurant comparison from lifestyle facts when copy is rejected', async () => {
+    const facts: LabelFacts = {
+      examples: [],
+      lines: [
+        'restaurant spending averaged €125 per month earlier and €180 later.',
+      ],
+      lifestyle: {
+        category: 'DINING',
+        earlierMonthlyAverage: 125,
+        laterMonthlyAverage: 180,
+        percentChange: 44,
+      },
+    };
+    const analysis = {
+      ...analysisWithDetected([
+        detectedUseCase({ label: 'large_lifestyle_change' }),
+      ]),
+      factsByLabel: { large_lifestyle_change: facts },
+    };
+
+    const agent = mockAgent(async () => ({
+      object: {
+        title: 'Large lifestyle change',
+        message: 'You suddenly spent €9999 on restaurants.',
+      },
+    }));
+
+    const result = await generateInsights(analysis, agent);
+
+    expect(result.insights[0]?.title).toBe('Your restaurant spending is up');
+    expect(result.insights[0]?.message).toContain('€180');
+    expect(result.insights[0]?.message).toContain('€125');
+    expect(result.insights[0]?.title).not.toMatch(/large lifestyle change/iu);
+    expect(result.insights[0]?.message).not.toMatch(/unhealthy lifestyle/iu);
+    expect(result.insights[0]?.detail.transactionIds).toEqual(['tx_1', 'tx_2']);
+  });
+
+  it('keeps sensitive spending copy vague', async () => {
+    const analysis = analysisWithDetected([
+      detectedUseCase({
+        label: 'unhealthy_lifestyle',
+        summary: 'More spending in one category.',
+        evidence: [
+          {
+            transactionIds: ['tx_1'],
+            explanation: 'Activity in one category increased.',
+          },
+        ],
+      }),
+    ]);
+
+    const agent = mockAgent(async () => ({
+      object: {
+        title: 'Gambling is up',
+        message: 'You spent more at a casino.',
+      },
+    }));
+
+    const result = await generateInsights(analysis, agent);
+    const insight = result.insights[0];
+
+    expect(insight?.title).toBe('Spending in this category has changed');
+    expect(insight?.message).toBe(
+      "You've had more spending in this category recently."
+    );
+    expect(`${insight?.title} ${insight?.message}`).not.toMatch(
+      /casino|gambling|unhealthy lifestyle/iu
+    );
+    expect(insight?.actions).toEqual([
+      { label: 'Spending controls', type: 'SPENDING_CONTROLS' },
+      { label: 'Support', type: 'SUPPORT' },
+    ]);
   });
 
   it('only creates insights for detected use cases', async () => {

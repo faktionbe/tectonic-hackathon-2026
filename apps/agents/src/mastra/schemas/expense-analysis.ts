@@ -39,9 +39,15 @@ export const evidenceSchema = z.object({
 
 export type Evidence = z.infer<typeof evidenceSchema>;
 
-/** Schema sent to the model (JSON-schema friendly, no refinements). */
 export const useCaseResultBaseSchema = z.object({
   label: useCaseLabelSchema,
+  status: useCaseStatusSchema,
+  confidence: z.number().min(0).max(1),
+  summary: z.string().min(1),
+  evidence: z.array(evidenceSchema),
+});
+
+export const useCaseAssessmentSchema = z.object({
   status: useCaseStatusSchema,
   confidence: z.number().min(0).max(1),
   summary: z.string().min(1),
@@ -69,7 +75,28 @@ export const analysisPeriodSchema = z.object({
 
 export type AnalysisPeriod = z.infer<typeof analysisPeriodSchema>;
 
-/** Schema sent to the model for structured output. */
+export const expenseAnalysisModelOutputSchema = z.object({
+  period: analysisPeriodSchema,
+  useCases: z
+    .object({
+      costs_could_be_optimized: useCaseAssessmentSchema,
+      spending_anomaly: useCaseAssessmentSchema,
+      travel_detected: useCaseAssessmentSchema,
+      large_lifestyle_change: useCaseAssessmentSchema,
+      financial_stress_signals: useCaseAssessmentSchema,
+      life_event_marriage: useCaseAssessmentSchema,
+      life_event_child: useCaseAssessmentSchema,
+      life_event_job_change: useCaseAssessmentSchema,
+      life_event_buying_car: useCaseAssessmentSchema,
+      life_event_buying_home: useCaseAssessmentSchema,
+      life_event_retirement: useCaseAssessmentSchema,
+      unhealthy_lifestyle: useCaseAssessmentSchema,
+    } satisfies Record<UseCaseLabel, typeof useCaseAssessmentSchema>)
+    .describe(
+      'Every use-case label exactly once, as an object key rather than an array item.'
+    ),
+});
+
 export const expenseAnalysisResultBaseSchema = z.object({
   period: analysisPeriodSchema,
   useCases: z.array(useCaseResultBaseSchema),

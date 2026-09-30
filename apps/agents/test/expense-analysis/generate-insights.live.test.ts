@@ -56,9 +56,27 @@ describe.skipIf(!hasOpenRouterKey)('generateInsights live LLM', () => {
     expect(insight).toBeDefined();
     expect(insight?.title.length).toBeGreaterThan(0);
     expect(insight?.message.length).toBeGreaterThan(0);
-    expect(insight?.action).toEqual({
-      label: 'Set a budget',
-      type: 'SET_BUDGET',
+    expect(insight?.title).toMatch(/restaurant|dining|spending/iu);
+    expect(insight?.title).not.toMatch(/large lifestyle change/iu);
+    expect(insight?.message).not.toMatch(/large lifestyle change/iu);
+    expect(`${insight?.title} ${insight?.message}`).not.toMatch(/€999/u);
+
+    const amounts = [
+      ...(insight?.title.match(/€\s?\d[\d.,]*/gu) ?? []),
+      ...(insight?.message.match(/€\s?\d[\d.,]*/gu) ?? []),
+    ].map((token) => Number(token.replace(/[^\d.]/gu, '')));
+    for (const amount of amounts) {
+      expect([126, 187]).toContain(amount);
+    }
+
+    expect(insight?.actions).toEqual([
+      { label: 'Set a budget', type: 'SET_BUDGET' },
+      { label: 'See spending', type: 'SEE_SPENDING' },
+    ]);
+    expect(insight?.detail).toEqual({
+      label: 'See what changed',
+      transactionIds: ['tx_ls_1', 'tx_ls_2'],
     });
+    expect(insight?.dismiss).toEqual({ label: 'Dismiss', type: 'DISMISS' });
   });
 });

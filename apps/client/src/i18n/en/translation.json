@@ -24,10 +24,10 @@
     }
   },
   "chat": {
-    "empty": "No messages yet. Send one to get started.",
+    "empty": "Ask Kate about accounts, cards, or savings.",
     "author": {
       "user": "Lotte Vermeulen",
-      "assistant": "KBC"
+      "assistant": "Kate"
     },
     "error": "Something went wrong sending your message. Try again.",
     "scrollToEnd": "Scroll to latest messages",

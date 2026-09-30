@@ -48,6 +48,6 @@ Field naming follows the Expense contract: bookingDate, direction (DEBIT/CREDIT)
 Use cases to classify:
 ${formatUseCaseGuidance()}
 
-Return only the required structured output with all use-case labels present exactly once.
+Return useCases as an object keyed by every label exactly once, not as an array. Each value has status, confidence, summary, and evidence.
 Confidence must be between 0 and 1 and reflect how strongly the transaction pattern supports the classification, not a probability that a life event literally happened.`,
 });

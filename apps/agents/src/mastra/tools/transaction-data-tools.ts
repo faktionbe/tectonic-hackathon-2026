@@ -12,6 +12,7 @@ import { z } from 'zod';
 
 import { computeExpenseMetrics } from '../expense-analysis/metrics';
 import { analysisPeriodSchema } from '../schemas/expense-analysis';
+import { expenseMetricsSchema } from '../schemas/expense-metrics';
 import {
   type AnalysisPeriod,
   listExpenses,
@@ -154,7 +155,7 @@ export const computeExpenseMetricsTool = createTool({
   }),
   outputSchema: z.object({
     period: analysisPeriodSchema,
-    metrics: z.unknown(),
+    metrics: expenseMetricsSchema,
   }),
   execute: async ({ customerId, period, homeCountryCode }) => {
     const dataset = await loadTransactionDataset(customerId, period);
