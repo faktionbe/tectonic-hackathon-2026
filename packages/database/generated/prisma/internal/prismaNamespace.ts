@@ -427,7 +427,10 @@ export const ModelName = {
   mastra_workflow_definitions: 'mastra_workflow_definitions',
   mastra_workflow_snapshot: 'mastra_workflow_snapshot',
   mastra_workspace_versions: 'mastra_workspace_versions',
-  mastra_workspaces: 'mastra_workspaces'
+  mastra_workspaces: 'mastra_workspaces',
+  party: 'party',
+  subscription: 'subscription',
+  expense: 'expense'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -443,7 +446,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "profile" | "mastra_agent_versions" | "mastra_agents" | "mastra_ai_spans" | "mastra_background_tasks" | "mastra_channel_config" | "mastra_channel_installations" | "mastra_dataset_items" | "mastra_dataset_versions" | "mastra_datasets" | "mastra_experiment_results" | "mastra_experiments" | "mastra_favorites" | "mastra_knowledge_activity" | "mastra_knowledge_cursors" | "mastra_knowledge_mentions" | "mastra_knowledge_nodes" | "mastra_knowledge_records" | "mastra_knowledge_semantic_outbox" | "mastra_mcp_client_versions" | "mastra_mcp_clients" | "mastra_mcp_server_versions" | "mastra_mcp_servers" | "mastra_messages" | "mastra_observational_memory" | "mastra_prompt_block_versions" | "mastra_prompt_blocks" | "mastra_resources" | "mastra_schedule_triggers" | "mastra_schedules" | "mastra_scorer_definition_versions" | "mastra_scorer_definitions" | "mastra_scorers" | "mastra_skill_blobs" | "mastra_skill_versions" | "mastra_skills" | "mastra_thread_state" | "mastra_threads" | "mastra_tool_provider_connections" | "mastra_workflow_definitions" | "mastra_workflow_snapshot" | "mastra_workspace_versions" | "mastra_workspaces"
+    modelProps: "user" | "profile" | "mastra_agent_versions" | "mastra_agents" | "mastra_ai_spans" | "mastra_background_tasks" | "mastra_channel_config" | "mastra_channel_installations" | "mastra_dataset_items" | "mastra_dataset_versions" | "mastra_datasets" | "mastra_experiment_results" | "mastra_experiments" | "mastra_favorites" | "mastra_knowledge_activity" | "mastra_knowledge_cursors" | "mastra_knowledge_mentions" | "mastra_knowledge_nodes" | "mastra_knowledge_records" | "mastra_knowledge_semantic_outbox" | "mastra_mcp_client_versions" | "mastra_mcp_clients" | "mastra_mcp_server_versions" | "mastra_mcp_servers" | "mastra_messages" | "mastra_observational_memory" | "mastra_prompt_block_versions" | "mastra_prompt_blocks" | "mastra_resources" | "mastra_schedule_triggers" | "mastra_schedules" | "mastra_scorer_definition_versions" | "mastra_scorer_definitions" | "mastra_scorers" | "mastra_skill_blobs" | "mastra_skill_versions" | "mastra_skills" | "mastra_thread_state" | "mastra_threads" | "mastra_tool_provider_connections" | "mastra_workflow_definitions" | "mastra_workflow_snapshot" | "mastra_workspace_versions" | "mastra_workspaces" | "party" | "subscription" | "expense"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3703,6 +3706,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    party: {
+      payload: Prisma.$partyPayload<ExtArgs>
+      fields: Prisma.partyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.partyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.partyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>
+        }
+        findFirst: {
+          args: Prisma.partyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.partyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>
+        }
+        findMany: {
+          args: Prisma.partyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>[]
+        }
+        create: {
+          args: Prisma.partyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>
+        }
+        createMany: {
+          args: Prisma.partyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.partyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>[]
+        }
+        delete: {
+          args: Prisma.partyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>
+        }
+        update: {
+          args: Prisma.partyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>
+        }
+        deleteMany: {
+          args: Prisma.partyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.partyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.partyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>[]
+        }
+        upsert: {
+          args: Prisma.partyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$partyPayload>
+        }
+        aggregate: {
+          args: Prisma.PartyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateParty>
+        }
+        groupBy: {
+          args: Prisma.partyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PartyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.partyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PartyCountAggregateOutputType> | number
+        }
+      }
+    }
+    subscription: {
+      payload: Prisma.$subscriptionPayload<ExtArgs>
+      fields: Prisma.subscriptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.subscriptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.subscriptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>
+        }
+        findFirst: {
+          args: Prisma.subscriptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.subscriptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>
+        }
+        findMany: {
+          args: Prisma.subscriptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>[]
+        }
+        create: {
+          args: Prisma.subscriptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>
+        }
+        createMany: {
+          args: Prisma.subscriptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.subscriptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>[]
+        }
+        delete: {
+          args: Prisma.subscriptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>
+        }
+        update: {
+          args: Prisma.subscriptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.subscriptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.subscriptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.subscriptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.subscriptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$subscriptionPayload>
+        }
+        aggregate: {
+          args: Prisma.SubscriptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubscription>
+        }
+        groupBy: {
+          args: Prisma.subscriptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubscriptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.subscriptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubscriptionCountAggregateOutputType> | number
+        }
+      }
+    }
+    expense: {
+      payload: Prisma.$expensePayload<ExtArgs>
+      fields: Prisma.expenseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.expenseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.expenseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>
+        }
+        findFirst: {
+          args: Prisma.expenseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.expenseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>
+        }
+        findMany: {
+          args: Prisma.expenseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>[]
+        }
+        create: {
+          args: Prisma.expenseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>
+        }
+        createMany: {
+          args: Prisma.expenseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.expenseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>[]
+        }
+        delete: {
+          args: Prisma.expenseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>
+        }
+        update: {
+          args: Prisma.expenseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>
+        }
+        deleteMany: {
+          args: Prisma.expenseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.expenseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.expenseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>[]
+        }
+        upsert: {
+          args: Prisma.expenseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$expensePayload>
+        }
+        aggregate: {
+          args: Prisma.ExpenseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExpense>
+        }
+        groupBy: {
+          args: Prisma.expenseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExpenseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.expenseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExpenseCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -4669,6 +4894,78 @@ export const Mastra_workspacesScalarFieldEnum = {
 export type Mastra_workspacesScalarFieldEnum = (typeof Mastra_workspacesScalarFieldEnum)[keyof typeof Mastra_workspacesScalarFieldEnum]
 
 
+export const PartyScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  name: 'name',
+  iban: 'iban',
+  country_code: 'country_code',
+  category: 'category',
+  logo_url: 'logo_url',
+  website: 'website',
+  external_id: 'external_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PartyScalarFieldEnum = (typeof PartyScalarFieldEnum)[keyof typeof PartyScalarFieldEnum]
+
+
+export const SubscriptionScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  counterparty_id: 'counterparty_id',
+  kind: 'kind',
+  mandate_id: 'mandate_id',
+  creditor_id: 'creditor_id',
+  status: 'status',
+  category: 'category',
+  cadence: 'cadence',
+  amount: 'amount',
+  currency: 'currency',
+  next_payment_date: 'next_payment_date',
+  first_charged_at: 'first_charged_at',
+  last_charged_at: 'last_charged_at',
+  occurrence_count: 'occurrence_count',
+  cancellable: 'cancellable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+export const ExpenseScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  iban: 'iban',
+  amount: 'amount',
+  currency: 'currency',
+  direction: 'direction',
+  booking_date: 'booking_date',
+  value_date: 'value_date',
+  transaction_timestamp: 'transaction_timestamp',
+  type: 'type',
+  status: 'status',
+  description: 'description',
+  structured_reference: 'structured_reference',
+  mcc: 'mcc',
+  channel: 'channel',
+  balance_after: 'balance_after',
+  city: 'city',
+  country_code: 'country_code',
+  category: 'category',
+  sub_category: 'sub_category',
+  essentiality: 'essentiality',
+  counterparty_id: 'counterparty_id',
+  subscription_id: 'subscription_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4995,6 +5292,9 @@ export type GlobalOmitConfig = {
   mastra_workflow_snapshot?: Prisma.mastra_workflow_snapshotOmit
   mastra_workspace_versions?: Prisma.mastra_workspace_versionsOmit
   mastra_workspaces?: Prisma.mastra_workspacesOmit
+  party?: Prisma.partyOmit
+  subscription?: Prisma.subscriptionOmit
+  expense?: Prisma.expenseOmit
 }
 
 /* Types for Logging */

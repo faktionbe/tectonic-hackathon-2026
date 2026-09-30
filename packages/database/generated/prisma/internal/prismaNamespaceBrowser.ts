@@ -94,7 +94,10 @@ export const ModelName = {
   mastra_workflow_definitions: 'mastra_workflow_definitions',
   mastra_workflow_snapshot: 'mastra_workflow_snapshot',
   mastra_workspace_versions: 'mastra_workspace_versions',
-  mastra_workspaces: 'mastra_workspaces'
+  mastra_workspaces: 'mastra_workspaces',
+  party: 'party',
+  subscription: 'subscription',
+  expense: 'expense'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1038,6 +1041,78 @@ export const Mastra_workspacesScalarFieldEnum = {
 } as const
 
 export type Mastra_workspacesScalarFieldEnum = (typeof Mastra_workspacesScalarFieldEnum)[keyof typeof Mastra_workspacesScalarFieldEnum]
+
+
+export const PartyScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  name: 'name',
+  iban: 'iban',
+  country_code: 'country_code',
+  category: 'category',
+  logo_url: 'logo_url',
+  website: 'website',
+  external_id: 'external_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PartyScalarFieldEnum = (typeof PartyScalarFieldEnum)[keyof typeof PartyScalarFieldEnum]
+
+
+export const SubscriptionScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  counterparty_id: 'counterparty_id',
+  kind: 'kind',
+  mandate_id: 'mandate_id',
+  creditor_id: 'creditor_id',
+  status: 'status',
+  category: 'category',
+  cadence: 'cadence',
+  amount: 'amount',
+  currency: 'currency',
+  next_payment_date: 'next_payment_date',
+  first_charged_at: 'first_charged_at',
+  last_charged_at: 'last_charged_at',
+  occurrence_count: 'occurrence_count',
+  cancellable: 'cancellable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+export const ExpenseScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  iban: 'iban',
+  amount: 'amount',
+  currency: 'currency',
+  direction: 'direction',
+  booking_date: 'booking_date',
+  value_date: 'value_date',
+  transaction_timestamp: 'transaction_timestamp',
+  type: 'type',
+  status: 'status',
+  description: 'description',
+  structured_reference: 'structured_reference',
+  mcc: 'mcc',
+  channel: 'channel',
+  balance_after: 'balance_after',
+  city: 'city',
+  country_code: 'country_code',
+  category: 'category',
+  sub_category: 'sub_category',
+  essentiality: 'essentiality',
+  counterparty_id: 'counterparty_id',
+  subscription_id: 'subscription_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
 
 
 export const SortOrder = {
