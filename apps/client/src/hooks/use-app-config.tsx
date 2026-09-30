@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { type ParsedLocation, useRouter } from '@tanstack/react-router';
-import { Rocket } from 'lucide-react';
 
 export interface NavItem {
   title: string;
@@ -21,8 +20,14 @@ export function useAppConfig(): {
   const { t } = useTranslation();
   const router = useRouter();
   return {
-    name: 'Tectonic',
-    logo: <Rocket className='h-8 w-8 p-2' />,
+    name: 'KBC',
+    logo: (
+      <img
+        src='/kbc-logo.png'
+        alt='KBC'
+        className='size-8 object-contain'
+      />
+    ),
     items: [
       {
         title: t('navigation.main.title'),
