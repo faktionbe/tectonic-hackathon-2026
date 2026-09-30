@@ -13,4 +13,12 @@ export const agentsEnvSchema = z.object({
    * Example: http://localhost:4000/api
    */
   SERVER_API_URL: z.string().url().default('http://localhost:4000/api'),
+  /**
+   * Origin of this Mastra server. Kate calls the savings agent over A2A here.
+   */
+  A2A_BASE_URL: z.string().url().default('http://127.0.0.1:4111'),
+  /**
+   * Profile id used when a chat request does not include `requestContext.profileId`.
+   */
+  DEFAULT_PROFILE_ID: z.string().min(1).default('dummy-profile'),
 });

@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "prisma generate && tsup src/index.ts",
-    "dev": "npm run build",
+    "dev": "prisma generate && tsup src/index.ts --watch",
     "lint": "eslint .",
     "format": "prisma format",
     "seed-dev": "prisma migrate reset --force && tsx --env-file=.env prisma/seed-dev.ts",
