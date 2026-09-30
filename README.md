@@ -1,562 +1,175 @@
-# Faktion Kickstarter
+# KBC Moments by team Faktion
 
-This repository is a template based on **[faktion-guidelines](https://github.com/faktionbe/faktion-guidelines)**.
-For new projects, this repository should be forked/cloned and follow its code guidelines & standards.
+KBC Moments is a proof of concept built for the KBC challenge: "How can KBC understand what each customer needs and respond at exactly the right moment?"
 
-Read carefully through **[faktion-guidelines](https://github.com/faktionbe/faktion-guidelines)**
+Imagine a bank that keeps pace with your life, sensing the changes where it can offer a helping hand.
 
-- **🌐 Frontend**: React + Vite + TanStack Router + Tailwind CSS + ShadCN UI
-- **⚡ Backend**: NestJS + GraphQL + REST APIs + PostgreSQL + Prisma
-- **🐍 Python**: FastAPI backend for agents, integrations & ML tasks
-- **📦 Monorepo**: Unified development with Turborepo + pnpm workspaces
-- **🔧 Dev Tools**: ESLint, Prettier, TypeScript, Hot reload across all apps
+When Lotte moves in with her partner, her app welcomes her home and reminds her she still needs the required fire insurance. When Eva starts freelancing, her app shows her how much of her balance is really hers, after VAT and social contributions. And when Dries falls behind on rent due to a bad gambling habit, his bank doesn't offer him a loan. It suggests a payment plan and a way to block payments for gambling himself.
 
-> **🎯 TL;DR**: Just run `bash ./scripts/kickstart.sh` and you're ready to go! Everything is automated.
+That's KBC Moments. It understands the signals already in a customer's transactions and app activity, interprets the life moment behind them, and chooses the right response. Sometimes that means direct action. Sometimes it means asking first, protecting the customer from fraud. Sometimes it is simply an offer to help. Every suggestion comes with a clear context: "Why am I seeing this?", and the same information reaches the advisor, so no customer has to explain their story twice.
 
-## Prerequisites
+But understanding a moment is only half the story. KBC Moments also looks at how confident each customer is with money. Someone who never opens the budget screen, misses recurring bills or has never managed their own finances needs a different kind of help than a seasoned investor. When Kelly loses her husband, who always handled their money, she doesn't get product offers or financial jargon. She gets plain-language explanations, a simple weekly budget, and short lessons on what an inheritance is and what she needs to arrange. As her confidence grows, the app grows with her. We don't just tell customers what to do. We help them understand why.
 
-**The kickstart script handles most setup automatically!** You only need to install these manually:
+KBC already offers everything people need at these crucial instants in life. KBC Moments makes sure they get it at the right time, the right moment.
 
-- **Python** - Required for FastAPI backend ([Download](https://www.python.org/downloads/))
-- **Docker** - Our database runs inside docker
-- **curl** - You need `curl` (usually pre-installed) for the Node.js setup via nvm
+## Table of contents
 
-### What Kickstart Installs For You:
+1. [The problem](#the-problem)
+2. [How it works](#how-it-works)
+3. [The personas](#the-personas)
+4. [Design principles](#design-principles)
+5. [Project structure](#project-structure)
+6. [How to run it](#how-to-run-it)
+7. [Limitations](#limitations)
+8. [Next steps](#next-steps)
 
-✅ **Node.js** - Installs via nvm automatically  
-✅ **pnpm** - Installs globally  
-✅ **pre-commit** - Installs globally using brew  
-✅ **Python dependencies** - Creates virtual environment and installs packages  
-✅ **Node.js dependencies** - Runs `pnpm install` for all apps
+## The problem
 
-## ⚡ One-Command Setup
+Banks mostly react to what customers ask for, not to what is happening in their lives. KBC already offers almost every product people need at key moments: a rental guarantee account when you move, a child savings account when a baby arrives, a business account when you start freelancing. But customers often don't get these at the right time, and sometimes they get the wrong offer at the worst time, such as a loan offer to someone in financial distress.
 
-**The kickstart script does everything for you!** No complex setup required.
+## How it works
 
-```bash
-git clone <your-repo>
-cd faktion-kickstarter
-bash ./scripts/kickstart.sh      # 🎯 This sets up EVERYTHING automatically
-pnpm build                       # Build packages first and verify setup
-pnpm dev                         # Start developing immediately
-```
+KBC Moments follows the three pillars of the challenge.
 
-### What `pnpm kickstart` Does For You:
-
-✅ **Installs Node.js & pnpm** (via nvm)  
-✅ **Installs Python dependencies** (creates virtual environment)  
-✅ **Installs all Node.js packages** (runs `pnpm install`)  
-✅ **Validates your setup** and reports any issues
-
-### What You'll Need To Do After Kickstart:
-
-📝 **Setup environment files** (copy from examples if they exist)  
-🗄️ **Run database migrations** (`cd packages/database && pnpm db:migrate`)  
-🔧 **Generate code** (GraphQL types, API clients)
-
-### Manual Configuration (Required)
-
-After kickstart, you need to:
-
-```bash
-# Create and configure environment files
-cp apps/client/.env.example apps/client/.env          # If exists
-cp apps/server/.env.example apps/server/.env          # If exists
-cp apps/py-api/.env.example apps/py-api/.env          # If exists
-cp packages/database/.env.example packages/database/.env  # If exists
-
-# Edit the .env files with your database URLs and API keys
-```
-
-Your applications will be running at:
-
-- 🌐 **Frontend (React)**: http://localhost:3000
-- ⚡ **Backend (NestJS)**: http://localhost:4000
-  - GraphQL Playground: http://localhost:4000/graphql
-  - Swagger API Docs: http://localhost:4000/api
-- 🐍 **Python (FastAPI)**: http://localhost:8000
-  - FastAPI Docs: http://localhost:8000/docs
-  - ReDoc: http://localhost:8000/redoc
-
-## 🏗️ Architecture
-
-This monorepo implements a **dual-stack architecture**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Faktion Kickstarter                      │
-│                  (Turborepo Monorepo)                       │
-├─────────────────────┬───────────────────────────────────────┤
-│   SOFTWARE STACK    │           PYTHON BACKEND              │
-│    (TypeScript)     │            (FastAPI)                  │
-├─────────────────────┼───────────────────────────────────────┤
-│                     │                                       │
-│ ┌─────────────────┐ │ ┌───────────────────────────────────┐ │
-│ │  React Client   │ │ │         FastAPI App               │ │
-│ │  (Vite/TS)      │ │ │         (Python)                   │ │
-│ └─────────────────┘ │ │                                   │ │
-│                     │ │  • Agents & Integrations          │ │
-│ ┌─────────────────┐ │ │  • Background Tasks               │ │
-│ │  NestJS Server  │◄┼─┤  • ML/AI APIs                     │ │
-│ │  (GraphQL/REST) │ │ │  • Data Processing                │ │
-│ └─────────────────┘ │ └───────────────────────────────────┘ │
-│                     │                                       │
-│ ┌─────────────────┐ │                                       │
-│ │ Shared Packages │ │                                       │
-│ │ • Database      │ │                                       │
-│ │ • Logger        │ │                                       │
-│ │ • Types/Utils   │ │                                       │
-│ └─────────────────┘ │                                       │
-└─────────────────────┴───────────────────────────────────────┘
-```
-
-## 📁 Project Structure
-
-```
-faktion-kickstarter/
-├── apps/
-│   ├── client/                 # React Frontend App
-│   │   ├── src/
-│   │   │   ├── components/ui/  # ShadCN UI components
-│   │   │   ├── routes/         # File-based routing (TanStack Router)
-│   │   │   ├── api/            # Generated API clients
-│   │   │   ├── providers/      # React context providers
-│   │   │   └── hooks/          # Custom React hooks
-│   │   ├── package.json
-│   │   └── vite.config.ts
-│   │
-│   ├── server/                 # NestJS Backend API
-│   │   ├── src/modules/
-│   │   │   ├── auth/           # JWT authentication
-│   │   │   ├── common/         # Shared decorators, pipes
-│   │   │   ├── prisma/         # Prisma service
-│   │   │   └── data-loader/    # GraphQL optimization
-│   │   ├── package.json
-│   │   └── nest-cli.json
-│   │
-│   └── py-api/                 # FastAPI Python Backend
-│       ├── src/
-│       │   ├── faktion_ml_api
-│       │   │   └── app
-│       │   │       ├── config
-│       │   │       │   ├── logging.py # Logging configuration
-│       │   │       │   ├── logging.yaml
-│       │   │       │   └── settings.py # Settings configuration
-│       │   │       ├── exceptions.py # Exceptions
-│       │   │       ├── main.py # Main application
-│       │   │       └── routers
-│       │   │           ├── __init__.py # Router initialization
-│       │   │           ├── health.py # Health check router
-│       │   │           └── root.py # Root router
-│       ├── pyproject.toml      # Python dependencies
-│       └── package.json        # npm scripts for Turborepo
-│       └── tests/              # Python tests
-│
-├── packages/
-│   ├── database/               # Shared Database Package
-│   │   ├── prisma/
-│   │   │   ├── schema.prisma   # Database schema
-│   │   │   └── migrations/     # Database migrations
-│   │   └── src/                # Prisma client exports
-│   │
-│   ├── logger/                 # Shared Logging Package
-│   │   └── src/                # Logger configuration
-│   │
-│   └── shared/                 # Shared Utilities & Types
-│       └── src/
-│           ├── types/          # Common TypeScript types
-│           └── utils/          # Shared utility functions
-│
-├── scripts/                    # Setup and utility scripts
-├── package.json               # Root package.json
-├── turbo.json                 # Turborepo configuration
-└── pnpm-workspace.yaml        # pnpm workspaces config
-```
-
-## 🎯 Applications Deep Dive
-
-### 🌐 Frontend (apps/client/)
-
-**React + Vite application** with modern tooling:
-
-- **Framework**: React with TypeScript
-- **Build Tool**: Vite for fast development and builds
-- **Routing**: TanStack Router (file-based routing)
-- **State Management**: TanStack Query (React Query)
-- **GraphQL**: Apollo Client with automatic code generation
-- **REST APIs**: Axios + Orval for OpenAPI client generation
-- **UI Framework**: Tailwind CSS + ShadCN UI components
-- **Forms**: React Hook Form + Zod validation
-- **i18n**: i18next for internationalization
-
-**Key Files**:
-
-- `src/routes/` - File-based routing structure
-- `src/components/ui/` - Reusable UI components
-- `src/api/` - Auto-generated API clients
-- `src/providers/` - React context providers
-- `codegen.ts` - GraphQL code generation config
-- `orval.config.ts` - REST API client generation
-
-### ⚡ Backend (apps/server/)
-
-**NestJS application** with full-featured API:
-
-- **Framework**: NestJS (Express-based)
-- **APIs**: REST (Swagger) + GraphQL (Apollo Server)
-- **Database**: PostgreSQL via Prisma ORM
-- **Authentication**: JWT + Passport (Local & JWT strategies)
-- **Password Security**: Argon2 hashing
-- **Validation**: Zod 4 + Nest Standard Schema (`@repo/openapi` for OpenAPI)
-- **Data Loading**: DataLoader for GraphQL N+1 prevention
-- **Build**: SWC compiler for faster builds
-
-**Key Features**:
-
-- JWT-based authentication with refresh tokens
-- GraphQL API with automatic schema generation
-- REST API with Swagger documentation
-- Database migrations and seeding
-- Role-based access control
-- Request/response validation
-
-**Key Files**:
-
-- `src/modules/auth/` - Authentication logic
-- `src/modules/common/` - Shared decorators, guards, pipes
-- `src/modules/prisma/` - Database service integration
-
-### 🐍 Python Backend (apps/python/)
-
-**FastAPI application** for extensible backend services:
-
-- **Framework**: FastAPI with async/await support
-- **Language**: Python with modern type hints
-- **Package Manager**: uv for ultra-fast dependency management
-- **Code Quality**: Ruff (linting + formatting) + MyPy (type checking)
-- **Testing**: pytest with async support
-- **Server**: Uvicorn ASGI server
-- **Integration**: Turborepo-compatible npm scripts
-
-**Use Cases**:
-
-- AI agents and chatbot integrations
-- Third-party API integrations
-- Background task processing
-- ML model serving and inference
-- Data processing and analytics
-- Heavy computational workloads
-
-**Key Files**:
-
-- `app/main.py` - FastAPI application setup
-- `app/routers/` - API route handlers
-- `app/settings.py` - Environment configuration
-- `tests/` - Python test suite
-- `pyproject.toml` - Python dependencies and tooling
-
-## 📦 Shared Packages
-
-Build by tsup, all packages live under `packages/` and are referenced using `@repo/package`. The `@repo/` prefix is necessary to differentiate packages on npm/... and local.
-
-## 🛠️ Development Commands
-
-### Root Level Commands
-
-```bash
-# Development
-pnpm dev              # Start all apps (React + NestJS + FastAPI)
-pnpm dev:sw           # Start only TypeScript apps (React + NestJS)
-pnpm dev:ml           # Start only Python backend (FastAPI)
-
-# Building
-pnpm build            # Build all TypeScript packages
-
-# Code Quality
-pnpm lint             # Run linting across all apps
-pnpm format           # Format code across all apps
-
-# Setup
-pnpm kickstart        # Initial project setup
-pnpm install          # Install all dependencies
-```
-
-### Git Worktrees
-
-Use `scripts/git-wt.sh` to create a branch in a sibling worktree, copy the
-repository's local `.env` files, and open the worktree in your selected tool.
-VS Code is used by default.
-
-```bash
-./scripts/git-wt.sh feature/my-change
-./scripts/git-wt.sh --ide=cursor feature/my-change
-./scripts/git-wt.sh --ide=pycharm feature/my-change origin/main
-./scripts/git-wt.sh --ide=none feature/my-change
-```
-
-Use `--ide=<ide>` to select an IDE. Set `GIT_WT_IDE` to change the default for
-your shell.
-
-| IDE value | Tool launched |
+| Pillar | What KBC Moments does |
 | --- | --- |
-| `vscode` (default) | Visual Studio Code |
-| `cursor` | Cursor |
-| `webstorm` | WebStorm |
-| `pycharm` | PyCharm |
-| `none` | Nothing |
+| Understand | An LLM analyses transactions and app activity, detects the life moment, explains the evidence, and assesses whether the customer is vulnerable. |
+| Adapt | The KBC Mobile home screen reorganises itself: a tailored hero card, one-tap actions, and a "Why am I seeing this?" explanation. |
+| Scale | The same signal feeds the advisor dashboard, so an advisor at KBC Live or in a branch sees a ready-made brief. |
 
-Environment files under `apps/` and `packages/` are copied for every IDE
-selection. IDE configuration is not copied; commit shared configuration so Git
-checks it out in every worktree. The optional `base-ref` is only used when
-creating a new branch; it defaults to the currently checked-out commit.
-
-### App-Specific Commands
-
-```bash
-# Frontend (apps/client/)
-cd apps/client
-pnpm dev              # Start Vite dev server
-pnpm build            # Build for production
-pnpm codegen:graphql  # Generate GraphQL types
-pnpm codegen:api      # Generate REST API client
-
-# Backend (apps/server/)
-cd apps/server
-pnpm dev              # Start NestJS with hot reload
-pnpm build            # Build for production
-pnpm test             # Run Jest tests
-pnpm test:e2e         # Run end-to-end tests
-
-# Python Backend (apps/python/)
-cd apps/python
-npm run dev           # Start FastAPI with hot reload
-npm run build         # No-op (FastAPI doesn't need building)
-npm run test          # Run pytest tests
-npm run lint          # Run Ruff linting
-npm run format        # Format with Ruff
-npm run type-check    # Run MyPy type checking
+```text
+synthetic transactions ──► Understand engine (LLM) ──► moment.json
+                                                     ├──► Customer app (Adapt)
+                                                     └──► Advisor dashboard (Scale)
 ```
 
-### Database Commands
+The engine chooses one of four stances for every customer:
 
-```bash
-cd packages/database
-pnpm db:migrate       # Apply database migrations
-pnpm db:generate      # Generate Prisma client
-pnpm db:deploy        # Deploy migrations (production)
-pnpm seed-dev         # Seed development data
-pnpm seed-prod        # Seed production data
+| Stance | When | Behaviour |
+| --- | --- | --- |
+| Act | Clear, positive life moment | Show relevant products and actions directly |
+| Ask first | Sensitive moment inferred from data | Stay neutral until the customer confirms |
+| Protect | Fraud or confusion risk | Add friction, alert, offer a trusted-person option |
+| Pause and support | Financial distress or grief | Suppress all sales and credit, offer help |
+
+## The personas
+
+The demo uses six synthetic customers. All data is fictional.
+
+| Persona | Life moment | Key signals | Stance | What the app does |
+| --- | --- | --- | --- | --- |
+| Lotte, 29 – UX designer, Ghent | Moving in with her partner | Rental deposit, moving company, IKEA, new Engie contract, address change fee, shared-costs transfers | Act | Address update, tenant fire insurance, shared budget, savings rebuild |
+| Jonas & Sarah, 33 – engineer and teacher, Mechelen | Expecting their first child | Recurring gynaecologist payments, Dreambaby, car seat, childcare registration | Ask first | Neutral "family finances check-up" until they confirm, then leave budget, hospitalization cover, child savings |
+| Eva, 36 – freelance brand strategist, Antwerp | Started as self-employed | Last salary, KBO registration, social contributions, irregular client payments | Act | "Truly available" balance, VAT pot, Business Pro account, POZ pension |
+| Dries, 34 – logistics worker, Genk | Financial distress with a gambling pattern | Night-time gambling deposits, payday spikes, overdraft at limit, failed rent payment | Pause and support | No credit offers, payment plan, self-set gambling block, anonymous help |
+| Marc, 78 – retired widower, Bruges | Increasing vulnerability | "Hi grandpa" fraud attempt, rising cash withdrawals, double payments, login failures | Protect | Transfer held, fraud warning, simple app mode, trusted-person alert |
+| Kelly, 39 – recent widow, Knokke | Loss of partner, no own income | Death notification, funeral payment, blocked accounts, spending at the old level, negative balance | Pause and support | Advisor, bereavement checklist, weekly budget, plain-language explanations |
+
+### Products per persona
+
+The engine maps each moment to existing KBC products and explicitly blocks unsuitable ones.
+
+| Persona | Offer | Never offer |
+| --- | --- | --- |
+| Lotte | Fire insurance, family liability, group expenses tool, Goal Alert | Car loan |
+| Jonas & Sarah | Hospitalization, family liability, growth savings account, advisor meeting | Pregnancy-specific offers before confirmation |
+| Eva | Business Pro, Billit, POZ, business income protection | Mortgage or car loan while income is unstable |
+| Dries | Payment plan, budget insights, Kate | Personal loan, Flex Budget, overdraft increase, investing |
+| Marc | Internet fraud insurance, home assistance, Digital Vault, advisor call | Investment upsell |
+| Kelly | Advisor, eBox, Digital Vault, savings with Goal Alert | Credit, funeral insurance, investing |
+
+## Design principles
+
+1. **Explainable.** Every recommendation has a "Why am I seeing this?" with plain-language evidence and a "Not relevant" button.
+2. **Consent first.** Personalisation only runs for customers who opted in.
+3. **Never sell at vulnerable moments.** Distress, grief and fraud risk switch off all commercial offers.
+4. **Sensitive data stays hidden.** Medical transactions and adult-content spending are never shown to the customer or advisor. They only count as anonymous categories.
+5. **Ask before assuming.** Inferred pregnancy or health-related moments require confirmation from the customer.
+6. **Respect autonomy.** For older customers, the bank protects without taking over.
+7. **No diagnoses.** The engine flags financial risk, not addiction or cognitive decline.
+
+## Project structure
+
+KBC Moments is a pnpm/Turborepo monorepo. Its active demo stack combines a React experience, a NestJS API, Mastra agents, and seeded synthetic banking data.
+
+```text
+tectonic-hackathon-2026/
+├── apps/
+│   ├── client/        # React/Vite customer experience: login and Kate chat
+│   ├── server/        # NestJS REST/GraphQL API for profiles and financial data
+│   ├── agents/        # Mastra "Understand" engine: expense insights and savings advice
+│   └── py-api/        # FastAPI companion service
+├── packages/
+│   ├── database/      # Prisma schema, migrations and persona seeders
+│   ├── contracts/     # Shared Zod schemas and TypeScript financial contracts
+│   ├── kbc-products/  # KBC product catalogue used in recommendations
+│   ├── openapi/       # Zod-to-OpenAPI utilities
+│   ├── shared/        # Shared TypeScript utilities
+│   └── py-contracts/  # Shared Pydantic contracts
+├── infrastructure/    # Docker Compose for PostgreSQL and Redis
+├── scripts/           # Bootstrap and developer scripts
+└── docs/              # Domain and project documentation
 ```
 
-## 🔄 Inter-Stack Communication
-
-The stacks communicate through several mechanisms:
-
-1. **HTTP APIs**:
-   - FastAPI exposes REST endpoints
-   - NestJS can consume these endpoints
-   - Frontend calls both NestJS and FastAPI directly
-
-2. **Shared Database**:
-   - Both TypeScript and Python can access PostgreSQL
-   - Use proper data contracts and migrations
-   - Prisma generates types for TypeScript side
-
-3. **Message Queues** (Future):
-   - For async background job processing
-   - Can be implemented with Redis/Bull for heavy tasks
-
-4. **File System**:
-   - Shared configuration files
-   - Data files and model artifacts
-   - Log files and temporary storage
-
-## 🎯 When to Use Each Stack
-
-### Use TypeScript Stack For:
-
-- 🖥️ User interfaces and admin dashboards
-- 🔐 Authentication and user management
-- 📊 Business logic and CRUD operations
-- 🔗 Real-time features (WebSockets)
-- 📈 Data visualization and reports
-- 🛡️ Traditional web application features
-
-### Use Python Backend For:
-
-- 🤖 AI agents and chatbot integrations
-- 🔗 Third-party API integrations (Slack, Discord, etc.)
-- ⚙️ Background tasks and job processing
-- 🧠 ML model serving and inference
-- 📊 Data processing and analytics
-- 💪 Heavy computational tasks
-- 🐍 Python-specific libraries and tools
-
-## 🔧 Technology Stack Details
-
-### Frontend Technologies
-
-- **React**: UI library with concurrent features
-- **Vite**: Lightning-fast build tool and dev server
-- **TypeScript**: Full type safety across the frontend
-- **TanStack Router**: Modern file-based routing
-- **TanStack Query**: Server state management
-- **Apollo Client**: GraphQL client with caching
-- **Tailwind CSS**: Utility-first CSS framework
-- **ShadCN UI**: High-quality React components
-- **React Hook Form**: Performant form handling
-- **Zod**: Runtime type validation
-- **i18next**: Internationalization
-
-### Backend Technologies
-
-- **NestJS**: Enterprise-grade Node.js framework
-- **GraphQL**: Type-safe API with Apollo Server
-- **REST APIs**: Traditional REST with Swagger docs
-- **Prisma**: Next-generation ORM
-- **PostgreSQL**: Robust relational database
-- **JWT**: Secure authentication
-- **Passport**: Authentication middleware
-- **Argon2**: Secure password hashing
-- **DataLoader**: Solve N+1 query problem
-- **SWC**: Fast TypeScript/JavaScript compiler
-
-### Python Technologies
-
-- **FastAPI**: Modern, fast Python web framework
-- **Pydantic**: Data validation using Python type hints
-- **Uvicorn**: ASGI server implementation
-- **uv**: Ultra-fast Python package installer
-- **Ruff**: Extremely fast Python linter/formatter
-- **MyPy**: Static type checker for Python
-- **pytest**: Testing framework
-- **asyncio**: Async/await support
-
-### Development Tools
-
-- **Turborepo**: Monorepo build system
-- **pnpm**: Fast, disk-efficient package manager
-- **ESLint**: Code linting
-- **Prettier**: Code formatting
-- **Husky**: Git hooks
-- **lint-staged**: Run linters on staged files
-
-## 🚀 Getting Started Tips
-
-### 1. 🎯 Just Run Kickstart (Most Important!)
-
-**The kickstart command handles 95% of setup for you!**
-
-- Don't manually configure each app - let kickstart do it
-- Only customize environment variables if you need different settings
-- The default configuration works for most development scenarios
-
-### 2. Start Simple
-
-Begin with one stack and gradually add complexity:
-
-- Start with the TypeScript stack for traditional web app features
-- Add Python backend when you need AI/ML capabilities or heavy processing
-
-### 3. Environment Setup (After Kickstart)
-
-The kickstart script does NOT handle environment files, so you'll need to:
-
-- Create `.env` files manually (copy from `.env.example` if they exist)
-- Configure database connections, API keys, and JWT secrets
-- Set up PostgreSQL connection strings for your local database
-
-### 4. Database-First Development
-
-Design your data model in Prisma schema first:
-
-- Run migrations: `cd packages/database && pnpm db:migrate`
-- Generate types: `cd packages/database && pnpm db:generate`
-
-### 5. Code Generation (Manual After Kickstart)
-
-After kickstart, you'll need to run code generation manually:
-
-- Run `pnpm build` to generate GraphQL types and REST API clients
-- Run `pnpm db:generate` to generate Prisma database types
-- These generators run automatically during development builds
-
-### 6. Dependency Management
-
-Install packages in the correct workspace:
-! Typescript only !
-Python uses uv, install those manually. `uv install` in the right directory (`apps/python`)
-
-```bash
-# Install in specific app
-pnpm add package-name --filter=client
-pnpm add package-name --filter=server
-
-# Install in shared package
-pnpm add package-name --filter=@repo/shared
+```text
+React client ──REST/GraphQL──► Nest API ──► PostgreSQL
+     └────────chat/SSE──────► Mastra agents ──M2M──► Nest API
+                                           └────────► KBC product catalogue
 ```
 
-### 7. Development Workflow
+The database contains six synthetic customer scenarios, represented by seven seeded demo login profiles.
 
-Recommended flow after kickstart:
+## How to run it
 
-1. Run `pnpm dev` to start all applications
-2. Design database schema in `packages/database/prisma/schema.prisma`
-3. Run migrations: `cd packages/database && pnpm db:migrate`
-4. Build backend APIs (GraphQL/REST)
-5. Generate frontend API clients: `pnpm build`
-6. Build frontend components and pages
-7. Add Python backend features as needed
+### Requirements
 
-## 🐛 Troubleshooting
+- Docker Desktop
+- Node.js 26.9 and pnpm 12.5.1
+- A valid `OPENROUTER_API_KEY` for the AI service
 
-> **💡 Most issues are avoided by running `pnpm kickstart` which sets everything up correctly.**
+### Setup
 
-### Common Issues
+From the repository root, run:
 
-**If kickstart fails**:
+```bash
+bash ./scripts/kickstart.sh
+```
 
-- Check that **Python** is installed and available as `python3`
-- Make sure **curl** is available (for nvm installation)
-- Re-run kickstart after fixing any missing prerequisites
-- PostgreSQL doesn't need to be running during kickstart (only for actual development)
+The bootstrap script installs the required tooling, dependencies and local `.env` files. Then configure:
 
-**Port Conflicts**:
+- `apps/server/.env`: replace `JWT_SECRET`, `M2M_JWT` and `ENCRYPTION_KEY`
+- `apps/agents/.env`: add `OPENROUTER_API_KEY` and use the exact same `M2M_JWT` as the server
+- Keep `SERVER_API_URL=http://localhost:4000/api`
 
-- Frontend: 3000 (Vite)
-- Backend: 4000 (NestJS)
-- Python: 8000 (FastAPI)
-- Database: 5432 (PostgreSQL)
+Start the database, apply migrations, seed the synthetic personas, and launch the demo:
 
-**Environment Variables**:
+```bash
+nvm use
+pnpm docker:up
+pnpm --filter @repo/database db:deploy
+pnpm --filter @repo/database seed:personas
+pnpm dev
+```
 
-- Kickstart does NOT create `.env` files - you need to set these up manually
-- Copy `.env.example` files to `.env` in each app if they exist
-- Configure database URLs, API keys, and JWT secrets as needed
+Open [http://localhost:3000](http://localhost:3000) and sign in with a seeded demo account, for example:
 
-**Python Dependencies**:
+```text
+lotte.vermeulen@kbc.be
+password123
+```
 
-- Kickstart creates a Python virtual environment (`.venv`) automatically
-- Uses pip to install dependencies from pyproject.toml
-- Virtual environment is activated in `apps/python/.venv`
+The API is available at [http://localhost:4000](http://localhost:4000), Swagger at [http://localhost:4000/docs](http://localhost:4000/docs), and Mastra Studio at [http://localhost:4111](http://localhost:4111).
 
-**Database Issues**:
+## Limitations
 
-- Kickstart does NOT set up the database - you need to do this manually
-- Ensure PostgreSQL is running on the default port (5432)
-- Run database migrations: `cd packages/database && pnpm db:migrate`
-- Make sure your `.env` files have correct database URLs
+- All customer data is synthetic. Real transaction data would need proper governance, GDPR review and model validation.
+- Detection relies on an LLM and can be wrong. In production, confidence thresholds, human review for sensitive cases and bias testing would be needed.
+- Product names come from the public [kbc.be](https://www.kbc.be) catalogue. Conditions and eligibility were not verified.
+- Features such as the gambling block, trusted-person alert and "truly available" balance are concepts, not existing KBC products.
 
-## 📚 Additional Resources
+## Next steps
 
-- **Faktion guidelines**: https://github.com/faktionbe/faktion-guidelines
-- **NestJS Documentation**: https://nestjs.com/
-- **React Documentation**: https://react.dev/
-- **FastAPI Documentation**: https://fastapi.tiangolo.com/
-- **Prisma Documentation**: https://www.prisma.io/docs/
-- **TanStack Router**: https://tanstack.com/router/
-- **Turborepo Documentation**: https://turbo.build/repo/docs
-
----
-
-This kickstarter provides everything you need to build modern, scalable applications with both traditional web features and cutting-edge Python capabilities. The architecture scales from simple web apps to complex AI-powered applications while maintaining clean separation of concerns and unified development workflows.
+- Connect detection to Kate so nudges can be delivered conversationally.
+- Add a "best moment" model that learns when customers respond well.
+- Extend the life-moment library: job loss, divorce, retirement, studying abroad.
+- Measure impact: offer relevance, conversion, fewer repeated explanations in calls, and reduced harm for vulnerable customers.
