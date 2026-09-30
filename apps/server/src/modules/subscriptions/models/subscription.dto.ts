@@ -1,4 +1,7 @@
-import { subscriptionSchema } from '@repo/contracts';
+import {
+  subscriptionListItemSchema,
+  subscriptionSchema,
+} from '@repo/contracts';
 import { z } from 'zod';
 
 import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.utils';
@@ -19,5 +22,5 @@ export const updateSubscriptionSchema = createSubscriptionSchema
 export type UpdateSubscription = z.infer<typeof updateSubscriptionSchema>;
 
 export const subscriptionsPageSchema = offsetPaginatedResultSchema(
-  subscriptionSchema
+  subscriptionListItemSchema
 ).meta({ id: 'SubscriptionsPage' });

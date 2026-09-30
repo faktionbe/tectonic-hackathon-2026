@@ -16,10 +16,14 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import { profileDetailSchema } from '@repo/contracts';
 
 import { Auth } from '@/modules/auth/auth.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
-import type { OffsetPagination } from '@/modules/pagination/pagination.utils';
+import {
+  type OffsetPagination,
+  offsetPaginationSchema,
+} from '@/modules/pagination/pagination.utils';
 import {
   type CreateProfileRequest,
   createProfileSchema,
@@ -43,7 +47,9 @@ export class ProfilesController {
   })
   @ApiOkResponse({ standardSchema: offsetPaginatedProfilesSchema })
   @SerializeOptions({ schema: offsetPaginatedProfilesSchema })
-  async list(@Query() query: OffsetPagination) {
+  async list(
+    @Query({ schema: offsetPaginationSchema }) query: OffsetPagination
+  ) {
     return this.profilesService.list(query);
   }
 
@@ -53,8 +59,8 @@ export class ProfilesController {
     operationId: 'getProfileById',
     summary: 'Get profile by id',
   })
-  @ApiOkResponse({ standardSchema: profileResponseSchema })
-  @SerializeOptions({ schema: profileResponseSchema })
+  @ApiOkResponse({ standardSchema: profileDetailSchema })
+  @SerializeOptions({ schema: profileDetailSchema })
   async getById(@Param('profileId') profileId: string) {
     return this.profilesService.getById(profileId);
   }

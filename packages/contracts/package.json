@@ -5,6 +5,13 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
@@ -12,5 +19,8 @@
     "typecheck": "tsc --noEmit && tsc --project test/tsconfig.json",
     "lint": "eslint .",
     "format": "prettier --write ."
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
   }
 }

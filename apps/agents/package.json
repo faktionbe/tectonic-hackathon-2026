@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "mastra dev",
     "build": "mastra build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
@@ -23,12 +25,15 @@
     "@mastra/memory": "1.32.1",
     "@mastra/observability": "1.18.1",
     "@mastra/pg": "1.27.1",
+    "@repo/contracts": "workspace:*",
+    "@repo/kbc-products": "workspace:*",
     "dotenv": "^18.0.4",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "latest",
     "mastra": "1.31.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.2"
   }
 }

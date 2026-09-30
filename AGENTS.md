@@ -10,6 +10,7 @@ Turborepo + pnpm monorepo that new Faktion projects are cloned from.
 | `packages/database`     | Prisma schema, migrations, seeders (`@repo/database`)       |
 | `packages/shared`       | Shared TS types and utils (`@repo/shared`)                  |
 | `packages/openapi`      | Zod → OpenAPI converter for Nest Swagger (`@repo/openapi`)  |
+| `packages/kbc-products` | KBC product catalog (`@repo/kbc-products`)                  |
 | `packages/py-contracts` | Shared Pydantic contract models                             |
 
 Env files: `apps/{client,server,py-api}/.env`, `packages/database/.env`. Ports: client 3000, server 4000, py-api 8000, Postgres 5432.

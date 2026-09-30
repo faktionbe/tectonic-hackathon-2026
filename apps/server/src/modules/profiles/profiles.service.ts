@@ -3,9 +3,22 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import type { ProfileDetail, ProfileListItem } from '@repo/contracts';
+import { profileDetailSchema, profileListItemSchema } from '@repo/contracts';
 
+import {
+  profileDetailInclude,
+  type ProfileDetailRow,
+  profileListInclude,
+  type ProfileListRow,
+  toFinancialHolder,
+  toProfileFinancialPosition,
+} from '@/modules/common/mappers/financial-records';
 import { PaginationService } from '@/modules/pagination/pagination.service';
-import type { OffsetPagination } from '@/modules/pagination/pagination.utils';
+import type {
+  OffsetPagination,
+  OffsetPaginationResult,
+} from '@/modules/pagination/pagination.utils';
 import { PrismaService } from '@/modules/prisma/prisma.service';
 import {
   type CreateProfileRequest,
@@ -15,6 +28,26 @@ import {
   profileUpdateInputSchema,
   type UpdateProfileRequest,
 } from '@/modules/profiles/models/profile.dto';
+
+const toProfileListItem = (row: ProfileListRow): ProfileListItem => {
+  const { financial_holder: financialHolder, ...scalars } = row;
+  return profileListItemSchema.parse({
+    ...profileRowSchema.parse(scalars),
+    financialHolder:
+      financialHolder === null ? null : toFinancialHolder(financialHolder),
+  });
+};
+
+const toProfileDetail = (row: ProfileDetailRow): ProfileDetail => {
+  const { financial_holder: financialHolder, ...scalars } = row;
+  return profileDetailSchema.parse({
+    ...profileRowSchema.parse(scalars),
+    financialHolder:
+      financialHolder === null
+        ? null
+        : toProfileFinancialPosition(financialHolder),
+  });
+};
 
 function isPrismaKnownRequestError(error: unknown): error is { code: string } {
   return (
@@ -32,25 +65,34 @@ export class ProfilesService {
     private readonly pagination: PaginationService
   ) {}
 
-  async list(pagination: OffsetPagination) {
-    const result = await this.pagination.offsetPaginate({
+  async list(
+    pagination: OffsetPagination
+  ): Promise<OffsetPaginationResult<ProfileListItem>> {
+    const result = await this.pagination.offsetPaginate<
+      ProfileListRow,
+      'profile'
+    >({
       model: this.prisma.profile as never,
       pagination,
+      include: profileListInclude,
     });
     return {
       ...result,
-      data: result.data.map((row) => profileRowSchema.parse(row)),
+      data: (result.data as Array<ProfileListRow>).map((row) =>
+        toProfileListItem(row)
+      ),
     };
   }
 
-  async getById(profileId: string): Promise<ProfileResponse> {
+  async getById(profileId: string): Promise<ProfileDetail> {
     const profile = await this.prisma.profile.findUnique({
       where: { id: profileId },
+      include: profileDetailInclude,
     });
     if (!profile) {
       throw new NotFoundException(`Profile ${profileId} not found`);
     }
-    return profileRowSchema.parse(profile);
+    return toProfileDetail(profile);
   }
 
   async create(data: CreateProfileRequest): Promise<ProfileResponse> {

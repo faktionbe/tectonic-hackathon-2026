@@ -1,5 +1,3 @@
-BEGIN;
-
 -- AlterTable
 ALTER TABLE "expense" ADD COLUMN     "counterparty_account_id" TEXT,
 ADD COLUMN     "failure_reason" TEXT,
@@ -235,13 +233,6 @@ CREATE INDEX "expense_original_expense_id_idx" ON "expense"("original_expense_id
 -- CreateIndex
 CREATE INDEX "subscription_account_id_idx" ON "subscription"("account_id");
 
--- Preserve legacy account identifiers before enforcing account references.
-INSERT INTO "account" ("id", "updatedAt")
-SELECT "account_id", CURRENT_TIMESTAMP FROM "expense"
-UNION
-SELECT "account_id", CURRENT_TIMESTAMP FROM "subscription"
-ON CONFLICT ("id") DO NOTHING;
-
 -- AddForeignKey
 ALTER TABLE "financial_holder" ADD CONSTRAINT "financial_holder_profile_id_fkey" FOREIGN KEY ("profile_id") REFERENCES "profile"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -301,5 +292,3 @@ ALTER TABLE "expense" ADD CONSTRAINT "expense_counterparty_account_id_fkey" FORE
 
 -- AddForeignKey
 ALTER TABLE "expense" ADD CONSTRAINT "expense_original_expense_id_fkey" FOREIGN KEY ("original_expense_id") REFERENCES "expense"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
-COMMIT;

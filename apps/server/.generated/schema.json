@@ -321,41 +321,45 @@
             "name": "pageIndex",
             "required": false,
             "in": "query",
-            "description": "Page number (zero-based)",
             "schema": {
-              "type": "number"
-            }
+              "default": 0,
+              "type": "number",
+              "minimum": 0
+            },
+            "description": "Page number (zero-based)"
           },
           {
             "name": "pageSize",
             "required": false,
             "in": "query",
-            "description": "Number of records per page",
             "schema": {
-              "type": "number"
-            }
+              "default": 10,
+              "type": "number",
+              "minimum": 1
+            },
+            "description": "Number of records per page"
           },
           {
             "name": "order",
             "required": false,
             "in": "query",
-            "description": "Sort order of results",
             "schema": {
               "enum": [
                 "asc",
                 "desc"
               ],
               "type": "string"
-            }
+            },
+            "description": "Sort order of results"
           },
           {
             "name": "orderBy",
             "required": false,
             "in": "query",
-            "description": "Field to order results by",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Field to order results by"
           }
         ],
         "responses": {
@@ -441,7 +445,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profile"
+                  "$ref": "#/components/schemas/ProfileDetail"
                 }
               }
             }
@@ -906,7 +910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Expense"
+                  "$ref": "#/components/schemas/ExpenseDetail"
                 }
               }
             }
@@ -1142,7 +1146,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Subscription"
+                  "$ref": "#/components/schemas/SubscriptionDetail"
                 }
               }
             }
@@ -1345,7 +1349,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Profile"
+              "$ref": "#/components/schemas/ProfileListItem"
             }
           },
           "total": {
@@ -1370,7 +1374,7 @@
         ],
         "additionalProperties": false
       },
-      "Profile": {
+      "ProfileListItem": {
         "type": "object",
         "properties": {
           "id": {
@@ -1510,6 +1514,21 @@
               "AGGRESSIVE"
             ]
           },
+          "personalizationConsent": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "investmentHorizonMonths": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "liquidityReserveTarget": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
           "goals": {
             "type": "array",
             "items": {
@@ -1610,6 +1629,14 @@
             "type": "string",
             "format": "date-time",
             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "financialHolder": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FinancialHolder"
+              }
+            ]
           }
         },
         "required": [
@@ -1637,6 +1664,9 @@
           "otherMonthlyIncome",
           "financialLiteracy",
           "riskTolerance",
+          "personalizationConsent",
+          "investmentHorizonMonths",
+          "liquidityReserveTarget",
           "goals",
           "serviceInterests",
           "monthlyEssentialExpenses",
@@ -1655,7 +1685,957 @@
           "hasBrokerageAccount",
           "notes",
           "createdAt",
+          "updatedAt",
+          "financialHolder"
+        ],
+        "additionalProperties": false
+      },
+      "FinancialHolder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "profileId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "profileId",
+          "displayName",
+          "createdAt",
           "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "ProfileDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "email": {
+            "nullable": true,
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "customerReference": {
+            "nullable": true,
+            "type": "string"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "MARRIED",
+              "PARTNERED",
+              "DIVORCED",
+              "WIDOWED",
+              "OTHER"
+            ]
+          },
+          "dependentCount": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "street": {
+            "nullable": true,
+            "type": "string"
+          },
+          "city": {
+            "nullable": true,
+            "type": "string"
+          },
+          "postalCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "nullable": true,
+            "type": "string"
+          },
+          "housingStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "OWNER_OUTRIGHT",
+              "OWNER_WITH_MORTGAGE",
+              "RENTER",
+              "LIVING_WITH_FAMILY",
+              "OTHER"
+            ]
+          },
+          "monthlyHousingCost": {
+            "nullable": true,
+            "type": "number"
+          },
+          "employmentStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "EMPLOYED",
+              "SELF_EMPLOYED",
+              "UNEMPLOYED",
+              "STUDENT",
+              "RETIRED",
+              "OTHER"
+            ]
+          },
+          "occupation": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employer": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employmentStartDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "monthlyNetIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherMonthlyIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "financialLiteracy": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "LOW",
+              "DEVELOPING",
+              "CAPABLE",
+              "EXPERT"
+            ]
+          },
+          "riskTolerance": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CONSERVATIVE",
+              "MODERATE",
+              "BALANCED",
+              "GROWTH",
+              "AGGRESSIVE"
+            ]
+          },
+          "personalizationConsent": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "investmentHorizonMonths": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "liquidityReserveTarget": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "EMERGENCY_FUND",
+                "REDUCE_SPENDING",
+                "REDUCE_DEBT",
+                "BUY_HOME",
+                "RETIREMENT",
+                "EDUCATION",
+                "GROW_INVESTMENTS",
+                "PROTECT_INCOME"
+              ]
+            }
+          },
+          "serviceInterests": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SAVINGS",
+                "INSURANCE",
+                "BROKER",
+                "INVESTING",
+                "PENSION",
+                "CREDIT",
+                "FINANCIAL_COACHING"
+              ]
+            }
+          },
+          "monthlyEssentialExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlyDiscretionaryExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlySavingsTarget": {
+            "nullable": true,
+            "type": "number"
+          },
+          "liquidSavings": {
+            "nullable": true,
+            "type": "number"
+          },
+          "investmentBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "pensionBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "realEstateValue": {
+            "nullable": true,
+            "type": "number"
+          },
+          "mortgageBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "consumerDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hasLifeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHomeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHealthInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasBrokerageAccount": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "financialHolder": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProfileFinancialPosition"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "dateOfBirth",
+          "email",
+          "phone",
+          "customerReference",
+          "maritalStatus",
+          "dependentCount",
+          "street",
+          "city",
+          "postalCode",
+          "country",
+          "housingStatus",
+          "monthlyHousingCost",
+          "employmentStatus",
+          "occupation",
+          "employer",
+          "employmentStartDate",
+          "currency",
+          "monthlyNetIncome",
+          "otherMonthlyIncome",
+          "financialLiteracy",
+          "riskTolerance",
+          "personalizationConsent",
+          "investmentHorizonMonths",
+          "liquidityReserveTarget",
+          "goals",
+          "serviceInterests",
+          "monthlyEssentialExpenses",
+          "monthlyDiscretionaryExpenses",
+          "monthlySavingsTarget",
+          "liquidSavings",
+          "investmentBalance",
+          "pensionBalance",
+          "realEstateValue",
+          "mortgageBalance",
+          "consumerDebtBalance",
+          "otherDebtBalance",
+          "hasLifeInsurance",
+          "hasHomeInsurance",
+          "hasHealthInsurance",
+          "hasBrokerageAccount",
+          "notes",
+          "createdAt",
+          "updatedAt",
+          "financialHolder"
+        ],
+        "additionalProperties": false
+      },
+      "ProfileFinancialPosition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "profileId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "loans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Loan"
+            }
+          },
+          "creditCards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreditCard"
+            }
+          },
+          "investments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Investment"
+            }
+          },
+          "insurancePolicies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Insurance"
+            }
+          },
+          "insuranceCoverages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProfileHolderCoverage"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "profileId",
+          "displayName",
+          "createdAt",
+          "updatedAt",
+          "accounts",
+          "loans",
+          "creditCards",
+          "investments",
+          "insurancePolicies",
+          "insuranceCoverages"
+        ],
+        "additionalProperties": false
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "holderIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "iban": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CURRENT",
+              "SAVINGS"
+            ]
+          },
+          "purpose": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "PERSONAL",
+              "BUSINESS"
+            ]
+          },
+          "status": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "BLOCKED",
+              "CLOSED"
+            ]
+          },
+          "currency": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "balance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "balanceAsOf": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "overdraftLimit": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "holderIds",
+          "providerName",
+          "iban",
+          "kind",
+          "purpose",
+          "status",
+          "currency",
+          "balance",
+          "balanceAsOf",
+          "overdraftLimit",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "Loan": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "borrowerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "productName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "MORTGAGE",
+              "OTHER"
+            ]
+          },
+          "currency": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "outstandingBalance": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "repaymentAmount": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "repaymentCadence": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "YEARLY",
+              "IRREGULAR"
+            ]
+          },
+          "remainingTermMonths": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "repaymentAccountId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "borrowerIds",
+          "providerName",
+          "productName",
+          "kind",
+          "currency",
+          "outstandingBalance",
+          "repaymentAmount",
+          "repaymentCadence",
+          "remainingTermMonths",
+          "repaymentAccountId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "CreditCard": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "holderIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "productName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "currency": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "creditLimit": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "usedCredit": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "billingAccountId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "holderIds",
+          "providerName",
+          "productName",
+          "currency",
+          "creditLimit",
+          "usedCredit",
+          "billingAccountId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "Investment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "holderIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "productName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "FUND_PORTFOLIO",
+              "PENSION_SAVINGS",
+              "OTHER"
+            ]
+          },
+          "currency": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "currentValue": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "valuationDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "contributionAmount": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
+          "contributionCadence": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "YEARLY",
+              "IRREGULAR"
+            ]
+          },
+          "status": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "BLOCKED",
+              "CLOSED"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "holderIds",
+          "providerName",
+          "productName",
+          "kind",
+          "currency",
+          "currentValue",
+          "valuationDate",
+          "contributionAmount",
+          "contributionCadence",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "Insurance": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "policyholderIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "productName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "FIRE",
+              "FAMILY_LIABILITY",
+              "HOSPITALIZATION",
+              "OUTSTANDING_BALANCE",
+              "INCOME_PROTECTION",
+              "LIFE",
+              "CAR",
+              "OTHER"
+            ]
+          },
+          "isEmployerProvided": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "loanId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "insuredPersons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InsuredPerson"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "policyholderIds",
+          "providerName",
+          "productName",
+          "kind",
+          "isEmployerProvided",
+          "loanId",
+          "insuredPersons",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "InsuredPerson": {
+        "type": "object",
+        "properties": {
+          "holderId": {
+            "type": "string"
+          },
+          "coveragePercentage": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "holderId",
+          "coveragePercentage"
+        ],
+        "additionalProperties": false
+      },
+      "ProfileHolderCoverage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "policyholderIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "productName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "FIRE",
+              "FAMILY_LIABILITY",
+              "HOSPITALIZATION",
+              "OUTSTANDING_BALANCE",
+              "INCOME_PROTECTION",
+              "LIFE",
+              "CAR",
+              "OTHER"
+            ]
+          },
+          "isEmployerProvided": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "loanId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "insuredPersons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InsuredPerson"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "coveragePercentage": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "id",
+          "policyholderIds",
+          "providerName",
+          "productName",
+          "kind",
+          "isEmployerProvided",
+          "loanId",
+          "insuredPersons",
+          "createdAt",
+          "updatedAt",
+          "coveragePercentage"
         ],
         "additionalProperties": false
       },
@@ -1798,6 +2778,21 @@
               "AGGRESSIVE"
             ]
           },
+          "personalizationConsent": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "investmentHorizonMonths": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "liquidityReserveTarget": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
+          },
           "goals": {
             "default": [],
             "type": "array",
@@ -1896,6 +2891,312 @@
           "firstName",
           "lastName"
         ]
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "email": {
+            "nullable": true,
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "customerReference": {
+            "nullable": true,
+            "type": "string"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "MARRIED",
+              "PARTNERED",
+              "DIVORCED",
+              "WIDOWED",
+              "OTHER"
+            ]
+          },
+          "dependentCount": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "street": {
+            "nullable": true,
+            "type": "string"
+          },
+          "city": {
+            "nullable": true,
+            "type": "string"
+          },
+          "postalCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "nullable": true,
+            "type": "string"
+          },
+          "housingStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "OWNER_OUTRIGHT",
+              "OWNER_WITH_MORTGAGE",
+              "RENTER",
+              "LIVING_WITH_FAMILY",
+              "OTHER"
+            ]
+          },
+          "monthlyHousingCost": {
+            "nullable": true,
+            "type": "number"
+          },
+          "employmentStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "EMPLOYED",
+              "SELF_EMPLOYED",
+              "UNEMPLOYED",
+              "STUDENT",
+              "RETIRED",
+              "OTHER"
+            ]
+          },
+          "occupation": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employer": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employmentStartDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "monthlyNetIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherMonthlyIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "financialLiteracy": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "LOW",
+              "DEVELOPING",
+              "CAPABLE",
+              "EXPERT"
+            ]
+          },
+          "riskTolerance": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CONSERVATIVE",
+              "MODERATE",
+              "BALANCED",
+              "GROWTH",
+              "AGGRESSIVE"
+            ]
+          },
+          "personalizationConsent": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "investmentHorizonMonths": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "liquidityReserveTarget": {
+            "nullable": true,
+            "type": "number"
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "EMERGENCY_FUND",
+                "REDUCE_SPENDING",
+                "REDUCE_DEBT",
+                "BUY_HOME",
+                "RETIREMENT",
+                "EDUCATION",
+                "GROW_INVESTMENTS",
+                "PROTECT_INCOME"
+              ]
+            }
+          },
+          "serviceInterests": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SAVINGS",
+                "INSURANCE",
+                "BROKER",
+                "INVESTING",
+                "PENSION",
+                "CREDIT",
+                "FINANCIAL_COACHING"
+              ]
+            }
+          },
+          "monthlyEssentialExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlyDiscretionaryExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlySavingsTarget": {
+            "nullable": true,
+            "type": "number"
+          },
+          "liquidSavings": {
+            "nullable": true,
+            "type": "number"
+          },
+          "investmentBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "pensionBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "realEstateValue": {
+            "nullable": true,
+            "type": "number"
+          },
+          "mortgageBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "consumerDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hasLifeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHomeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHealthInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasBrokerageAccount": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "dateOfBirth",
+          "email",
+          "phone",
+          "customerReference",
+          "maritalStatus",
+          "dependentCount",
+          "street",
+          "city",
+          "postalCode",
+          "country",
+          "housingStatus",
+          "monthlyHousingCost",
+          "employmentStatus",
+          "occupation",
+          "employer",
+          "employmentStartDate",
+          "currency",
+          "monthlyNetIncome",
+          "otherMonthlyIncome",
+          "financialLiteracy",
+          "riskTolerance",
+          "personalizationConsent",
+          "investmentHorizonMonths",
+          "liquidityReserveTarget",
+          "goals",
+          "serviceInterests",
+          "monthlyEssentialExpenses",
+          "monthlyDiscretionaryExpenses",
+          "monthlySavingsTarget",
+          "liquidSavings",
+          "investmentBalance",
+          "pensionBalance",
+          "realEstateValue",
+          "mortgageBalance",
+          "consumerDebtBalance",
+          "otherDebtBalance",
+          "hasLifeInsurance",
+          "hasHomeInsurance",
+          "hasHealthInsurance",
+          "hasBrokerageAccount",
+          "notes",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
       },
       "UpdateProfileRequest": {
         "type": "object",
@@ -2033,6 +3334,21 @@
               "GROWTH",
               "AGGRESSIVE"
             ]
+          },
+          "personalizationConsent": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "investmentHorizonMonths": {
+            "nullable": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "liquidityReserveTarget": {
+            "nullable": true,
+            "type": "number",
+            "minimum": 0
           },
           "goals": {
             "type": "array",
@@ -2354,7 +3670,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Expense"
+              "$ref": "#/components/schemas/ExpenseListItem"
             }
           },
           "total": {
@@ -2379,7 +3695,7 @@
         ],
         "additionalProperties": false
       },
-      "Expense": {
+      "ExpenseListItem": {
         "type": "object",
         "properties": {
           "id": {
@@ -2395,7 +3711,7 @@
             "type": "number",
             "minimum": 0,
             "exclusiveMinimum": true,
-            "description": "Absolute booked amount (always positive); see direction"
+            "description": "Absolute transaction amount (always positive); see direction"
           },
           "currency": {
             "type": "string",
@@ -2411,6 +3727,11 @@
             ]
           },
           "bookingDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionDate": {
             "type": "string",
             "format": "date",
             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
@@ -2447,8 +3768,755 @@
             "enum": [
               "PENDING",
               "BOOKED",
-              "REVERSED"
+              "REVERSED",
+              "ATTEMPTED",
+              "BLOCKED",
+              "REJECTED"
             ]
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "SALARY",
+              "PENSION",
+              "BUSINESS_INCOME",
+              "HOUSEHOLD_SUPPORT",
+              "OWN_ACCOUNT_TRANSFER",
+              "OTHER"
+            ]
+          },
+          "failureReason": {
+            "type": "string"
+          },
+          "originalExpenseId": {
+            "type": "string"
+          },
+          "counterpartyAccountId": {
+            "type": "string"
+          },
+          "description": {
+            "description": "Unstructured remittance / statement text",
+            "type": "string"
+          },
+          "structuredReference": {
+            "description": "Belgian OGM/VCS structured reference +++...+++",
+            "type": "string"
+          },
+          "mcc": {
+            "description": "Card-network merchant category code",
+            "type": "string",
+            "pattern": "^\\d{4}$"
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "POS",
+              "ATM",
+              "ECOMMERCE",
+              "MOBILE",
+              "BRANCH",
+              "RECURRING"
+            ]
+          },
+          "balanceAfter": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "HOUSING",
+              "UTILITIES",
+              "GROCERIES",
+              "TRANSPORT",
+              "ENTERTAINMENT",
+              "DINING",
+              "HEALTH",
+              "INSURANCE",
+              "EDUCATION",
+              "SHOPPING",
+              "TRAVEL",
+              "SUBSCRIPTIONS",
+              "FEES",
+              "TAXES",
+              "OTHER"
+            ]
+          },
+          "subCategory": {
+            "type": "string"
+          },
+          "essentiality": {
+            "description": "Essential vs discretionary; enables surplus detection",
+            "type": "string",
+            "enum": [
+              "ESSENTIAL",
+              "DISCRETIONARY",
+              "MIXED"
+            ]
+          },
+          "counterpartyId": {
+            "description": "Party (merchant or person) on the other side of the line",
+            "type": "string"
+          },
+          "subscriptionId": {
+            "description": "Set when this line is a charge of a Subscription",
+            "type": "string"
+          },
+          "account": {
+            "$ref": "#/components/schemas/LinkedAccountSummary"
+          },
+          "counterparty": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LinkedPartySummary"
+              }
+            ]
+          },
+          "subscription": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LinkedSubscriptionSummary"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "amount",
+          "currency",
+          "direction",
+          "type",
+          "status",
+          "account",
+          "counterparty",
+          "subscription"
+        ],
+        "additionalProperties": false
+      },
+      "LinkedAccountSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "providerName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "iban": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CURRENT",
+              "SAVINGS"
+            ]
+          },
+          "currency": {
+            "nullable": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "status": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "BLOCKED",
+              "CLOSED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "providerName",
+          "iban",
+          "kind",
+          "currency",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "LinkedPartySummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "MERCHANT",
+              "PERSON"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Legal/display name of the merchant or person"
+          },
+          "category": {
+            "description": "Merchant's typical category (merchant only)",
+            "type": "string",
+            "enum": [
+              "HOUSING",
+              "UTILITIES",
+              "GROCERIES",
+              "TRANSPORT",
+              "ENTERTAINMENT",
+              "DINING",
+              "HEALTH",
+              "INSURANCE",
+              "EDUCATION",
+              "SHOPPING",
+              "TRAVEL",
+              "SUBSCRIPTIONS",
+              "FEES",
+              "TAXES",
+              "OTHER"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "LinkedSubscriptionSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "DIRECT_DEBIT",
+              "STANDING_ORDER",
+              "CARD_PAYMENT",
+              "UNKNOWN"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PAUSED",
+              "CANCELLED"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "HOUSING",
+              "UTILITIES",
+              "GROCERIES",
+              "TRANSPORT",
+              "ENTERTAINMENT",
+              "DINING",
+              "HEALTH",
+              "INSURANCE",
+              "EDUCATION",
+              "SHOPPING",
+              "TRAVEL",
+              "SUBSCRIPTIONS",
+              "FEES",
+              "TAXES",
+              "OTHER"
+            ]
+          },
+          "cadence": {
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "YEARLY",
+              "IRREGULAR"
+            ]
+          },
+          "amount": {
+            "description": "Expected/typical charge amount",
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO 4217 code"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "status",
+          "currency"
+        ],
+        "additionalProperties": false
+      },
+      "ExpenseDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "iban": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "description": "Absolute transaction amount (always positive); see direction"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO 4217 code"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "DEBIT",
+              "CREDIT"
+            ]
+          },
+          "bookingDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionTimestamp": {
+            "description": "Authorization moment; key for right-moment triggers",
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CARD_PAYMENT",
+              "CONTACTLESS",
+              "SEPA_DIRECT_DEBIT",
+              "SEPA_CREDIT_TRANSFER",
+              "STANDING_ORDER",
+              "INSTANT_PAYMENT",
+              "ATM_WITHDRAWAL",
+              "FEE",
+              "INTEREST",
+              "REVERSAL",
+              "OTHER"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "BOOKED",
+              "REVERSED",
+              "ATTEMPTED",
+              "BLOCKED",
+              "REJECTED"
+            ]
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "SALARY",
+              "PENSION",
+              "BUSINESS_INCOME",
+              "HOUSEHOLD_SUPPORT",
+              "OWN_ACCOUNT_TRANSFER",
+              "OTHER"
+            ]
+          },
+          "failureReason": {
+            "type": "string"
+          },
+          "originalExpenseId": {
+            "type": "string"
+          },
+          "counterpartyAccountId": {
+            "type": "string"
+          },
+          "description": {
+            "description": "Unstructured remittance / statement text",
+            "type": "string"
+          },
+          "structuredReference": {
+            "description": "Belgian OGM/VCS structured reference +++...+++",
+            "type": "string"
+          },
+          "mcc": {
+            "description": "Card-network merchant category code",
+            "type": "string",
+            "pattern": "^\\d{4}$"
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "POS",
+              "ATM",
+              "ECOMMERCE",
+              "MOBILE",
+              "BRANCH",
+              "RECURRING"
+            ]
+          },
+          "balanceAfter": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "HOUSING",
+              "UTILITIES",
+              "GROCERIES",
+              "TRANSPORT",
+              "ENTERTAINMENT",
+              "DINING",
+              "HEALTH",
+              "INSURANCE",
+              "EDUCATION",
+              "SHOPPING",
+              "TRAVEL",
+              "SUBSCRIPTIONS",
+              "FEES",
+              "TAXES",
+              "OTHER"
+            ]
+          },
+          "subCategory": {
+            "type": "string"
+          },
+          "essentiality": {
+            "description": "Essential vs discretionary; enables surplus detection",
+            "type": "string",
+            "enum": [
+              "ESSENTIAL",
+              "DISCRETIONARY",
+              "MIXED"
+            ]
+          },
+          "counterpartyId": {
+            "description": "Party (merchant or person) on the other side of the line",
+            "type": "string"
+          },
+          "subscriptionId": {
+            "description": "Set when this line is a charge of a Subscription",
+            "type": "string"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "counterparty": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Party"
+              }
+            ]
+          },
+          "counterpartyAccount": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Account"
+              }
+            ]
+          },
+          "subscription": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Subscription"
+              }
+            ]
+          },
+          "originalExpense": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Expense"
+              }
+            ]
+          },
+          "relatedExpenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Expense"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "amount",
+          "currency",
+          "direction",
+          "type",
+          "status",
+          "account",
+          "counterparty",
+          "counterpartyAccount",
+          "subscription",
+          "originalExpense",
+          "relatedExpenses"
+        ],
+        "additionalProperties": false
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "counterpartyId": {
+            "type": "string",
+            "description": "The payee Party (merchant/creditor being paid)"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "DIRECT_DEBIT",
+              "STANDING_ORDER",
+              "CARD_PAYMENT",
+              "UNKNOWN"
+            ]
+          },
+          "mandateId": {
+            "description": "SEPA mandate reference",
+            "type": "string"
+          },
+          "creditorId": {
+            "description": "Stable SEPA creditor key",
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PAUSED",
+              "CANCELLED"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "HOUSING",
+              "UTILITIES",
+              "GROCERIES",
+              "TRANSPORT",
+              "ENTERTAINMENT",
+              "DINING",
+              "HEALTH",
+              "INSURANCE",
+              "EDUCATION",
+              "SHOPPING",
+              "TRAVEL",
+              "SUBSCRIPTIONS",
+              "FEES",
+              "TAXES",
+              "OTHER"
+            ]
+          },
+          "cadence": {
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "YEARLY",
+              "IRREGULAR"
+            ]
+          },
+          "amount": {
+            "description": "Expected/typical charge amount",
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO 4217 code"
+          },
+          "nextPaymentDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "firstChargedAt": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "lastChargedAt": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "occurrenceCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "cancellable": {
+            "description": "Can KBC offer a cancel/switch action?",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "counterpartyId",
+          "kind",
+          "status",
+          "currency"
+        ],
+        "additionalProperties": false
+      },
+      "Expense": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "iban": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "description": "Absolute transaction amount (always positive); see direction"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO 4217 code"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "DEBIT",
+              "CREDIT"
+            ]
+          },
+          "bookingDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionTimestamp": {
+            "description": "Authorization moment; key for right-moment triggers",
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CARD_PAYMENT",
+              "CONTACTLESS",
+              "SEPA_DIRECT_DEBIT",
+              "SEPA_CREDIT_TRANSFER",
+              "STANDING_ORDER",
+              "INSTANT_PAYMENT",
+              "ATM_WITHDRAWAL",
+              "FEE",
+              "INTEREST",
+              "REVERSAL",
+              "OTHER"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "BOOKED",
+              "REVERSED",
+              "ATTEMPTED",
+              "BLOCKED",
+              "REJECTED"
+            ]
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "SALARY",
+              "PENSION",
+              "BUSINESS_INCOME",
+              "HOUSEHOLD_SUPPORT",
+              "OWN_ACCOUNT_TRANSFER",
+              "OTHER"
+            ]
+          },
+          "failureReason": {
+            "type": "string"
+          },
+          "originalExpenseId": {
+            "type": "string"
+          },
+          "counterpartyAccountId": {
+            "type": "string"
           },
           "description": {
             "description": "Unstructured remittance / statement text",
@@ -2532,7 +4600,6 @@
           "amount",
           "currency",
           "direction",
-          "bookingDate",
           "type",
           "status"
         ],
@@ -2551,7 +4618,7 @@
             "type": "number",
             "minimum": 0,
             "exclusiveMinimum": true,
-            "description": "Absolute booked amount (always positive); see direction"
+            "description": "Absolute transaction amount (always positive); see direction"
           },
           "currency": {
             "type": "string",
@@ -2567,6 +4634,11 @@
             ]
           },
           "bookingDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionDate": {
             "type": "string",
             "format": "date",
             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
@@ -2603,8 +4675,31 @@
             "enum": [
               "PENDING",
               "BOOKED",
-              "REVERSED"
+              "REVERSED",
+              "ATTEMPTED",
+              "BLOCKED",
+              "REJECTED"
             ]
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "SALARY",
+              "PENSION",
+              "BUSINESS_INCOME",
+              "HOUSEHOLD_SUPPORT",
+              "OWN_ACCOUNT_TRANSFER",
+              "OTHER"
+            ]
+          },
+          "failureReason": {
+            "type": "string"
+          },
+          "originalExpenseId": {
+            "type": "string"
+          },
+          "counterpartyAccountId": {
+            "type": "string"
           },
           "description": {
             "description": "Unstructured remittance / statement text",
@@ -2687,7 +4782,6 @@
           "amount",
           "currency",
           "direction",
-          "bookingDate",
           "type",
           "status"
         ]
@@ -2705,7 +4799,7 @@
             "type": "number",
             "minimum": 0,
             "exclusiveMinimum": true,
-            "description": "Absolute booked amount (always positive); see direction"
+            "description": "Absolute transaction amount (always positive); see direction"
           },
           "currency": {
             "type": "string",
@@ -2721,6 +4815,11 @@
             ]
           },
           "bookingDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "transactionDate": {
             "type": "string",
             "format": "date",
             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
@@ -2757,8 +4856,31 @@
             "enum": [
               "PENDING",
               "BOOKED",
-              "REVERSED"
+              "REVERSED",
+              "ATTEMPTED",
+              "BLOCKED",
+              "REJECTED"
             ]
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "SALARY",
+              "PENSION",
+              "BUSINESS_INCOME",
+              "HOUSEHOLD_SUPPORT",
+              "OWN_ACCOUNT_TRANSFER",
+              "OTHER"
+            ]
+          },
+          "failureReason": {
+            "type": "string"
+          },
+          "originalExpenseId": {
+            "type": "string"
+          },
+          "counterpartyAccountId": {
+            "type": "string"
           },
           "description": {
             "description": "Unstructured remittance / statement text",
@@ -2843,7 +4965,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Subscription"
+              "$ref": "#/components/schemas/SubscriptionListItem"
             }
           },
           "total": {
@@ -2868,7 +4990,7 @@
         ],
         "additionalProperties": false
       },
-      "Subscription": {
+      "SubscriptionListItem": {
         "type": "object",
         "properties": {
           "id": {
@@ -2885,7 +5007,9 @@
             "type": "string",
             "enum": [
               "DIRECT_DEBIT",
-              "STANDING_ORDER"
+              "STANDING_ORDER",
+              "CARD_PAYMENT",
+              "UNKNOWN"
             ]
           },
           "mandateId": {
@@ -2935,10 +5059,10 @@
             ]
           },
           "amount": {
+            "description": "Expected/typical charge amount",
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true,
-            "description": "Expected/typical charge amount"
+            "exclusiveMinimum": true
           },
           "currency": {
             "type": "string",
@@ -2969,6 +5093,12 @@
           "cancellable": {
             "description": "Can KBC offer a cancel/switch action?",
             "type": "boolean"
+          },
+          "account": {
+            "$ref": "#/components/schemas/LinkedAccountSummary"
+          },
+          "counterparty": {
+            "$ref": "#/components/schemas/LinkedPartySummary"
           }
         },
         "required": [
@@ -2977,9 +5107,139 @@
           "counterpartyId",
           "kind",
           "status",
-          "cadence",
-          "amount",
-          "currency"
+          "currency",
+          "account",
+          "counterparty"
+        ],
+        "additionalProperties": false
+      },
+      "SubscriptionDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "counterpartyId": {
+            "type": "string",
+            "description": "The payee Party (merchant/creditor being paid)"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "DIRECT_DEBIT",
+              "STANDING_ORDER",
+              "CARD_PAYMENT",
+              "UNKNOWN"
+            ]
+          },
+          "mandateId": {
+            "description": "SEPA mandate reference",
+            "type": "string"
+          },
+          "creditorId": {
+            "description": "Stable SEPA creditor key",
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PAUSED",
+              "CANCELLED"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "HOUSING",
+              "UTILITIES",
+              "GROCERIES",
+              "TRANSPORT",
+              "ENTERTAINMENT",
+              "DINING",
+              "HEALTH",
+              "INSURANCE",
+              "EDUCATION",
+              "SHOPPING",
+              "TRAVEL",
+              "SUBSCRIPTIONS",
+              "FEES",
+              "TAXES",
+              "OTHER"
+            ]
+          },
+          "cadence": {
+            "type": "string",
+            "enum": [
+              "WEEKLY",
+              "MONTHLY",
+              "QUARTERLY",
+              "YEARLY",
+              "IRREGULAR"
+            ]
+          },
+          "amount": {
+            "description": "Expected/typical charge amount",
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO 4217 code"
+          },
+          "nextPaymentDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "firstChargedAt": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "lastChargedAt": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "occurrenceCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "cancellable": {
+            "description": "Can KBC offer a cancel/switch action?",
+            "type": "boolean"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "counterparty": {
+            "$ref": "#/components/schemas/Party"
+          },
+          "expenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Expense"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "accountId",
+          "counterpartyId",
+          "kind",
+          "status",
+          "currency",
+          "account",
+          "counterparty",
+          "expenses"
         ],
         "additionalProperties": false
       },
@@ -2997,7 +5257,9 @@
             "type": "string",
             "enum": [
               "DIRECT_DEBIT",
-              "STANDING_ORDER"
+              "STANDING_ORDER",
+              "CARD_PAYMENT",
+              "UNKNOWN"
             ]
           },
           "mandateId": {
@@ -3047,10 +5309,10 @@
             ]
           },
           "amount": {
+            "description": "Expected/typical charge amount",
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true,
-            "description": "Expected/typical charge amount"
+            "exclusiveMinimum": true
           },
           "currency": {
             "type": "string",
@@ -3088,8 +5350,6 @@
           "counterpartyId",
           "kind",
           "status",
-          "cadence",
-          "amount",
           "currency"
         ]
       },
@@ -3107,7 +5367,9 @@
             "type": "string",
             "enum": [
               "DIRECT_DEBIT",
-              "STANDING_ORDER"
+              "STANDING_ORDER",
+              "CARD_PAYMENT",
+              "UNKNOWN"
             ]
           },
           "mandateId": {
@@ -3157,10 +5419,10 @@
             ]
           },
           "amount": {
+            "description": "Expected/typical charge amount",
             "type": "number",
             "minimum": 0,
-            "exclusiveMinimum": true,
-            "description": "Expected/typical charge amount"
+            "exclusiveMinimum": true
           },
           "currency": {
             "type": "string",

@@ -1,47 +1,31 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import type {
-  ExpenseCadence,
-  ExpenseCategory,
   Subscription,
-  SubscriptionKind,
-  SubscriptionStatus,
+  SubscriptionDetail,
+  SubscriptionListItem,
 } from '@repo/contracts';
-import { Prisma } from '@repo/database';
 
 import {
-  orUndefined,
-  toOptIsoDate,
-} from '@/modules/common/utils/serialization';
+  subscriptionDetailInclude,
+  subscriptionListInclude,
+  type SubscriptionListRow,
+  toSubscription,
+  toSubscriptionDetail,
+  toSubscriptionListItem,
+} from '@/modules/common/mappers/financial-records';
 import { PaginationService } from '@/modules/pagination/pagination.service';
-import type { OffsetPagination } from '@/modules/pagination/pagination.utils';
+import type {
+  OffsetPagination,
+  OffsetPaginationResult,
+} from '@/modules/pagination/pagination.utils';
 import { PrismaService } from '@/modules/prisma/prisma.service';
 import {
   type CreateSubscription,
   type UpdateSubscription,
 } from '@/modules/subscriptions/models/subscription.dto';
 
-type SubscriptionRow = Prisma.subscriptionGetPayload<Record<string, never>>;
-
-function toSubscriptionDto(row: SubscriptionRow): Subscription {
-  return {
-    id: row.id,
-    accountId: row.account_id,
-    counterpartyId: row.counterparty_id,
-    kind: row.kind as SubscriptionKind,
-    mandateId: orUndefined(row.mandate_id),
-    creditorId: orUndefined(row.creditor_id),
-    status: row.status as SubscriptionStatus,
-    category: orUndefined(row.category) as ExpenseCategory | undefined,
-    cadence: row.cadence as ExpenseCadence,
-    amount: Number(row.amount),
-    currency: row.currency,
-    nextPaymentDate: toOptIsoDate(row.next_payment_date),
-    firstChargedAt: toOptIsoDate(row.first_charged_at),
-    lastChargedAt: toOptIsoDate(row.last_charged_at),
-    occurrenceCount: orUndefined(row.occurrence_count),
-    cancellable: orUndefined(row.cancellable),
-  };
-}
+const toSubscriptionDate = (value: string | undefined): Date | undefined =>
+  value === undefined ? undefined : new Date(value);
 
 @Injectable()
 export class SubscriptionsService {
@@ -50,27 +34,35 @@ export class SubscriptionsService {
     private readonly paginationService: PaginationService
   ) {}
 
-  async findAll(pagination: OffsetPagination) {
+  async findAll(
+    pagination: OffsetPagination
+  ): Promise<OffsetPaginationResult<SubscriptionListItem>> {
     const page = await this.paginationService.offsetPaginate<
-      SubscriptionRow,
+      SubscriptionListRow,
       'subscription'
     >({
-      model: this.prisma.subscription,
+      model: this.prisma.subscription as never,
       pagination,
       orderBy: 'createdAt',
+      include: subscriptionListInclude,
     });
     return {
       ...page,
-      data: (page.data as Array<SubscriptionRow>).map(toSubscriptionDto),
+      data: (page.data as Array<SubscriptionListRow>).map(
+        toSubscriptionListItem
+      ),
     };
   }
 
-  async findOne(id: string): Promise<Subscription> {
-    const row = await this.prisma.subscription.findUnique({ where: { id } });
+  async findOne(id: string): Promise<SubscriptionDetail> {
+    const row = await this.prisma.subscription.findUnique({
+      where: { id },
+      include: subscriptionDetailInclude,
+    });
     if (!row) {
       throw new NotFoundException(`Subscription ${id} not found`);
     }
-    return toSubscriptionDto(row);
+    return toSubscriptionDetail(row);
   }
 
   async create(dto: CreateSubscription): Promise<Subscription> {
@@ -86,20 +78,14 @@ export class SubscriptionsService {
         cadence: dto.cadence,
         amount: dto.amount,
         currency: dto.currency,
-        next_payment_date: dto.nextPaymentDate
-          ? new Date(dto.nextPaymentDate)
-          : undefined,
-        first_charged_at: dto.firstChargedAt
-          ? new Date(dto.firstChargedAt)
-          : undefined,
-        last_charged_at: dto.lastChargedAt
-          ? new Date(dto.lastChargedAt)
-          : undefined,
+        next_payment_date: toSubscriptionDate(dto.nextPaymentDate),
+        first_charged_at: toSubscriptionDate(dto.firstChargedAt),
+        last_charged_at: toSubscriptionDate(dto.lastChargedAt),
         occurrence_count: dto.occurrenceCount,
         cancellable: dto.cancellable,
       },
     });
-    return toSubscriptionDto(row);
+    return toSubscription(row);
   }
 
   async update(id: string, dto: UpdateSubscription): Promise<Subscription> {
@@ -117,20 +103,14 @@ export class SubscriptionsService {
         cadence: dto.cadence,
         amount: dto.amount,
         currency: dto.currency,
-        next_payment_date: dto.nextPaymentDate
-          ? new Date(dto.nextPaymentDate)
-          : undefined,
-        first_charged_at: dto.firstChargedAt
-          ? new Date(dto.firstChargedAt)
-          : undefined,
-        last_charged_at: dto.lastChargedAt
-          ? new Date(dto.lastChargedAt)
-          : undefined,
+        next_payment_date: toSubscriptionDate(dto.nextPaymentDate),
+        first_charged_at: toSubscriptionDate(dto.firstChargedAt),
+        last_charged_at: toSubscriptionDate(dto.lastChargedAt),
         occurrence_count: dto.occurrenceCount,
         cancellable: dto.cancellable,
       },
     });
-    return toSubscriptionDto(row);
+    return toSubscription(row);
   }
 
   async remove(id: string): Promise<Subscription> {

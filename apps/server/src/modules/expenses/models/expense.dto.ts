@@ -1,4 +1,4 @@
-import { expenseSchema } from '@repo/contracts';
+import { expenseListItemSchema, expenseSchema } from '@repo/contracts';
 import { z } from 'zod';
 
 import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.utils';
@@ -19,5 +19,5 @@ export const updateExpenseSchema = createExpenseSchema
 export type UpdateExpense = z.infer<typeof updateExpenseSchema>;
 
 export const expensesPageSchema = offsetPaginatedResultSchema(
-  expenseSchema
+  expenseListItemSchema
 ).meta({ id: 'ExpensesPage' });

@@ -27,3 +27,14 @@ export function toOptIsoDateTime(
 ): string | undefined {
   return date ? date.toISOString() : undefined;
 }
+
+/** Date -> full ISO datetime string. */
+export const toIsoDateTime = (date: Date): string => date.toISOString();
+
+/** Date or null -> ISO date-only string, or null. */
+export const toNullableIsoDate = (date: Date | null): string | null =>
+  date === null ? null : toIsoDate(date);
+
+/** Date or null -> full ISO datetime string, or null. */
+export const toNullableIsoDateTime = (date: Date | null): string | null =>
+  date === null ? null : date.toISOString();

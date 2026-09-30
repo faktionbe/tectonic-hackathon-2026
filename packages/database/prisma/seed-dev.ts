@@ -24,6 +24,16 @@ async function main() {
 
   const account_id = 'acc_demo_001';
 
+  await prisma.account.create({
+    data: {
+      id: account_id,
+      kind: 'CURRENT',
+      purpose: 'PERSONAL',
+      status: 'ACTIVE',
+      currency: 'EUR',
+    },
+  });
+
   const netflix = await prisma.party.create({
     data: {
       kind: 'MERCHANT',
