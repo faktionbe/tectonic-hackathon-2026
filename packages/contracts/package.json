@@ -8,6 +8,8 @@
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "tsup --config tsup.test.config.ts && node --test dist/test/*.test.mjs",
+    "typecheck": "tsc --noEmit && tsc --project test/tsconfig.json",
     "lint": "eslint .",
     "format": "prettier --write ."
   }

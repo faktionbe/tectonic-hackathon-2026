@@ -91,6 +91,9 @@ export const profileSchema = z
 
     financialLiteracy: financialLiteracySchema.nullable(),
     riskTolerance: riskToleranceSchema.nullable(),
+    personalizationConsent: z.boolean().nullable(),
+    investmentHorizonMonths: z.number().int().nonnegative().nullable(),
+    liquidityReserveTarget: z.number().nonnegative().nullable(),
     goals: z.array(financialGoalSchema),
     serviceInterests: z.array(serviceInterestSchema),
 

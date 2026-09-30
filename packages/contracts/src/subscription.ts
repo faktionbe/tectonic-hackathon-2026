@@ -5,6 +5,8 @@ import { expenseCadenceSchema, expenseCategorySchema } from './expense';
 export const subscriptionKindSchema = z.enum([
   'DIRECT_DEBIT',
   'STANDING_ORDER',
+  'CARD_PAYMENT',
+  'UNKNOWN',
 ]);
 
 export type SubscriptionKind = z.infer<typeof subscriptionKindSchema>;
@@ -17,12 +19,7 @@ export const subscriptionStatusSchema = z.enum([
 
 export type SubscriptionStatus = z.infer<typeof subscriptionStatusSchema>;
 
-/**
- * A recurring payment: a Belgian domiciliëring (DIRECT_DEBIT — creditor pulls)
- * or a doorlopende opdracht (STANDING_ORDER — you push). Holds the recurrence
- * lifecycle; individual charges are Expense lines referencing this via
- * `subscriptionId`.
- */
+/** A recurring payment arrangement; individual charges reference it via subscriptionId. */
 export const subscriptionSchema = z
   .object({
     id: z.string(),
@@ -43,11 +40,12 @@ export const subscriptionSchema = z
 
     status: subscriptionStatusSchema,
     category: expenseCategorySchema.optional(),
-    cadence: expenseCadenceSchema,
+    cadence: expenseCadenceSchema.optional(),
 
     amount: z
       .number()
       .positive()
+      .optional()
       .meta({ description: 'Expected/typical charge amount' }),
     currency: z.string().length(3).meta({ description: 'ISO 4217 code' }),
 

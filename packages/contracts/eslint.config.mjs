@@ -5,4 +5,13 @@ export default [
   {
     ignores: ['node_modules/*', 'dist/*', 'build/*'],
   },
+  {
+    files: ['test/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: ['./test/tsconfig.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
 ];
