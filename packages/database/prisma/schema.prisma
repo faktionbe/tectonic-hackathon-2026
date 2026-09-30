@@ -16,6 +16,8 @@ model user {
   email      String   @unique
   password   String
   role       role     @default(USER)
+  profile_id String?  @unique
+  profile    profile? @relation(fields: [profile_id], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -69,6 +71,7 @@ model profile {
   updatedAt                      DateTime  @updatedAt
 
   financial_holder financial_holder?
+  user             user?
 
   @@index([last_name, first_name])
   @@index([postal_code])
