@@ -30,32 +30,10 @@ export function useAppConfig(): {
     ),
     items: [
       {
-        title: t('navigation.main.title'),
+        title: t('navigation.chat.title'),
         location: router.buildLocation({
-          to: '/app/items',
+          to: '/app/chat',
         }),
-        items: [
-          {
-            title: t('navigation.main.items.sub1.title'),
-            description: t('navigation.main.items.sub1.description'),
-            location: router.buildLocation({
-              to: '/app/items/$itemId',
-              params: {
-                itemId: '1',
-              },
-            }),
-          },
-          {
-            title: t('navigation.main.items.sub2.title'),
-            description: t('navigation.main.items.sub2.description'),
-            location: router.buildLocation({
-              to: '/app/items/$itemId',
-              params: {
-                itemId: '2',
-              },
-            }),
-          },
-        ],
       },
     ],
   };

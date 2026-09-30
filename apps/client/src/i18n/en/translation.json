@@ -1,17 +1,7 @@
 {
   "navigation": {
-    "main": {
-      "title": "Main",
-      "items": {
-        "sub1": {
-          "title": "Sub 1",
-          "description": "Sub 1 description"
-        },
-        "sub2": {
-          "title": "Sub 2",
-          "description": "Sub 2 description"
-        }
-      }
+    "chat": {
+      "title": "Chat"
     }
   },
   "auth": {
@@ -31,6 +21,29 @@
       },
       "success": "Login successful",
       "error": "Login failed"
+    }
+  },
+  "chat": {
+    "empty": "No messages yet. Send one to get started.",
+    "author": {
+      "user": "Lotte Vermeulen",
+      "assistant": "KBC"
+    },
+    "mock": {
+      "date": "1 October 2026",
+      "welcome": "Welcome to your new home in Ghent, Lotte 🏠\n\nWe noticed you moved. Here are 3 things to sort out:\n\n1. Confirm your address. It's still the Kortrijk one, so letters and cards can still go there. I can set it to Ghent, Sint-Amandsberg, once you confirm the street.\n2. Tenant fire insurance. You don't have any, and tenants in Flanders have needed it since 2019. A quote takes about 2 minutes.\n3. Shared costs. They're going through manual transfers. A shared budget can keep them in one place.",
+      "how": "How do you know I moved?",
+      "evidence": "From your account, in plain language:\n\n• 18 Aug — €1,150 to a rental guarantee account, \"huurwaarborg\"\n• 25 Aug — €650 to your Kortrijk landlord, \"laatste huur\"\n• 3 Sep — €575 rent to Immo Vandenberghe, \"huur sept\"\n• 5 Sep — €420 to Verhuisbedrijf De Snelle Verhuis\n• 12 Sep — a new Engie direct debit, €68\n• 16 Sep — €18 to Stad Gent, \"adreswijziging\"\n• Groceries moved from Colruyt Kortrijk to Colruyt Gent and Delhaize Sint-Amandsberg\n• Your NMBS subscription was not renewed\n\nIf this isn't right, tell me and I'll drop it.",
+      "confirm": "That's right. We moved on 6 September. Let's do the address and the insurance. I'm in Sint-Amandsberg.\n\nMy partner and I keep sending money back and forth for shared costs. Is there an easier way?",
+      "plan": "Address: I'll pre-fill Ghent, Sint-Amandsberg. I don't have the street, so nothing is saved until you confirm it.\n\nFire insurance: your Kortrijk studio was on your landlord's policy, and there isn't one for the new place yet. I'll price a tenant policy as soon as the street is in. No paperwork, and you can stop whenever you want.\n\nShared costs: a monthly transfer labelled \"gedeelde kosten\" has been coming in. A shared budget lets you and your partner cover rent and bills without sending money back and forth. I won't open one unless you ask.\n\nOne more thing, since it's payday: you're no longer paying about €95 a month for the train. Your savings are lower after the move. Want to put that €95 toward rebuilding your buffer, on top of the €150 you already save?",
+      "savingsYes": "Yes, put the €95 into savings. I'll send the street later today.",
+      "done": "Done. From November, €95 a month goes to your savings, on top of the €150 you already transfer. You can change or stop it in the app.\n\nI'll wait for the street before I update your address or show the insurance quote. Nothing else needs doing until you're settled."
+    },
+    "scrollToEnd": "Scroll to latest messages",
+    "typing": "Typing…",
+    "composer": {
+      "placeholder": "Type a message…",
+      "send": "Send"
     }
   }
 }

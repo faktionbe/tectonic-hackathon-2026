@@ -1,4 +1,4 @@
-import { useMatchRoute, useParams, useRouter } from '@tanstack/react-router';
+import { useMatchRoute } from '@tanstack/react-router';
 
 import { useAppConfig } from '@/hooks/use-app-config';
 
@@ -10,8 +10,6 @@ export interface BreadcrumbItem {
 export function useBreadcrumbs(): Array<BreadcrumbItem> {
   const { items } = useAppConfig();
   const matchRoute = useMatchRoute();
-  const router = useRouter();
-  const params = useParams({ strict: false });
 
   for (const item of items) {
     const matchingSubItem = item.items?.find((subItem) =>
@@ -36,18 +34,7 @@ export function useBreadcrumbs(): Array<BreadcrumbItem> {
       item.items?.length &&
       matchRoute({ to: item.location.href, fuzzy: true })
     ) {
-      const breadcrumbs: Array<BreadcrumbItem> = [
-        { title: item.title, href: item.location.href },
-      ];
-
-      if (params.itemId) {
-        breadcrumbs.push({
-          title: String(params.itemId),
-          href: router.state.location.href,
-        });
-      }
-
-      return breadcrumbs;
+      return [{ title: item.title, href: item.location.href }];
     }
   }
 
