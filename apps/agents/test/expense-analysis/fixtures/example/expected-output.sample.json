@@ -1,0 +1,27 @@
+{
+  "period": {
+    "start": "2026-01-05",
+    "end": "2026-01-30"
+  },
+  "useCases": [
+    {
+      "label": "spending_anomaly",
+      "status": "detected",
+      "confidence": 0.92,
+      "summary": "An unusually large shopping expense stands out versus typical €20–€100 debits.",
+      "evidence": [
+        {
+          "transactionIds": ["tx_sa_6"],
+          "explanation": "The €2000 MediaMarkt purchase is substantially higher than the person's typical debit amounts in this period."
+        }
+      ]
+    },
+    {
+      "label": "travel_detected",
+      "status": "not_detected",
+      "confidence": 0.8,
+      "summary": "All expenses with geo data are in the home country.",
+      "evidence": []
+    }
+  ]
+}

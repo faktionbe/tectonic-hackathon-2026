@@ -1,0 +1,46 @@
+{
+  "homeCountryCode": "BE",
+  "expenses": [
+    {
+      "id": "tx_sa_1",
+      "accountId": "acc_test_1",
+      "amount": 32.5,
+      "currency": "EUR",
+      "direction": "DEBIT",
+      "bookingDate": "2026-01-05",
+      "type": "CARD_PAYMENT",
+      "status": "BOOKED",
+      "category": "GROCERIES",
+      "countryCode": "BE",
+      "counterpartyId": "party_colruyt"
+    },
+    {
+      "id": "tx_sa_6",
+      "accountId": "acc_test_1",
+      "amount": 2000,
+      "currency": "EUR",
+      "direction": "DEBIT",
+      "bookingDate": "2026-01-30",
+      "type": "CARD_PAYMENT",
+      "status": "BOOKED",
+      "category": "SHOPPING",
+      "countryCode": "BE",
+      "counterpartyId": "party_electronics",
+      "description": "Large electronics purchase"
+    }
+  ],
+  "parties": [
+    {
+      "id": "party_colruyt",
+      "kind": "MERCHANT",
+      "name": "Colruyt",
+      "countryCode": "BE"
+    },
+    {
+      "id": "party_electronics",
+      "kind": "MERCHANT",
+      "name": "MediaMarkt",
+      "countryCode": "BE"
+    }
+  ]
+}
