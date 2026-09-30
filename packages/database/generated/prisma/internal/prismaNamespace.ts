@@ -384,7 +384,50 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  user: 'user',
+  profile: 'profile',
+  mastra_agent_versions: 'mastra_agent_versions',
+  mastra_agents: 'mastra_agents',
+  mastra_ai_spans: 'mastra_ai_spans',
+  mastra_background_tasks: 'mastra_background_tasks',
+  mastra_channel_config: 'mastra_channel_config',
+  mastra_channel_installations: 'mastra_channel_installations',
+  mastra_dataset_items: 'mastra_dataset_items',
+  mastra_dataset_versions: 'mastra_dataset_versions',
+  mastra_datasets: 'mastra_datasets',
+  mastra_experiment_results: 'mastra_experiment_results',
+  mastra_experiments: 'mastra_experiments',
+  mastra_favorites: 'mastra_favorites',
+  mastra_knowledge_activity: 'mastra_knowledge_activity',
+  mastra_knowledge_cursors: 'mastra_knowledge_cursors',
+  mastra_knowledge_mentions: 'mastra_knowledge_mentions',
+  mastra_knowledge_nodes: 'mastra_knowledge_nodes',
+  mastra_knowledge_records: 'mastra_knowledge_records',
+  mastra_knowledge_semantic_outbox: 'mastra_knowledge_semantic_outbox',
+  mastra_mcp_client_versions: 'mastra_mcp_client_versions',
+  mastra_mcp_clients: 'mastra_mcp_clients',
+  mastra_mcp_server_versions: 'mastra_mcp_server_versions',
+  mastra_mcp_servers: 'mastra_mcp_servers',
+  mastra_messages: 'mastra_messages',
+  mastra_observational_memory: 'mastra_observational_memory',
+  mastra_prompt_block_versions: 'mastra_prompt_block_versions',
+  mastra_prompt_blocks: 'mastra_prompt_blocks',
+  mastra_resources: 'mastra_resources',
+  mastra_schedule_triggers: 'mastra_schedule_triggers',
+  mastra_schedules: 'mastra_schedules',
+  mastra_scorer_definition_versions: 'mastra_scorer_definition_versions',
+  mastra_scorer_definitions: 'mastra_scorer_definitions',
+  mastra_scorers: 'mastra_scorers',
+  mastra_skill_blobs: 'mastra_skill_blobs',
+  mastra_skill_versions: 'mastra_skill_versions',
+  mastra_skills: 'mastra_skills',
+  mastra_thread_state: 'mastra_thread_state',
+  mastra_threads: 'mastra_threads',
+  mastra_tool_provider_connections: 'mastra_tool_provider_connections',
+  mastra_workflow_definitions: 'mastra_workflow_definitions',
+  mastra_workflow_snapshot: 'mastra_workflow_snapshot',
+  mastra_workspace_versions: 'mastra_workspace_versions',
+  mastra_workspaces: 'mastra_workspaces'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,81 +443,3263 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "profile" | "mastra_agent_versions" | "mastra_agents" | "mastra_ai_spans" | "mastra_background_tasks" | "mastra_channel_config" | "mastra_channel_installations" | "mastra_dataset_items" | "mastra_dataset_versions" | "mastra_datasets" | "mastra_experiment_results" | "mastra_experiments" | "mastra_favorites" | "mastra_knowledge_activity" | "mastra_knowledge_cursors" | "mastra_knowledge_mentions" | "mastra_knowledge_nodes" | "mastra_knowledge_records" | "mastra_knowledge_semantic_outbox" | "mastra_mcp_client_versions" | "mastra_mcp_clients" | "mastra_mcp_server_versions" | "mastra_mcp_servers" | "mastra_messages" | "mastra_observational_memory" | "mastra_prompt_block_versions" | "mastra_prompt_blocks" | "mastra_resources" | "mastra_schedule_triggers" | "mastra_schedules" | "mastra_scorer_definition_versions" | "mastra_scorer_definitions" | "mastra_scorers" | "mastra_skill_blobs" | "mastra_skill_versions" | "mastra_skills" | "mastra_thread_state" | "mastra_threads" | "mastra_tool_provider_connections" | "mastra_workflow_definitions" | "mastra_workflow_snapshot" | "mastra_workspace_versions" | "mastra_workspaces"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    User: {
-      payload: Prisma.$UserPayload<ExtArgs>
-      fields: Prisma.UserFieldRefs
+    user: {
+      payload: Prisma.$userPayload<ExtArgs>
+      fields: Prisma.userFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.UserFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+          args: Prisma.userFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.userFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>
         }
         findFirst: {
-          args: Prisma.UserFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+          args: Prisma.userFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.userFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>
         }
         findMany: {
-          args: Prisma.UserFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.userFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>[]
         }
         create: {
-          args: Prisma.UserCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.userCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>
         }
         createMany: {
-          args: Prisma.UserCreateManyArgs<ExtArgs>
+          args: Prisma.userCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.userCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>[]
         }
         delete: {
-          args: Prisma.UserDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.userDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>
         }
         update: {
-          args: Prisma.UserUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.userUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>
         }
         deleteMany: {
-          args: Prisma.UserDeleteManyArgs<ExtArgs>
+          args: Prisma.userDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.UserUpdateManyArgs<ExtArgs>
+          args: Prisma.userUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+          args: Prisma.userUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>[]
         }
         upsert: {
-          args: Prisma.UserUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+          args: Prisma.userUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>
         }
         aggregate: {
           args: Prisma.UserAggregateArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AggregateUser>
         }
         groupBy: {
-          args: Prisma.UserGroupByArgs<ExtArgs>
+          args: Prisma.userGroupByArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserGroupByOutputType>[]
         }
         count: {
-          args: Prisma.UserCountArgs<ExtArgs>
+          args: Prisma.userCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    profile: {
+      payload: Prisma.$profilePayload<ExtArgs>
+      fields: Prisma.profileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.profileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.profileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>
+        }
+        findFirst: {
+          args: Prisma.profileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.profileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>
+        }
+        findMany: {
+          args: Prisma.profileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>[]
+        }
+        create: {
+          args: Prisma.profileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>
+        }
+        createMany: {
+          args: Prisma.profileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.profileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>[]
+        }
+        delete: {
+          args: Prisma.profileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>
+        }
+        update: {
+          args: Prisma.profileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>
+        }
+        deleteMany: {
+          args: Prisma.profileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.profileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.profileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>[]
+        }
+        upsert: {
+          args: Prisma.profileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$profilePayload>
+        }
+        aggregate: {
+          args: Prisma.ProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProfile>
+        }
+        groupBy: {
+          args: Prisma.profileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.profileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_agent_versions: {
+      payload: Prisma.$mastra_agent_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_agent_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_agent_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_agent_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_agent_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_agent_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_agent_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_agent_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_agent_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_agent_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_agent_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_agent_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_agent_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_agent_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_agent_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_agent_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agent_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_agent_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_agent_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_agent_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_agent_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_agent_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_agent_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_agents: {
+      payload: Prisma.$mastra_agentsPayload<ExtArgs>
+      fields: Prisma.mastra_agentsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_agentsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_agentsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_agentsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_agentsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_agentsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_agentsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_agentsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_agentsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_agentsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>
+        }
+        update: {
+          args: Prisma.mastra_agentsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_agentsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_agentsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_agentsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_agentsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_agentsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_agentsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_agents>
+        }
+        groupBy: {
+          args: Prisma.mastra_agentsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_agentsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_agentsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_agentsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_ai_spans: {
+      payload: Prisma.$mastra_ai_spansPayload<ExtArgs>
+      fields: Prisma.mastra_ai_spansFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_ai_spansFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_ai_spansFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_ai_spansFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_ai_spansFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_ai_spansFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_ai_spansCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_ai_spansCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_ai_spansCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_ai_spansDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>
+        }
+        update: {
+          args: Prisma.mastra_ai_spansUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_ai_spansDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_ai_spansUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_ai_spansUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_ai_spansUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_ai_spansPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_ai_spansAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_ai_spans>
+        }
+        groupBy: {
+          args: Prisma.mastra_ai_spansGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_ai_spansGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_ai_spansCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_ai_spansCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_background_tasks: {
+      payload: Prisma.$mastra_background_tasksPayload<ExtArgs>
+      fields: Prisma.mastra_background_tasksFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_background_tasksFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_background_tasksFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_background_tasksFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_background_tasksFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_background_tasksFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_background_tasksCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_background_tasksCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_background_tasksCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_background_tasksDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>
+        }
+        update: {
+          args: Prisma.mastra_background_tasksUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_background_tasksDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_background_tasksUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_background_tasksUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_background_tasksUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_background_tasksPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_background_tasksAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_background_tasks>
+        }
+        groupBy: {
+          args: Prisma.mastra_background_tasksGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_background_tasksGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_background_tasksCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_background_tasksCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_channel_config: {
+      payload: Prisma.$mastra_channel_configPayload<ExtArgs>
+      fields: Prisma.mastra_channel_configFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_channel_configFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_channel_configFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_channel_configFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_channel_configFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_channel_configFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_channel_configCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_channel_configCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_channel_configCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_channel_configDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>
+        }
+        update: {
+          args: Prisma.mastra_channel_configUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_channel_configDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_channel_configUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_channel_configUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_channel_configUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_configPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_channel_configAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_channel_config>
+        }
+        groupBy: {
+          args: Prisma.mastra_channel_configGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_channel_configGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_channel_configCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_channel_configCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_channel_installations: {
+      payload: Prisma.$mastra_channel_installationsPayload<ExtArgs>
+      fields: Prisma.mastra_channel_installationsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_channel_installationsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_channel_installationsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_channel_installationsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_channel_installationsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_channel_installationsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_channel_installationsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_channel_installationsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_channel_installationsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_channel_installationsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>
+        }
+        update: {
+          args: Prisma.mastra_channel_installationsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_channel_installationsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_channel_installationsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_channel_installationsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_channel_installationsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_channel_installationsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_channel_installationsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_channel_installations>
+        }
+        groupBy: {
+          args: Prisma.mastra_channel_installationsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_channel_installationsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_channel_installationsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_channel_installationsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_dataset_items: {
+      payload: Prisma.$mastra_dataset_itemsPayload<ExtArgs>
+      fields: Prisma.mastra_dataset_itemsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_dataset_itemsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_dataset_itemsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_dataset_itemsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_dataset_itemsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_dataset_itemsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_dataset_itemsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_dataset_itemsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_dataset_itemsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_dataset_itemsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>
+        }
+        update: {
+          args: Prisma.mastra_dataset_itemsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_dataset_itemsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_dataset_itemsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_dataset_itemsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_dataset_itemsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_itemsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_dataset_itemsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_dataset_items>
+        }
+        groupBy: {
+          args: Prisma.mastra_dataset_itemsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_dataset_itemsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_dataset_itemsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_dataset_itemsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_dataset_versions: {
+      payload: Prisma.$mastra_dataset_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_dataset_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_dataset_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_dataset_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_dataset_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_dataset_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_dataset_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_dataset_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_dataset_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_dataset_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_dataset_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_dataset_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_dataset_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_dataset_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_dataset_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_dataset_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_dataset_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_dataset_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_dataset_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_dataset_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_dataset_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_dataset_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_dataset_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_datasets: {
+      payload: Prisma.$mastra_datasetsPayload<ExtArgs>
+      fields: Prisma.mastra_datasetsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_datasetsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_datasetsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_datasetsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_datasetsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_datasetsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_datasetsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_datasetsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_datasetsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_datasetsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>
+        }
+        update: {
+          args: Prisma.mastra_datasetsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_datasetsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_datasetsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_datasetsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_datasetsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_datasetsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_datasetsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_datasets>
+        }
+        groupBy: {
+          args: Prisma.mastra_datasetsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_datasetsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_datasetsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_datasetsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_experiment_results: {
+      payload: Prisma.$mastra_experiment_resultsPayload<ExtArgs>
+      fields: Prisma.mastra_experiment_resultsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_experiment_resultsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_experiment_resultsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_experiment_resultsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_experiment_resultsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_experiment_resultsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_experiment_resultsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_experiment_resultsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_experiment_resultsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_experiment_resultsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>
+        }
+        update: {
+          args: Prisma.mastra_experiment_resultsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_experiment_resultsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_experiment_resultsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_experiment_resultsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_experiment_resultsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experiment_resultsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_experiment_resultsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_experiment_results>
+        }
+        groupBy: {
+          args: Prisma.mastra_experiment_resultsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_experiment_resultsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_experiment_resultsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_experiment_resultsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_experiments: {
+      payload: Prisma.$mastra_experimentsPayload<ExtArgs>
+      fields: Prisma.mastra_experimentsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_experimentsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_experimentsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_experimentsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_experimentsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_experimentsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_experimentsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_experimentsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_experimentsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_experimentsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>
+        }
+        update: {
+          args: Prisma.mastra_experimentsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_experimentsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_experimentsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_experimentsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_experimentsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_experimentsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_experimentsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_experiments>
+        }
+        groupBy: {
+          args: Prisma.mastra_experimentsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_experimentsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_experimentsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_experimentsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_favorites: {
+      payload: Prisma.$mastra_favoritesPayload<ExtArgs>
+      fields: Prisma.mastra_favoritesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_favoritesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_favoritesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_favoritesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_favoritesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_favoritesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_favoritesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_favoritesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_favoritesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_favoritesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>
+        }
+        update: {
+          args: Prisma.mastra_favoritesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_favoritesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_favoritesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_favoritesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_favoritesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_favoritesPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_favoritesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_favorites>
+        }
+        groupBy: {
+          args: Prisma.mastra_favoritesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_favoritesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_favoritesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_favoritesCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_knowledge_activity: {
+      payload: Prisma.$mastra_knowledge_activityPayload<ExtArgs>
+      fields: Prisma.mastra_knowledge_activityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_knowledge_activityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_knowledge_activityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_knowledge_activityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_knowledge_activityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_knowledge_activityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_knowledge_activityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_knowledge_activityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_knowledge_activityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_knowledge_activityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>
+        }
+        update: {
+          args: Prisma.mastra_knowledge_activityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_knowledge_activityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_knowledge_activityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_knowledge_activityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_knowledge_activityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_activityPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_knowledge_activityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_knowledge_activity>
+        }
+        groupBy: {
+          args: Prisma.mastra_knowledge_activityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_activityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_knowledge_activityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_activityCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_knowledge_cursors: {
+      payload: Prisma.$mastra_knowledge_cursorsPayload<ExtArgs>
+      fields: Prisma.mastra_knowledge_cursorsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_knowledge_cursorsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_knowledge_cursorsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_knowledge_cursorsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_knowledge_cursorsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_knowledge_cursorsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_knowledge_cursorsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_knowledge_cursorsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_knowledge_cursorsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_knowledge_cursorsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>
+        }
+        update: {
+          args: Prisma.mastra_knowledge_cursorsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_knowledge_cursorsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_knowledge_cursorsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_knowledge_cursorsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_knowledge_cursorsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_cursorsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_knowledge_cursorsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_knowledge_cursors>
+        }
+        groupBy: {
+          args: Prisma.mastra_knowledge_cursorsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_cursorsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_knowledge_cursorsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_cursorsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_knowledge_mentions: {
+      payload: Prisma.$mastra_knowledge_mentionsPayload<ExtArgs>
+      fields: Prisma.mastra_knowledge_mentionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_knowledge_mentionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_knowledge_mentionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_knowledge_mentionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_knowledge_mentionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_knowledge_mentionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_knowledge_mentionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_knowledge_mentionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_knowledge_mentionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_knowledge_mentionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_knowledge_mentionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_knowledge_mentionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_knowledge_mentionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_knowledge_mentionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_knowledge_mentionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_mentionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_knowledge_mentionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_knowledge_mentions>
+        }
+        groupBy: {
+          args: Prisma.mastra_knowledge_mentionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_mentionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_knowledge_mentionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_mentionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_knowledge_nodes: {
+      payload: Prisma.$mastra_knowledge_nodesPayload<ExtArgs>
+      fields: Prisma.mastra_knowledge_nodesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_knowledge_nodesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_knowledge_nodesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_knowledge_nodesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_knowledge_nodesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_knowledge_nodesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_knowledge_nodesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_knowledge_nodesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_knowledge_nodesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_knowledge_nodesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>
+        }
+        update: {
+          args: Prisma.mastra_knowledge_nodesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_knowledge_nodesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_knowledge_nodesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_knowledge_nodesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_knowledge_nodesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_nodesPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_knowledge_nodesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_knowledge_nodes>
+        }
+        groupBy: {
+          args: Prisma.mastra_knowledge_nodesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_nodesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_knowledge_nodesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_nodesCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_knowledge_records: {
+      payload: Prisma.$mastra_knowledge_recordsPayload<ExtArgs>
+      fields: Prisma.mastra_knowledge_recordsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_knowledge_recordsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_knowledge_recordsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_knowledge_recordsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_knowledge_recordsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_knowledge_recordsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_knowledge_recordsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_knowledge_recordsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_knowledge_recordsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_knowledge_recordsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>
+        }
+        update: {
+          args: Prisma.mastra_knowledge_recordsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_knowledge_recordsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_knowledge_recordsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_knowledge_recordsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_knowledge_recordsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_recordsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_knowledge_recordsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_knowledge_records>
+        }
+        groupBy: {
+          args: Prisma.mastra_knowledge_recordsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_recordsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_knowledge_recordsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_recordsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_knowledge_semantic_outbox: {
+      payload: Prisma.$mastra_knowledge_semantic_outboxPayload<ExtArgs>
+      fields: Prisma.mastra_knowledge_semantic_outboxFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_knowledge_semantic_outboxFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_knowledge_semantic_outboxFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_knowledge_semantic_outboxFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_knowledge_semantic_outboxFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_knowledge_semantic_outboxFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_knowledge_semantic_outboxCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_knowledge_semantic_outboxCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_knowledge_semantic_outboxCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_knowledge_semantic_outboxDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>
+        }
+        update: {
+          args: Prisma.mastra_knowledge_semantic_outboxUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_knowledge_semantic_outboxDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_knowledge_semantic_outboxUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_knowledge_semantic_outboxUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_knowledge_semantic_outboxUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_knowledge_semantic_outboxPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_knowledge_semantic_outboxAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_knowledge_semantic_outbox>
+        }
+        groupBy: {
+          args: Prisma.mastra_knowledge_semantic_outboxGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_semantic_outboxGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_knowledge_semantic_outboxCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_knowledge_semantic_outboxCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_mcp_client_versions: {
+      payload: Prisma.$mastra_mcp_client_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_mcp_client_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_mcp_client_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_mcp_client_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_mcp_client_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_mcp_client_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_mcp_client_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_mcp_client_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_mcp_client_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_mcp_client_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_mcp_client_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_mcp_client_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_mcp_client_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_mcp_client_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_mcp_client_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_mcp_client_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_client_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_mcp_client_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_mcp_client_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_mcp_client_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_client_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_mcp_client_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_client_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_mcp_clients: {
+      payload: Prisma.$mastra_mcp_clientsPayload<ExtArgs>
+      fields: Prisma.mastra_mcp_clientsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_mcp_clientsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_mcp_clientsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_mcp_clientsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_mcp_clientsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_mcp_clientsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_mcp_clientsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_mcp_clientsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_mcp_clientsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_mcp_clientsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>
+        }
+        update: {
+          args: Prisma.mastra_mcp_clientsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_mcp_clientsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_mcp_clientsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_mcp_clientsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_mcp_clientsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_clientsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_mcp_clientsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_mcp_clients>
+        }
+        groupBy: {
+          args: Prisma.mastra_mcp_clientsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_clientsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_mcp_clientsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_clientsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_mcp_server_versions: {
+      payload: Prisma.$mastra_mcp_server_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_mcp_server_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_mcp_server_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_mcp_server_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_mcp_server_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_mcp_server_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_mcp_server_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_mcp_server_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_mcp_server_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_mcp_server_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_mcp_server_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_mcp_server_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_mcp_server_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_mcp_server_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_mcp_server_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_mcp_server_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_server_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_mcp_server_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_mcp_server_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_mcp_server_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_server_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_mcp_server_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_server_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_mcp_servers: {
+      payload: Prisma.$mastra_mcp_serversPayload<ExtArgs>
+      fields: Prisma.mastra_mcp_serversFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_mcp_serversFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_mcp_serversFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_mcp_serversFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_mcp_serversFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_mcp_serversFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_mcp_serversCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_mcp_serversCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_mcp_serversCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_mcp_serversDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>
+        }
+        update: {
+          args: Prisma.mastra_mcp_serversUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_mcp_serversDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_mcp_serversUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_mcp_serversUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_mcp_serversUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_mcp_serversPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_mcp_serversAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_mcp_servers>
+        }
+        groupBy: {
+          args: Prisma.mastra_mcp_serversGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_serversGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_mcp_serversCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_mcp_serversCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_messages: {
+      payload: Prisma.$mastra_messagesPayload<ExtArgs>
+      fields: Prisma.mastra_messagesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_messagesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_messagesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_messagesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_messagesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_messagesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_messagesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_messagesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_messagesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_messagesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>
+        }
+        update: {
+          args: Prisma.mastra_messagesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_messagesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_messagesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_messagesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_messagesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_messagesPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_messagesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_messages>
+        }
+        groupBy: {
+          args: Prisma.mastra_messagesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_messagesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_messagesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_messagesCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_observational_memory: {
+      payload: Prisma.$mastra_observational_memoryPayload<ExtArgs>
+      fields: Prisma.mastra_observational_memoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_observational_memoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_observational_memoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_observational_memoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_observational_memoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_observational_memoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_observational_memoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_observational_memoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_observational_memoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_observational_memoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>
+        }
+        update: {
+          args: Prisma.mastra_observational_memoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_observational_memoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_observational_memoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_observational_memoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_observational_memoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_observational_memoryPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_observational_memoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_observational_memory>
+        }
+        groupBy: {
+          args: Prisma.mastra_observational_memoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_observational_memoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_observational_memoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_observational_memoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_prompt_block_versions: {
+      payload: Prisma.$mastra_prompt_block_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_prompt_block_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_prompt_block_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_prompt_block_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_prompt_block_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_prompt_block_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_prompt_block_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_prompt_block_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_prompt_block_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_prompt_block_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_prompt_block_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_prompt_block_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_prompt_block_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_prompt_block_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_prompt_block_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_prompt_block_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_block_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_prompt_block_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_prompt_block_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_prompt_block_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_prompt_block_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_prompt_block_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_prompt_block_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_prompt_blocks: {
+      payload: Prisma.$mastra_prompt_blocksPayload<ExtArgs>
+      fields: Prisma.mastra_prompt_blocksFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_prompt_blocksFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_prompt_blocksFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_prompt_blocksFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_prompt_blocksFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_prompt_blocksFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_prompt_blocksCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_prompt_blocksCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_prompt_blocksCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_prompt_blocksDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>
+        }
+        update: {
+          args: Prisma.mastra_prompt_blocksUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_prompt_blocksDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_prompt_blocksUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_prompt_blocksUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_prompt_blocksUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_prompt_blocksPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_prompt_blocksAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_prompt_blocks>
+        }
+        groupBy: {
+          args: Prisma.mastra_prompt_blocksGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_prompt_blocksGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_prompt_blocksCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_prompt_blocksCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_resources: {
+      payload: Prisma.$mastra_resourcesPayload<ExtArgs>
+      fields: Prisma.mastra_resourcesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_resourcesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_resourcesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_resourcesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_resourcesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_resourcesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_resourcesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_resourcesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_resourcesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_resourcesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>
+        }
+        update: {
+          args: Prisma.mastra_resourcesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_resourcesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_resourcesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_resourcesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_resourcesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_resourcesPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_resourcesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_resources>
+        }
+        groupBy: {
+          args: Prisma.mastra_resourcesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_resourcesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_resourcesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_resourcesCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_schedule_triggers: {
+      payload: Prisma.$mastra_schedule_triggersPayload<ExtArgs>
+      fields: Prisma.mastra_schedule_triggersFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_schedule_triggersFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_schedule_triggersFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_schedule_triggersFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_schedule_triggersFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_schedule_triggersFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_schedule_triggersCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_schedule_triggersCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_schedule_triggersCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_schedule_triggersDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>
+        }
+        update: {
+          args: Prisma.mastra_schedule_triggersUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_schedule_triggersDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_schedule_triggersUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_schedule_triggersUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_schedule_triggersUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedule_triggersPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_schedule_triggersAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_schedule_triggers>
+        }
+        groupBy: {
+          args: Prisma.mastra_schedule_triggersGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_schedule_triggersGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_schedule_triggersCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_schedule_triggersCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_schedules: {
+      payload: Prisma.$mastra_schedulesPayload<ExtArgs>
+      fields: Prisma.mastra_schedulesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_schedulesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_schedulesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_schedulesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_schedulesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_schedulesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_schedulesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_schedulesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_schedulesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_schedulesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>
+        }
+        update: {
+          args: Prisma.mastra_schedulesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_schedulesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_schedulesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_schedulesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_schedulesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_schedulesPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_schedulesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_schedules>
+        }
+        groupBy: {
+          args: Prisma.mastra_schedulesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_schedulesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_schedulesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_schedulesCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_scorer_definition_versions: {
+      payload: Prisma.$mastra_scorer_definition_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_scorer_definition_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_scorer_definition_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_scorer_definition_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_scorer_definition_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_scorer_definition_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_scorer_definition_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_scorer_definition_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_scorer_definition_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_scorer_definition_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_scorer_definition_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_scorer_definition_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_scorer_definition_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_scorer_definition_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_scorer_definition_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_scorer_definition_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definition_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_scorer_definition_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_scorer_definition_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_scorer_definition_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_scorer_definition_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_scorer_definition_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_scorer_definition_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_scorer_definitions: {
+      payload: Prisma.$mastra_scorer_definitionsPayload<ExtArgs>
+      fields: Prisma.mastra_scorer_definitionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_scorer_definitionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_scorer_definitionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_scorer_definitionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_scorer_definitionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_scorer_definitionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_scorer_definitionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_scorer_definitionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_scorer_definitionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_scorer_definitionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_scorer_definitionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_scorer_definitionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_scorer_definitionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_scorer_definitionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_scorer_definitionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorer_definitionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_scorer_definitionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_scorer_definitions>
+        }
+        groupBy: {
+          args: Prisma.mastra_scorer_definitionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_scorer_definitionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_scorer_definitionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_scorer_definitionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_scorers: {
+      payload: Prisma.$mastra_scorersPayload<ExtArgs>
+      fields: Prisma.mastra_scorersFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_scorersFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_scorersFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_scorersFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_scorersFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_scorersFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_scorersCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_scorersCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_scorersCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_scorersDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>
+        }
+        update: {
+          args: Prisma.mastra_scorersUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_scorersDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_scorersUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_scorersUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_scorersUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_scorersPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_scorersAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_scorers>
+        }
+        groupBy: {
+          args: Prisma.mastra_scorersGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_scorersGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_scorersCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_scorersCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_skill_blobs: {
+      payload: Prisma.$mastra_skill_blobsPayload<ExtArgs>
+      fields: Prisma.mastra_skill_blobsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_skill_blobsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_skill_blobsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_skill_blobsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_skill_blobsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_skill_blobsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_skill_blobsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_skill_blobsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_skill_blobsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_skill_blobsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>
+        }
+        update: {
+          args: Prisma.mastra_skill_blobsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_skill_blobsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_skill_blobsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_skill_blobsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_skill_blobsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_blobsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_skill_blobsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_skill_blobs>
+        }
+        groupBy: {
+          args: Prisma.mastra_skill_blobsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_skill_blobsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_skill_blobsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_skill_blobsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_skill_versions: {
+      payload: Prisma.$mastra_skill_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_skill_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_skill_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_skill_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_skill_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_skill_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_skill_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_skill_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_skill_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_skill_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_skill_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_skill_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_skill_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_skill_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_skill_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_skill_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skill_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_skill_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_skill_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_skill_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_skill_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_skill_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_skill_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_skills: {
+      payload: Prisma.$mastra_skillsPayload<ExtArgs>
+      fields: Prisma.mastra_skillsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_skillsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_skillsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_skillsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_skillsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_skillsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_skillsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_skillsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_skillsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_skillsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>
+        }
+        update: {
+          args: Prisma.mastra_skillsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_skillsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_skillsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_skillsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_skillsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_skillsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_skillsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_skills>
+        }
+        groupBy: {
+          args: Prisma.mastra_skillsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_skillsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_skillsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_skillsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_thread_state: {
+      payload: Prisma.$mastra_thread_statePayload<ExtArgs>
+      fields: Prisma.mastra_thread_stateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_thread_stateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_thread_stateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_thread_stateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_thread_stateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>
+        }
+        findMany: {
+          args: Prisma.mastra_thread_stateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>[]
+        }
+        create: {
+          args: Prisma.mastra_thread_stateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>
+        }
+        createMany: {
+          args: Prisma.mastra_thread_stateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_thread_stateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_thread_stateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>
+        }
+        update: {
+          args: Prisma.mastra_thread_stateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_thread_stateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_thread_stateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_thread_stateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_thread_stateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_thread_statePayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_thread_stateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_thread_state>
+        }
+        groupBy: {
+          args: Prisma.mastra_thread_stateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_thread_stateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_thread_stateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_thread_stateCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_threads: {
+      payload: Prisma.$mastra_threadsPayload<ExtArgs>
+      fields: Prisma.mastra_threadsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_threadsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_threadsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_threadsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_threadsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_threadsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_threadsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_threadsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_threadsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_threadsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>
+        }
+        update: {
+          args: Prisma.mastra_threadsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_threadsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_threadsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_threadsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_threadsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_threadsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_threadsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_threads>
+        }
+        groupBy: {
+          args: Prisma.mastra_threadsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_threadsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_threadsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_threadsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_tool_provider_connections: {
+      payload: Prisma.$mastra_tool_provider_connectionsPayload<ExtArgs>
+      fields: Prisma.mastra_tool_provider_connectionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_tool_provider_connectionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_tool_provider_connectionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_tool_provider_connectionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_tool_provider_connectionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_tool_provider_connectionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_tool_provider_connectionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_tool_provider_connectionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_tool_provider_connectionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_tool_provider_connectionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_tool_provider_connectionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_tool_provider_connectionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_tool_provider_connectionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_tool_provider_connectionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_tool_provider_connectionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_tool_provider_connectionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_tool_provider_connectionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_tool_provider_connections>
+        }
+        groupBy: {
+          args: Prisma.mastra_tool_provider_connectionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_tool_provider_connectionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_tool_provider_connectionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_tool_provider_connectionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_workflow_definitions: {
+      payload: Prisma.$mastra_workflow_definitionsPayload<ExtArgs>
+      fields: Prisma.mastra_workflow_definitionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_workflow_definitionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_workflow_definitionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_workflow_definitionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_workflow_definitionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_workflow_definitionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_workflow_definitionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_workflow_definitionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_workflow_definitionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_workflow_definitionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_workflow_definitionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_workflow_definitionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_workflow_definitionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_workflow_definitionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_workflow_definitionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_definitionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_workflow_definitionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_workflow_definitions>
+        }
+        groupBy: {
+          args: Prisma.mastra_workflow_definitionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workflow_definitionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_workflow_definitionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workflow_definitionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_workflow_snapshot: {
+      payload: Prisma.$mastra_workflow_snapshotPayload<ExtArgs>
+      fields: Prisma.mastra_workflow_snapshotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_workflow_snapshotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_workflow_snapshotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_workflow_snapshotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_workflow_snapshotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_workflow_snapshotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_workflow_snapshotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_workflow_snapshotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_workflow_snapshotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_workflow_snapshotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>
+        }
+        update: {
+          args: Prisma.mastra_workflow_snapshotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_workflow_snapshotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_workflow_snapshotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_workflow_snapshotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_workflow_snapshotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workflow_snapshotPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_workflow_snapshotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_workflow_snapshot>
+        }
+        groupBy: {
+          args: Prisma.mastra_workflow_snapshotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workflow_snapshotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_workflow_snapshotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workflow_snapshotCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_workspace_versions: {
+      payload: Prisma.$mastra_workspace_versionsPayload<ExtArgs>
+      fields: Prisma.mastra_workspace_versionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_workspace_versionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_workspace_versionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_workspace_versionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_workspace_versionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_workspace_versionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_workspace_versionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_workspace_versionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_workspace_versionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_workspace_versionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>
+        }
+        update: {
+          args: Prisma.mastra_workspace_versionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_workspace_versionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_workspace_versionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_workspace_versionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_workspace_versionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspace_versionsPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_workspace_versionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_workspace_versions>
+        }
+        groupBy: {
+          args: Prisma.mastra_workspace_versionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workspace_versionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_workspace_versionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workspace_versionsCountAggregateOutputType> | number
+        }
+      }
+    }
+    mastra_workspaces: {
+      payload: Prisma.$mastra_workspacesPayload<ExtArgs>
+      fields: Prisma.mastra_workspacesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.mastra_workspacesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.mastra_workspacesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>
+        }
+        findFirst: {
+          args: Prisma.mastra_workspacesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.mastra_workspacesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>
+        }
+        findMany: {
+          args: Prisma.mastra_workspacesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>[]
+        }
+        create: {
+          args: Prisma.mastra_workspacesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>
+        }
+        createMany: {
+          args: Prisma.mastra_workspacesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.mastra_workspacesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>[]
+        }
+        delete: {
+          args: Prisma.mastra_workspacesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>
+        }
+        update: {
+          args: Prisma.mastra_workspacesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>
+        }
+        deleteMany: {
+          args: Prisma.mastra_workspacesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.mastra_workspacesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.mastra_workspacesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>[]
+        }
+        upsert: {
+          args: Prisma.mastra_workspacesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$mastra_workspacesPayload>
+        }
+        aggregate: {
+          args: Prisma.Mastra_workspacesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMastra_workspaces>
+        }
+        groupBy: {
+          args: Prisma.mastra_workspacesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workspacesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.mastra_workspacesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Mastra_workspacesCountAggregateOutputType> | number
         }
       }
     }
@@ -519,8 +3744,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  firstName: 'firstName',
-  lastName: 'lastName',
+  first_name: 'first_name',
+  last_name: 'last_name',
   email: 'email',
   password: 'password',
   role: 'role',
@@ -531,6 +3756,919 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const ProfileScalarFieldEnum = {
+  id: 'id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  date_of_birth: 'date_of_birth',
+  email: 'email',
+  phone: 'phone',
+  customer_reference: 'customer_reference',
+  marital_status: 'marital_status',
+  dependent_count: 'dependent_count',
+  street: 'street',
+  city: 'city',
+  postal_code: 'postal_code',
+  country: 'country',
+  housing_status: 'housing_status',
+  monthly_housing_cost: 'monthly_housing_cost',
+  employment_status: 'employment_status',
+  occupation: 'occupation',
+  employer: 'employer',
+  employment_start_date: 'employment_start_date',
+  currency: 'currency',
+  monthly_net_income: 'monthly_net_income',
+  other_monthly_income: 'other_monthly_income',
+  financial_literacy: 'financial_literacy',
+  risk_tolerance: 'risk_tolerance',
+  goals: 'goals',
+  service_interests: 'service_interests',
+  monthly_essential_expenses: 'monthly_essential_expenses',
+  monthly_discretionary_expenses: 'monthly_discretionary_expenses',
+  monthly_savings_target: 'monthly_savings_target',
+  liquid_savings: 'liquid_savings',
+  investment_balance: 'investment_balance',
+  pension_balance: 'pension_balance',
+  real_estate_value: 'real_estate_value',
+  mortgage_balance: 'mortgage_balance',
+  consumer_debt_balance: 'consumer_debt_balance',
+  other_debt_balance: 'other_debt_balance',
+  has_life_insurance: 'has_life_insurance',
+  has_home_insurance: 'has_home_insurance',
+  has_health_insurance: 'has_health_insurance',
+  has_brokerage_account: 'has_brokerage_account',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+
+
+export const Mastra_agent_versionsScalarFieldEnum = {
+  id: 'id',
+  agentId: 'agentId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  instructions: 'instructions',
+  model: 'model',
+  tools: 'tools',
+  defaultOptions: 'defaultOptions',
+  workflows: 'workflows',
+  agents: 'agents',
+  integrationTools: 'integrationTools',
+  toolProviders: 'toolProviders',
+  inputProcessors: 'inputProcessors',
+  outputProcessors: 'outputProcessors',
+  memory: 'memory',
+  scorers: 'scorers',
+  mcpClients: 'mcpClients',
+  requestContextSchema: 'requestContextSchema',
+  workspace: 'workspace',
+  skills: 'skills',
+  skillsFormat: 'skillsFormat',
+  durable: 'durable',
+  browser: 'browser',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_agent_versionsScalarFieldEnum = (typeof Mastra_agent_versionsScalarFieldEnum)[keyof typeof Mastra_agent_versionsScalarFieldEnum]
+
+
+export const Mastra_agentsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  visibility: 'visibility',
+  metadata: 'metadata',
+  favoriteCount: 'favoriteCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_agentsScalarFieldEnum = (typeof Mastra_agentsScalarFieldEnum)[keyof typeof Mastra_agentsScalarFieldEnum]
+
+
+export const Mastra_ai_spansScalarFieldEnum = {
+  traceId: 'traceId',
+  spanId: 'spanId',
+  name: 'name',
+  spanType: 'spanType',
+  isEvent: 'isEvent',
+  startedAt: 'startedAt',
+  parentSpanId: 'parentSpanId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  entityName: 'entityName',
+  parentEntityType: 'parentEntityType',
+  parentEntityId: 'parentEntityId',
+  parentEntityName: 'parentEntityName',
+  rootEntityType: 'rootEntityType',
+  rootEntityId: 'rootEntityId',
+  rootEntityName: 'rootEntityName',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  resourceId: 'resourceId',
+  runId: 'runId',
+  sessionId: 'sessionId',
+  threadId: 'threadId',
+  requestId: 'requestId',
+  environment: 'environment',
+  serviceName: 'serviceName',
+  scope: 'scope',
+  entityVersionId: 'entityVersionId',
+  parentEntityVersionId: 'parentEntityVersionId',
+  rootEntityVersionId: 'rootEntityVersionId',
+  experimentId: 'experimentId',
+  source: 'source',
+  metadata: 'metadata',
+  tags: 'tags',
+  attributes: 'attributes',
+  links: 'links',
+  input: 'input',
+  output: 'output',
+  error: 'error',
+  endedAt: 'endedAt',
+  requestContext: 'requestContext',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  startedAtZ: 'startedAtZ',
+  endedAtZ: 'endedAtZ',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_ai_spansScalarFieldEnum = (typeof Mastra_ai_spansScalarFieldEnum)[keyof typeof Mastra_ai_spansScalarFieldEnum]
+
+
+export const Mastra_background_tasksScalarFieldEnum = {
+  id: 'id',
+  tool_call_id: 'tool_call_id',
+  tool_name: 'tool_name',
+  agent_id: 'agent_id',
+  run_id: 'run_id',
+  thread_id: 'thread_id',
+  resource_id: 'resource_id',
+  status: 'status',
+  args: 'args',
+  result: 'result',
+  error: 'error',
+  suspend_payload: 'suspend_payload',
+  retry_count: 'retry_count',
+  max_retries: 'max_retries',
+  timeout_ms: 'timeout_ms',
+  createdAt: 'createdAt',
+  startedAt: 'startedAt',
+  suspendedAt: 'suspendedAt',
+  completedAt: 'completedAt',
+  createdAtZ: 'createdAtZ',
+  startedAtZ: 'startedAtZ',
+  suspendedAtZ: 'suspendedAtZ',
+  completedAtZ: 'completedAtZ'
+} as const
+
+export type Mastra_background_tasksScalarFieldEnum = (typeof Mastra_background_tasksScalarFieldEnum)[keyof typeof Mastra_background_tasksScalarFieldEnum]
+
+
+export const Mastra_channel_configScalarFieldEnum = {
+  platform: 'platform',
+  data: 'data',
+  updatedAt: 'updatedAt',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_channel_configScalarFieldEnum = (typeof Mastra_channel_configScalarFieldEnum)[keyof typeof Mastra_channel_configScalarFieldEnum]
+
+
+export const Mastra_channel_installationsScalarFieldEnum = {
+  id: 'id',
+  platform: 'platform',
+  agentId: 'agentId',
+  status: 'status',
+  webhookId: 'webhookId',
+  data: 'data',
+  configHash: 'configHash',
+  error: 'error',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_channel_installationsScalarFieldEnum = (typeof Mastra_channel_installationsScalarFieldEnum)[keyof typeof Mastra_channel_installationsScalarFieldEnum]
+
+
+export const Mastra_dataset_itemsScalarFieldEnum = {
+  id: 'id',
+  datasetId: 'datasetId',
+  datasetVersion: 'datasetVersion',
+  externalId: 'externalId',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  validTo: 'validTo',
+  isDeleted: 'isDeleted',
+  input: 'input',
+  groundTruth: 'groundTruth',
+  requestContext: 'requestContext',
+  metadata: 'metadata',
+  source: 'source',
+  expectedTrajectory: 'expectedTrajectory',
+  toolMocks: 'toolMocks',
+  unmockedToolPolicy: 'unmockedToolPolicy',
+  scorerIds: 'scorerIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_dataset_itemsScalarFieldEnum = (typeof Mastra_dataset_itemsScalarFieldEnum)[keyof typeof Mastra_dataset_itemsScalarFieldEnum]
+
+
+export const Mastra_dataset_versionsScalarFieldEnum = {
+  id: 'id',
+  datasetId: 'datasetId',
+  version: 'version',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_dataset_versionsScalarFieldEnum = (typeof Mastra_dataset_versionsScalarFieldEnum)[keyof typeof Mastra_dataset_versionsScalarFieldEnum]
+
+
+export const Mastra_datasetsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  metadata: 'metadata',
+  inputSchema: 'inputSchema',
+  groundTruthSchema: 'groundTruthSchema',
+  requestContextSchema: 'requestContextSchema',
+  tags: 'tags',
+  targetType: 'targetType',
+  targetIds: 'targetIds',
+  scorerIds: 'scorerIds',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  candidateKey: 'candidateKey',
+  candidateId: 'candidateId',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_datasetsScalarFieldEnum = (typeof Mastra_datasetsScalarFieldEnum)[keyof typeof Mastra_datasetsScalarFieldEnum]
+
+
+export const Mastra_experiment_resultsScalarFieldEnum = {
+  id: 'id',
+  experimentId: 'experimentId',
+  itemId: 'itemId',
+  itemDatasetVersion: 'itemDatasetVersion',
+  input: 'input',
+  output: 'output',
+  groundTruth: 'groundTruth',
+  metadata: 'metadata',
+  error: 'error',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  retryCount: 'retryCount',
+  attempt: 'attempt',
+  traceId: 'traceId',
+  status: 'status',
+  tags: 'tags',
+  comment: 'comment',
+  toolMockReport: 'toolMockReport',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  createdAt: 'createdAt',
+  startedAtZ: 'startedAtZ',
+  completedAtZ: 'completedAtZ',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_experiment_resultsScalarFieldEnum = (typeof Mastra_experiment_resultsScalarFieldEnum)[keyof typeof Mastra_experiment_resultsScalarFieldEnum]
+
+
+export const Mastra_experimentsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  metadata: 'metadata',
+  provenance: 'provenance',
+  runnerAttestation: 'runnerAttestation',
+  experimentSetId: 'experimentSetId',
+  comparisonId: 'comparisonId',
+  variantId: 'variantId',
+  trialIndex: 'trialIndex',
+  datasetId: 'datasetId',
+  datasetVersion: 'datasetVersion',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  scorerIds: 'scorerIds',
+  status: 'status',
+  totalItems: 'totalItems',
+  succeededCount: 'succeededCount',
+  failedCount: 'failedCount',
+  skippedCount: 'skippedCount',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  agentVersion: 'agentVersion',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  startedAtZ: 'startedAtZ',
+  completedAtZ: 'completedAtZ',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_experimentsScalarFieldEnum = (typeof Mastra_experimentsScalarFieldEnum)[keyof typeof Mastra_experimentsScalarFieldEnum]
+
+
+export const Mastra_favoritesScalarFieldEnum = {
+  userId: 'userId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_favoritesScalarFieldEnum = (typeof Mastra_favoritesScalarFieldEnum)[keyof typeof Mastra_favoritesScalarFieldEnum]
+
+
+export const Mastra_knowledge_activityScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  recordType: 'recordType',
+  recordId: 'recordId',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  sourceThreadId: 'sourceThreadId',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_knowledge_activityScalarFieldEnum = (typeof Mastra_knowledge_activityScalarFieldEnum)[keyof typeof Mastra_knowledge_activityScalarFieldEnum]
+
+
+export const Mastra_knowledge_cursorsScalarFieldEnum = {
+  sourceThreadId: 'sourceThreadId',
+  agent: 'agent',
+  lastKnowledgeId: 'lastKnowledgeId',
+  updatedAt: 'updatedAt',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_knowledge_cursorsScalarFieldEnum = (typeof Mastra_knowledge_cursorsScalarFieldEnum)[keyof typeof Mastra_knowledge_cursorsScalarFieldEnum]
+
+
+export const Mastra_knowledge_mentionsScalarFieldEnum = {
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  recordId: 'recordId'
+} as const
+
+export type Mastra_knowledge_mentionsScalarFieldEnum = (typeof Mastra_knowledge_mentionsScalarFieldEnum)[keyof typeof Mastra_knowledge_mentionsScalarFieldEnum]
+
+
+export const Mastra_knowledge_nodesScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  name: 'name',
+  canonicalName: 'canonicalName',
+  kind: 'kind',
+  content: 'content',
+  description: 'description',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  version: 'version',
+  mergedInto: 'mergedInto',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_knowledge_nodesScalarFieldEnum = (typeof Mastra_knowledge_nodesScalarFieldEnum)[keyof typeof Mastra_knowledge_nodesScalarFieldEnum]
+
+
+export const Mastra_knowledge_recordsScalarFieldEnum = {
+  id: 'id',
+  node: 'node',
+  text: 'text',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  sourceThreadId: 'sourceThreadId',
+  capturedAt: 'capturedAt',
+  when: 'when',
+  maxScope: 'maxScope',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
+  capturedAtZ: 'capturedAtZ',
+  whenZ: 'whenZ',
+  deletedAtZ: 'deletedAtZ'
+} as const
+
+export type Mastra_knowledge_recordsScalarFieldEnum = (typeof Mastra_knowledge_recordsScalarFieldEnum)[keyof typeof Mastra_knowledge_recordsScalarFieldEnum]
+
+
+export const Mastra_knowledge_semantic_outboxScalarFieldEnum = {
+  id: 'id',
+  idempotencyKey: 'idempotencyKey',
+  documentId: 'documentId',
+  documentType: 'documentType',
+  operation: 'operation',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  status: 'status',
+  attempts: 'attempts',
+  availableAt: 'availableAt',
+  claimedAt: 'claimedAt',
+  claimedBy: 'claimedBy',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt',
+  availableAtZ: 'availableAtZ',
+  claimedAtZ: 'claimedAtZ',
+  createdAtZ: 'createdAtZ',
+  completedAtZ: 'completedAtZ'
+} as const
+
+export type Mastra_knowledge_semantic_outboxScalarFieldEnum = (typeof Mastra_knowledge_semantic_outboxScalarFieldEnum)[keyof typeof Mastra_knowledge_semantic_outboxScalarFieldEnum]
+
+
+export const Mastra_mcp_client_versionsScalarFieldEnum = {
+  id: 'id',
+  mcpClientId: 'mcpClientId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  servers: 'servers',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_mcp_client_versionsScalarFieldEnum = (typeof Mastra_mcp_client_versionsScalarFieldEnum)[keyof typeof Mastra_mcp_client_versionsScalarFieldEnum]
+
+
+export const Mastra_mcp_clientsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_mcp_clientsScalarFieldEnum = (typeof Mastra_mcp_clientsScalarFieldEnum)[keyof typeof Mastra_mcp_clientsScalarFieldEnum]
+
+
+export const Mastra_mcp_server_versionsScalarFieldEnum = {
+  id: 'id',
+  mcpServerId: 'mcpServerId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  version: 'version',
+  description: 'description',
+  instructions: 'instructions',
+  repository: 'repository',
+  releaseDate: 'releaseDate',
+  isLatest: 'isLatest',
+  packageCanonical: 'packageCanonical',
+  tools: 'tools',
+  agents: 'agents',
+  workflows: 'workflows',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_mcp_server_versionsScalarFieldEnum = (typeof Mastra_mcp_server_versionsScalarFieldEnum)[keyof typeof Mastra_mcp_server_versionsScalarFieldEnum]
+
+
+export const Mastra_mcp_serversScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_mcp_serversScalarFieldEnum = (typeof Mastra_mcp_serversScalarFieldEnum)[keyof typeof Mastra_mcp_serversScalarFieldEnum]
+
+
+export const Mastra_messagesScalarFieldEnum = {
+  id: 'id',
+  thread_id: 'thread_id',
+  content: 'content',
+  role: 'role',
+  type: 'type',
+  createdAt: 'createdAt',
+  resourceId: 'resourceId',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_messagesScalarFieldEnum = (typeof Mastra_messagesScalarFieldEnum)[keyof typeof Mastra_messagesScalarFieldEnum]
+
+
+export const Mastra_observational_memoryScalarFieldEnum = {
+  id: 'id',
+  lookupKey: 'lookupKey',
+  scope: 'scope',
+  resourceId: 'resourceId',
+  threadId: 'threadId',
+  activeObservations: 'activeObservations',
+  activeObservationsPendingUpdate: 'activeObservationsPendingUpdate',
+  originType: 'originType',
+  config: 'config',
+  generationCount: 'generationCount',
+  lastObservedAt: 'lastObservedAt',
+  lastReflectionAt: 'lastReflectionAt',
+  pendingMessageTokens: 'pendingMessageTokens',
+  totalTokensObserved: 'totalTokensObserved',
+  observationTokenCount: 'observationTokenCount',
+  isObserving: 'isObserving',
+  isReflecting: 'isReflecting',
+  observedMessageIds: 'observedMessageIds',
+  observedTimezone: 'observedTimezone',
+  bufferedObservations: 'bufferedObservations',
+  bufferedObservationTokens: 'bufferedObservationTokens',
+  bufferedMessageIds: 'bufferedMessageIds',
+  bufferedReflection: 'bufferedReflection',
+  bufferedReflectionTokens: 'bufferedReflectionTokens',
+  bufferedReflectionInputTokens: 'bufferedReflectionInputTokens',
+  reflectedObservationLineCount: 'reflectedObservationLineCount',
+  bufferedObservationChunks: 'bufferedObservationChunks',
+  isBufferingObservation: 'isBufferingObservation',
+  isBufferingReflection: 'isBufferingReflection',
+  lastBufferedAtTokens: 'lastBufferedAtTokens',
+  lastBufferedAtTime: 'lastBufferedAtTime',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastObservedAtZ: 'lastObservedAtZ',
+  lastReflectionAtZ: 'lastReflectionAtZ',
+  lastBufferedAtTimeZ: 'lastBufferedAtTimeZ',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_observational_memoryScalarFieldEnum = (typeof Mastra_observational_memoryScalarFieldEnum)[keyof typeof Mastra_observational_memoryScalarFieldEnum]
+
+
+export const Mastra_prompt_block_versionsScalarFieldEnum = {
+  id: 'id',
+  blockId: 'blockId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  content: 'content',
+  rules: 'rules',
+  requestContextSchema: 'requestContextSchema',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_prompt_block_versionsScalarFieldEnum = (typeof Mastra_prompt_block_versionsScalarFieldEnum)[keyof typeof Mastra_prompt_block_versionsScalarFieldEnum]
+
+
+export const Mastra_prompt_blocksScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_prompt_blocksScalarFieldEnum = (typeof Mastra_prompt_blocksScalarFieldEnum)[keyof typeof Mastra_prompt_blocksScalarFieldEnum]
+
+
+export const Mastra_resourcesScalarFieldEnum = {
+  id: 'id',
+  workingMemory: 'workingMemory',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_resourcesScalarFieldEnum = (typeof Mastra_resourcesScalarFieldEnum)[keyof typeof Mastra_resourcesScalarFieldEnum]
+
+
+export const Mastra_schedule_triggersScalarFieldEnum = {
+  id: 'id',
+  schedule_id: 'schedule_id',
+  run_id: 'run_id',
+  scheduled_fire_at: 'scheduled_fire_at',
+  actual_fire_at: 'actual_fire_at',
+  outcome: 'outcome',
+  error: 'error',
+  trigger_kind: 'trigger_kind',
+  parent_trigger_id: 'parent_trigger_id',
+  metadata: 'metadata'
+} as const
+
+export type Mastra_schedule_triggersScalarFieldEnum = (typeof Mastra_schedule_triggersScalarFieldEnum)[keyof typeof Mastra_schedule_triggersScalarFieldEnum]
+
+
+export const Mastra_schedulesScalarFieldEnum = {
+  id: 'id',
+  target: 'target',
+  cron: 'cron',
+  timezone: 'timezone',
+  status: 'status',
+  next_fire_at: 'next_fire_at',
+  last_fire_at: 'last_fire_at',
+  last_run_id: 'last_run_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  metadata: 'metadata',
+  owner_type: 'owner_type',
+  owner_id: 'owner_id'
+} as const
+
+export type Mastra_schedulesScalarFieldEnum = (typeof Mastra_schedulesScalarFieldEnum)[keyof typeof Mastra_schedulesScalarFieldEnum]
+
+
+export const Mastra_scorer_definition_versionsScalarFieldEnum = {
+  id: 'id',
+  scorerDefinitionId: 'scorerDefinitionId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  model: 'model',
+  instructions: 'instructions',
+  scoreRange: 'scoreRange',
+  presetConfig: 'presetConfig',
+  defaultSampling: 'defaultSampling',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_scorer_definition_versionsScalarFieldEnum = (typeof Mastra_scorer_definition_versionsScalarFieldEnum)[keyof typeof Mastra_scorer_definition_versionsScalarFieldEnum]
+
+
+export const Mastra_scorer_definitionsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_scorer_definitionsScalarFieldEnum = (typeof Mastra_scorer_definitionsScalarFieldEnum)[keyof typeof Mastra_scorer_definitionsScalarFieldEnum]
+
+
+export const Mastra_scorersScalarFieldEnum = {
+  id: 'id',
+  scorerId: 'scorerId',
+  traceId: 'traceId',
+  spanId: 'spanId',
+  runId: 'runId',
+  scorer: 'scorer',
+  preprocessStepResult: 'preprocessStepResult',
+  extractStepResult: 'extractStepResult',
+  analyzeStepResult: 'analyzeStepResult',
+  score: 'score',
+  reason: 'reason',
+  metadata: 'metadata',
+  preprocessPrompt: 'preprocessPrompt',
+  extractPrompt: 'extractPrompt',
+  generateScorePrompt: 'generateScorePrompt',
+  generateReasonPrompt: 'generateReasonPrompt',
+  analyzePrompt: 'analyzePrompt',
+  reasonPrompt: 'reasonPrompt',
+  input: 'input',
+  output: 'output',
+  additionalContext: 'additionalContext',
+  requestContext: 'requestContext',
+  entityType: 'entityType',
+  entity: 'entity',
+  entityId: 'entityId',
+  source: 'source',
+  resourceId: 'resourceId',
+  threadId: 'threadId',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  batchId: 'batchId',
+  datasetId: 'datasetId',
+  datasetItemId: 'datasetItemId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_scorersScalarFieldEnum = (typeof Mastra_scorersScalarFieldEnum)[keyof typeof Mastra_scorersScalarFieldEnum]
+
+
+export const Mastra_skill_blobsScalarFieldEnum = {
+  hash: 'hash',
+  content: 'content',
+  size: 'size',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_skill_blobsScalarFieldEnum = (typeof Mastra_skill_blobsScalarFieldEnum)[keyof typeof Mastra_skill_blobsScalarFieldEnum]
+
+
+export const Mastra_skill_versionsScalarFieldEnum = {
+  id: 'id',
+  skillId: 'skillId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  instructions: 'instructions',
+  license: 'license',
+  compatibility: 'compatibility',
+  source: 'source',
+  references: 'references',
+  scripts: 'scripts',
+  assets: 'assets',
+  files: 'files',
+  metadata: 'metadata',
+  tree: 'tree',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_skill_versionsScalarFieldEnum = (typeof Mastra_skill_versionsScalarFieldEnum)[keyof typeof Mastra_skill_versionsScalarFieldEnum]
+
+
+export const Mastra_skillsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  visibility: 'visibility',
+  favoriteCount: 'favoriteCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_skillsScalarFieldEnum = (typeof Mastra_skillsScalarFieldEnum)[keyof typeof Mastra_skillsScalarFieldEnum]
+
+
+export const Mastra_thread_stateScalarFieldEnum = {
+  threadId: 'threadId',
+  type: 'type',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_thread_stateScalarFieldEnum = (typeof Mastra_thread_stateScalarFieldEnum)[keyof typeof Mastra_thread_stateScalarFieldEnum]
+
+
+export const Mastra_threadsScalarFieldEnum = {
+  id: 'id',
+  resourceId: 'resourceId',
+  title: 'title',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_threadsScalarFieldEnum = (typeof Mastra_threadsScalarFieldEnum)[keyof typeof Mastra_threadsScalarFieldEnum]
+
+
+export const Mastra_tool_provider_connectionsScalarFieldEnum = {
+  authorId: 'authorId',
+  providerId: 'providerId',
+  connectionId: 'connectionId',
+  toolkit: 'toolkit',
+  label: 'label',
+  scope: 'scope',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_tool_provider_connectionsScalarFieldEnum = (typeof Mastra_tool_provider_connectionsScalarFieldEnum)[keyof typeof Mastra_tool_provider_connectionsScalarFieldEnum]
+
+
+export const Mastra_workflow_definitionsScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  metadata: 'metadata',
+  inputSchema: 'inputSchema',
+  outputSchema: 'outputSchema',
+  stateSchema: 'stateSchema',
+  requestContextSchema: 'requestContextSchema',
+  graph: 'graph',
+  schedule: 'schedule',
+  status: 'status',
+  source: 'source',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_workflow_definitionsScalarFieldEnum = (typeof Mastra_workflow_definitionsScalarFieldEnum)[keyof typeof Mastra_workflow_definitionsScalarFieldEnum]
+
+
+export const Mastra_workflow_snapshotScalarFieldEnum = {
+  workflow_name: 'workflow_name',
+  run_id: 'run_id',
+  resourceId: 'resourceId',
+  snapshot: 'snapshot',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_workflow_snapshotScalarFieldEnum = (typeof Mastra_workflow_snapshotScalarFieldEnum)[keyof typeof Mastra_workflow_snapshotScalarFieldEnum]
+
+
+export const Mastra_workspace_versionsScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  filesystem: 'filesystem',
+  sandbox: 'sandbox',
+  mounts: 'mounts',
+  search: 'search',
+  skills: 'skills',
+  tools: 'tools',
+  autoSync: 'autoSync',
+  operationTimeout: 'operationTimeout',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_workspace_versionsScalarFieldEnum = (typeof Mastra_workspace_versionsScalarFieldEnum)[keyof typeof Mastra_workspace_versionsScalarFieldEnum]
+
+
+export const Mastra_workspacesScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_workspacesScalarFieldEnum = (typeof Mastra_workspacesScalarFieldEnum)[keyof typeof Mastra_workspacesScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -539,12 +4677,44 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -568,16 +4738,16 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Role'
+ * Reference to a field of type 'role'
  */
-export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+export type EnumroleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'role'>
     
 
 
 /**
- * Reference to a field of type 'Role[]'
+ * Reference to a field of type 'role[]'
  */
-export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+export type ListEnumroleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'role[]'>
     
 
 
@@ -606,6 +4776,69 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -718,7 +4951,50 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
-  user?: Prisma.UserOmit
+  user?: Prisma.userOmit
+  profile?: Prisma.profileOmit
+  mastra_agent_versions?: Prisma.mastra_agent_versionsOmit
+  mastra_agents?: Prisma.mastra_agentsOmit
+  mastra_ai_spans?: Prisma.mastra_ai_spansOmit
+  mastra_background_tasks?: Prisma.mastra_background_tasksOmit
+  mastra_channel_config?: Prisma.mastra_channel_configOmit
+  mastra_channel_installations?: Prisma.mastra_channel_installationsOmit
+  mastra_dataset_items?: Prisma.mastra_dataset_itemsOmit
+  mastra_dataset_versions?: Prisma.mastra_dataset_versionsOmit
+  mastra_datasets?: Prisma.mastra_datasetsOmit
+  mastra_experiment_results?: Prisma.mastra_experiment_resultsOmit
+  mastra_experiments?: Prisma.mastra_experimentsOmit
+  mastra_favorites?: Prisma.mastra_favoritesOmit
+  mastra_knowledge_activity?: Prisma.mastra_knowledge_activityOmit
+  mastra_knowledge_cursors?: Prisma.mastra_knowledge_cursorsOmit
+  mastra_knowledge_mentions?: Prisma.mastra_knowledge_mentionsOmit
+  mastra_knowledge_nodes?: Prisma.mastra_knowledge_nodesOmit
+  mastra_knowledge_records?: Prisma.mastra_knowledge_recordsOmit
+  mastra_knowledge_semantic_outbox?: Prisma.mastra_knowledge_semantic_outboxOmit
+  mastra_mcp_client_versions?: Prisma.mastra_mcp_client_versionsOmit
+  mastra_mcp_clients?: Prisma.mastra_mcp_clientsOmit
+  mastra_mcp_server_versions?: Prisma.mastra_mcp_server_versionsOmit
+  mastra_mcp_servers?: Prisma.mastra_mcp_serversOmit
+  mastra_messages?: Prisma.mastra_messagesOmit
+  mastra_observational_memory?: Prisma.mastra_observational_memoryOmit
+  mastra_prompt_block_versions?: Prisma.mastra_prompt_block_versionsOmit
+  mastra_prompt_blocks?: Prisma.mastra_prompt_blocksOmit
+  mastra_resources?: Prisma.mastra_resourcesOmit
+  mastra_schedule_triggers?: Prisma.mastra_schedule_triggersOmit
+  mastra_schedules?: Prisma.mastra_schedulesOmit
+  mastra_scorer_definition_versions?: Prisma.mastra_scorer_definition_versionsOmit
+  mastra_scorer_definitions?: Prisma.mastra_scorer_definitionsOmit
+  mastra_scorers?: Prisma.mastra_scorersOmit
+  mastra_skill_blobs?: Prisma.mastra_skill_blobsOmit
+  mastra_skill_versions?: Prisma.mastra_skill_versionsOmit
+  mastra_skills?: Prisma.mastra_skillsOmit
+  mastra_thread_state?: Prisma.mastra_thread_stateOmit
+  mastra_threads?: Prisma.mastra_threadsOmit
+  mastra_tool_provider_connections?: Prisma.mastra_tool_provider_connectionsOmit
+  mastra_workflow_definitions?: Prisma.mastra_workflow_definitionsOmit
+  mastra_workflow_snapshot?: Prisma.mastra_workflow_snapshotOmit
+  mastra_workspace_versions?: Prisma.mastra_workspace_versionsOmit
+  mastra_workspaces?: Prisma.mastra_workspacesOmit
 }
 
 /* Types for Logging */

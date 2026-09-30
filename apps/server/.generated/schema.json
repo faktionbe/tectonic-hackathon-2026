@@ -312,6 +312,231 @@
           "Auth"
         ]
       }
+    },
+    "/api/profiles": {
+      "get": {
+        "operationId": "listProfiles",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "required": false,
+            "in": "query",
+            "description": "Page number (zero-based)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Number of records per page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Sort order of results",
+            "schema": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to order results by",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OffsetPaginatedProfiles"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List profiles",
+        "tags": [
+          "Profiles"
+        ]
+      },
+      "post": {
+        "operationId": "createProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create profile",
+        "tags": [
+          "Profiles"
+        ]
+      }
+    },
+    "/api/profiles/{profileId}": {
+      "get": {
+        "operationId": "getProfileById",
+        "parameters": [
+          {
+            "name": "profileId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get profile by id",
+        "tags": [
+          "Profiles"
+        ]
+      },
+      "patch": {
+        "operationId": "updateProfile",
+        "parameters": [
+          {
+            "name": "profileId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update profile",
+        "tags": [
+          "Profiles"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteProfile",
+        "parameters": [
+          {
+            "name": "profileId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete profile",
+        "tags": [
+          "Profiles"
+        ]
+      }
     }
   },
   "info": {
@@ -405,6 +630,794 @@
           "updatedAt"
         ],
         "additionalProperties": false
+      },
+      "OffsetPaginatedProfiles": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Profile"
+            }
+          },
+          "total": {
+            "type": "number"
+          },
+          "pageIndex": {
+            "type": "number"
+          },
+          "pageSize": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "data",
+          "total",
+          "pageIndex",
+          "pageSize",
+          "totalPages"
+        ],
+        "additionalProperties": false
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "email": {
+            "nullable": true,
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "customerReference": {
+            "nullable": true,
+            "type": "string"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "MARRIED",
+              "PARTNERED",
+              "DIVORCED",
+              "WIDOWED",
+              "OTHER"
+            ]
+          },
+          "dependentCount": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "street": {
+            "nullable": true,
+            "type": "string"
+          },
+          "city": {
+            "nullable": true,
+            "type": "string"
+          },
+          "postalCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "nullable": true,
+            "type": "string"
+          },
+          "housingStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "OWNER_OUTRIGHT",
+              "OWNER_WITH_MORTGAGE",
+              "RENTER",
+              "LIVING_WITH_FAMILY",
+              "OTHER"
+            ]
+          },
+          "monthlyHousingCost": {
+            "nullable": true,
+            "type": "number"
+          },
+          "employmentStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "EMPLOYED",
+              "SELF_EMPLOYED",
+              "UNEMPLOYED",
+              "STUDENT",
+              "RETIRED",
+              "OTHER"
+            ]
+          },
+          "occupation": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employer": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employmentStartDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "monthlyNetIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherMonthlyIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "financialLiteracy": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "LOW",
+              "DEVELOPING",
+              "CAPABLE",
+              "EXPERT"
+            ]
+          },
+          "riskTolerance": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CONSERVATIVE",
+              "MODERATE",
+              "BALANCED",
+              "GROWTH",
+              "AGGRESSIVE"
+            ]
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "EMERGENCY_FUND",
+                "REDUCE_SPENDING",
+                "REDUCE_DEBT",
+                "BUY_HOME",
+                "RETIREMENT",
+                "EDUCATION",
+                "GROW_INVESTMENTS",
+                "PROTECT_INCOME"
+              ]
+            }
+          },
+          "serviceInterests": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SAVINGS",
+                "INSURANCE",
+                "BROKER",
+                "INVESTING",
+                "PENSION",
+                "CREDIT",
+                "FINANCIAL_COACHING"
+              ]
+            }
+          },
+          "monthlyEssentialExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlyDiscretionaryExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlySavingsTarget": {
+            "nullable": true,
+            "type": "number"
+          },
+          "liquidSavings": {
+            "nullable": true,
+            "type": "number"
+          },
+          "investmentBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "pensionBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "realEstateValue": {
+            "nullable": true,
+            "type": "number"
+          },
+          "mortgageBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "consumerDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hasLifeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHomeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHealthInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasBrokerageAccount": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "dateOfBirth",
+          "email",
+          "phone",
+          "customerReference",
+          "maritalStatus",
+          "dependentCount",
+          "street",
+          "city",
+          "postalCode",
+          "country",
+          "housingStatus",
+          "monthlyHousingCost",
+          "employmentStatus",
+          "occupation",
+          "employer",
+          "employmentStartDate",
+          "currency",
+          "monthlyNetIncome",
+          "otherMonthlyIncome",
+          "financialLiteracy",
+          "riskTolerance",
+          "goals",
+          "serviceInterests",
+          "monthlyEssentialExpenses",
+          "monthlyDiscretionaryExpenses",
+          "monthlySavingsTarget",
+          "liquidSavings",
+          "investmentBalance",
+          "pensionBalance",
+          "realEstateValue",
+          "mortgageBalance",
+          "consumerDebtBalance",
+          "otherDebtBalance",
+          "hasLifeInsurance",
+          "hasHomeInsurance",
+          "hasHealthInsurance",
+          "hasBrokerageAccount",
+          "notes",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "CreateProfileRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "email": {
+            "nullable": true,
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "customerReference": {
+            "nullable": true,
+            "type": "string"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "MARRIED",
+              "PARTNERED",
+              "DIVORCED",
+              "WIDOWED",
+              "OTHER"
+            ]
+          },
+          "dependentCount": {
+            "default": 0,
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "street": {
+            "nullable": true,
+            "type": "string"
+          },
+          "city": {
+            "nullable": true,
+            "type": "string"
+          },
+          "postalCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "nullable": true,
+            "type": "string"
+          },
+          "housingStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "OWNER_OUTRIGHT",
+              "OWNER_WITH_MORTGAGE",
+              "RENTER",
+              "LIVING_WITH_FAMILY",
+              "OTHER"
+            ]
+          },
+          "monthlyHousingCost": {
+            "nullable": true,
+            "type": "number"
+          },
+          "employmentStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "EMPLOYED",
+              "SELF_EMPLOYED",
+              "UNEMPLOYED",
+              "STUDENT",
+              "RETIRED",
+              "OTHER"
+            ]
+          },
+          "occupation": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employer": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employmentStartDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "currency": {
+            "default": "EUR",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "monthlyNetIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherMonthlyIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "financialLiteracy": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "LOW",
+              "DEVELOPING",
+              "CAPABLE",
+              "EXPERT"
+            ]
+          },
+          "riskTolerance": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CONSERVATIVE",
+              "MODERATE",
+              "BALANCED",
+              "GROWTH",
+              "AGGRESSIVE"
+            ]
+          },
+          "goals": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "EMERGENCY_FUND",
+                "REDUCE_SPENDING",
+                "REDUCE_DEBT",
+                "BUY_HOME",
+                "RETIREMENT",
+                "EDUCATION",
+                "GROW_INVESTMENTS",
+                "PROTECT_INCOME"
+              ]
+            }
+          },
+          "serviceInterests": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SAVINGS",
+                "INSURANCE",
+                "BROKER",
+                "INVESTING",
+                "PENSION",
+                "CREDIT",
+                "FINANCIAL_COACHING"
+              ]
+            }
+          },
+          "monthlyEssentialExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlyDiscretionaryExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlySavingsTarget": {
+            "nullable": true,
+            "type": "number"
+          },
+          "liquidSavings": {
+            "nullable": true,
+            "type": "number"
+          },
+          "investmentBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "pensionBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "realEstateValue": {
+            "nullable": true,
+            "type": "number"
+          },
+          "mortgageBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "consumerDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hasLifeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHomeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHealthInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasBrokerageAccount": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ]
+      },
+      "UpdateProfileRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "email": {
+            "nullable": true,
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "customerReference": {
+            "nullable": true,
+            "type": "string"
+          },
+          "maritalStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "MARRIED",
+              "PARTNERED",
+              "DIVORCED",
+              "WIDOWED",
+              "OTHER"
+            ]
+          },
+          "dependentCount": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "street": {
+            "nullable": true,
+            "type": "string"
+          },
+          "city": {
+            "nullable": true,
+            "type": "string"
+          },
+          "postalCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "nullable": true,
+            "type": "string"
+          },
+          "housingStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "OWNER_OUTRIGHT",
+              "OWNER_WITH_MORTGAGE",
+              "RENTER",
+              "LIVING_WITH_FAMILY",
+              "OTHER"
+            ]
+          },
+          "monthlyHousingCost": {
+            "nullable": true,
+            "type": "number"
+          },
+          "employmentStatus": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "EMPLOYED",
+              "SELF_EMPLOYED",
+              "UNEMPLOYED",
+              "STUDENT",
+              "RETIRED",
+              "OTHER"
+            ]
+          },
+          "occupation": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employer": {
+            "nullable": true,
+            "type": "string"
+          },
+          "employmentStartDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "monthlyNetIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherMonthlyIncome": {
+            "nullable": true,
+            "type": "number"
+          },
+          "financialLiteracy": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "LOW",
+              "DEVELOPING",
+              "CAPABLE",
+              "EXPERT"
+            ]
+          },
+          "riskTolerance": {
+            "nullable": true,
+            "type": "string",
+            "enum": [
+              "CONSERVATIVE",
+              "MODERATE",
+              "BALANCED",
+              "GROWTH",
+              "AGGRESSIVE"
+            ]
+          },
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "EMERGENCY_FUND",
+                "REDUCE_SPENDING",
+                "REDUCE_DEBT",
+                "BUY_HOME",
+                "RETIREMENT",
+                "EDUCATION",
+                "GROW_INVESTMENTS",
+                "PROTECT_INCOME"
+              ]
+            }
+          },
+          "serviceInterests": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SAVINGS",
+                "INSURANCE",
+                "BROKER",
+                "INVESTING",
+                "PENSION",
+                "CREDIT",
+                "FINANCIAL_COACHING"
+              ]
+            }
+          },
+          "monthlyEssentialExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlyDiscretionaryExpenses": {
+            "nullable": true,
+            "type": "number"
+          },
+          "monthlySavingsTarget": {
+            "nullable": true,
+            "type": "number"
+          },
+          "liquidSavings": {
+            "nullable": true,
+            "type": "number"
+          },
+          "investmentBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "pensionBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "realEstateValue": {
+            "nullable": true,
+            "type": "number"
+          },
+          "mortgageBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "consumerDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "otherDebtBalance": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hasLifeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHomeInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasHealthInsurance": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "hasBrokerageAccount": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          }
+        }
       }
     }
   }
