@@ -16,10 +16,13 @@ import { AuthModule } from '@/modules/auth/auth.module';
 import { HttpExceptionFilter } from '@/modules/common/filters/http-exception.filter';
 import { DataLoaderModule } from '@/modules/data-loader/data-loader.module';
 import { DataLoaderService } from '@/modules/data-loader/data-loader.service';
+import { ExpensesModule } from '@/modules/expenses/expenses.module';
 import { HealthModule } from '@/modules/health/health.module';
 import { PaginationModule } from '@/modules/pagination/pagination.module';
+import { PartiesModule } from '@/modules/parties/parties.module';
 import { PrismaModule } from '@/modules/prisma/prisma.module';
 import { ProfilesModule } from '@/modules/profiles/profiles.module';
+import { SubscriptionsModule } from '@/modules/subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -33,6 +36,9 @@ import { ProfilesModule } from '@/modules/profiles/profiles.module';
     HealthModule,
     AuthModule,
     ProfilesModule,
+    PartiesModule,
+    ExpensesModule,
+    SubscriptionsModule,
     DataLoaderModule.forRoot({
       maxBatchSize: 100,
       cache: true,

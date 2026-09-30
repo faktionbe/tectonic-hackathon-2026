@@ -955,3 +955,81 @@ enum role {
   USER
   ADMIN
 }
+
+model party {
+  id           String  @id @default(uuid(7))
+  kind         String
+  name         String
+  iban         String?
+  country_code String?
+  category     String?
+  logo_url     String?
+  website      String?
+  external_id  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  expenses      expense[]
+  subscriptions subscription[]
+}
+
+model subscription {
+  id                String    @id @default(uuid(7))
+  account_id        String
+  counterparty_id   String
+  counterparty      party     @relation(fields: [counterparty_id], references: [id])
+  kind              String
+  mandate_id        String?
+  creditor_id       String?
+  status            String
+  category          String?
+  cadence           String
+  amount            Decimal   @db.Decimal(14, 2)
+  currency          String    @default("EUR") @db.Char(3)
+  next_payment_date DateTime? @db.Date
+  first_charged_at  DateTime? @db.Date
+  last_charged_at   DateTime? @db.Date
+  occurrence_count  Int?
+  cancellable       Boolean?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  expenses expense[]
+}
+
+model expense {
+  id                    String        @id @default(uuid(7))
+  account_id            String
+  iban                  String?
+  amount                Decimal       @db.Decimal(14, 2)
+  currency              String        @default("EUR") @db.Char(3)
+  direction             String
+  booking_date          DateTime      @db.Date
+  value_date            DateTime?     @db.Date
+  transaction_timestamp DateTime?
+  type                  String
+  status                String
+  description           String?
+  structured_reference  String?
+  mcc                   String?
+  channel               String?
+  balance_after         Decimal?      @db.Decimal(14, 2)
+  city                  String?
+  country_code          String?
+  category              String?
+  sub_category          String?
+  essentiality          String?
+  counterparty_id       String?
+  counterparty          party?        @relation(fields: [counterparty_id], references: [id])
+  subscription_id       String?
+  subscription          subscription? @relation(fields: [subscription_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([account_id])
+  @@index([counterparty_id])
+  @@index([subscription_id])
+}

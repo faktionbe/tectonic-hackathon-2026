@@ -655,6 +655,842 @@ export interface UpdateProfileRequest {
   notes?: string | null;
 }
 
+export type PartyKind = (typeof PartyKind)[keyof typeof PartyKind];
+
+export const PartyKind = {
+  MERCHANT: 'MERCHANT',
+  PERSON: 'PERSON',
+} as const;
+
+/**
+ * Merchant's typical category (merchant only)
+ */
+export type PartyCategory = (typeof PartyCategory)[keyof typeof PartyCategory];
+
+export const PartyCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export interface Party {
+  id: string;
+  kind: PartyKind;
+  /** Legal/display name of the merchant or person */
+  name: string;
+  iban?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  /** Merchant's typical category (merchant only) */
+  category?: PartyCategory;
+  /** Merchant only */
+  logoUrl?: string;
+  /** Merchant only */
+  website?: string;
+  /** Normalized merchant key / registry id; groups descriptor variants */
+  externalId?: string;
+}
+
+export interface PartiesPage {
+  data: Party[];
+  total: number;
+  pageIndex: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export type CreatePartyKind =
+  (typeof CreatePartyKind)[keyof typeof CreatePartyKind];
+
+export const CreatePartyKind = {
+  MERCHANT: 'MERCHANT',
+  PERSON: 'PERSON',
+} as const;
+
+/**
+ * Merchant's typical category (merchant only)
+ */
+export type CreatePartyCategory =
+  (typeof CreatePartyCategory)[keyof typeof CreatePartyCategory];
+
+export const CreatePartyCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export interface CreateParty {
+  kind: CreatePartyKind;
+  /** Legal/display name of the merchant or person */
+  name: string;
+  iban?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  /** Merchant's typical category (merchant only) */
+  category?: CreatePartyCategory;
+  /** Merchant only */
+  logoUrl?: string;
+  /** Merchant only */
+  website?: string;
+  /** Normalized merchant key / registry id; groups descriptor variants */
+  externalId?: string;
+}
+
+export type UpdatePartyKind =
+  (typeof UpdatePartyKind)[keyof typeof UpdatePartyKind];
+
+export const UpdatePartyKind = {
+  MERCHANT: 'MERCHANT',
+  PERSON: 'PERSON',
+} as const;
+
+/**
+ * Merchant's typical category (merchant only)
+ */
+export type UpdatePartyCategory =
+  (typeof UpdatePartyCategory)[keyof typeof UpdatePartyCategory];
+
+export const UpdatePartyCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export interface UpdateParty {
+  kind?: UpdatePartyKind;
+  /** Legal/display name of the merchant or person */
+  name?: string;
+  iban?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  /** Merchant's typical category (merchant only) */
+  category?: UpdatePartyCategory;
+  /** Merchant only */
+  logoUrl?: string;
+  /** Merchant only */
+  website?: string;
+  /** Normalized merchant key / registry id; groups descriptor variants */
+  externalId?: string;
+}
+
+export type ExpenseDirection =
+  (typeof ExpenseDirection)[keyof typeof ExpenseDirection];
+
+export const ExpenseDirection = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+} as const;
+
+export type ExpenseType = (typeof ExpenseType)[keyof typeof ExpenseType];
+
+export const ExpenseType = {
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  CONTACTLESS: 'CONTACTLESS',
+  SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
+  SEPA_CREDIT_TRANSFER: 'SEPA_CREDIT_TRANSFER',
+  STANDING_ORDER: 'STANDING_ORDER',
+  INSTANT_PAYMENT: 'INSTANT_PAYMENT',
+  ATM_WITHDRAWAL: 'ATM_WITHDRAWAL',
+  FEE: 'FEE',
+  INTEREST: 'INTEREST',
+  REVERSAL: 'REVERSAL',
+  OTHER: 'OTHER',
+} as const;
+
+export type ExpenseStatus = (typeof ExpenseStatus)[keyof typeof ExpenseStatus];
+
+export const ExpenseStatus = {
+  PENDING: 'PENDING',
+  BOOKED: 'BOOKED',
+  REVERSED: 'REVERSED',
+} as const;
+
+export type ExpenseChannel =
+  (typeof ExpenseChannel)[keyof typeof ExpenseChannel];
+
+export const ExpenseChannel = {
+  POS: 'POS',
+  ATM: 'ATM',
+  ECOMMERCE: 'ECOMMERCE',
+  MOBILE: 'MOBILE',
+  BRANCH: 'BRANCH',
+  RECURRING: 'RECURRING',
+} as const;
+
+export type ExpenseCategory =
+  (typeof ExpenseCategory)[keyof typeof ExpenseCategory];
+
+export const ExpenseCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * Essential vs discretionary; enables surplus detection
+ */
+export type ExpenseEssentiality =
+  (typeof ExpenseEssentiality)[keyof typeof ExpenseEssentiality];
+
+export const ExpenseEssentiality = {
+  ESSENTIAL: 'ESSENTIAL',
+  DISCRETIONARY: 'DISCRETIONARY',
+  MIXED: 'MIXED',
+} as const;
+
+export interface Expense {
+  id: string;
+  accountId: string;
+  iban?: string;
+  /**
+   * Absolute booked amount (always positive); see direction
+   * @exclusiveMinimum 0
+   */
+  amount: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  direction: ExpenseDirection;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDate: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  valueDate?: string;
+  /**
+   * Authorization moment; key for right-moment triggers
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
+   */
+  transactionTimestamp?: string;
+  type: ExpenseType;
+  status: ExpenseStatus;
+  /** Unstructured remittance / statement text */
+  description?: string;
+  /** Belgian OGM/VCS structured reference +++...+++ */
+  structuredReference?: string;
+  /**
+   * Card-network merchant category code
+   * @pattern ^\d{4}$
+   */
+  mcc?: string;
+  channel?: ExpenseChannel;
+  balanceAfter?: number;
+  city?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  category?: ExpenseCategory;
+  subCategory?: string;
+  /** Essential vs discretionary; enables surplus detection */
+  essentiality?: ExpenseEssentiality;
+  /** Party (merchant or person) on the other side of the line */
+  counterpartyId?: string;
+  /** Set when this line is a charge of a Subscription */
+  subscriptionId?: string;
+}
+
+export interface ExpensesPage {
+  data: Expense[];
+  total: number;
+  pageIndex: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export type CreateExpenseDirection =
+  (typeof CreateExpenseDirection)[keyof typeof CreateExpenseDirection];
+
+export const CreateExpenseDirection = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+} as const;
+
+export type CreateExpenseType =
+  (typeof CreateExpenseType)[keyof typeof CreateExpenseType];
+
+export const CreateExpenseType = {
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  CONTACTLESS: 'CONTACTLESS',
+  SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
+  SEPA_CREDIT_TRANSFER: 'SEPA_CREDIT_TRANSFER',
+  STANDING_ORDER: 'STANDING_ORDER',
+  INSTANT_PAYMENT: 'INSTANT_PAYMENT',
+  ATM_WITHDRAWAL: 'ATM_WITHDRAWAL',
+  FEE: 'FEE',
+  INTEREST: 'INTEREST',
+  REVERSAL: 'REVERSAL',
+  OTHER: 'OTHER',
+} as const;
+
+export type CreateExpenseStatus =
+  (typeof CreateExpenseStatus)[keyof typeof CreateExpenseStatus];
+
+export const CreateExpenseStatus = {
+  PENDING: 'PENDING',
+  BOOKED: 'BOOKED',
+  REVERSED: 'REVERSED',
+} as const;
+
+export type CreateExpenseChannel =
+  (typeof CreateExpenseChannel)[keyof typeof CreateExpenseChannel];
+
+export const CreateExpenseChannel = {
+  POS: 'POS',
+  ATM: 'ATM',
+  ECOMMERCE: 'ECOMMERCE',
+  MOBILE: 'MOBILE',
+  BRANCH: 'BRANCH',
+  RECURRING: 'RECURRING',
+} as const;
+
+export type CreateExpenseCategory =
+  (typeof CreateExpenseCategory)[keyof typeof CreateExpenseCategory];
+
+export const CreateExpenseCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * Essential vs discretionary; enables surplus detection
+ */
+export type CreateExpenseEssentiality =
+  (typeof CreateExpenseEssentiality)[keyof typeof CreateExpenseEssentiality];
+
+export const CreateExpenseEssentiality = {
+  ESSENTIAL: 'ESSENTIAL',
+  DISCRETIONARY: 'DISCRETIONARY',
+  MIXED: 'MIXED',
+} as const;
+
+export interface CreateExpense {
+  accountId: string;
+  iban?: string;
+  /**
+   * Absolute booked amount (always positive); see direction
+   * @exclusiveMinimum 0
+   */
+  amount: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  direction: CreateExpenseDirection;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDate: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  valueDate?: string;
+  /**
+   * Authorization moment; key for right-moment triggers
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
+   */
+  transactionTimestamp?: string;
+  type: CreateExpenseType;
+  status: CreateExpenseStatus;
+  /** Unstructured remittance / statement text */
+  description?: string;
+  /** Belgian OGM/VCS structured reference +++...+++ */
+  structuredReference?: string;
+  /**
+   * Card-network merchant category code
+   * @pattern ^\d{4}$
+   */
+  mcc?: string;
+  channel?: CreateExpenseChannel;
+  balanceAfter?: number;
+  city?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  category?: CreateExpenseCategory;
+  subCategory?: string;
+  /** Essential vs discretionary; enables surplus detection */
+  essentiality?: CreateExpenseEssentiality;
+  /** Party (merchant or person) on the other side of the line */
+  counterpartyId?: string;
+  /** Set when this line is a charge of a Subscription */
+  subscriptionId?: string;
+}
+
+export type UpdateExpenseDirection =
+  (typeof UpdateExpenseDirection)[keyof typeof UpdateExpenseDirection];
+
+export const UpdateExpenseDirection = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+} as const;
+
+export type UpdateExpenseType =
+  (typeof UpdateExpenseType)[keyof typeof UpdateExpenseType];
+
+export const UpdateExpenseType = {
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  CONTACTLESS: 'CONTACTLESS',
+  SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
+  SEPA_CREDIT_TRANSFER: 'SEPA_CREDIT_TRANSFER',
+  STANDING_ORDER: 'STANDING_ORDER',
+  INSTANT_PAYMENT: 'INSTANT_PAYMENT',
+  ATM_WITHDRAWAL: 'ATM_WITHDRAWAL',
+  FEE: 'FEE',
+  INTEREST: 'INTEREST',
+  REVERSAL: 'REVERSAL',
+  OTHER: 'OTHER',
+} as const;
+
+export type UpdateExpenseStatus =
+  (typeof UpdateExpenseStatus)[keyof typeof UpdateExpenseStatus];
+
+export const UpdateExpenseStatus = {
+  PENDING: 'PENDING',
+  BOOKED: 'BOOKED',
+  REVERSED: 'REVERSED',
+} as const;
+
+export type UpdateExpenseChannel =
+  (typeof UpdateExpenseChannel)[keyof typeof UpdateExpenseChannel];
+
+export const UpdateExpenseChannel = {
+  POS: 'POS',
+  ATM: 'ATM',
+  ECOMMERCE: 'ECOMMERCE',
+  MOBILE: 'MOBILE',
+  BRANCH: 'BRANCH',
+  RECURRING: 'RECURRING',
+} as const;
+
+export type UpdateExpenseCategory =
+  (typeof UpdateExpenseCategory)[keyof typeof UpdateExpenseCategory];
+
+export const UpdateExpenseCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * Essential vs discretionary; enables surplus detection
+ */
+export type UpdateExpenseEssentiality =
+  (typeof UpdateExpenseEssentiality)[keyof typeof UpdateExpenseEssentiality];
+
+export const UpdateExpenseEssentiality = {
+  ESSENTIAL: 'ESSENTIAL',
+  DISCRETIONARY: 'DISCRETIONARY',
+  MIXED: 'MIXED',
+} as const;
+
+export interface UpdateExpense {
+  accountId?: string;
+  iban?: string;
+  /**
+   * Absolute booked amount (always positive); see direction
+   * @exclusiveMinimum 0
+   */
+  amount?: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency?: string;
+  direction?: UpdateExpenseDirection;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  valueDate?: string;
+  /**
+   * Authorization moment; key for right-moment triggers
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
+   */
+  transactionTimestamp?: string;
+  type?: UpdateExpenseType;
+  status?: UpdateExpenseStatus;
+  /** Unstructured remittance / statement text */
+  description?: string;
+  /** Belgian OGM/VCS structured reference +++...+++ */
+  structuredReference?: string;
+  /**
+   * Card-network merchant category code
+   * @pattern ^\d{4}$
+   */
+  mcc?: string;
+  channel?: UpdateExpenseChannel;
+  balanceAfter?: number;
+  city?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  category?: UpdateExpenseCategory;
+  subCategory?: string;
+  /** Essential vs discretionary; enables surplus detection */
+  essentiality?: UpdateExpenseEssentiality;
+  /** Party (merchant or person) on the other side of the line */
+  counterpartyId?: string;
+  /** Set when this line is a charge of a Subscription */
+  subscriptionId?: string;
+}
+
+export type SubscriptionKind =
+  (typeof SubscriptionKind)[keyof typeof SubscriptionKind];
+
+export const SubscriptionKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+} as const;
+
+export type SubscriptionStatus =
+  (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
+
+export const SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type SubscriptionCategory =
+  (typeof SubscriptionCategory)[keyof typeof SubscriptionCategory];
+
+export const SubscriptionCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export type SubscriptionCadence =
+  (typeof SubscriptionCadence)[keyof typeof SubscriptionCadence];
+
+export const SubscriptionCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface Subscription {
+  id: string;
+  accountId: string;
+  /** The payee Party (merchant/creditor being paid) */
+  counterpartyId: string;
+  kind: SubscriptionKind;
+  /** SEPA mandate reference */
+  mandateId?: string;
+  /** Stable SEPA creditor key */
+  creditorId?: string;
+  status: SubscriptionStatus;
+  category?: SubscriptionCategory;
+  cadence: SubscriptionCadence;
+  /**
+   * Expected/typical charge amount
+   * @exclusiveMinimum 0
+   */
+  amount: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  nextPaymentDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  firstChargedAt?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  lastChargedAt?: string;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   */
+  occurrenceCount?: number;
+  /** Can KBC offer a cancel/switch action? */
+  cancellable?: boolean;
+}
+
+export interface SubscriptionsPage {
+  data: Subscription[];
+  total: number;
+  pageIndex: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export type CreateSubscriptionKind =
+  (typeof CreateSubscriptionKind)[keyof typeof CreateSubscriptionKind];
+
+export const CreateSubscriptionKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+} as const;
+
+export type CreateSubscriptionStatus =
+  (typeof CreateSubscriptionStatus)[keyof typeof CreateSubscriptionStatus];
+
+export const CreateSubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type CreateSubscriptionCategory =
+  (typeof CreateSubscriptionCategory)[keyof typeof CreateSubscriptionCategory];
+
+export const CreateSubscriptionCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export type CreateSubscriptionCadence =
+  (typeof CreateSubscriptionCadence)[keyof typeof CreateSubscriptionCadence];
+
+export const CreateSubscriptionCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface CreateSubscription {
+  accountId: string;
+  /** The payee Party (merchant/creditor being paid) */
+  counterpartyId: string;
+  kind: CreateSubscriptionKind;
+  /** SEPA mandate reference */
+  mandateId?: string;
+  /** Stable SEPA creditor key */
+  creditorId?: string;
+  status: CreateSubscriptionStatus;
+  category?: CreateSubscriptionCategory;
+  cadence: CreateSubscriptionCadence;
+  /**
+   * Expected/typical charge amount
+   * @exclusiveMinimum 0
+   */
+  amount: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  nextPaymentDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  firstChargedAt?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  lastChargedAt?: string;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   */
+  occurrenceCount?: number;
+  /** Can KBC offer a cancel/switch action? */
+  cancellable?: boolean;
+}
+
+export type UpdateSubscriptionKind =
+  (typeof UpdateSubscriptionKind)[keyof typeof UpdateSubscriptionKind];
+
+export const UpdateSubscriptionKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+} as const;
+
+export type UpdateSubscriptionStatus =
+  (typeof UpdateSubscriptionStatus)[keyof typeof UpdateSubscriptionStatus];
+
+export const UpdateSubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type UpdateSubscriptionCategory =
+  (typeof UpdateSubscriptionCategory)[keyof typeof UpdateSubscriptionCategory];
+
+export const UpdateSubscriptionCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export type UpdateSubscriptionCadence =
+  (typeof UpdateSubscriptionCadence)[keyof typeof UpdateSubscriptionCadence];
+
+export const UpdateSubscriptionCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface UpdateSubscription {
+  accountId?: string;
+  /** The payee Party (merchant/creditor being paid) */
+  counterpartyId?: string;
+  kind?: UpdateSubscriptionKind;
+  /** SEPA mandate reference */
+  mandateId?: string;
+  /** Stable SEPA creditor key */
+  creditorId?: string;
+  status?: UpdateSubscriptionStatus;
+  category?: UpdateSubscriptionCategory;
+  cadence?: UpdateSubscriptionCadence;
+  /**
+   * Expected/typical charge amount
+   * @exclusiveMinimum 0
+   */
+  amount?: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  nextPaymentDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  firstChargedAt?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  lastChargedAt?: string;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   */
+  occurrenceCount?: number;
+  /** Can KBC offer a cancel/switch action? */
+  cancellable?: boolean;
+}
+
 export type HealthControllerCheck200Status =
   (typeof HealthControllerCheck200Status)[keyof typeof HealthControllerCheck200Status];
 
@@ -796,6 +1632,93 @@ export type ListProfilesOrder =
   (typeof ListProfilesOrder)[keyof typeof ListProfilesOrder];
 
 export const ListProfilesOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type GetPartiesParams = {
+  /**
+   * Page number (zero-based)
+   * @minimum 0
+   */
+  pageIndex?: number;
+  /**
+   * Number of records per page
+   * @minimum 1
+   */
+  pageSize?: number;
+  /**
+   * Sort order of results
+   */
+  order?: GetPartiesOrder;
+  /**
+   * Field to order results by
+   */
+  orderBy?: string;
+};
+
+export type GetPartiesOrder =
+  (typeof GetPartiesOrder)[keyof typeof GetPartiesOrder];
+
+export const GetPartiesOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type GetExpensesParams = {
+  /**
+   * Page number (zero-based)
+   * @minimum 0
+   */
+  pageIndex?: number;
+  /**
+   * Number of records per page
+   * @minimum 1
+   */
+  pageSize?: number;
+  /**
+   * Sort order of results
+   */
+  order?: GetExpensesOrder;
+  /**
+   * Field to order results by
+   */
+  orderBy?: string;
+};
+
+export type GetExpensesOrder =
+  (typeof GetExpensesOrder)[keyof typeof GetExpensesOrder];
+
+export const GetExpensesOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type GetSubscriptionsParams = {
+  /**
+   * Page number (zero-based)
+   * @minimum 0
+   */
+  pageIndex?: number;
+  /**
+   * Number of records per page
+   * @minimum 1
+   */
+  pageSize?: number;
+  /**
+   * Sort order of results
+   */
+  order?: GetSubscriptionsOrder;
+  /**
+   * Field to order results by
+   */
+  orderBy?: string;
+};
+
+export type GetSubscriptionsOrder =
+  (typeof GetSubscriptionsOrder)[keyof typeof GetSubscriptionsOrder];
+
+export const GetSubscriptionsOrder = {
   asc: 'asc',
   desc: 'desc',
 } as const;
@@ -1946,4 +2869,1784 @@ export const useDeleteProfile = <TError = ErrorType<void>, TContext = unknown>(
   TContext
 > => {
   return useMutation(useDeleteProfileMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary List parties
+ */
+export const useGetPartiesHook = () => {
+  const getParties = useCustomAxiosInstance<PartiesPage>();
+
+  return useCallback(
+    (params?: GetPartiesParams, signal?: AbortSignal) => {
+      return getParties({ url: `/api/parties`, method: 'GET', params, signal });
+    },
+    [getParties]
+  );
+};
+
+export const getGetPartiesQueryKey = (params?: GetPartiesParams) => {
+  return [`/api/parties`, ...(params ? [params] : [])] as const;
+};
+
+export const useGetPartiesQueryOptions = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetPartiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+        TError,
+        TData
+      >
+    >;
+  }
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetPartiesQueryKey(params);
+
+  const getParties = useGetPartiesHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>
+  > = ({ signal }) => getParties(params, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetPartiesQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>
+>;
+export type GetPartiesQueryError = ErrorType<void>;
+
+export function useGetParties<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params: undefined | GetPartiesParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetParties<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetPartiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetParties<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetPartiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary List parties
+ */
+
+export function useGetParties<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetPartiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartiesHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = useGetPartiesQueryOptions(params, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+/**
+ * @summary Create a party
+ */
+export const useCreatePartyHook = () => {
+  const createParty = useCustomAxiosInstance<Party>();
+
+  return useCallback(
+    (createParty: BodyType<CreateParty>, signal?: AbortSignal) => {
+      return createParty({
+        url: `/api/parties`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: createParty,
+        signal,
+      });
+    },
+    [createParty]
+  );
+};
+
+export const useCreatePartyMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
+    TError,
+    { data: BodyType<CreateParty> },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
+  TError,
+  { data: BodyType<CreateParty> },
+  TContext
+> => {
+  const mutationKey = ['createParty'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const createParty = useCreatePartyHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
+    { data: BodyType<CreateParty> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createParty(data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreatePartyMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>
+>;
+export type CreatePartyMutationBody = BodyType<CreateParty>;
+export type CreatePartyMutationError = ErrorType<void>;
+
+/**
+ * @summary Create a party
+ */
+export const useCreateParty = <TError = ErrorType<void>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
+      TError,
+      { data: BodyType<CreateParty> },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useCreatePartyHook>>>,
+  TError,
+  { data: BodyType<CreateParty> },
+  TContext
+> => {
+  return useMutation(useCreatePartyMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary Get a party
+ */
+export const useGetPartyHook = () => {
+  const getParty = useCustomAxiosInstance<Party>();
+
+  return useCallback(
+    (id: string, signal?: AbortSignal) => {
+      return getParty({ url: `/api/parties/${id}`, method: 'GET', signal });
+    },
+    [getParty]
+  );
+};
+
+export const getGetPartyQueryKey = (id: string) => {
+  return [`/api/parties/${id}`] as const;
+};
+
+export const useGetPartyQueryOptions = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+        TError,
+        TData
+      >
+    >;
+  }
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetPartyQueryKey(id);
+
+  const getParty = useGetPartyHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>
+  > = ({ signal }) => getParty(id, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: id !== null && id !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetPartyQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>
+>;
+export type GetPartyQueryError = ErrorType<void>;
+
+export function useGetParty<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetParty<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetParty<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Get a party
+ */
+
+export function useGetParty<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetPartyHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = useGetPartyQueryOptions(id, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+/**
+ * @summary Update a party
+ */
+export const useUpdatePartyHook = () => {
+  const updateParty = useCustomAxiosInstance<Party>();
+
+  return useCallback(
+    (id: string, updateParty: BodyType<UpdateParty>, signal?: AbortSignal) => {
+      return updateParty({
+        url: `/api/parties/${id}`,
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        data: updateParty,
+        signal,
+      });
+    },
+    [updateParty]
+  );
+};
+
+export const useUpdatePartyMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
+    TError,
+    { id: string; data: BodyType<UpdateParty> },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
+  TError,
+  { id: string; data: BodyType<UpdateParty> },
+  TContext
+> => {
+  const mutationKey = ['updateParty'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const updateParty = useUpdatePartyHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
+    { id: string; data: BodyType<UpdateParty> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return updateParty(id, data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpdatePartyMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>
+>;
+export type UpdatePartyMutationBody = BodyType<UpdateParty>;
+export type UpdatePartyMutationError = ErrorType<void>;
+
+/**
+ * @summary Update a party
+ */
+export const useUpdateParty = <TError = ErrorType<void>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
+      TError,
+      { id: string; data: BodyType<UpdateParty> },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useUpdatePartyHook>>>,
+  TError,
+  { id: string; data: BodyType<UpdateParty> },
+  TContext
+> => {
+  return useMutation(useUpdatePartyMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary Delete a party
+ */
+export const useDeletePartyHook = () => {
+  const deleteParty = useCustomAxiosInstance<Party>();
+
+  return useCallback(
+    (id: string, signal?: AbortSignal) => {
+      return deleteParty({
+        url: `/api/parties/${id}`,
+        method: 'DELETE',
+        signal,
+      });
+    },
+    [deleteParty]
+  );
+};
+
+export const useDeletePartyMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useDeletePartyHook>>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useDeletePartyHook>>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['deleteParty'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const deleteParty = useDeletePartyHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useDeletePartyHook>>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return deleteParty(id);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeletePartyMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useDeletePartyHook>>>
+>;
+
+export type DeletePartyMutationError = ErrorType<void>;
+
+/**
+ * @summary Delete a party
+ */
+export const useDeleteParty = <TError = ErrorType<void>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useDeletePartyHook>>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useDeletePartyHook>>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  return useMutation(useDeletePartyMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary List expenses
+ */
+export const useGetExpensesHook = () => {
+  const getExpenses = useCustomAxiosInstance<ExpensesPage>();
+
+  return useCallback(
+    (params?: GetExpensesParams, signal?: AbortSignal) => {
+      return getExpenses({
+        url: `/api/expenses`,
+        method: 'GET',
+        params,
+        signal,
+      });
+    },
+    [getExpenses]
+  );
+};
+
+export const getGetExpensesQueryKey = (params?: GetExpensesParams) => {
+  return [`/api/expenses`, ...(params ? [params] : [])] as const;
+};
+
+export const useGetExpensesQueryOptions = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetExpensesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+        TError,
+        TData
+      >
+    >;
+  }
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetExpensesQueryKey(params);
+
+  const getExpenses = useGetExpensesHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>
+  > = ({ signal }) => getExpenses(params, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetExpensesQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>
+>;
+export type GetExpensesQueryError = ErrorType<void>;
+
+export function useGetExpenses<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params: undefined | GetExpensesParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetExpenses<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetExpensesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetExpenses<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetExpensesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary List expenses
+ */
+
+export function useGetExpenses<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetExpensesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpensesHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = useGetExpensesQueryOptions(params, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+/**
+ * @summary Create an expense
+ */
+export const useCreateExpenseHook = () => {
+  const createExpense = useCustomAxiosInstance<Expense>();
+
+  return useCallback(
+    (createExpense: BodyType<CreateExpense>, signal?: AbortSignal) => {
+      return createExpense({
+        url: `/api/expenses`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: createExpense,
+        signal,
+      });
+    },
+    [createExpense]
+  );
+};
+
+export const useCreateExpenseMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
+    TError,
+    { data: BodyType<CreateExpense> },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
+  TError,
+  { data: BodyType<CreateExpense> },
+  TContext
+> => {
+  const mutationKey = ['createExpense'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const createExpense = useCreateExpenseHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
+    { data: BodyType<CreateExpense> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createExpense(data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateExpenseMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>
+>;
+export type CreateExpenseMutationBody = BodyType<CreateExpense>;
+export type CreateExpenseMutationError = ErrorType<void>;
+
+/**
+ * @summary Create an expense
+ */
+export const useCreateExpense = <TError = ErrorType<void>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
+      TError,
+      { data: BodyType<CreateExpense> },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useCreateExpenseHook>>>,
+  TError,
+  { data: BodyType<CreateExpense> },
+  TContext
+> => {
+  return useMutation(useCreateExpenseMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary Get an expense
+ */
+export const useGetExpenseHook = () => {
+  const getExpense = useCustomAxiosInstance<Expense>();
+
+  return useCallback(
+    (id: string, signal?: AbortSignal) => {
+      return getExpense({ url: `/api/expenses/${id}`, method: 'GET', signal });
+    },
+    [getExpense]
+  );
+};
+
+export const getGetExpenseQueryKey = (id: string) => {
+  return [`/api/expenses/${id}`] as const;
+};
+
+export const useGetExpenseQueryOptions = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+        TError,
+        TData
+      >
+    >;
+  }
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetExpenseQueryKey(id);
+
+  const getExpense = useGetExpenseHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>
+  > = ({ signal }) => getExpense(id, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: id !== null && id !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetExpenseQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>
+>;
+export type GetExpenseQueryError = ErrorType<void>;
+
+export function useGetExpense<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetExpense<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetExpense<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Get an expense
+ */
+
+export function useGetExpense<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetExpenseHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = useGetExpenseQueryOptions(id, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+/**
+ * @summary Update an expense
+ */
+export const useUpdateExpenseHook = () => {
+  const updateExpense = useCustomAxiosInstance<Expense>();
+
+  return useCallback(
+    (
+      id: string,
+      updateExpense: BodyType<UpdateExpense>,
+      signal?: AbortSignal
+    ) => {
+      return updateExpense({
+        url: `/api/expenses/${id}`,
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        data: updateExpense,
+        signal,
+      });
+    },
+    [updateExpense]
+  );
+};
+
+export const useUpdateExpenseMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
+    TError,
+    { id: string; data: BodyType<UpdateExpense> },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
+  TError,
+  { id: string; data: BodyType<UpdateExpense> },
+  TContext
+> => {
+  const mutationKey = ['updateExpense'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const updateExpense = useUpdateExpenseHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
+    { id: string; data: BodyType<UpdateExpense> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return updateExpense(id, data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpdateExpenseMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>
+>;
+export type UpdateExpenseMutationBody = BodyType<UpdateExpense>;
+export type UpdateExpenseMutationError = ErrorType<void>;
+
+/**
+ * @summary Update an expense
+ */
+export const useUpdateExpense = <TError = ErrorType<void>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
+      TError,
+      { id: string; data: BodyType<UpdateExpense> },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useUpdateExpenseHook>>>,
+  TError,
+  { id: string; data: BodyType<UpdateExpense> },
+  TContext
+> => {
+  return useMutation(useUpdateExpenseMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary Delete an expense
+ */
+export const useDeleteExpenseHook = () => {
+  const deleteExpense = useCustomAxiosInstance<Expense>();
+
+  return useCallback(
+    (id: string, signal?: AbortSignal) => {
+      return deleteExpense({
+        url: `/api/expenses/${id}`,
+        method: 'DELETE',
+        signal,
+      });
+    },
+    [deleteExpense]
+  );
+};
+
+export const useDeleteExpenseMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useDeleteExpenseHook>>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useDeleteExpenseHook>>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['deleteExpense'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const deleteExpense = useDeleteExpenseHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useDeleteExpenseHook>>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return deleteExpense(id);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeleteExpenseMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useDeleteExpenseHook>>>
+>;
+
+export type DeleteExpenseMutationError = ErrorType<void>;
+
+/**
+ * @summary Delete an expense
+ */
+export const useDeleteExpense = <TError = ErrorType<void>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useDeleteExpenseHook>>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useDeleteExpenseHook>>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  return useMutation(useDeleteExpenseMutationOptions(options), queryClient);
+};
+
+/**
+ * @summary List subscriptions
+ */
+export const useGetSubscriptionsHook = () => {
+  const getSubscriptions = useCustomAxiosInstance<SubscriptionsPage>();
+
+  return useCallback(
+    (params?: GetSubscriptionsParams, signal?: AbortSignal) => {
+      return getSubscriptions({
+        url: `/api/subscriptions`,
+        method: 'GET',
+        params,
+        signal,
+      });
+    },
+    [getSubscriptions]
+  );
+};
+
+export const getGetSubscriptionsQueryKey = (
+  params?: GetSubscriptionsParams
+) => {
+  return [`/api/subscriptions`, ...(params ? [params] : [])] as const;
+};
+
+export const useGetSubscriptionsQueryOptions = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetSubscriptionsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+        TError,
+        TData
+      >
+    >;
+  }
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetSubscriptionsQueryKey(params);
+
+  const getSubscriptions = useGetSubscriptionsHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>
+  > = ({ signal }) => getSubscriptions(params, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetSubscriptionsQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>
+>;
+export type GetSubscriptionsQueryError = ErrorType<void>;
+
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+  TError = ErrorType<void>,
+>(
+  params: undefined | GetSubscriptionsParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetSubscriptionsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetSubscriptionsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary List subscriptions
+ */
+
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetSubscriptionsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionsHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = useGetSubscriptionsQueryOptions(params, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+/**
+ * @summary Create a subscription
+ */
+export const useCreateSubscriptionHook = () => {
+  const createSubscription = useCustomAxiosInstance<Subscription>();
+
+  return useCallback(
+    (
+      createSubscription: BodyType<CreateSubscription>,
+      signal?: AbortSignal
+    ) => {
+      return createSubscription({
+        url: `/api/subscriptions`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: createSubscription,
+        signal,
+      });
+    },
+    [createSubscription]
+  );
+};
+
+export const useCreateSubscriptionMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
+    TError,
+    { data: BodyType<CreateSubscription> },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
+  TError,
+  { data: BodyType<CreateSubscription> },
+  TContext
+> => {
+  const mutationKey = ['createSubscription'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const createSubscription = useCreateSubscriptionHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
+    { data: BodyType<CreateSubscription> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createSubscription(data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateSubscriptionMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>
+>;
+export type CreateSubscriptionMutationBody = BodyType<CreateSubscription>;
+export type CreateSubscriptionMutationError = ErrorType<void>;
+
+/**
+ * @summary Create a subscription
+ */
+export const useCreateSubscription = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
+      TError,
+      { data: BodyType<CreateSubscription> },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useCreateSubscriptionHook>>>,
+  TError,
+  { data: BodyType<CreateSubscription> },
+  TContext
+> => {
+  return useMutation(
+    useCreateSubscriptionMutationOptions(options),
+    queryClient
+  );
+};
+
+/**
+ * @summary Get a subscription
+ */
+export const useGetSubscriptionHook = () => {
+  const getSubscription = useCustomAxiosInstance<Subscription>();
+
+  return useCallback(
+    (id: string, signal?: AbortSignal) => {
+      return getSubscription({
+        url: `/api/subscriptions/${id}`,
+        method: 'GET',
+        signal,
+      });
+    },
+    [getSubscription]
+  );
+};
+
+export const getGetSubscriptionQueryKey = (id: string) => {
+  return [`/api/subscriptions/${id}`] as const;
+};
+
+export const useGetSubscriptionQueryOptions = <
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+        TError,
+        TData
+      >
+    >;
+  }
+) => {
+  const { query: queryOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetSubscriptionQueryKey(id);
+
+  const getSubscription = useGetSubscriptionHook();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>
+  > = ({ signal }) => getSubscription(id, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: id !== null && id !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetSubscriptionQueryResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>
+>;
+export type GetSubscriptionQueryError = ErrorType<void>;
+
+export function useGetSubscription<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetSubscription<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+          TError,
+          Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>
+        >,
+        'initialData'
+      >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetSubscription<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Get a subscription
+ */
+
+export function useGetSubscription<
+  TData = Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+  TError = ErrorType<void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<ReturnType<typeof useGetSubscriptionHook>>>,
+        TError,
+        TData
+      >
+    >;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = useGetSubscriptionQueryOptions(id, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+/**
+ * @summary Update a subscription
+ */
+export const useUpdateSubscriptionHook = () => {
+  const updateSubscription = useCustomAxiosInstance<Subscription>();
+
+  return useCallback(
+    (
+      id: string,
+      updateSubscription: BodyType<UpdateSubscription>,
+      signal?: AbortSignal
+    ) => {
+      return updateSubscription({
+        url: `/api/subscriptions/${id}`,
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        data: updateSubscription,
+        signal,
+      });
+    },
+    [updateSubscription]
+  );
+};
+
+export const useUpdateSubscriptionMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
+    TError,
+    { id: string; data: BodyType<UpdateSubscription> },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
+  TError,
+  { id: string; data: BodyType<UpdateSubscription> },
+  TContext
+> => {
+  const mutationKey = ['updateSubscription'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const updateSubscription = useUpdateSubscriptionHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
+    { id: string; data: BodyType<UpdateSubscription> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return updateSubscription(id, data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpdateSubscriptionMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>
+>;
+export type UpdateSubscriptionMutationBody = BodyType<UpdateSubscription>;
+export type UpdateSubscriptionMutationError = ErrorType<void>;
+
+/**
+ * @summary Update a subscription
+ */
+export const useUpdateSubscription = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
+      TError,
+      { id: string; data: BodyType<UpdateSubscription> },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useUpdateSubscriptionHook>>>,
+  TError,
+  { id: string; data: BodyType<UpdateSubscription> },
+  TContext
+> => {
+  return useMutation(
+    useUpdateSubscriptionMutationOptions(options),
+    queryClient
+  );
+};
+
+/**
+ * @summary Delete a subscription
+ */
+export const useDeleteSubscriptionHook = () => {
+  const deleteSubscription = useCustomAxiosInstance<Subscription>();
+
+  return useCallback(
+    (id: string, signal?: AbortSignal) => {
+      return deleteSubscription({
+        url: `/api/subscriptions/${id}`,
+        method: 'DELETE',
+        signal,
+      });
+    },
+    [deleteSubscription]
+  );
+};
+
+export const useDeleteSubscriptionMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<ReturnType<typeof useDeleteSubscriptionHook>>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<ReturnType<typeof useDeleteSubscriptionHook>>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['deleteSubscription'];
+  const { mutation: mutationOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } };
+
+  const deleteSubscription = useDeleteSubscriptionHook();
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<ReturnType<typeof useDeleteSubscriptionHook>>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return deleteSubscription(id);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeleteSubscriptionMutationResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof useDeleteSubscriptionHook>>>
+>;
+
+export type DeleteSubscriptionMutationError = ErrorType<void>;
+
+/**
+ * @summary Delete a subscription
+ */
+export const useDeleteSubscription = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<ReturnType<typeof useDeleteSubscriptionHook>>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<ReturnType<typeof useDeleteSubscriptionHook>>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  return useMutation(
+    useDeleteSubscriptionMutationOptions(options),
+    queryClient
+  );
 };

@@ -237,3 +237,18 @@ export type mastra_workspace_versions = Prisma.mastra_workspace_versionsModel
  * 
  */
 export type mastra_workspaces = Prisma.mastra_workspacesModel
+/**
+ * Model party
+ * 
+ */
+export type party = Prisma.partyModel
+/**
+ * Model subscription
+ * 
+ */
+export type subscription = Prisma.subscriptionModel
+/**
+ * Model expense
+ * 
+ */
+export type expense = Prisma.expenseModel
