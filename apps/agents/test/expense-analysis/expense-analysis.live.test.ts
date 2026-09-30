@@ -4,32 +4,18 @@ import { beforeAll, describe, expect, it } from 'vitest';
 
 import { expenseInsightAgent } from '../../src/mastra/agents/expense-insight-agent';
 import { analyzeExpenses } from '../../src/mastra/expense-analysis/analyze-expenses';
-import type {
-  ExpenseAnalysisInput,
-  UseCaseLabel,
-} from '../../src/mastra/schemas/expense-analysis';
-
-import {
-  carPurchaseFixture,
-  financialStressFixture,
-  homePurchaseFixture,
-  insufficientDataFixture,
-  jobChangeFixture,
-  lifestyleChangeFixture,
-  spendingAnomalyFixture,
-  travelFixture,
-  unhealthyLifestyleFixture,
-} from './fixtures/scenarios';
+import { TRANSACTION_CUSTOMER_IDS } from '../../src/mastra/expense-analysis/mock-transaction-data';
+import type { UseCaseLabel } from '../../src/mastra/schemas/expense-analysis';
 
 config({ path: resolve(process.cwd(), '.env') });
 
 const hasOpenRouterKey = !!process.env.OPENROUTER_API_KEY;
 
 async function expectDetected(
-  input: ExpenseAnalysisInput,
+  customerId: string,
   label: UseCaseLabel
 ): Promise<void> {
-  const result = await analyzeExpenses(input, expenseInsightAgent);
+  const result = await analyzeExpenses({ customerId }, expenseInsightAgent);
   const useCase = result.useCases.find((item) => item.label === label);
 
   expect(useCase, `Expected use case ${label} to be present`).toBeDefined();
@@ -53,40 +39,61 @@ describe.skipIf(!hasOpenRouterKey)('expense analysis live LLM', () => {
   });
 
   it('detects spending_anomaly', async () => {
-    await expectDetected(spendingAnomalyFixture, 'spending_anomaly');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.spendingAnomaly,
+      'spending_anomaly'
+    );
   });
 
   it('detects travel_detected', async () => {
-    await expectDetected(travelFixture, 'travel_detected');
+    await expectDetected(TRANSACTION_CUSTOMER_IDS.travel, 'travel_detected');
   });
 
   it('detects large_lifestyle_change', async () => {
-    await expectDetected(lifestyleChangeFixture, 'large_lifestyle_change');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.lifestyleChange,
+      'large_lifestyle_change'
+    );
   });
 
   it('detects life_event_job_change', async () => {
-    await expectDetected(jobChangeFixture, 'life_event_job_change');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.jobChange,
+      'life_event_job_change'
+    );
   });
 
   it('detects life_event_buying_car', async () => {
-    await expectDetected(carPurchaseFixture, 'life_event_buying_car');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.carPurchase,
+      'life_event_buying_car'
+    );
   });
 
   it('detects life_event_buying_home', async () => {
-    await expectDetected(homePurchaseFixture, 'life_event_buying_home');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.homePurchase,
+      'life_event_buying_home'
+    );
   });
 
   it('detects financial_stress_signals', async () => {
-    await expectDetected(financialStressFixture, 'financial_stress_signals');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.financialStress,
+      'financial_stress_signals'
+    );
   });
 
   it('detects unhealthy_lifestyle', async () => {
-    await expectDetected(unhealthyLifestyleFixture, 'unhealthy_lifestyle');
+    await expectDetected(
+      TRANSACTION_CUSTOMER_IDS.unhealthyLifestyle,
+      'unhealthy_lifestyle'
+    );
   });
 
   it('returns insufficient_data where comparison or geo data is missing', async () => {
     const result = await analyzeExpenses(
-      insufficientDataFixture,
+      { customerId: TRANSACTION_CUSTOMER_IDS.insufficientData },
       expenseInsightAgent
     );
 

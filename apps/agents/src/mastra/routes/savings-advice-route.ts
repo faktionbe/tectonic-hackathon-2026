@@ -1,14 +1,13 @@
 import { registerApiRoute } from '@mastra/core/server';
 import { ZodError } from 'zod';
 
-import { advicePersonalizationAgent } from '../agents/advice-personalization-agent';
-import { adviceSelectionAgent } from '../agents/advice-selection-agent';
+import { savingsAdviceAgent } from '../agents/savings-advice-agent';
 import { runSavingsAdviceForCustomer } from '../savings-advice/run-for-customer';
 import { savingsAdviceRequestSchema } from '../schemas/savings-advice';
 
 /**
  * HTTP mirror of the A2A savings-advice-agent contract.
- * Body: { customerId }. Profile/finances are loaded via (mocked) upstream clients.
+ * Body: { customerId }. The advice-selection skill fetches profile, finances, and catalogue data with tools.
  */
 export const savingsAdviceRoute = registerApiRoute('/savings-advice', {
   method: 'POST',
@@ -33,10 +32,10 @@ export const savingsAdviceRoute = registerApiRoute('/savings-advice', {
     }
 
     try {
-      const result = await runSavingsAdviceForCustomer(parsed.data.customerId, {
-        selectionAgent: adviceSelectionAgent,
-        personalizationAgent: advicePersonalizationAgent,
-      });
+      const result = await runSavingsAdviceForCustomer(
+        parsed.data.customerId,
+        savingsAdviceAgent
+      );
 
       return context.json(result);
     } catch (error) {

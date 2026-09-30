@@ -1,6 +1,5 @@
 import type {
   AdviceSelection,
-  SavingsAdviceInput,
   SavingsAdviceResult,
   SupportingNumbers,
 } from '../schemas/savings-advice';
@@ -9,21 +8,7 @@ import {
   savingsAdviceResultSchema,
 } from '../schemas/savings-advice';
 
-import type { SavingsAdviceContext } from './build-context';
-import { buildSavingsAdviceContext } from './build-context';
 import type { SavingsAdviceMetrics } from './metrics';
-
-export interface PreparedSavingsAdvice {
-  context: SavingsAdviceContext;
-}
-
-export function prepareSavingsAdvice(
-  input: SavingsAdviceInput
-): PreparedSavingsAdvice {
-  return {
-    context: buildSavingsAdviceContext(input),
-  };
-}
 
 export function toSupportingNumbers(
   metrics: SavingsAdviceMetrics

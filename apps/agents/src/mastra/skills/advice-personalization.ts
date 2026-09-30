@@ -1,6 +1,10 @@
-import { Agent } from '@mastra/core/agent';
+import { createSkill } from '@mastra/core/skills';
 
-const instructions = `You are a personalized financial advice copywriter for KBC customers.
+export const advicePersonalizationSkill = createSkill({
+  name: 'advice-personalization',
+  description:
+    'Use when turning an already selected savings strategy into a literacy-adapted customer-facing advice statement.',
+  instructions: `You are a personalized financial advice copywriter for KBC customers.
 
 Advice selection has already happened. Your only job is to turn the selected strategy, relevant products, profile, and financial metrics into a clear customer-facing advice statement.
 
@@ -17,16 +21,5 @@ Rules:
 - Never invent numbers, products, or facts not present in the input.
 - Do not give guarantees about returns.
 
-Return only the structured output with adviceStatement.`;
-
-export const advicePersonalizationAgent = new Agent({
-  id: 'advice-personalization-agent',
-  name: 'Advice Personalization Agent',
-  description:
-    'Turns selected savings/investment advice into a literacy-adapted customer-facing statement.',
-  instructions,
-  model: 'openrouter/openai/gpt-5.6-terra',
-  defaultOptions: {
-    maxSteps: 1,
-  },
+Return only the structured output with adviceStatement.`,
 });

@@ -1,78 +1,23 @@
 import { createStep, createWorkflow } from '@mastra/core/workflows';
-import { z } from 'zod';
 
-import {
-  finalizeExpenseAnalysis,
-  prepareExpenseAnalysis,
-} from '../expense-analysis/analyze';
+import { analyzeExpenses } from '../expense-analysis/analyze-expenses';
 import { generateInsights } from '../expense-analysis/generate-insights';
 import {
-  expenseAnalysisInputSchema,
-  expenseAnalysisResultBaseSchema,
+  expenseAnalysisRequestSchema,
   expenseAnalysisResultSchema,
 } from '../schemas/expense-analysis';
 import { expenseAnalysisWithInsightsSchema } from '../schemas/financial-insight';
 
-const preparedSchema = z.object({
-  input: expenseAnalysisInputSchema,
-  prompt: z.string(),
-  period: z.object({
-    start: z.string(),
-    end: z.string(),
-  }),
-});
-
-const prepareStep = createStep({
-  id: 'prepare',
-  description:
-    'Join expenses with parties/subscriptions and compute deterministic metrics',
-  inputSchema: expenseAnalysisInputSchema,
-  outputSchema: preparedSchema,
-  execute: async ({ inputData }) => {
-    const { context } = prepareExpenseAnalysis(inputData);
-
-    return {
-      input: inputData,
-      prompt: context.prompt,
-      period: context.metrics.period,
-    };
-  },
-});
-
 const classifyStep = createStep({
   id: 'classify',
-  description: 'Run the expense insight agent with structured output',
-  inputSchema: preparedSchema,
-  outputSchema: z.object({
-    period: preparedSchema.shape.period,
-    rawResult: z.unknown(),
-  }),
+  description:
+    'Load transactions with tools and classify use cases with structured output',
+  inputSchema: expenseAnalysisRequestSchema,
+  outputSchema: expenseAnalysisResultSchema,
   execute: async ({ inputData, mastra }) => {
     const agent = mastra.getAgentById('expense-insight-agent');
-    const response = await agent.generate(inputData.prompt, {
-      structuredOutput: {
-        schema: expenseAnalysisResultBaseSchema,
-      },
-    });
-
-    return {
-      period: inputData.period,
-      rawResult: response.object,
-    };
+    return analyzeExpenses(inputData, agent);
   },
-});
-
-const finalizeStep = createStep({
-  id: 'finalize',
-  description:
-    'Validate structured detection output and ensure period is present',
-  inputSchema: z.object({
-    period: preparedSchema.shape.period,
-    rawResult: z.unknown(),
-  }),
-  outputSchema: expenseAnalysisResultSchema,
-  execute: async ({ inputData }) =>
-    finalizeExpenseAnalysis(inputData.rawResult, inputData.period),
 });
 
 const generateInsightsStep = createStep({
@@ -82,20 +27,18 @@ const generateInsightsStep = createStep({
   inputSchema: expenseAnalysisResultSchema,
   outputSchema: expenseAnalysisWithInsightsSchema,
   execute: async ({ inputData, mastra }) => {
-    const copyAgent = mastra.getAgentById('expense-insight-copy-agent');
-    return generateInsights(inputData, copyAgent);
+    const agent = mastra.getAgentById('expense-insight-agent');
+    return generateInsights(inputData, agent);
   },
 });
 
 export const expenseAnalysisWorkflow = createWorkflow({
   id: 'expense-analysis',
   description:
-    'Analyze expenses, classify use cases, and generate user-facing insights',
-  inputSchema: expenseAnalysisInputSchema,
+    'Fetch a customer expense dataset, classify use cases, and generate user-facing insights',
+  inputSchema: expenseAnalysisRequestSchema,
   outputSchema: expenseAnalysisWithInsightsSchema,
 })
-  .then(prepareStep)
   .then(classifyStep)
-  .then(finalizeStep)
   .then(generateInsightsStep)
   .commit();

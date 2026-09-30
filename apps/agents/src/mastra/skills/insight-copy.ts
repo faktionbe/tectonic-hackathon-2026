@@ -1,6 +1,10 @@
-import { Agent } from '@mastra/core/agent';
+import { createSkill } from '@mastra/core/skills';
 
-const instructions = `You are a financial insight copywriter for a banking app.
+export const insightCopySkill = createSkill({
+  name: 'insight-copy',
+  description:
+    'Use when turning a detected expense label and its evidence into a short, neutral user-facing title and message.',
+  instructions: `You are a financial insight copywriter for a banking app.
 
 Detection of financial patterns has already happened. Your only job is to turn a structured detected use case and its evidence into a short, useful, non-judgmental user-facing title and message.
 
@@ -16,16 +20,5 @@ Rules:
 - Prefer factual comparisons such as "Your restaurant spending is 48% higher than usual." over judgments such as "You're spending too much."
 - For life-event signals, phrase them as possible patterns in spending, not as confirmed life events.
 
-Return only the structured output with title and message.`;
-
-export const expenseInsightCopyAgent = new Agent({
-  id: 'expense-insight-copy-agent',
-  name: 'Expense Insight Copy Agent',
-  description:
-    'Turns detected expense use cases into neutral user-facing insight copy.',
-  instructions,
-  model: 'openrouter/openai/gpt-5.6-terra',
-  defaultOptions: {
-    maxSteps: 1,
-  },
+Return only the structured output with title and message.`,
 });

@@ -1,10 +1,9 @@
 import { getProducts } from '@repo/kbc-products';
 import { config } from 'dotenv';
 import { resolve } from 'node:path';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
-import { advicePersonalizationAgent } from '../../src/mastra/agents/advice-personalization-agent';
-import { adviceSelectionAgent } from '../../src/mastra/agents/advice-selection-agent';
+import { savingsAdviceAgent } from '../../src/mastra/agents/savings-advice-agent';
 import { getMockCustomerInput } from '../../src/mastra/savings-advice/mock-customer-data';
 import { runSavingsAdviceForCustomer } from '../../src/mastra/savings-advice/run-for-customer';
 import type { AdviceStrategy } from '../../src/mastra/schemas/savings-advice';
@@ -19,26 +18,24 @@ const catalogueIds = new Set(
   getProducts(['saving', 'investing']).map((product) => product.id)
 );
 
-const agents = {
-  selectionAgent: adviceSelectionAgent,
-  personalizationAgent: advicePersonalizationAgent,
-};
-
 async function expectStrategyIn(
   customerId: string,
   expected: Array<AdviceStrategy>
 ): Promise<void> {
   const expectedInput = getMockCustomerInput(customerId);
-  const result = await runSavingsAdviceForCustomer(customerId, agents);
+  const result = await runSavingsAdviceForCustomer(
+    customerId,
+    savingsAdviceAgent
+  );
 
   expect(expected).toContain(result.primaryStrategy);
   expect(result.adviceStatement.trim().length).toBeGreaterThan(0);
   expect(result.literacyLevelUsed).toBe(
     expectedInput.profile.financialLiteracy
   );
-  expect(
-    result.relevantProductIds.every((id) => catalogueIds.has(id))
-  ).toBe(true);
+  expect(result.relevantProductIds.every((id) => catalogueIds.has(id))).toBe(
+    true
+  );
   expect(result.confidence).toBeGreaterThanOrEqual(0);
   expect(result.confidence).toBeLessThanOrEqual(1);
   expect(result.supportingNumbers.currentSavings).toBe(
@@ -51,10 +48,6 @@ describe.skipIf(!hasOpenRouterKey)('savings advice live LLM (A2A path)', () => {
     if (!hasOpenRouterKey) {
       throw new Error('OPENROUTER_API_KEY is required for live tests');
     }
-  });
-
-  beforeEach(() => {
-    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
   });
 
   it('selects build_emergency_buffer for a thin buffer', async () => {
@@ -93,6 +86,8 @@ describe.skipIf(!hasOpenRouterKey)('savings advice live LLM (A2A path)', () => {
   });
 
   it('selects insufficient_data when finances are empty', async () => {
-    await expectStrategyIn(CUSTOMER_IDS.insufficientData, ['insufficient_data']);
+    await expectStrategyIn(CUSTOMER_IDS.insufficientData, [
+      'insufficient_data',
+    ]);
   });
 });

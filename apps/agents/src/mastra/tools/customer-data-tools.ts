@@ -1,61 +1,108 @@
 import { createTool } from '@mastra/core/tools';
+import { expenseSchema } from '@repo/contracts';
+import { getProducts, PRODUCT_CATEGORIES } from '@repo/kbc-products';
 import { z } from 'zod';
 
-import { advicePersonalizationAgent } from '../agents/advice-personalization-agent';
-import { adviceSelectionAgent } from '../agents/advice-selection-agent';
+import { computeSavingsAdviceMetrics } from '../savings-advice/metrics';
+import { getMockCustomerInput } from '../savings-advice/mock-customer-data';
 import {
-  fetchCustomerFinances,
-  fetchCustomerProfile,
-} from '../savings-advice/data-clients';
-import { runSavingsAdviceForCustomer } from '../savings-advice/run-for-customer';
-import { savingsAdviceResultSchema } from '../schemas/savings-advice';
+  catalogueProductSchema,
+  customerProfileSchema,
+  existingProductHoldingSchema,
+  financesInputSchema,
+  investmentAllocationItemSchema,
+  savingsAdviceMetricsSchema,
+} from '../schemas/savings-advice';
 
-/**
- * WARNING: These tools wrap temporary mock-backed customer-data clients.
- * Update data-clients.ts when real endpoints are available.
- */
+const DEFAULT_CATALOGUE_CATEGORIES = ['saving', 'investing'] as const;
+
+const financesPayloadSchema = z.object({
+  monthlyIncome: z.number().nonnegative().optional(),
+  monthlyExpenses: z.number().nonnegative().optional(),
+  currentSavings: z.number().nonnegative(),
+  periodMonths: z.number().positive().optional(),
+  investmentAllocation: z.array(investmentAllocationItemSchema).optional(),
+  expenseLines: z.array(expenseSchema).optional(),
+});
+
+export const SAVINGS_SELECTION_TOOL_IDS = [
+  'fetch_customer_profile',
+  'fetch_customer_finances',
+  'fetch_kbc_products',
+] as const;
+
+export const customerProfileToolOutputSchema = z.object({
+  profile: customerProfileSchema,
+  existingProducts: z.array(existingProductHoldingSchema),
+});
+
+export const customerFinancesToolOutputSchema = z.object({
+  finances: financesPayloadSchema,
+  metrics: savingsAdviceMetricsSchema,
+});
+
+export const kbcProductsToolOutputSchema = z.object({
+  products: z.array(catalogueProductSchema),
+});
 
 export const fetchCustomerProfileTool = createTool({
   id: 'fetch_customer_profile',
   description:
-    'Fetch a customer financial profile and existing product holdings. Uses mocked data until real APIs are wired.',
+    'Fetch a customer financial profile and existing product holdings. Mocked until a database tool replaces this execute function.',
   inputSchema: z.object({
     customerId: z.string().min(1).describe('Customer identifier'),
   }),
-  outputSchema: z.object({
-    profile: z.unknown(),
-    existingProducts: z.array(z.unknown()),
-  }),
-  execute: async ({ customerId }) => fetchCustomerProfile(customerId),
+  outputSchema: customerProfileToolOutputSchema,
+  execute: async ({ customerId }) => {
+    const input = getMockCustomerInput(customerId);
+
+    return customerProfileToolOutputSchema.parse({
+      profile: input.profile,
+      existingProducts: input.existingProducts,
+    });
+  },
 });
 
 export const fetchCustomerFinancesTool = createTool({
   id: 'fetch_customer_finances',
   description:
-    'Fetch customer income, expenses, and savings aggregates. Uses mocked data until real APIs are wired.',
+    'Fetch customer income, expenses, and savings, plus deterministic metrics. Trust the metrics field. Mocked until a database tool replaces this execute function.',
   inputSchema: z.object({
     customerId: z.string().min(1).describe('Customer identifier'),
   }),
-  outputSchema: z.object({
-    finances: z.unknown(),
-  }),
-  execute: async ({ customerId }) => fetchCustomerFinances(customerId),
+  outputSchema: customerFinancesToolOutputSchema,
+  execute: async ({ customerId }) => {
+    const input = getMockCustomerInput(customerId);
+    const finances = financesInputSchema.parse(input.finances);
+
+    return customerFinancesToolOutputSchema.parse({
+      finances,
+      metrics: computeSavingsAdviceMetrics(finances),
+    });
+  },
 });
 
-export const generateSavingsAdviceTool = createTool({
-  id: 'generate_savings_advice',
+export const fetchKbcProductsTool = createTool({
+  id: 'fetch_kbc_products',
   description:
-    'Load customer profile and finances (mocked until real endpoints exist), select relevant KBC savings/investment advice, and return a personalized advice statement for the chat agent.',
+    'Fetch KBC catalogue products for the requested categories. Defaults to saving and investing. Mocked from the static catalogue until a database tool replaces this execute function.',
   inputSchema: z.object({
-    customerId: z
-      .string()
-      .min(1)
-      .describe('Customer identifier provided by the chat agent'),
+    categories: z
+      .array(z.enum(PRODUCT_CATEGORIES))
+      .optional()
+      .describe(
+        'Product categories to include. Defaults to saving and investing.'
+      ),
   }),
-  outputSchema: savingsAdviceResultSchema,
-  execute: async ({ customerId }) =>
-    runSavingsAdviceForCustomer(customerId, {
-      selectionAgent: adviceSelectionAgent,
-      personalizationAgent: advicePersonalizationAgent,
-    }),
+  outputSchema: kbcProductsToolOutputSchema,
+  execute: async ({ categories }) => {
+    const selected =
+      categories && categories.length > 0
+        ? categories
+        : [...DEFAULT_CATALOGUE_CATEGORIES];
+
+    return kbcProductsToolOutputSchema.parse({
+      products: getProducts(selected),
+    });
+  },
 });

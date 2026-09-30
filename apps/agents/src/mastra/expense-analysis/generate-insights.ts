@@ -7,14 +7,20 @@ import {
   type FinancialInsight,
   insightCopySchema,
 } from '../schemas/financial-insight';
+import { insightCopySkill } from '../skills/insight-copy';
 
 import { getInsightAction } from './insight-actions';
 import { getUseCaseTitle } from './use-cases';
+
+const INSIGHT_COPY_MAX_STEPS = 1;
 
 export interface InsightCopyAgent {
   generate: (
     prompt: string,
     options: {
+      instructions?: string;
+      activeTools?: Array<string | number>;
+      maxSteps?: number;
       structuredOutput: {
         schema: typeof insightCopySchema;
       };
@@ -95,6 +101,9 @@ async function generateOneInsight(
 
   try {
     const response = await agent.generate(buildCopyPrompt(useCase), {
+      instructions: insightCopySkill.instructions,
+      activeTools: [],
+      maxSteps: INSIGHT_COPY_MAX_STEPS,
       structuredOutput: {
         schema: insightCopySchema,
       },

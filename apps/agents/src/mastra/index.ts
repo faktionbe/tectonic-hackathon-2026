@@ -4,20 +4,24 @@ import { PostgresStore } from '@mastra/pg';
 
 import { env } from '@/env';
 
-import { advicePersonalizationAgent } from './agents/advice-personalization-agent';
-import { adviceSelectionAgent } from './agents/advice-selection-agent';
 import { agent } from './agents/agent';
 import { expenseInsightAgent } from './agents/expense-insight-agent';
-import { expenseInsightCopyAgent } from './agents/expense-insight-copy-agent';
 import { savingsAdviceAgent } from './agents/savings-advice-agent';
 import { expenseAnalysisRoute } from './routes/expense-analysis-route';
 import { savingsAdviceRoute } from './routes/savings-advice-route';
 import {
   fetchCustomerFinancesTool,
   fetchCustomerProfileTool,
-  generateSavingsAdviceTool,
+  fetchKbcProductsTool,
 } from './tools/customer-data-tools';
+import { generateSavingsAdviceTool } from './tools/generate-savings-advice-tool';
 import { startScheduleTool, stopScheduleTool } from './tools/schedule-tools';
+import {
+  computeExpenseMetricsTool,
+  fetchExpensesTool,
+  fetchPartiesTool,
+  fetchSubscriptionsTool,
+} from './tools/transaction-data-tools';
 import { expenseAnalysisWorkflow } from './workflows/expense-analysis-workflow';
 import { savingsAdviceWorkflow } from './workflows/savings-advice-workflow';
 
@@ -25,9 +29,6 @@ export const mastra = new Mastra({
   agents: {
     agent,
     expenseInsightAgent,
-    expenseInsightCopyAgent,
-    adviceSelectionAgent,
-    advicePersonalizationAgent,
     // A2A entry: /api/.well-known/savings-advice-agent/agent-card.json
     // Exec: /api/a2a/savings-advice-agent
     savingsAdviceAgent,
@@ -38,10 +39,12 @@ export const mastra = new Mastra({
     stopScheduleTool,
     fetchCustomerProfileTool,
     fetchCustomerFinancesTool,
+    fetchKbcProductsTool,
     generateSavingsAdviceTool,
-  },
-  server: {
-    apiRoutes: [expenseAnalysisRoute, savingsAdviceRoute],
+    fetchExpensesTool,
+    fetchPartiesTool,
+    fetchSubscriptionsTool,
+    computeExpenseMetricsTool,
   },
   storage: new PostgresStore({
     id: 'mastra-storage',
@@ -49,6 +52,8 @@ export const mastra = new Mastra({
   }),
   server: {
     apiRoutes: [
+      expenseAnalysisRoute,
+      savingsAdviceRoute,
       chatRoute({
         path: '/chat',
         agent: 'agent',

@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-import { expenseInsightCopyAgent } from '../../src/mastra/agents/expense-insight-copy-agent';
+import { expenseInsightAgent } from '../../src/mastra/agents/expense-insight-agent';
 import { generateInsights } from '../../src/mastra/expense-analysis/generate-insights';
 import type {
   ExpenseAnalysisResult,
@@ -48,7 +48,7 @@ const analysis: ExpenseAnalysisResult = {
 
 describe.skipIf(!hasOpenRouterKey)('generateInsights live LLM', () => {
   it('returns an insight with mapped action for a detected use case', async () => {
-    const result = await generateInsights(analysis, expenseInsightCopyAgent);
+    const result = await generateInsights(analysis, expenseInsightAgent);
     const insight = result.insights.find(
       (item) => item.label === 'large_lifestyle_change'
     );

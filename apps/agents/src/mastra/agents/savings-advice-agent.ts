@@ -1,6 +1,13 @@
 import { Agent } from '@mastra/core/agent';
 
-import { generateSavingsAdviceTool } from '../tools/customer-data-tools';
+import { advicePersonalizationSkill } from '../skills/advice-personalization';
+import { adviceSelectionSkill } from '../skills/advice-selection';
+import {
+  fetchCustomerFinancesTool,
+  fetchCustomerProfileTool,
+  fetchKbcProductsTool,
+} from '../tools/customer-data-tools';
+import { generateSavingsAdviceTool } from '../tools/generate-savings-advice-tool';
 
 const instructions = `You are the KBC savings and investment advice agent.
 
@@ -23,17 +30,21 @@ Rules:
  * Card: /api/.well-known/savings-advice-agent/agent-card.json
  * Exec: /api/a2a/savings-advice-agent
  *
- * Production/A2A entry is this facade agent (not the Studio full-payload workflow).
+ * Selection and personalization run as skills on this agent.
  */
 export const savingsAdviceAgent = new Agent({
   id: 'savings-advice-agent',
   name: 'Savings Advice Agent',
   description:
-    'Fetches customer profile and finances, selects relevant KBC savings/investment advice, and returns a personalized advice statement for the chat agent.',
+    'Starts savings advice for a customerId. The advice-selection skill fetches profile, finances, and catalogue data, then the advice-personalization skill returns the customer-facing statement.',
   instructions,
   model: 'openrouter/openai/gpt-5.6-terra',
+  skills: [adviceSelectionSkill, advicePersonalizationSkill],
   tools: {
     generate_savings_advice: generateSavingsAdviceTool,
+    fetch_customer_profile: fetchCustomerProfileTool,
+    fetch_customer_finances: fetchCustomerFinancesTool,
+    fetch_kbc_products: fetchKbcProductsTool,
   },
   defaultOptions: {
     maxSteps: 5,

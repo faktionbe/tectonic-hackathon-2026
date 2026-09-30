@@ -119,6 +119,16 @@ export const expenseAnalysisResultSchema =
 
 export type ExpenseAnalysisResult = z.infer<typeof expenseAnalysisResultSchema>;
 
+export const expenseAnalysisRequestSchema = z.object({
+  customerId: z.string().min(1),
+  period: analysisPeriodSchema.optional(),
+  homeCountryCode: z.string().length(2).optional(),
+});
+
+export type ExpenseAnalysisRequest = z.infer<
+  typeof expenseAnalysisRequestSchema
+>;
+
 export const expenseAnalysisInputSchema = z.object({
   period: analysisPeriodSchema.optional(),
   homeCountryCode: z.string().length(2).optional(),

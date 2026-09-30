@@ -1,23 +1,7 @@
-import type { ExpenseAnalysisInput } from '../schemas/expense-analysis';
 import {
   type ExpenseAnalysisResult,
   expenseAnalysisResultSchema,
 } from '../schemas/expense-analysis';
-
-import type { AnalysisContext } from './build-context';
-import { buildAnalysisContext } from './build-context';
-
-export interface PreparedExpenseAnalysis {
-  context: AnalysisContext;
-}
-
-export function prepareExpenseAnalysis(
-  input: ExpenseAnalysisInput
-): PreparedExpenseAnalysis {
-  return {
-    context: buildAnalysisContext(input),
-  };
-}
 
 export function finalizeExpenseAnalysis(
   raw: unknown,

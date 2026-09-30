@@ -1,78 +1,23 @@
-import {
-  formatProductsForPrompt,
-  getProducts,
-  type KbcProduct,
-} from '@repo/kbc-products';
+import type { KbcProduct } from '@repo/kbc-products';
 
 import type { SavingsAdviceInput } from '../schemas/savings-advice';
 
-import { formatAdviceStrategyGuidance } from './advice-strategies';
-import {
-  computeSavingsAdviceMetrics,
-  type SavingsAdviceMetrics,
-} from './metrics';
+import type { SavingsAdviceMetrics } from './metrics';
 
-const CATALOGUE_CATEGORIES = ['saving', 'investing'] as const;
-
-export interface SavingsAdviceContext {
-  input: SavingsAdviceInput;
-  metrics: SavingsAdviceMetrics;
-  catalogue: Array<KbcProduct>;
-  catalogueIds: Array<string>;
-  selectionPrompt: string;
-}
-
-export function getSavingsInvestingCatalogue(): Array<KbcProduct> {
-  return getProducts([...CATALOGUE_CATEGORIES]);
-}
-
-export function buildSavingsAdviceContext(
-  input: SavingsAdviceInput
-): SavingsAdviceContext {
-  const metrics = computeSavingsAdviceMetrics(input.finances);
-  const catalogue = getSavingsInvestingCatalogue();
-  const catalogueIds = catalogue.map((product) => product.id);
-  const catalogueText = formatProductsForPrompt([...CATALOGUE_CATEGORIES]);
-
-  const selectionPrompt = [
-    'Select the most appropriate savings/investment advice strategy for this customer.',
+export function buildSelectionPrompt(customerId: string): string {
+  return [
+    `Select savings and investment advice for customerId ${customerId}.`,
     '',
-    'Rules:',
-    '- Choose exactly one primaryStrategy from the allowed list.',
-    '- Set secondaryStrategy to another allowed strategy, or null if none.',
-    '- Only select relevantProductIds from the provided KBC catalogue ids.',
-    '- Do not invent products, amounts, or profile facts.',
-    '- Consider existing products so you do not recommend redundant products.',
-    '- Use the pre-computed financial metrics as factual inputs.',
-    '- Prefer insufficient_data when income/expenses or profile signals are too thin.',
+    'Before choosing a strategy, call these tools:',
+    '- fetch_customer_profile with this customerId',
+    '- fetch_customer_finances with this customerId',
+    '- fetch_kbc_products for the saving and investing categories',
     '',
-    'Allowed advice strategies:',
-    formatAdviceStrategyGuidance(),
-    '',
-    'Customer profile:',
-    JSON.stringify(input.profile, null, 2),
-    '',
-    'Existing products held:',
-    JSON.stringify(input.existingProducts, null, 2),
-    '',
-    'Deterministic financial metrics (pre-computed; trust these numbers):',
-    JSON.stringify(metrics, null, 2),
-    '',
-    'KBC savings & investment catalogue (only recommend from these):',
-    catalogueText,
-    '',
-    `Catalogue product ids: ${catalogueIds.join(', ')}`,
-    '',
-    'Return structured output only.',
+    'Trust the metrics field on the finances tool result.',
+    'Recommend only product ids returned by fetch_kbc_products.',
+    'Do not invent profile facts, amounts, or products.',
+    'Then return structured output only.',
   ].join('\n');
-
-  return {
-    input,
-    metrics,
-    catalogue,
-    catalogueIds,
-    selectionPrompt,
-  };
 }
 
 export function buildPersonalizationPrompt(params: {

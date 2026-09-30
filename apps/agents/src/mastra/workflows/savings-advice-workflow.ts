@@ -1,96 +1,57 @@
 import { createStep, createWorkflow } from '@mastra/core/workflows';
 import { z } from 'zod';
 
+import { finalizeSavingsAdvice } from '../savings-advice/analyze';
 import {
-  finalizeAdviceSelection,
-  finalizeSavingsAdvice,
-  prepareSavingsAdvice,
-} from '../savings-advice/analyze';
-import { buildPersonalizationPrompt } from '../savings-advice/build-context';
+  personalizeSavingsAdvice,
+  selectSavingsAdvice,
+} from '../savings-advice/generate-advice';
 import {
-  advicePersonalizationBaseSchema,
-  adviceSelectionBaseSchema,
   adviceSelectionSchema,
   catalogueProductSchema,
-  savingsAdviceInputSchema,
+  customerProfileSchema,
+  existingProductHoldingSchema,
+  financesInputSchema,
   savingsAdviceMetricsSchema,
+  savingsAdviceRequestSchema,
   savingsAdviceResultSchema,
 } from '../schemas/savings-advice';
 
-/**
- * Full-payload Studio/debug workflow.
- * Production and A2A entry is `savingsAdviceAgent` (customerId → mocked data clients → pipeline).
- */
-
-const preparedSchema = z.object({
-  input: savingsAdviceInputSchema,
-  selectionPrompt: z.string(),
-  catalogueIds: z.array(z.string()),
-  catalogue: z.array(catalogueProductSchema),
-  metrics: savingsAdviceMetricsSchema,
-  literacyLevelUsed:
-    savingsAdviceInputSchema.shape.profile.shape.financialLiteracy,
-});
-
 const selectedSchema = z.object({
-  input: savingsAdviceInputSchema,
   selection: adviceSelectionSchema,
-  catalogue: z.array(catalogueProductSchema),
+  profile: customerProfileSchema,
+  existingProducts: z.array(existingProductHoldingSchema),
+  finances: financesInputSchema,
   metrics: savingsAdviceMetricsSchema,
-  literacyLevelUsed: preparedSchema.shape.literacyLevelUsed,
+  catalogue: z.array(catalogueProductSchema),
+  literacyLevelUsed: customerProfileSchema.shape.financialLiteracy,
 });
 
 const personalizedSchema = z.object({
   selection: adviceSelectionSchema,
   adviceStatement: z.string().min(1),
-  literacyLevelUsed: preparedSchema.shape.literacyLevelUsed,
+  literacyLevelUsed: selectedSchema.shape.literacyLevelUsed,
   metrics: savingsAdviceMetricsSchema,
-});
-
-const prepareStep = createStep({
-  id: 'prepare',
-  description:
-    'Compute financial metrics and build the advice-selection prompt with catalogue context',
-  inputSchema: savingsAdviceInputSchema,
-  outputSchema: preparedSchema,
-  execute: async ({ inputData }) => {
-    const { context } = prepareSavingsAdvice(inputData);
-
-    return {
-      input: inputData,
-      selectionPrompt: context.selectionPrompt,
-      catalogueIds: context.catalogueIds,
-      catalogue: context.catalogue,
-      metrics: context.metrics,
-      literacyLevelUsed: inputData.profile.financialLiteracy,
-    };
-  },
 });
 
 const selectAdviceStep = createStep({
   id: 'selectAdvice',
-  description: 'Run the advice selection agent with structured output',
-  inputSchema: preparedSchema,
+  description:
+    'Fetch profile, finances, and catalogue with tools, then select an advice strategy',
+  inputSchema: savingsAdviceRequestSchema,
   outputSchema: selectedSchema,
   execute: async ({ inputData, mastra }) => {
-    const agent = mastra.getAgentById('advice-selection-agent');
-    const response = await agent.generate(inputData.selectionPrompt, {
-      structuredOutput: {
-        schema: adviceSelectionBaseSchema,
-      },
-    });
-
-    const selection = finalizeAdviceSelection(
-      response.object,
-      inputData.catalogueIds
-    );
+    const agent = mastra.getAgentById('savings-advice-agent');
+    const selected = await selectSavingsAdvice(inputData.customerId, agent);
 
     return {
-      input: inputData.input,
-      selection,
-      catalogue: inputData.catalogue,
-      metrics: inputData.metrics,
-      literacyLevelUsed: inputData.literacyLevelUsed,
+      selection: selected.selection,
+      profile: selected.input.profile,
+      existingProducts: selected.input.existingProducts,
+      finances: selected.input.finances,
+      metrics: selected.metrics,
+      catalogue: selected.catalogue,
+      literacyLevelUsed: selected.literacyLevelUsed,
     };
   },
 });
@@ -102,29 +63,18 @@ const personalizeAdviceStep = createStep({
   inputSchema: selectedSchema,
   outputSchema: personalizedSchema,
   execute: async ({ inputData, mastra }) => {
-    const agent = mastra.getAgentById('advice-personalization-agent');
-
-    const prompt = buildPersonalizationPrompt({
-      input: inputData.input,
-      metrics: inputData.metrics,
+    const agent = mastra.getAgentById('savings-advice-agent');
+    const adviceStatement = await personalizeSavingsAdvice(agent, {
       selection: inputData.selection,
-      catalogue: inputData.catalogue,
-    });
-
-    const response = await agent.generate(prompt, {
-      structuredOutput: {
-        schema: advicePersonalizationBaseSchema,
+      input: {
+        profile: inputData.profile,
+        existingProducts: inputData.existingProducts,
+        finances: inputData.finances,
       },
+      metrics: inputData.metrics,
+      catalogue: inputData.catalogue,
+      literacyLevelUsed: inputData.literacyLevelUsed,
     });
-
-    const personalized = advicePersonalizationBaseSchema.safeParse(
-      response.object
-    );
-    const adviceStatement =
-      personalized.success &&
-      personalized.data.adviceStatement.trim().length > 0
-        ? personalized.data.adviceStatement
-        : inputData.selection.rationale;
 
     return {
       selection: inputData.selection,
@@ -152,11 +102,10 @@ const finalizeStep = createStep({
 export const savingsAdviceWorkflow = createWorkflow({
   id: 'savings-advice',
   description:
-    'Select personalized savings/investment advice and generate a customer-facing statement',
-  inputSchema: savingsAdviceInputSchema,
+    'Fetch customer data with tools, select savings/investment advice, and generate a customer-facing statement',
+  inputSchema: savingsAdviceRequestSchema,
   outputSchema: savingsAdviceResultSchema,
 })
-  .then(prepareStep)
   .then(selectAdviceStep)
   .then(personalizeAdviceStep)
   .then(finalizeStep)

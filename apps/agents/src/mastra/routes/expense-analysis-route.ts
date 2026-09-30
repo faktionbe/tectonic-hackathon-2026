@@ -1,7 +1,7 @@
 import { registerApiRoute } from '@mastra/core/server';
 import { ZodError } from 'zod';
 
-import { expenseAnalysisInputSchema } from '../schemas/expense-analysis';
+import { expenseAnalysisRequestSchema } from '../schemas/expense-analysis';
 import type { ExpenseAnalysisWithInsights } from '../schemas/financial-insight';
 
 export const expenseAnalysisRoute = registerApiRoute('/expense-analysis', {
@@ -15,7 +15,7 @@ export const expenseAnalysisRoute = registerApiRoute('/expense-analysis', {
       return context.json({ error: 'Invalid JSON body' }, 400);
     }
 
-    const parsed = expenseAnalysisInputSchema.safeParse(body);
+    const parsed = expenseAnalysisRequestSchema.safeParse(body);
     if (!parsed.success) {
       return context.json(
         {

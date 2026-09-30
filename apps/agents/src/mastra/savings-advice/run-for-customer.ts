@@ -1,34 +1,12 @@
-import type {
-  SavingsAdviceInput,
-  SavingsAdviceResult,
-} from '../schemas/savings-advice';
+import type { Agent } from '@mastra/core/agent';
 
-import { fetchCustomerFinances, fetchCustomerProfile } from './data-clients';
-import { generateAdvice, type SavingsAdviceAgents } from './generate-advice';
+import type { SavingsAdviceResult } from '../schemas/savings-advice';
 
-export async function loadSavingsAdviceInput(
-  customerId: string
-): Promise<SavingsAdviceInput> {
-  const [profileResponse, financesResponse] = await Promise.all([
-    fetchCustomerProfile(customerId),
-    fetchCustomerFinances(customerId),
-  ]);
+import { generateAdvice } from './generate-advice';
 
-  return {
-    profile: profileResponse.profile,
-    existingProducts: profileResponse.existingProducts,
-    finances: financesResponse.finances,
-  };
-}
-
-/**
- * A2A / HTTP entry path: load customer data from (mocked) upstream APIs,
- * then run selection + personalization.
- */
 export async function runSavingsAdviceForCustomer(
   customerId: string,
-  agents: SavingsAdviceAgents
+  agent: Agent
 ): Promise<SavingsAdviceResult> {
-  const input = await loadSavingsAdviceInput(customerId);
-  return generateAdvice(input, agents);
+  return generateAdvice(customerId, agent);
 }

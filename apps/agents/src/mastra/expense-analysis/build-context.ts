@@ -1,56 +1,35 @@
-import type { ExpenseAnalysisInput } from '../schemas/expense-analysis';
+import type { ExpenseAnalysisRequest } from '../schemas/expense-analysis';
 
-import {
-  computeExpenseMetrics,
-  type ExpenseMetrics,
-  type JoinedExpense,
-  joinExpenses,
-} from './metrics';
-import { formatUseCaseGuidance } from './use-cases';
+export function buildExpenseAnalysisPrompt(
+  input: ExpenseAnalysisRequest
+): string {
+  const lines = [
+    `Analyze expenses for customerId ${input.customerId}.`,
+    '',
+    'Before classifying, call these tools with that customerId:',
+    '- fetch_expenses',
+    '- fetch_parties',
+    '- fetch_subscriptions',
+    '- compute_expense_metrics',
+    '',
+    'Use only the tool results as facts. Trust compute_expense_metrics numbers.',
+    'Do not invent expenses, merchants, amounts, dates, or countries.',
+    'Then return structured use-case classifications.',
+  ];
 
-export interface AnalysisContext {
-  input: ExpenseAnalysisInput;
-  joinedExpenses: Array<JoinedExpense>;
-  metrics: ExpenseMetrics;
-  prompt: string;
-}
+  if (input.period) {
+    lines.push(
+      '',
+      `Pass this period to fetch_expenses and compute_expense_metrics: ${JSON.stringify(input.period)}`
+    );
+  }
 
-export function buildAnalysisContext(
-  input: ExpenseAnalysisInput
-): AnalysisContext {
-  const joinedExpenses = joinExpenses(input.expenses, input.parties ?? []);
-  const metrics = computeExpenseMetrics({
-    expenses: input.expenses,
-    parties: input.parties,
-    subscriptions: input.subscriptions,
-    period: input.period,
-    homeCountryCode: input.homeCountryCode,
-  });
+  if (input.homeCountryCode) {
+    lines.push(
+      '',
+      `Pass homeCountryCode ${input.homeCountryCode} to compute_expense_metrics.`
+    );
+  }
 
-  const prompt = [
-    'Analyze the following expense dataset and return structured use-case classifications.',
-    '',
-    `Home country code (if provided): ${input.homeCountryCode ?? 'not provided'}`,
-    '',
-    'Use-case definitions:',
-    formatUseCaseGuidance(),
-    '',
-    'Deterministic metrics (pre-computed; trust these numbers):',
-    JSON.stringify(metrics, null, 2),
-    '',
-    'Joined expenses (with resolved counterparty fields when available):',
-    JSON.stringify(joinedExpenses, null, 2),
-    '',
-    'Subscriptions (if any):',
-    JSON.stringify(input.subscriptions ?? [], null, 2),
-    '',
-    'Return one result for every use-case label. Cite expense ids in evidence.transactionIds.',
-  ].join('\n');
-
-  return {
-    input,
-    joinedExpenses,
-    metrics,
-    prompt,
-  };
+  return lines.join('\n');
 }
