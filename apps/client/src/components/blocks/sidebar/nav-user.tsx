@@ -19,6 +19,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useProfileQuery } from '@/graphql/generated';
+import { personaAvatar } from '@/lib/persona-avatar';
 import { useAuth } from '@/providers/auth-provider';
 
 export const NavUser = () => {
@@ -46,6 +47,7 @@ export const NavUser = () => {
   }
 
   const displayName = data?.profile.firstName ?? user.username;
+  const avatarUrl = personaAvatar(data?.profile.firstName);
 
   return (
     <SidebarMenu>
@@ -57,7 +59,7 @@ export const NavUser = () => {
               className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
               <Avatar className='h-8 w-8 rounded-lg'>
                 <AvatarImage
-                  src={''}
+                  src={avatarUrl ?? ''}
                   alt={displayName}
                 />
                 <AvatarFallback className='rounded-lg'>
