@@ -9,42 +9,58 @@ import {
   Query,
   SerializeOptions,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { expenseDetailSchema, expenseSchema } from '@repo/contracts';
 
-import { Auth } from '@/modules/auth/auth.decorator';
+import { M2M } from '@/modules/auth/m2m.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
 import { ExpensesService } from '@/modules/expenses/expenses.service';
 import {
   type CreateExpense,
   createExpenseSchema,
   expensesPageSchema,
+  type ListExpensesQuery,
+  listExpensesQuerySchema,
   type UpdateExpense,
   updateExpenseSchema,
 } from '@/modules/expenses/models/expense.dto';
-import {
-  type OffsetPagination,
-  offsetPaginationSchema,
-} from '@/modules/pagination/pagination.utils';
 
 @Controller('expenses')
 export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
   @Get()
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'getExpenses', summary: 'List expenses' })
   @ApiOffsetPagination()
+  @ApiQuery({
+    name: 'accountIds',
+    required: false,
+    type: String,
+    description: 'Comma-separated account ids to filter by',
+  })
+  @ApiQuery({
+    name: 'bookingDateFrom',
+    required: false,
+    type: String,
+    description: 'Inclusive booking date lower bound (ISO date)',
+  })
+  @ApiQuery({
+    name: 'bookingDateTo',
+    required: false,
+    type: String,
+    description: 'Inclusive booking date upper bound (ISO date)',
+  })
   @ApiOkResponse({ standardSchema: expensesPageSchema })
   @SerializeOptions({ schema: expensesPageSchema })
   async findAll(
-    @Query({ schema: offsetPaginationSchema }) pagination: OffsetPagination
+    @Query({ schema: listExpensesQuerySchema }) query: ListExpensesQuery
   ) {
-    return this.expensesService.findAll(pagination);
+    return this.expensesService.findAll(query);
   }
 
   @Get(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'getExpense', summary: 'Get an expense' })
   @ApiOkResponse({ standardSchema: expenseDetailSchema })
   @SerializeOptions({ schema: expenseDetailSchema })
@@ -53,7 +69,7 @@ export class ExpensesController {
   }
 
   @Post()
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'createExpense', summary: 'Create an expense' })
   @ApiOkResponse({ standardSchema: expenseSchema })
   @SerializeOptions({ schema: expenseSchema })
@@ -62,7 +78,7 @@ export class ExpensesController {
   }
 
   @Patch(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'updateExpense', summary: 'Update an expense' })
   @ApiOkResponse({ standardSchema: expenseSchema })
   @SerializeOptions({ schema: expenseSchema })
@@ -74,7 +90,7 @@ export class ExpensesController {
   }
 
   @Delete(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({ operationId: 'deleteExpense', summary: 'Delete an expense' })
   @ApiOkResponse({ standardSchema: expenseSchema })
   @SerializeOptions({ schema: expenseSchema })

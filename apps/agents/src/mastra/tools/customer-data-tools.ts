@@ -3,8 +3,12 @@ import { expenseSchema } from '@repo/contracts';
 import { getProducts, PRODUCT_CATEGORIES } from '@repo/kbc-products';
 import { z } from 'zod';
 
+import {
+  lastThreeMonthsPeriod,
+  needsExpenseLinesFallback,
+  toSavingsAdviceInput,
+} from '../savings-advice/map-profile';
 import { computeSavingsAdviceMetrics } from '../savings-advice/metrics';
-import { getMockCustomerInput } from '../savings-advice/mock-customer-data';
 import {
   catalogueProductSchema,
   customerProfileSchema,
@@ -13,6 +17,11 @@ import {
   investmentAllocationItemSchema,
   savingsAdviceMetricsSchema,
 } from '../schemas/savings-advice';
+import {
+  getProfileDetail,
+  listExpenses,
+  loadCustomerAccounts,
+} from '../server-api/customer-api';
 
 const DEFAULT_CATALOGUE_CATEGORIES = ['saving', 'investing'] as const;
 
@@ -48,13 +57,17 @@ export const kbcProductsToolOutputSchema = z.object({
 export const fetchCustomerProfileTool = createTool({
   id: 'fetch_customer_profile',
   description:
-    'Fetch a customer financial profile and existing product holdings. Mocked until a database tool replaces this execute function.',
+    'Fetch a customer financial profile and existing product holdings. customerId is the Nest profile id.',
   inputSchema: z.object({
-    customerId: z.string().min(1).describe('Customer identifier'),
+    customerId: z
+      .string()
+      .min(1)
+      .describe('Profile id (Nest GET /profiles/:profileId)'),
   }),
   outputSchema: customerProfileToolOutputSchema,
   execute: async ({ customerId }) => {
-    const input = getMockCustomerInput(customerId);
+    const profile = await getProfileDetail(customerId);
+    const input = toSavingsAdviceInput(profile);
 
     return customerProfileToolOutputSchema.parse({
       profile: input.profile,
@@ -66,13 +79,27 @@ export const fetchCustomerProfileTool = createTool({
 export const fetchCustomerFinancesTool = createTool({
   id: 'fetch_customer_finances',
   description:
-    'Fetch customer income, expenses, and savings, plus deterministic metrics. Trust the metrics field. Mocked until a database tool replaces this execute function.',
+    'Fetch customer income, expenses, and savings, plus deterministic metrics. Trust the metrics field. customerId is the Nest profile id.',
   inputSchema: z.object({
-    customerId: z.string().min(1).describe('Customer identifier'),
+    customerId: z
+      .string()
+      .min(1)
+      .describe('Profile id (Nest GET /profiles/:profileId)'),
   }),
   outputSchema: customerFinancesToolOutputSchema,
   execute: async ({ customerId }) => {
-    const input = getMockCustomerInput(customerId);
+    const profile = await getProfileDetail(customerId);
+
+    let expenseLines;
+    if (needsExpenseLinesFallback(profile)) {
+      const { accountIds } = await loadCustomerAccounts(customerId);
+      expenseLines = await listExpenses({
+        accountIds,
+        period: lastThreeMonthsPeriod(),
+      });
+    }
+
+    const input = toSavingsAdviceInput(profile, expenseLines);
     const finances = financesInputSchema.parse(input.finances);
 
     return customerFinancesToolOutputSchema.parse({
@@ -85,7 +112,7 @@ export const fetchCustomerFinancesTool = createTool({
 export const fetchKbcProductsTool = createTool({
   id: 'fetch_kbc_products',
   description:
-    'Fetch KBC catalogue products for the requested categories. Defaults to saving and investing. Mocked from the static catalogue until a database tool replaces this execute function.',
+    'Fetch KBC catalogue products for the requested categories. Defaults to saving and investing.',
   inputSchema: z.object({
     categories: z
       .array(z.enum(PRODUCT_CATEGORIES))

@@ -547,48 +547,53 @@
         "operationId": "getParties",
         "parameters": [
           {
+            "name": "ids",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated party ids to filter by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "pageIndex",
             "required": false,
             "in": "query",
+            "description": "Page number (zero-based)",
             "schema": {
-              "default": 0,
-              "type": "number",
-              "minimum": 0
-            },
-            "description": "Page number (zero-based)"
+              "type": "number"
+            }
           },
           {
             "name": "pageSize",
             "required": false,
             "in": "query",
+            "description": "Number of records per page",
             "schema": {
-              "default": 10,
-              "type": "number",
-              "minimum": 1
-            },
-            "description": "Number of records per page"
+              "type": "number"
+            }
           },
           {
             "name": "order",
             "required": false,
             "in": "query",
+            "description": "Sort order of results",
             "schema": {
               "enum": [
                 "asc",
                 "desc"
               ],
               "type": "string"
-            },
-            "description": "Sort order of results"
+            }
           },
           {
             "name": "orderBy",
             "required": false,
             "in": "query",
+            "description": "Field to order results by",
             "schema": {
               "type": "string"
-            },
-            "description": "Field to order results by"
+            }
           }
         ],
         "responses": {
@@ -783,48 +788,71 @@
         "operationId": "getExpenses",
         "parameters": [
           {
+            "name": "bookingDateTo",
+            "required": false,
+            "in": "query",
+            "description": "Inclusive booking date upper bound (ISO date)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bookingDateFrom",
+            "required": false,
+            "in": "query",
+            "description": "Inclusive booking date lower bound (ISO date)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountIds",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated account ids to filter by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "pageIndex",
             "required": false,
             "in": "query",
+            "description": "Page number (zero-based)",
             "schema": {
-              "default": 0,
-              "type": "number",
-              "minimum": 0
-            },
-            "description": "Page number (zero-based)"
+              "type": "number"
+            }
           },
           {
             "name": "pageSize",
             "required": false,
             "in": "query",
+            "description": "Number of records per page",
             "schema": {
-              "default": 10,
-              "type": "number",
-              "minimum": 1
-            },
-            "description": "Number of records per page"
+              "type": "number"
+            }
           },
           {
             "name": "order",
             "required": false,
             "in": "query",
+            "description": "Sort order of results",
             "schema": {
               "enum": [
                 "asc",
                 "desc"
               ],
               "type": "string"
-            },
-            "description": "Sort order of results"
+            }
           },
           {
             "name": "orderBy",
             "required": false,
             "in": "query",
+            "description": "Field to order results by",
             "schema": {
               "type": "string"
-            },
-            "description": "Field to order results by"
+            }
           }
         ],
         "responses": {
@@ -1019,48 +1047,53 @@
         "operationId": "getSubscriptions",
         "parameters": [
           {
+            "name": "accountIds",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated account ids to filter by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "pageIndex",
             "required": false,
             "in": "query",
+            "description": "Page number (zero-based)",
             "schema": {
-              "default": 0,
-              "type": "number",
-              "minimum": 0
-            },
-            "description": "Page number (zero-based)"
+              "type": "number"
+            }
           },
           {
             "name": "pageSize",
             "required": false,
             "in": "query",
+            "description": "Number of records per page",
             "schema": {
-              "default": 10,
-              "type": "number",
-              "minimum": 1
-            },
-            "description": "Number of records per page"
+              "type": "number"
+            }
           },
           {
             "name": "order",
             "required": false,
             "in": "query",
+            "description": "Sort order of results",
             "schema": {
               "enum": [
                 "asc",
                 "desc"
               ],
               "type": "string"
-            },
-            "description": "Sort order of results"
+            }
           },
           {
             "name": "orderBy",
             "required": false,
             "in": "query",
+            "description": "Field to order results by",
             "schema": {
               "type": "string"
-            },
-            "description": "Field to order results by"
+            }
           }
         ],
         "responses": {
@@ -3443,6 +3476,39 @@
           }
         }
       },
+      "ListPartiesQuery": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "default": 0,
+            "type": "number",
+            "minimum": 0
+          },
+          "pageSize": {
+            "default": 10,
+            "type": "number",
+            "minimum": 1
+          },
+          "order": {
+            "default": "asc",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
       "PartiesPage": {
         "type": "object",
         "properties": {
@@ -3661,6 +3727,49 @@
           "externalId": {
             "description": "Normalized merchant key / registry id; groups descriptor variants",
             "type": "string"
+          }
+        }
+      },
+      "ListExpensesQuery": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "default": 0,
+            "type": "number",
+            "minimum": 0
+          },
+          "pageSize": {
+            "default": 10,
+            "type": "number",
+            "minimum": 1
+          },
+          "order": {
+            "default": "asc",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "accountIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "bookingDateFrom": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "bookingDateTo": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
           }
         }
       },
@@ -4956,6 +5065,39 @@
           "subscriptionId": {
             "description": "Set when this line is a charge of a Subscription",
             "type": "string"
+          }
+        }
+      },
+      "ListSubscriptionsQuery": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "default": 0,
+            "type": "number",
+            "minimum": 0
+          },
+          "pageSize": {
+            "default": 10,
+            "type": "number",
+            "minimum": 1
+          },
+          "order": {
+            "default": "asc",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "accountIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       },

@@ -1,4 +1,4 @@
-import type { SavingsAdviceInput } from '../schemas/savings-advice';
+import type { SavingsAdviceInput } from '../../src/mastra/schemas/savings-advice';
 
 function baseProfile(
   overrides: Partial<SavingsAdviceInput['profile']> = {}

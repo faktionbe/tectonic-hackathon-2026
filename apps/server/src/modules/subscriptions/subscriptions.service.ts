@@ -4,6 +4,7 @@ import type {
   SubscriptionDetail,
   SubscriptionListItem,
 } from '@repo/contracts';
+import type { Prisma } from '@repo/database';
 
 import {
   subscriptionDetailInclude,
@@ -14,18 +15,25 @@ import {
   toSubscriptionListItem,
 } from '@/modules/common/mappers/financial-records';
 import { PaginationService } from '@/modules/pagination/pagination.service';
-import type {
-  OffsetPagination,
-  OffsetPaginationResult,
-} from '@/modules/pagination/pagination.utils';
+import type { OffsetPaginationResult } from '@/modules/pagination/pagination.utils';
 import { PrismaService } from '@/modules/prisma/prisma.service';
 import {
   type CreateSubscription,
+  type ListSubscriptionsQuery,
   type UpdateSubscription,
 } from '@/modules/subscriptions/models/subscription.dto';
 
 const toSubscriptionDate = (value: string | undefined): Date | undefined =>
   value === undefined ? undefined : new Date(value);
+
+function buildSubscriptionListWhere(
+  query: ListSubscriptionsQuery
+): Prisma.subscriptionWhereInput | undefined {
+  if (query.accountIds === undefined || query.accountIds.length === 0) {
+    return undefined;
+  }
+  return { account_id: { in: query.accountIds } };
+}
 
 @Injectable()
 export class SubscriptionsService {
@@ -35,16 +43,17 @@ export class SubscriptionsService {
   ) {}
 
   async findAll(
-    pagination: OffsetPagination
+    query: ListSubscriptionsQuery
   ): Promise<OffsetPaginationResult<SubscriptionListItem>> {
     const page = await this.paginationService.offsetPaginate<
       SubscriptionListRow,
       'subscription'
     >({
       model: this.prisma.subscription as never,
-      pagination,
+      pagination: query,
       orderBy: 'createdAt',
       include: subscriptionListInclude,
+      where: buildSubscriptionListWhere(query),
     });
     return {
       ...page,

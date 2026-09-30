@@ -1,7 +1,7 @@
 import {
   getMockCustomerInput,
   MOCK_CUSTOMERS,
-} from '../../../src/mastra/savings-advice/mock-customer-data';
+} from '../../fixtures/mock-customer-data';
 import type { SavingsAdviceInput } from '../../../src/mastra/schemas/savings-advice';
 
 export const CUSTOMER_IDS = {

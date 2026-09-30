@@ -6,6 +6,7 @@ export const serverEnvSchema = z.object({
   PORT: z.coerce.number().int().positive(),
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(1),
+  M2M_JWT: z.string().min(1),
   ENCRYPTION_KEY: z.string().min(1),
   FRONTEND_URL: z.string().url(),
   BACKEND_URL: z.string().url().optional(),

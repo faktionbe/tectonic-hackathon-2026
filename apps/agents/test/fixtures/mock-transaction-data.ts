@@ -1,6 +1,6 @@
 import type { Expense, Party, Subscription } from '@repo/contracts';
 
-import type { ExpenseAnalysisInput } from '../schemas/expense-analysis';
+import type { ExpenseAnalysisInput } from '../../src/mastra/schemas/expense-analysis';
 
 import {
   carPurchaseFixture,

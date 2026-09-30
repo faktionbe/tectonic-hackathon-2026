@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { profileDetailSchema } from '@repo/contracts';
 
-import { Auth } from '@/modules/auth/auth.decorator';
+import { M2M } from '@/modules/auth/m2m.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
 import {
   type OffsetPagination,
@@ -39,7 +39,7 @@ export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @Get()
-  @Auth()
+  @M2M()
   @ApiOffsetPagination()
   @ApiOperation({
     operationId: 'listProfiles',
@@ -54,7 +54,7 @@ export class ProfilesController {
   }
 
   @Get(':profileId')
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'getProfileById',
     summary: 'Get profile by id',
@@ -66,7 +66,7 @@ export class ProfilesController {
   }
 
   @Post()
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'createProfile',
     summary: 'Create profile',
@@ -80,7 +80,7 @@ export class ProfilesController {
   }
 
   @Patch(':profileId')
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'updateProfile',
     summary: 'Update profile',
@@ -95,7 +95,7 @@ export class ProfilesController {
   }
 
   @Delete(':profileId')
-  @Auth()
+  @M2M()
   @HttpCode(204)
   @ApiOperation({
     operationId: 'deleteProfile',

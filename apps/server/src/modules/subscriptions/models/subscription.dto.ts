@@ -4,7 +4,11 @@ import {
 } from '@repo/contracts';
 import { z } from 'zod';
 
-import { offsetPaginatedResultSchema } from '@/modules/pagination/pagination.utils';
+import {
+  csvToStringArray,
+  offsetPaginatedResultSchema,
+  offsetPaginationSchema,
+} from '@/modules/pagination/pagination.utils';
 
 export const createSubscriptionSchema = subscriptionSchema
   .omit({ id: true })
@@ -20,6 +24,16 @@ export const updateSubscriptionSchema = createSubscriptionSchema
   .meta({ id: 'UpdateSubscriptionRequest' });
 
 export type UpdateSubscription = z.infer<typeof updateSubscriptionSchema>;
+
+export const listSubscriptionsQuerySchema = offsetPaginationSchema
+  .extend({
+    accountIds: csvToStringArray,
+  })
+  .meta({ id: 'ListSubscriptionsQuery' });
+
+export type ListSubscriptionsQuery = z.infer<
+  typeof listSubscriptionsQuerySchema
+>;
 
 export const subscriptionsPageSchema = offsetPaginatedResultSchema(
   subscriptionListItemSchema

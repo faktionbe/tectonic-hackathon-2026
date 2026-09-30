@@ -54,11 +54,11 @@ export interface ProfileResponse {
 /**
  * @nullable
  */
-export type ProfileMaritalStatus =
-  | (typeof ProfileMaritalStatus)[keyof typeof ProfileMaritalStatus]
+export type ProfileListItemMaritalStatus =
+  | (typeof ProfileListItemMaritalStatus)[keyof typeof ProfileListItemMaritalStatus]
   | null;
 
-export const ProfileMaritalStatus = {
+export const ProfileListItemMaritalStatus = {
   SINGLE: 'SINGLE',
   MARRIED: 'MARRIED',
   PARTNERED: 'PARTNERED',
@@ -70,11 +70,11 @@ export const ProfileMaritalStatus = {
 /**
  * @nullable
  */
-export type ProfileHousingStatus =
-  | (typeof ProfileHousingStatus)[keyof typeof ProfileHousingStatus]
+export type ProfileListItemHousingStatus =
+  | (typeof ProfileListItemHousingStatus)[keyof typeof ProfileListItemHousingStatus]
   | null;
 
-export const ProfileHousingStatus = {
+export const ProfileListItemHousingStatus = {
   OWNER_OUTRIGHT: 'OWNER_OUTRIGHT',
   OWNER_WITH_MORTGAGE: 'OWNER_WITH_MORTGAGE',
   RENTER: 'RENTER',
@@ -85,11 +85,11 @@ export const ProfileHousingStatus = {
 /**
  * @nullable
  */
-export type ProfileEmploymentStatus =
-  | (typeof ProfileEmploymentStatus)[keyof typeof ProfileEmploymentStatus]
+export type ProfileListItemEmploymentStatus =
+  | (typeof ProfileListItemEmploymentStatus)[keyof typeof ProfileListItemEmploymentStatus]
   | null;
 
-export const ProfileEmploymentStatus = {
+export const ProfileListItemEmploymentStatus = {
   EMPLOYED: 'EMPLOYED',
   SELF_EMPLOYED: 'SELF_EMPLOYED',
   UNEMPLOYED: 'UNEMPLOYED',
@@ -101,11 +101,11 @@ export const ProfileEmploymentStatus = {
 /**
  * @nullable
  */
-export type ProfileFinancialLiteracy =
-  | (typeof ProfileFinancialLiteracy)[keyof typeof ProfileFinancialLiteracy]
+export type ProfileListItemFinancialLiteracy =
+  | (typeof ProfileListItemFinancialLiteracy)[keyof typeof ProfileListItemFinancialLiteracy]
   | null;
 
-export const ProfileFinancialLiteracy = {
+export const ProfileListItemFinancialLiteracy = {
   LOW: 'LOW',
   DEVELOPING: 'DEVELOPING',
   CAPABLE: 'CAPABLE',
@@ -115,11 +115,11 @@ export const ProfileFinancialLiteracy = {
 /**
  * @nullable
  */
-export type ProfileRiskTolerance =
-  | (typeof ProfileRiskTolerance)[keyof typeof ProfileRiskTolerance]
+export type ProfileListItemRiskTolerance =
+  | (typeof ProfileListItemRiskTolerance)[keyof typeof ProfileListItemRiskTolerance]
   | null;
 
-export const ProfileRiskTolerance = {
+export const ProfileListItemRiskTolerance = {
   CONSERVATIVE: 'CONSERVATIVE',
   MODERATE: 'MODERATE',
   BALANCED: 'BALANCED',
@@ -127,10 +127,10 @@ export const ProfileRiskTolerance = {
   AGGRESSIVE: 'AGGRESSIVE',
 } as const;
 
-export type ProfileGoalsItem =
-  (typeof ProfileGoalsItem)[keyof typeof ProfileGoalsItem];
+export type ProfileListItemGoalsItem =
+  (typeof ProfileListItemGoalsItem)[keyof typeof ProfileListItemGoalsItem];
 
-export const ProfileGoalsItem = {
+export const ProfileListItemGoalsItem = {
   EMERGENCY_FUND: 'EMERGENCY_FUND',
   REDUCE_SPENDING: 'REDUCE_SPENDING',
   REDUCE_DEBT: 'REDUCE_DEBT',
@@ -141,10 +141,10 @@ export const ProfileGoalsItem = {
   PROTECT_INCOME: 'PROTECT_INCOME',
 } as const;
 
-export type ProfileServiceInterestsItem =
-  (typeof ProfileServiceInterestsItem)[keyof typeof ProfileServiceInterestsItem];
+export type ProfileListItemServiceInterestsItem =
+  (typeof ProfileListItemServiceInterestsItem)[keyof typeof ProfileListItemServiceInterestsItem];
 
-export const ProfileServiceInterestsItem = {
+export const ProfileListItemServiceInterestsItem = {
   SAVINGS: 'SAVINGS',
   INSURANCE: 'INSURANCE',
   BROKER: 'BROKER',
@@ -154,7 +154,19 @@ export const ProfileServiceInterestsItem = {
   FINANCIAL_COACHING: 'FINANCIAL_COACHING',
 } as const;
 
-export interface Profile {
+export interface FinancialHolder {
+  id: string;
+  /** @nullable */
+  profileId: string | null;
+  /** @minLength 1 */
+  displayName: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+}
+
+export interface ProfileListItem {
   id: string;
   firstName: string;
   lastName: string;
@@ -173,7 +185,7 @@ export interface Profile {
   /** @nullable */
   customerReference: string | null;
   /** @nullable */
-  maritalStatus: ProfileMaritalStatus;
+  maritalStatus: ProfileListItemMaritalStatus;
   /**
    * @minimum -9007199254740991
    * @maximum 9007199254740991
@@ -188,11 +200,11 @@ export interface Profile {
   /** @nullable */
   country: string | null;
   /** @nullable */
-  housingStatus: ProfileHousingStatus;
+  housingStatus: ProfileListItemHousingStatus;
   /** @nullable */
   monthlyHousingCost: number | null;
   /** @nullable */
-  employmentStatus: ProfileEmploymentStatus;
+  employmentStatus: ProfileListItemEmploymentStatus;
   /** @nullable */
   occupation: string | null;
   /** @nullable */
@@ -212,11 +224,24 @@ export interface Profile {
   /** @nullable */
   otherMonthlyIncome: number | null;
   /** @nullable */
-  financialLiteracy: ProfileFinancialLiteracy;
+  financialLiteracy: ProfileListItemFinancialLiteracy;
   /** @nullable */
-  riskTolerance: ProfileRiskTolerance;
-  goals: ProfileGoalsItem[];
-  serviceInterests: ProfileServiceInterestsItem[];
+  riskTolerance: ProfileListItemRiskTolerance;
+  /** @nullable */
+  personalizationConsent: boolean | null;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   * @nullable
+   */
+  investmentHorizonMonths: number | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  liquidityReserveTarget: number | null;
+  goals: ProfileListItemGoalsItem[];
+  serviceInterests: ProfileListItemServiceInterestsItem[];
   /** @nullable */
   monthlyEssentialExpenses: number | null;
   /** @nullable */
@@ -251,14 +276,591 @@ export interface Profile {
   createdAt: string;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
   updatedAt: string;
+  financialHolder: FinancialHolder | null;
 }
 
 export interface OffsetPaginatedProfiles {
-  data: Profile[];
+  data: ProfileListItem[];
   total: number;
   pageIndex: number;
   pageSize: number;
   totalPages: number;
+}
+
+/**
+ * @nullable
+ */
+export type ProfileDetailMaritalStatus =
+  | (typeof ProfileDetailMaritalStatus)[keyof typeof ProfileDetailMaritalStatus]
+  | null;
+
+export const ProfileDetailMaritalStatus = {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED',
+  PARTNERED: 'PARTNERED',
+  DIVORCED: 'DIVORCED',
+  WIDOWED: 'WIDOWED',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileDetailHousingStatus =
+  | (typeof ProfileDetailHousingStatus)[keyof typeof ProfileDetailHousingStatus]
+  | null;
+
+export const ProfileDetailHousingStatus = {
+  OWNER_OUTRIGHT: 'OWNER_OUTRIGHT',
+  OWNER_WITH_MORTGAGE: 'OWNER_WITH_MORTGAGE',
+  RENTER: 'RENTER',
+  LIVING_WITH_FAMILY: 'LIVING_WITH_FAMILY',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileDetailEmploymentStatus =
+  | (typeof ProfileDetailEmploymentStatus)[keyof typeof ProfileDetailEmploymentStatus]
+  | null;
+
+export const ProfileDetailEmploymentStatus = {
+  EMPLOYED: 'EMPLOYED',
+  SELF_EMPLOYED: 'SELF_EMPLOYED',
+  UNEMPLOYED: 'UNEMPLOYED',
+  STUDENT: 'STUDENT',
+  RETIRED: 'RETIRED',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileDetailFinancialLiteracy =
+  | (typeof ProfileDetailFinancialLiteracy)[keyof typeof ProfileDetailFinancialLiteracy]
+  | null;
+
+export const ProfileDetailFinancialLiteracy = {
+  LOW: 'LOW',
+  DEVELOPING: 'DEVELOPING',
+  CAPABLE: 'CAPABLE',
+  EXPERT: 'EXPERT',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileDetailRiskTolerance =
+  | (typeof ProfileDetailRiskTolerance)[keyof typeof ProfileDetailRiskTolerance]
+  | null;
+
+export const ProfileDetailRiskTolerance = {
+  CONSERVATIVE: 'CONSERVATIVE',
+  MODERATE: 'MODERATE',
+  BALANCED: 'BALANCED',
+  GROWTH: 'GROWTH',
+  AGGRESSIVE: 'AGGRESSIVE',
+} as const;
+
+export type ProfileDetailGoalsItem =
+  (typeof ProfileDetailGoalsItem)[keyof typeof ProfileDetailGoalsItem];
+
+export const ProfileDetailGoalsItem = {
+  EMERGENCY_FUND: 'EMERGENCY_FUND',
+  REDUCE_SPENDING: 'REDUCE_SPENDING',
+  REDUCE_DEBT: 'REDUCE_DEBT',
+  BUY_HOME: 'BUY_HOME',
+  RETIREMENT: 'RETIREMENT',
+  EDUCATION: 'EDUCATION',
+  GROW_INVESTMENTS: 'GROW_INVESTMENTS',
+  PROTECT_INCOME: 'PROTECT_INCOME',
+} as const;
+
+export type ProfileDetailServiceInterestsItem =
+  (typeof ProfileDetailServiceInterestsItem)[keyof typeof ProfileDetailServiceInterestsItem];
+
+export const ProfileDetailServiceInterestsItem = {
+  SAVINGS: 'SAVINGS',
+  INSURANCE: 'INSURANCE',
+  BROKER: 'BROKER',
+  INVESTING: 'INVESTING',
+  PENSION: 'PENSION',
+  CREDIT: 'CREDIT',
+  FINANCIAL_COACHING: 'FINANCIAL_COACHING',
+} as const;
+
+/**
+ * @nullable
+ */
+export type AccountKind = (typeof AccountKind)[keyof typeof AccountKind] | null;
+
+export const AccountKind = {
+  CURRENT: 'CURRENT',
+  SAVINGS: 'SAVINGS',
+} as const;
+
+/**
+ * @nullable
+ */
+export type AccountPurpose =
+  | (typeof AccountPurpose)[keyof typeof AccountPurpose]
+  | null;
+
+export const AccountPurpose = {
+  PERSONAL: 'PERSONAL',
+  BUSINESS: 'BUSINESS',
+} as const;
+
+/**
+ * @nullable
+ */
+export type AccountStatus =
+  | (typeof AccountStatus)[keyof typeof AccountStatus]
+  | null;
+
+export const AccountStatus = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED',
+  CLOSED: 'CLOSED',
+} as const;
+
+export interface Account {
+  id: string;
+  holderIds: string[];
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  iban: string | null;
+  /** @nullable */
+  kind: AccountKind;
+  /** @nullable */
+  purpose: AccountPurpose;
+  /** @nullable */
+  status: AccountStatus;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   * @nullable
+   */
+  currency: string | null;
+  /** @nullable */
+  balance: number | null;
+  /**
+   * @nullable
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
+   */
+  balanceAsOf: string | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  overdraftLimit: number | null;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+}
+
+/**
+ * @nullable
+ */
+export type LoanKind = (typeof LoanKind)[keyof typeof LoanKind] | null;
+
+export const LoanKind = {
+  MORTGAGE: 'MORTGAGE',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type LoanRepaymentCadence =
+  | (typeof LoanRepaymentCadence)[keyof typeof LoanRepaymentCadence]
+  | null;
+
+export const LoanRepaymentCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface Loan {
+  id: string;
+  borrowerIds: string[];
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  productName: string | null;
+  /** @nullable */
+  kind: LoanKind;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   * @nullable
+   */
+  currency: string | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  outstandingBalance: number | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  repaymentAmount: number | null;
+  /** @nullable */
+  repaymentCadence: LoanRepaymentCadence;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   * @nullable
+   */
+  remainingTermMonths: number | null;
+  /** @nullable */
+  repaymentAccountId: string | null;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+}
+
+export interface CreditCard {
+  id: string;
+  holderIds: string[];
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  productName: string | null;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   * @nullable
+   */
+  currency: string | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  creditLimit: number | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  usedCredit: number | null;
+  /** @nullable */
+  billingAccountId: string | null;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+}
+
+/**
+ * @nullable
+ */
+export type InvestmentKind =
+  | (typeof InvestmentKind)[keyof typeof InvestmentKind]
+  | null;
+
+export const InvestmentKind = {
+  FUND_PORTFOLIO: 'FUND_PORTFOLIO',
+  PENSION_SAVINGS: 'PENSION_SAVINGS',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type InvestmentContributionCadence =
+  | (typeof InvestmentContributionCadence)[keyof typeof InvestmentContributionCadence]
+  | null;
+
+export const InvestmentContributionCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+/**
+ * @nullable
+ */
+export type InvestmentStatus =
+  | (typeof InvestmentStatus)[keyof typeof InvestmentStatus]
+  | null;
+
+export const InvestmentStatus = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED',
+  CLOSED: 'CLOSED',
+} as const;
+
+export interface Investment {
+  id: string;
+  holderIds: string[];
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  productName: string | null;
+  /** @nullable */
+  kind: InvestmentKind;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   * @nullable
+   */
+  currency: string | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  currentValue: number | null;
+  /**
+   * @nullable
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$
+   */
+  valuationDate: string | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  contributionAmount: number | null;
+  /** @nullable */
+  contributionCadence: InvestmentContributionCadence;
+  /** @nullable */
+  status: InvestmentStatus;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+}
+
+/**
+ * @nullable
+ */
+export type InsuranceKind =
+  | (typeof InsuranceKind)[keyof typeof InsuranceKind]
+  | null;
+
+export const InsuranceKind = {
+  FIRE: 'FIRE',
+  FAMILY_LIABILITY: 'FAMILY_LIABILITY',
+  HOSPITALIZATION: 'HOSPITALIZATION',
+  OUTSTANDING_BALANCE: 'OUTSTANDING_BALANCE',
+  INCOME_PROTECTION: 'INCOME_PROTECTION',
+  LIFE: 'LIFE',
+  CAR: 'CAR',
+  OTHER: 'OTHER',
+} as const;
+
+export interface InsuredPerson {
+  holderId: string;
+  /**
+   * @minimum 0
+   * @maximum 100
+   * @nullable
+   */
+  coveragePercentage: number | null;
+}
+
+export interface Insurance {
+  id: string;
+  policyholderIds: string[];
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  productName: string | null;
+  /** @nullable */
+  kind: InsuranceKind;
+  /** @nullable */
+  isEmployerProvided: boolean | null;
+  /** @nullable */
+  loanId: string | null;
+  insuredPersons: InsuredPerson[];
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+}
+
+/**
+ * @nullable
+ */
+export type ProfileHolderCoverageKind =
+  | (typeof ProfileHolderCoverageKind)[keyof typeof ProfileHolderCoverageKind]
+  | null;
+
+export const ProfileHolderCoverageKind = {
+  FIRE: 'FIRE',
+  FAMILY_LIABILITY: 'FAMILY_LIABILITY',
+  HOSPITALIZATION: 'HOSPITALIZATION',
+  OUTSTANDING_BALANCE: 'OUTSTANDING_BALANCE',
+  INCOME_PROTECTION: 'INCOME_PROTECTION',
+  LIFE: 'LIFE',
+  CAR: 'CAR',
+  OTHER: 'OTHER',
+} as const;
+
+export interface ProfileHolderCoverage {
+  id: string;
+  policyholderIds: string[];
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  productName: string | null;
+  /** @nullable */
+  kind: ProfileHolderCoverageKind;
+  /** @nullable */
+  isEmployerProvided: boolean | null;
+  /** @nullable */
+  loanId: string | null;
+  insuredPersons: InsuredPerson[];
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+  /**
+   * @minimum 0
+   * @maximum 100
+   * @nullable
+   */
+  coveragePercentage: number | null;
+}
+
+export interface ProfileFinancialPosition {
+  id: string;
+  /** @nullable */
+  profileId: string | null;
+  /** @minLength 1 */
+  displayName: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+  accounts: Account[];
+  loans: Loan[];
+  creditCards: CreditCard[];
+  investments: Investment[];
+  insurancePolicies: Insurance[];
+  insuranceCoverages: ProfileHolderCoverage[];
+}
+
+export interface ProfileDetail {
+  id: string;
+  firstName: string;
+  lastName: string;
+  /**
+   * @nullable
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$
+   */
+  dateOfBirth: string | null;
+  /**
+   * @nullable
+   * @pattern ^(?:[A-Za-z0-9_'+\-]+\.)*[A-Za-z0-9_'+\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+   */
+  email: string | null;
+  /** @nullable */
+  phone: string | null;
+  /** @nullable */
+  customerReference: string | null;
+  /** @nullable */
+  maritalStatus: ProfileDetailMaritalStatus;
+  /**
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
+  dependentCount: number;
+  /** @nullable */
+  street: string | null;
+  /** @nullable */
+  city: string | null;
+  /** @nullable */
+  postalCode: string | null;
+  /** @nullable */
+  country: string | null;
+  /** @nullable */
+  housingStatus: ProfileDetailHousingStatus;
+  /** @nullable */
+  monthlyHousingCost: number | null;
+  /** @nullable */
+  employmentStatus: ProfileDetailEmploymentStatus;
+  /** @nullable */
+  occupation: string | null;
+  /** @nullable */
+  employer: string | null;
+  /**
+   * @nullable
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$
+   */
+  employmentStartDate: string | null;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  /** @nullable */
+  monthlyNetIncome: number | null;
+  /** @nullable */
+  otherMonthlyIncome: number | null;
+  /** @nullable */
+  financialLiteracy: ProfileDetailFinancialLiteracy;
+  /** @nullable */
+  riskTolerance: ProfileDetailRiskTolerance;
+  /** @nullable */
+  personalizationConsent: boolean | null;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   * @nullable
+   */
+  investmentHorizonMonths: number | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  liquidityReserveTarget: number | null;
+  goals: ProfileDetailGoalsItem[];
+  serviceInterests: ProfileDetailServiceInterestsItem[];
+  /** @nullable */
+  monthlyEssentialExpenses: number | null;
+  /** @nullable */
+  monthlyDiscretionaryExpenses: number | null;
+  /** @nullable */
+  monthlySavingsTarget: number | null;
+  /** @nullable */
+  liquidSavings: number | null;
+  /** @nullable */
+  investmentBalance: number | null;
+  /** @nullable */
+  pensionBalance: number | null;
+  /** @nullable */
+  realEstateValue: number | null;
+  /** @nullable */
+  mortgageBalance: number | null;
+  /** @nullable */
+  consumerDebtBalance: number | null;
+  /** @nullable */
+  otherDebtBalance: number | null;
+  /** @nullable */
+  hasLifeInsurance: boolean | null;
+  /** @nullable */
+  hasHomeInsurance: boolean | null;
+  /** @nullable */
+  hasHealthInsurance: boolean | null;
+  /** @nullable */
+  hasBrokerageAccount: boolean | null;
+  /** @nullable */
+  notes: string | null;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
+  financialHolder: ProfileFinancialPosition | null;
 }
 
 /**
@@ -424,6 +1026,19 @@ export interface CreateProfileRequest {
   financialLiteracy?: CreateProfileRequestFinancialLiteracy;
   /** @nullable */
   riskTolerance?: CreateProfileRequestRiskTolerance;
+  /** @nullable */
+  personalizationConsent?: boolean | null;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   * @nullable
+   */
+  investmentHorizonMonths?: number | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  liquidityReserveTarget?: number | null;
   goals?: CreateProfileRequestGoalsItem[];
   serviceInterests?: CreateProfileRequestServiceInterestsItem[];
   /** @nullable */
@@ -456,6 +1071,218 @@ export interface CreateProfileRequest {
   hasBrokerageAccount?: boolean | null;
   /** @nullable */
   notes?: string | null;
+}
+
+/**
+ * @nullable
+ */
+export type ProfileMaritalStatus =
+  | (typeof ProfileMaritalStatus)[keyof typeof ProfileMaritalStatus]
+  | null;
+
+export const ProfileMaritalStatus = {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED',
+  PARTNERED: 'PARTNERED',
+  DIVORCED: 'DIVORCED',
+  WIDOWED: 'WIDOWED',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileHousingStatus =
+  | (typeof ProfileHousingStatus)[keyof typeof ProfileHousingStatus]
+  | null;
+
+export const ProfileHousingStatus = {
+  OWNER_OUTRIGHT: 'OWNER_OUTRIGHT',
+  OWNER_WITH_MORTGAGE: 'OWNER_WITH_MORTGAGE',
+  RENTER: 'RENTER',
+  LIVING_WITH_FAMILY: 'LIVING_WITH_FAMILY',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileEmploymentStatus =
+  | (typeof ProfileEmploymentStatus)[keyof typeof ProfileEmploymentStatus]
+  | null;
+
+export const ProfileEmploymentStatus = {
+  EMPLOYED: 'EMPLOYED',
+  SELF_EMPLOYED: 'SELF_EMPLOYED',
+  UNEMPLOYED: 'UNEMPLOYED',
+  STUDENT: 'STUDENT',
+  RETIRED: 'RETIRED',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileFinancialLiteracy =
+  | (typeof ProfileFinancialLiteracy)[keyof typeof ProfileFinancialLiteracy]
+  | null;
+
+export const ProfileFinancialLiteracy = {
+  LOW: 'LOW',
+  DEVELOPING: 'DEVELOPING',
+  CAPABLE: 'CAPABLE',
+  EXPERT: 'EXPERT',
+} as const;
+
+/**
+ * @nullable
+ */
+export type ProfileRiskTolerance =
+  | (typeof ProfileRiskTolerance)[keyof typeof ProfileRiskTolerance]
+  | null;
+
+export const ProfileRiskTolerance = {
+  CONSERVATIVE: 'CONSERVATIVE',
+  MODERATE: 'MODERATE',
+  BALANCED: 'BALANCED',
+  GROWTH: 'GROWTH',
+  AGGRESSIVE: 'AGGRESSIVE',
+} as const;
+
+export type ProfileGoalsItem =
+  (typeof ProfileGoalsItem)[keyof typeof ProfileGoalsItem];
+
+export const ProfileGoalsItem = {
+  EMERGENCY_FUND: 'EMERGENCY_FUND',
+  REDUCE_SPENDING: 'REDUCE_SPENDING',
+  REDUCE_DEBT: 'REDUCE_DEBT',
+  BUY_HOME: 'BUY_HOME',
+  RETIREMENT: 'RETIREMENT',
+  EDUCATION: 'EDUCATION',
+  GROW_INVESTMENTS: 'GROW_INVESTMENTS',
+  PROTECT_INCOME: 'PROTECT_INCOME',
+} as const;
+
+export type ProfileServiceInterestsItem =
+  (typeof ProfileServiceInterestsItem)[keyof typeof ProfileServiceInterestsItem];
+
+export const ProfileServiceInterestsItem = {
+  SAVINGS: 'SAVINGS',
+  INSURANCE: 'INSURANCE',
+  BROKER: 'BROKER',
+  INVESTING: 'INVESTING',
+  PENSION: 'PENSION',
+  CREDIT: 'CREDIT',
+  FINANCIAL_COACHING: 'FINANCIAL_COACHING',
+} as const;
+
+export interface Profile {
+  id: string;
+  firstName: string;
+  lastName: string;
+  /**
+   * @nullable
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$
+   */
+  dateOfBirth: string | null;
+  /**
+   * @nullable
+   * @pattern ^(?:[A-Za-z0-9_'+\-]+\.)*[A-Za-z0-9_'+\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$
+   */
+  email: string | null;
+  /** @nullable */
+  phone: string | null;
+  /** @nullable */
+  customerReference: string | null;
+  /** @nullable */
+  maritalStatus: ProfileMaritalStatus;
+  /**
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
+  dependentCount: number;
+  /** @nullable */
+  street: string | null;
+  /** @nullable */
+  city: string | null;
+  /** @nullable */
+  postalCode: string | null;
+  /** @nullable */
+  country: string | null;
+  /** @nullable */
+  housingStatus: ProfileHousingStatus;
+  /** @nullable */
+  monthlyHousingCost: number | null;
+  /** @nullable */
+  employmentStatus: ProfileEmploymentStatus;
+  /** @nullable */
+  occupation: string | null;
+  /** @nullable */
+  employer: string | null;
+  /**
+   * @nullable
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$
+   */
+  employmentStartDate: string | null;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  /** @nullable */
+  monthlyNetIncome: number | null;
+  /** @nullable */
+  otherMonthlyIncome: number | null;
+  /** @nullable */
+  financialLiteracy: ProfileFinancialLiteracy;
+  /** @nullable */
+  riskTolerance: ProfileRiskTolerance;
+  /** @nullable */
+  personalizationConsent: boolean | null;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   * @nullable
+   */
+  investmentHorizonMonths: number | null;
+  /** @nullable */
+  liquidityReserveTarget: number | null;
+  goals: ProfileGoalsItem[];
+  serviceInterests: ProfileServiceInterestsItem[];
+  /** @nullable */
+  monthlyEssentialExpenses: number | null;
+  /** @nullable */
+  monthlyDiscretionaryExpenses: number | null;
+  /** @nullable */
+  monthlySavingsTarget: number | null;
+  /** @nullable */
+  liquidSavings: number | null;
+  /** @nullable */
+  investmentBalance: number | null;
+  /** @nullable */
+  pensionBalance: number | null;
+  /** @nullable */
+  realEstateValue: number | null;
+  /** @nullable */
+  mortgageBalance: number | null;
+  /** @nullable */
+  consumerDebtBalance: number | null;
+  /** @nullable */
+  otherDebtBalance: number | null;
+  /** @nullable */
+  hasLifeInsurance: boolean | null;
+  /** @nullable */
+  hasHomeInsurance: boolean | null;
+  /** @nullable */
+  hasHealthInsurance: boolean | null;
+  /** @nullable */
+  hasBrokerageAccount: boolean | null;
+  /** @nullable */
+  notes: string | null;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  createdAt: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$ */
+  updatedAt: string;
 }
 
 /**
@@ -621,6 +1448,19 @@ export interface UpdateProfileRequest {
   financialLiteracy?: UpdateProfileRequestFinancialLiteracy;
   /** @nullable */
   riskTolerance?: UpdateProfileRequestRiskTolerance;
+  /** @nullable */
+  personalizationConsent?: boolean | null;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   * @nullable
+   */
+  investmentHorizonMonths?: number | null;
+  /**
+   * @minimum 0
+   * @nullable
+   */
+  liquidityReserveTarget?: number | null;
   goals?: UpdateProfileRequestGoalsItem[];
   serviceInterests?: UpdateProfileRequestServiceInterestsItem[];
   /** @nullable */
@@ -653,6 +1493,25 @@ export interface UpdateProfileRequest {
   hasBrokerageAccount?: boolean | null;
   /** @nullable */
   notes?: string | null;
+}
+
+export type ListPartiesQueryOrder =
+  (typeof ListPartiesQueryOrder)[keyof typeof ListPartiesQueryOrder];
+
+export const ListPartiesQueryOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export interface ListPartiesQuery {
+  /** @minimum 0 */
+  pageIndex?: number;
+  /** @minimum 1 */
+  pageSize?: number;
+  order?: ListPartiesQueryOrder;
+  orderBy?: string;
+  /** @items.minLength 1 */
+  ids?: string[];
 }
 
 export type PartyKind = (typeof PartyKind)[keyof typeof PartyKind];
@@ -818,6 +1677,532 @@ export interface UpdatePartyRequest {
   externalId?: string;
 }
 
+export type ListExpensesQueryOrder =
+  (typeof ListExpensesQueryOrder)[keyof typeof ListExpensesQueryOrder];
+
+export const ListExpensesQueryOrder = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export interface ListExpensesQuery {
+  /** @minimum 0 */
+  pageIndex?: number;
+  /** @minimum 1 */
+  pageSize?: number;
+  order?: ListExpensesQueryOrder;
+  orderBy?: string;
+  /** @items.minLength 1 */
+  accountIds?: string[];
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDateFrom?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDateTo?: string;
+}
+
+export type ExpenseListItemDirection =
+  (typeof ExpenseListItemDirection)[keyof typeof ExpenseListItemDirection];
+
+export const ExpenseListItemDirection = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+} as const;
+
+export type ExpenseListItemType =
+  (typeof ExpenseListItemType)[keyof typeof ExpenseListItemType];
+
+export const ExpenseListItemType = {
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  CONTACTLESS: 'CONTACTLESS',
+  SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
+  SEPA_CREDIT_TRANSFER: 'SEPA_CREDIT_TRANSFER',
+  STANDING_ORDER: 'STANDING_ORDER',
+  INSTANT_PAYMENT: 'INSTANT_PAYMENT',
+  ATM_WITHDRAWAL: 'ATM_WITHDRAWAL',
+  FEE: 'FEE',
+  INTEREST: 'INTEREST',
+  REVERSAL: 'REVERSAL',
+  OTHER: 'OTHER',
+} as const;
+
+export type ExpenseListItemStatus =
+  (typeof ExpenseListItemStatus)[keyof typeof ExpenseListItemStatus];
+
+export const ExpenseListItemStatus = {
+  PENDING: 'PENDING',
+  BOOKED: 'BOOKED',
+  REVERSED: 'REVERSED',
+  ATTEMPTED: 'ATTEMPTED',
+  BLOCKED: 'BLOCKED',
+  REJECTED: 'REJECTED',
+} as const;
+
+export type ExpenseListItemPurpose =
+  (typeof ExpenseListItemPurpose)[keyof typeof ExpenseListItemPurpose];
+
+export const ExpenseListItemPurpose = {
+  SALARY: 'SALARY',
+  PENSION: 'PENSION',
+  BUSINESS_INCOME: 'BUSINESS_INCOME',
+  HOUSEHOLD_SUPPORT: 'HOUSEHOLD_SUPPORT',
+  OWN_ACCOUNT_TRANSFER: 'OWN_ACCOUNT_TRANSFER',
+  OTHER: 'OTHER',
+} as const;
+
+export type ExpenseListItemChannel =
+  (typeof ExpenseListItemChannel)[keyof typeof ExpenseListItemChannel];
+
+export const ExpenseListItemChannel = {
+  POS: 'POS',
+  ATM: 'ATM',
+  ECOMMERCE: 'ECOMMERCE',
+  MOBILE: 'MOBILE',
+  BRANCH: 'BRANCH',
+  RECURRING: 'RECURRING',
+} as const;
+
+export type ExpenseListItemCategory =
+  (typeof ExpenseListItemCategory)[keyof typeof ExpenseListItemCategory];
+
+export const ExpenseListItemCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * Essential vs discretionary; enables surplus detection
+ */
+export type ExpenseListItemEssentiality =
+  (typeof ExpenseListItemEssentiality)[keyof typeof ExpenseListItemEssentiality];
+
+export const ExpenseListItemEssentiality = {
+  ESSENTIAL: 'ESSENTIAL',
+  DISCRETIONARY: 'DISCRETIONARY',
+  MIXED: 'MIXED',
+} as const;
+
+/**
+ * @nullable
+ */
+export type LinkedAccountSummaryKind =
+  | (typeof LinkedAccountSummaryKind)[keyof typeof LinkedAccountSummaryKind]
+  | null;
+
+export const LinkedAccountSummaryKind = {
+  CURRENT: 'CURRENT',
+  SAVINGS: 'SAVINGS',
+} as const;
+
+/**
+ * @nullable
+ */
+export type LinkedAccountSummaryStatus =
+  | (typeof LinkedAccountSummaryStatus)[keyof typeof LinkedAccountSummaryStatus]
+  | null;
+
+export const LinkedAccountSummaryStatus = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED',
+  CLOSED: 'CLOSED',
+} as const;
+
+export interface LinkedAccountSummary {
+  id: string;
+  /** @nullable */
+  providerName: string | null;
+  /** @nullable */
+  iban: string | null;
+  /** @nullable */
+  kind: LinkedAccountSummaryKind;
+  /**
+   * @minLength 3
+   * @maxLength 3
+   * @nullable
+   */
+  currency: string | null;
+  /** @nullable */
+  status: LinkedAccountSummaryStatus;
+}
+
+export type LinkedPartySummaryKind =
+  (typeof LinkedPartySummaryKind)[keyof typeof LinkedPartySummaryKind];
+
+export const LinkedPartySummaryKind = {
+  MERCHANT: 'MERCHANT',
+  PERSON: 'PERSON',
+} as const;
+
+/**
+ * Merchant's typical category (merchant only)
+ */
+export type LinkedPartySummaryCategory =
+  (typeof LinkedPartySummaryCategory)[keyof typeof LinkedPartySummaryCategory];
+
+export const LinkedPartySummaryCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export interface LinkedPartySummary {
+  id: string;
+  kind: LinkedPartySummaryKind;
+  /** Legal/display name of the merchant or person */
+  name: string;
+  /** Merchant's typical category (merchant only) */
+  category?: LinkedPartySummaryCategory;
+}
+
+export type LinkedSubscriptionSummaryKind =
+  (typeof LinkedSubscriptionSummaryKind)[keyof typeof LinkedSubscriptionSummaryKind];
+
+export const LinkedSubscriptionSummaryKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  UNKNOWN: 'UNKNOWN',
+} as const;
+
+export type LinkedSubscriptionSummaryStatus =
+  (typeof LinkedSubscriptionSummaryStatus)[keyof typeof LinkedSubscriptionSummaryStatus];
+
+export const LinkedSubscriptionSummaryStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type LinkedSubscriptionSummaryCategory =
+  (typeof LinkedSubscriptionSummaryCategory)[keyof typeof LinkedSubscriptionSummaryCategory];
+
+export const LinkedSubscriptionSummaryCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export type LinkedSubscriptionSummaryCadence =
+  (typeof LinkedSubscriptionSummaryCadence)[keyof typeof LinkedSubscriptionSummaryCadence];
+
+export const LinkedSubscriptionSummaryCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface LinkedSubscriptionSummary {
+  id: string;
+  kind: LinkedSubscriptionSummaryKind;
+  status: LinkedSubscriptionSummaryStatus;
+  category?: LinkedSubscriptionSummaryCategory;
+  cadence?: LinkedSubscriptionSummaryCadence;
+  /**
+   * Expected/typical charge amount
+   * @exclusiveMinimum 0
+   */
+  amount?: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+}
+
+export interface ExpenseListItem {
+  id: string;
+  accountId: string;
+  iban?: string;
+  /**
+   * Absolute transaction amount (always positive); see direction
+   * @exclusiveMinimum 0
+   */
+  amount: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  direction: ExpenseListItemDirection;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  transactionDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  valueDate?: string;
+  /**
+   * Authorization moment; key for right-moment triggers
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
+   */
+  transactionTimestamp?: string;
+  type: ExpenseListItemType;
+  status: ExpenseListItemStatus;
+  purpose?: ExpenseListItemPurpose;
+  failureReason?: string;
+  originalExpenseId?: string;
+  counterpartyAccountId?: string;
+  /** Unstructured remittance / statement text */
+  description?: string;
+  /** Belgian OGM/VCS structured reference +++...+++ */
+  structuredReference?: string;
+  /**
+   * Card-network merchant category code
+   * @pattern ^\d{4}$
+   */
+  mcc?: string;
+  channel?: ExpenseListItemChannel;
+  balanceAfter?: number;
+  city?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  category?: ExpenseListItemCategory;
+  subCategory?: string;
+  /** Essential vs discretionary; enables surplus detection */
+  essentiality?: ExpenseListItemEssentiality;
+  /** Party (merchant or person) on the other side of the line */
+  counterpartyId?: string;
+  /** Set when this line is a charge of a Subscription */
+  subscriptionId?: string;
+  account: LinkedAccountSummary;
+  counterparty: LinkedPartySummary | null;
+  subscription: LinkedSubscriptionSummary | null;
+}
+
+export interface ExpensesPage {
+  data: ExpenseListItem[];
+  total: number;
+  pageIndex: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export type ExpenseDetailDirection =
+  (typeof ExpenseDetailDirection)[keyof typeof ExpenseDetailDirection];
+
+export const ExpenseDetailDirection = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT',
+} as const;
+
+export type ExpenseDetailType =
+  (typeof ExpenseDetailType)[keyof typeof ExpenseDetailType];
+
+export const ExpenseDetailType = {
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  CONTACTLESS: 'CONTACTLESS',
+  SEPA_DIRECT_DEBIT: 'SEPA_DIRECT_DEBIT',
+  SEPA_CREDIT_TRANSFER: 'SEPA_CREDIT_TRANSFER',
+  STANDING_ORDER: 'STANDING_ORDER',
+  INSTANT_PAYMENT: 'INSTANT_PAYMENT',
+  ATM_WITHDRAWAL: 'ATM_WITHDRAWAL',
+  FEE: 'FEE',
+  INTEREST: 'INTEREST',
+  REVERSAL: 'REVERSAL',
+  OTHER: 'OTHER',
+} as const;
+
+export type ExpenseDetailStatus =
+  (typeof ExpenseDetailStatus)[keyof typeof ExpenseDetailStatus];
+
+export const ExpenseDetailStatus = {
+  PENDING: 'PENDING',
+  BOOKED: 'BOOKED',
+  REVERSED: 'REVERSED',
+  ATTEMPTED: 'ATTEMPTED',
+  BLOCKED: 'BLOCKED',
+  REJECTED: 'REJECTED',
+} as const;
+
+export type ExpenseDetailPurpose =
+  (typeof ExpenseDetailPurpose)[keyof typeof ExpenseDetailPurpose];
+
+export const ExpenseDetailPurpose = {
+  SALARY: 'SALARY',
+  PENSION: 'PENSION',
+  BUSINESS_INCOME: 'BUSINESS_INCOME',
+  HOUSEHOLD_SUPPORT: 'HOUSEHOLD_SUPPORT',
+  OWN_ACCOUNT_TRANSFER: 'OWN_ACCOUNT_TRANSFER',
+  OTHER: 'OTHER',
+} as const;
+
+export type ExpenseDetailChannel =
+  (typeof ExpenseDetailChannel)[keyof typeof ExpenseDetailChannel];
+
+export const ExpenseDetailChannel = {
+  POS: 'POS',
+  ATM: 'ATM',
+  ECOMMERCE: 'ECOMMERCE',
+  MOBILE: 'MOBILE',
+  BRANCH: 'BRANCH',
+  RECURRING: 'RECURRING',
+} as const;
+
+export type ExpenseDetailCategory =
+  (typeof ExpenseDetailCategory)[keyof typeof ExpenseDetailCategory];
+
+export const ExpenseDetailCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * Essential vs discretionary; enables surplus detection
+ */
+export type ExpenseDetailEssentiality =
+  (typeof ExpenseDetailEssentiality)[keyof typeof ExpenseDetailEssentiality];
+
+export const ExpenseDetailEssentiality = {
+  ESSENTIAL: 'ESSENTIAL',
+  DISCRETIONARY: 'DISCRETIONARY',
+  MIXED: 'MIXED',
+} as const;
+
+export type SubscriptionKind =
+  (typeof SubscriptionKind)[keyof typeof SubscriptionKind];
+
+export const SubscriptionKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  UNKNOWN: 'UNKNOWN',
+} as const;
+
+export type SubscriptionStatus =
+  (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
+
+export const SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type SubscriptionCategory =
+  (typeof SubscriptionCategory)[keyof typeof SubscriptionCategory];
+
+export const SubscriptionCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export type SubscriptionCadence =
+  (typeof SubscriptionCadence)[keyof typeof SubscriptionCadence];
+
+export const SubscriptionCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface Subscription {
+  id: string;
+  accountId: string;
+  /** The payee Party (merchant/creditor being paid) */
+  counterpartyId: string;
+  kind: SubscriptionKind;
+  /** SEPA mandate reference */
+  mandateId?: string;
+  /** Stable SEPA creditor key */
+  creditorId?: string;
+  status: SubscriptionStatus;
+  category?: SubscriptionCategory;
+  cadence?: SubscriptionCadence;
+  /**
+   * Expected/typical charge amount
+   * @exclusiveMinimum 0
+   */
+  amount?: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  nextPaymentDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  firstChargedAt?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  lastChargedAt?: string;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   */
+  occurrenceCount?: number;
+  /** Can KBC offer a cancel/switch action? */
+  cancellable?: boolean;
+}
+
 export type ExpenseDirection =
   (typeof ExpenseDirection)[keyof typeof ExpenseDirection];
 
@@ -848,6 +2233,21 @@ export const ExpenseStatus = {
   PENDING: 'PENDING',
   BOOKED: 'BOOKED',
   REVERSED: 'REVERSED',
+  ATTEMPTED: 'ATTEMPTED',
+  BLOCKED: 'BLOCKED',
+  REJECTED: 'REJECTED',
+} as const;
+
+export type ExpensePurpose =
+  (typeof ExpensePurpose)[keyof typeof ExpensePurpose];
+
+export const ExpensePurpose = {
+  SALARY: 'SALARY',
+  PENSION: 'PENSION',
+  BUSINESS_INCOME: 'BUSINESS_INCOME',
+  HOUSEHOLD_SUPPORT: 'HOUSEHOLD_SUPPORT',
+  OWN_ACCOUNT_TRANSFER: 'OWN_ACCOUNT_TRANSFER',
+  OTHER: 'OTHER',
 } as const;
 
 export type ExpenseChannel =
@@ -900,7 +2300,7 @@ export interface Expense {
   accountId: string;
   iban?: string;
   /**
-   * Absolute booked amount (always positive); see direction
+   * Absolute transaction amount (always positive); see direction
    * @exclusiveMinimum 0
    */
   amount: number;
@@ -912,7 +2312,9 @@ export interface Expense {
   currency: string;
   direction: ExpenseDirection;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
-  bookingDate: string;
+  bookingDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  transactionDate?: string;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
   valueDate?: string;
   /**
@@ -922,6 +2324,10 @@ export interface Expense {
   transactionTimestamp?: string;
   type: ExpenseType;
   status: ExpenseStatus;
+  purpose?: ExpensePurpose;
+  failureReason?: string;
+  originalExpenseId?: string;
+  counterpartyAccountId?: string;
   /** Unstructured remittance / statement text */
   description?: string;
   /** Belgian OGM/VCS structured reference +++...+++ */
@@ -949,12 +2355,70 @@ export interface Expense {
   subscriptionId?: string;
 }
 
-export interface ExpensesPage {
-  data: Expense[];
-  total: number;
-  pageIndex: number;
-  pageSize: number;
-  totalPages: number;
+export interface ExpenseDetail {
+  id: string;
+  accountId: string;
+  iban?: string;
+  /**
+   * Absolute transaction amount (always positive); see direction
+   * @exclusiveMinimum 0
+   */
+  amount: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  direction: ExpenseDetailDirection;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  bookingDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  transactionDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  valueDate?: string;
+  /**
+   * Authorization moment; key for right-moment triggers
+   * @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z))$
+   */
+  transactionTimestamp?: string;
+  type: ExpenseDetailType;
+  status: ExpenseDetailStatus;
+  purpose?: ExpenseDetailPurpose;
+  failureReason?: string;
+  originalExpenseId?: string;
+  counterpartyAccountId?: string;
+  /** Unstructured remittance / statement text */
+  description?: string;
+  /** Belgian OGM/VCS structured reference +++...+++ */
+  structuredReference?: string;
+  /**
+   * Card-network merchant category code
+   * @pattern ^\d{4}$
+   */
+  mcc?: string;
+  channel?: ExpenseDetailChannel;
+  balanceAfter?: number;
+  city?: string;
+  /**
+   * @minLength 2
+   * @maxLength 2
+   */
+  countryCode?: string;
+  category?: ExpenseDetailCategory;
+  subCategory?: string;
+  /** Essential vs discretionary; enables surplus detection */
+  essentiality?: ExpenseDetailEssentiality;
+  /** Party (merchant or person) on the other side of the line */
+  counterpartyId?: string;
+  /** Set when this line is a charge of a Subscription */
+  subscriptionId?: string;
+  account: Account;
+  counterparty: Party | null;
+  counterpartyAccount: Account | null;
+  subscription: Subscription | null;
+  originalExpense: Expense | null;
+  relatedExpenses: Expense[];
 }
 
 export type CreateExpenseRequestDirection =
@@ -989,6 +2453,21 @@ export const CreateExpenseRequestStatus = {
   PENDING: 'PENDING',
   BOOKED: 'BOOKED',
   REVERSED: 'REVERSED',
+  ATTEMPTED: 'ATTEMPTED',
+  BLOCKED: 'BLOCKED',
+  REJECTED: 'REJECTED',
+} as const;
+
+export type CreateExpenseRequestPurpose =
+  (typeof CreateExpenseRequestPurpose)[keyof typeof CreateExpenseRequestPurpose];
+
+export const CreateExpenseRequestPurpose = {
+  SALARY: 'SALARY',
+  PENSION: 'PENSION',
+  BUSINESS_INCOME: 'BUSINESS_INCOME',
+  HOUSEHOLD_SUPPORT: 'HOUSEHOLD_SUPPORT',
+  OWN_ACCOUNT_TRANSFER: 'OWN_ACCOUNT_TRANSFER',
+  OTHER: 'OTHER',
 } as const;
 
 export type CreateExpenseRequestChannel =
@@ -1040,7 +2519,7 @@ export interface CreateExpenseRequest {
   accountId: string;
   iban?: string;
   /**
-   * Absolute booked amount (always positive); see direction
+   * Absolute transaction amount (always positive); see direction
    * @exclusiveMinimum 0
    */
   amount: number;
@@ -1052,7 +2531,9 @@ export interface CreateExpenseRequest {
   currency: string;
   direction: CreateExpenseRequestDirection;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
-  bookingDate: string;
+  bookingDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  transactionDate?: string;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
   valueDate?: string;
   /**
@@ -1062,6 +2543,10 @@ export interface CreateExpenseRequest {
   transactionTimestamp?: string;
   type: CreateExpenseRequestType;
   status: CreateExpenseRequestStatus;
+  purpose?: CreateExpenseRequestPurpose;
+  failureReason?: string;
+  originalExpenseId?: string;
+  counterpartyAccountId?: string;
   /** Unstructured remittance / statement text */
   description?: string;
   /** Belgian OGM/VCS structured reference +++...+++ */
@@ -1121,6 +2606,21 @@ export const UpdateExpenseRequestStatus = {
   PENDING: 'PENDING',
   BOOKED: 'BOOKED',
   REVERSED: 'REVERSED',
+  ATTEMPTED: 'ATTEMPTED',
+  BLOCKED: 'BLOCKED',
+  REJECTED: 'REJECTED',
+} as const;
+
+export type UpdateExpenseRequestPurpose =
+  (typeof UpdateExpenseRequestPurpose)[keyof typeof UpdateExpenseRequestPurpose];
+
+export const UpdateExpenseRequestPurpose = {
+  SALARY: 'SALARY',
+  PENSION: 'PENSION',
+  BUSINESS_INCOME: 'BUSINESS_INCOME',
+  HOUSEHOLD_SUPPORT: 'HOUSEHOLD_SUPPORT',
+  OWN_ACCOUNT_TRANSFER: 'OWN_ACCOUNT_TRANSFER',
+  OTHER: 'OTHER',
 } as const;
 
 export type UpdateExpenseRequestChannel =
@@ -1172,7 +2672,7 @@ export interface UpdateExpenseRequest {
   accountId?: string;
   iban?: string;
   /**
-   * Absolute booked amount (always positive); see direction
+   * Absolute transaction amount (always positive); see direction
    * @exclusiveMinimum 0
    */
   amount?: number;
@@ -1186,6 +2686,8 @@ export interface UpdateExpenseRequest {
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
   bookingDate?: string;
   /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  transactionDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
   valueDate?: string;
   /**
    * Authorization moment; key for right-moment triggers
@@ -1194,6 +2696,10 @@ export interface UpdateExpenseRequest {
   transactionTimestamp?: string;
   type?: UpdateExpenseRequestType;
   status?: UpdateExpenseRequestStatus;
+  purpose?: UpdateExpenseRequestPurpose;
+  failureReason?: string;
+  originalExpenseId?: string;
+  counterpartyAccountId?: string;
   /** Unstructured remittance / statement text */
   description?: string;
   /** Belgian OGM/VCS structured reference +++...+++ */
@@ -1221,27 +2727,48 @@ export interface UpdateExpenseRequest {
   subscriptionId?: string;
 }
 
-export type SubscriptionKind =
-  (typeof SubscriptionKind)[keyof typeof SubscriptionKind];
+export type ListSubscriptionsQueryOrder =
+  (typeof ListSubscriptionsQueryOrder)[keyof typeof ListSubscriptionsQueryOrder];
 
-export const SubscriptionKind = {
-  DIRECT_DEBIT: 'DIRECT_DEBIT',
-  STANDING_ORDER: 'STANDING_ORDER',
+export const ListSubscriptionsQueryOrder = {
+  asc: 'asc',
+  desc: 'desc',
 } as const;
 
-export type SubscriptionStatus =
-  (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
+export interface ListSubscriptionsQuery {
+  /** @minimum 0 */
+  pageIndex?: number;
+  /** @minimum 1 */
+  pageSize?: number;
+  order?: ListSubscriptionsQueryOrder;
+  orderBy?: string;
+  /** @items.minLength 1 */
+  accountIds?: string[];
+}
 
-export const SubscriptionStatus = {
+export type SubscriptionListItemKind =
+  (typeof SubscriptionListItemKind)[keyof typeof SubscriptionListItemKind];
+
+export const SubscriptionListItemKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  UNKNOWN: 'UNKNOWN',
+} as const;
+
+export type SubscriptionListItemStatus =
+  (typeof SubscriptionListItemStatus)[keyof typeof SubscriptionListItemStatus];
+
+export const SubscriptionListItemStatus = {
   ACTIVE: 'ACTIVE',
   PAUSED: 'PAUSED',
   CANCELLED: 'CANCELLED',
 } as const;
 
-export type SubscriptionCategory =
-  (typeof SubscriptionCategory)[keyof typeof SubscriptionCategory];
+export type SubscriptionListItemCategory =
+  (typeof SubscriptionListItemCategory)[keyof typeof SubscriptionListItemCategory];
 
-export const SubscriptionCategory = {
+export const SubscriptionListItemCategory = {
   HOUSING: 'HOUSING',
   UTILITIES: 'UTILITIES',
   GROCERIES: 'GROCERIES',
@@ -1259,10 +2786,10 @@ export const SubscriptionCategory = {
   OTHER: 'OTHER',
 } as const;
 
-export type SubscriptionCadence =
-  (typeof SubscriptionCadence)[keyof typeof SubscriptionCadence];
+export type SubscriptionListItemCadence =
+  (typeof SubscriptionListItemCadence)[keyof typeof SubscriptionListItemCadence];
 
-export const SubscriptionCadence = {
+export const SubscriptionListItemCadence = {
   WEEKLY: 'WEEKLY',
   MONTHLY: 'MONTHLY',
   QUARTERLY: 'QUARTERLY',
@@ -1270,24 +2797,24 @@ export const SubscriptionCadence = {
   IRREGULAR: 'IRREGULAR',
 } as const;
 
-export interface Subscription {
+export interface SubscriptionListItem {
   id: string;
   accountId: string;
   /** The payee Party (merchant/creditor being paid) */
   counterpartyId: string;
-  kind: SubscriptionKind;
+  kind: SubscriptionListItemKind;
   /** SEPA mandate reference */
   mandateId?: string;
   /** Stable SEPA creditor key */
   creditorId?: string;
-  status: SubscriptionStatus;
-  category?: SubscriptionCategory;
-  cadence: SubscriptionCadence;
+  status: SubscriptionListItemStatus;
+  category?: SubscriptionListItemCategory;
+  cadence?: SubscriptionListItemCadence;
   /**
    * Expected/typical charge amount
    * @exclusiveMinimum 0
    */
-  amount: number;
+  amount?: number;
   /**
    * ISO 4217 code
    * @minLength 3
@@ -1307,14 +2834,109 @@ export interface Subscription {
   occurrenceCount?: number;
   /** Can KBC offer a cancel/switch action? */
   cancellable?: boolean;
+  account: LinkedAccountSummary;
+  counterparty: LinkedPartySummary;
 }
 
 export interface SubscriptionsPage {
-  data: Subscription[];
+  data: SubscriptionListItem[];
   total: number;
   pageIndex: number;
   pageSize: number;
   totalPages: number;
+}
+
+export type SubscriptionDetailKind =
+  (typeof SubscriptionDetailKind)[keyof typeof SubscriptionDetailKind];
+
+export const SubscriptionDetailKind = {
+  DIRECT_DEBIT: 'DIRECT_DEBIT',
+  STANDING_ORDER: 'STANDING_ORDER',
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  UNKNOWN: 'UNKNOWN',
+} as const;
+
+export type SubscriptionDetailStatus =
+  (typeof SubscriptionDetailStatus)[keyof typeof SubscriptionDetailStatus];
+
+export const SubscriptionDetailStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export type SubscriptionDetailCategory =
+  (typeof SubscriptionDetailCategory)[keyof typeof SubscriptionDetailCategory];
+
+export const SubscriptionDetailCategory = {
+  HOUSING: 'HOUSING',
+  UTILITIES: 'UTILITIES',
+  GROCERIES: 'GROCERIES',
+  TRANSPORT: 'TRANSPORT',
+  ENTERTAINMENT: 'ENTERTAINMENT',
+  DINING: 'DINING',
+  HEALTH: 'HEALTH',
+  INSURANCE: 'INSURANCE',
+  EDUCATION: 'EDUCATION',
+  SHOPPING: 'SHOPPING',
+  TRAVEL: 'TRAVEL',
+  SUBSCRIPTIONS: 'SUBSCRIPTIONS',
+  FEES: 'FEES',
+  TAXES: 'TAXES',
+  OTHER: 'OTHER',
+} as const;
+
+export type SubscriptionDetailCadence =
+  (typeof SubscriptionDetailCadence)[keyof typeof SubscriptionDetailCadence];
+
+export const SubscriptionDetailCadence = {
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY',
+  IRREGULAR: 'IRREGULAR',
+} as const;
+
+export interface SubscriptionDetail {
+  id: string;
+  accountId: string;
+  /** The payee Party (merchant/creditor being paid) */
+  counterpartyId: string;
+  kind: SubscriptionDetailKind;
+  /** SEPA mandate reference */
+  mandateId?: string;
+  /** Stable SEPA creditor key */
+  creditorId?: string;
+  status: SubscriptionDetailStatus;
+  category?: SubscriptionDetailCategory;
+  cadence?: SubscriptionDetailCadence;
+  /**
+   * Expected/typical charge amount
+   * @exclusiveMinimum 0
+   */
+  amount?: number;
+  /**
+   * ISO 4217 code
+   * @minLength 3
+   * @maxLength 3
+   */
+  currency: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  nextPaymentDate?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  firstChargedAt?: string;
+  /** @pattern ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))$ */
+  lastChargedAt?: string;
+  /**
+   * @minimum 0
+   * @maximum 9007199254740991
+   */
+  occurrenceCount?: number;
+  /** Can KBC offer a cancel/switch action? */
+  cancellable?: boolean;
+  account: Account;
+  counterparty: Party;
+  expenses: Expense[];
 }
 
 export type CreateSubscriptionRequestKind =
@@ -1323,6 +2945,8 @@ export type CreateSubscriptionRequestKind =
 export const CreateSubscriptionRequestKind = {
   DIRECT_DEBIT: 'DIRECT_DEBIT',
   STANDING_ORDER: 'STANDING_ORDER',
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  UNKNOWN: 'UNKNOWN',
 } as const;
 
 export type CreateSubscriptionRequestStatus =
@@ -1377,12 +3001,12 @@ export interface CreateSubscriptionRequest {
   creditorId?: string;
   status: CreateSubscriptionRequestStatus;
   category?: CreateSubscriptionRequestCategory;
-  cadence: CreateSubscriptionRequestCadence;
+  cadence?: CreateSubscriptionRequestCadence;
   /**
    * Expected/typical charge amount
    * @exclusiveMinimum 0
    */
-  amount: number;
+  amount?: number;
   /**
    * ISO 4217 code
    * @minLength 3
@@ -1410,6 +3034,8 @@ export type UpdateSubscriptionRequestKind =
 export const UpdateSubscriptionRequestKind = {
   DIRECT_DEBIT: 'DIRECT_DEBIT',
   STANDING_ORDER: 'STANDING_ORDER',
+  CARD_PAYMENT: 'CARD_PAYMENT',
+  UNKNOWN: 'UNKNOWN',
 } as const;
 
 export type UpdateSubscriptionRequestStatus =
@@ -1612,10 +3238,12 @@ export type HealthControllerCheck503 = {
 export type ListProfilesParams = {
   /**
    * Page number (zero-based)
+   * @minimum 0
    */
   pageIndex?: number;
   /**
    * Number of records per page
+   * @minimum 1
    */
   pageSize?: number;
   /**
@@ -1638,13 +3266,15 @@ export const ListProfilesOrder = {
 
 export type GetPartiesParams = {
   /**
+   * Comma-separated party ids to filter by
+   */
+  ids?: string;
+  /**
    * Page number (zero-based)
-   * @minimum 0
    */
   pageIndex?: number;
   /**
    * Number of records per page
-   * @minimum 1
    */
   pageSize?: number;
   /**
@@ -1667,13 +3297,23 @@ export const GetPartiesOrder = {
 
 export type GetExpensesParams = {
   /**
+   * Inclusive booking date upper bound (ISO date)
+   */
+  bookingDateTo?: string;
+  /**
+   * Inclusive booking date lower bound (ISO date)
+   */
+  bookingDateFrom?: string;
+  /**
+   * Comma-separated account ids to filter by
+   */
+  accountIds?: string;
+  /**
    * Page number (zero-based)
-   * @minimum 0
    */
   pageIndex?: number;
   /**
    * Number of records per page
-   * @minimum 1
    */
   pageSize?: number;
   /**
@@ -1696,13 +3336,15 @@ export const GetExpensesOrder = {
 
 export type GetSubscriptionsParams = {
   /**
+   * Comma-separated account ids to filter by
+   */
+  accountIds?: string;
+  /**
    * Page number (zero-based)
-   * @minimum 0
    */
   pageIndex?: number;
   /**
    * Number of records per page
-   * @minimum 1
    */
   pageSize?: number;
   /**
@@ -2532,7 +4174,7 @@ export const useCreateProfile = <TError = ErrorType<void>, TContext = unknown>(
  * @summary Get profile by id
  */
 export const useGetProfileByIdHook = () => {
-  const getProfileById = useCustomAxiosInstance<Profile>();
+  const getProfileById = useCustomAxiosInstance<ProfileDetail>();
 
   return useCallback(
     (profileId: string, signal?: AbortSignal) => {
@@ -3712,7 +5354,7 @@ export const useCreateExpense = <TError = ErrorType<void>, TContext = unknown>(
  * @summary Get an expense
  */
 export const useGetExpenseHook = () => {
-  const getExpense = useCustomAxiosInstance<Expense>();
+  const getExpense = useCustomAxiosInstance<ExpenseDetail>();
 
   return useCallback(
     (id: string, signal?: AbortSignal) => {
@@ -4312,7 +5954,7 @@ export const useCreateSubscription = <
  * @summary Get a subscription
  */
 export const useGetSubscriptionHook = () => {
-  const getSubscription = useCustomAxiosInstance<Subscription>();
+  const getSubscription = useCustomAxiosInstance<SubscriptionDetail>();
 
   return useCallback(
     (id: string, signal?: AbortSignal) => {

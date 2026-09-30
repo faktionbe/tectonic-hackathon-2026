@@ -9,18 +9,16 @@ import {
   Query,
   SerializeOptions,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { subscriptionDetailSchema, subscriptionSchema } from '@repo/contracts';
 
-import { Auth } from '@/modules/auth/auth.decorator';
+import { M2M } from '@/modules/auth/m2m.decorator';
 import { ApiOffsetPagination } from '@/modules/common/decorators/api-offset-pagination.decorator';
-import {
-  type OffsetPagination,
-  offsetPaginationSchema,
-} from '@/modules/pagination/pagination.utils';
 import {
   type CreateSubscription,
   createSubscriptionSchema,
+  type ListSubscriptionsQuery,
+  listSubscriptionsQuerySchema,
   subscriptionsPageSchema,
   type UpdateSubscription,
   updateSubscriptionSchema,
@@ -32,22 +30,29 @@ export class SubscriptionsController {
   constructor(private readonly subscriptionsService: SubscriptionsService) {}
 
   @Get()
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'getSubscriptions',
     summary: 'List subscriptions',
   })
   @ApiOffsetPagination()
+  @ApiQuery({
+    name: 'accountIds',
+    required: false,
+    type: String,
+    description: 'Comma-separated account ids to filter by',
+  })
   @ApiOkResponse({ standardSchema: subscriptionsPageSchema })
   @SerializeOptions({ schema: subscriptionsPageSchema })
   async findAll(
-    @Query({ schema: offsetPaginationSchema }) pagination: OffsetPagination
+    @Query({ schema: listSubscriptionsQuerySchema })
+    query: ListSubscriptionsQuery
   ) {
-    return this.subscriptionsService.findAll(pagination);
+    return this.subscriptionsService.findAll(query);
   }
 
   @Get(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'getSubscription',
     summary: 'Get a subscription',
@@ -59,7 +64,7 @@ export class SubscriptionsController {
   }
 
   @Post()
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'createSubscription',
     summary: 'Create a subscription',
@@ -73,7 +78,7 @@ export class SubscriptionsController {
   }
 
   @Patch(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'updateSubscription',
     summary: 'Update a subscription',
@@ -88,7 +93,7 @@ export class SubscriptionsController {
   }
 
   @Delete(':id')
-  @Auth()
+  @M2M()
   @ApiOperation({
     operationId: 'deleteSubscription',
     summary: 'Delete a subscription',
