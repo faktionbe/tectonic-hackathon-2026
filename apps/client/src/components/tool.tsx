@@ -1,5 +1,5 @@
 import type { ComponentProps, FC, ReactNode } from 'react';
-import type { ToolUIPart } from 'ai';
+import type { DynamicToolUIPart, ToolUIPart } from 'ai';
 import {
   CheckCircleIcon,
   ChevronDownIcon,
@@ -29,8 +29,9 @@ const Tool: FC<ToolProps> = ({ className, ...props }) => (
 );
 
 export interface ToolHeaderProps {
-  type: ToolUIPart['type'];
+  type: ToolUIPart['type'] | DynamicToolUIPart['type'];
   state: ToolUIPart['state'];
+  title?: ReactNode;
   className?: string;
 }
 
@@ -38,16 +39,22 @@ const getStatusBadge = (status: ToolUIPart['state']) => {
   const labels = {
     'input-streaming': 'Pending',
     'input-available': 'Running',
+    'approval-requested': 'Awaiting approval',
+    'approval-responded': 'Running',
     'output-available': 'Completed',
     'output-error': 'Error',
-  } as const;
+    'output-denied': 'Denied',
+  } satisfies Record<ToolUIPart['state'], string>;
 
   const icons = {
     'input-streaming': <CircleIcon className='size-4' />,
     'input-available': <ClockIcon className='size-4 animate-pulse' />,
+    'approval-requested': <ClockIcon className='size-4' />,
+    'approval-responded': <ClockIcon className='size-4 animate-pulse' />,
     'output-available': <CheckCircleIcon className='size-4 text-green-600' />,
     'output-error': <XCircleIcon className='size-4 text-red-600' />,
-  } as const;
+    'output-denied': <XCircleIcon className='size-4 text-muted-foreground' />,
+  } satisfies Record<ToolUIPart['state'], ReactNode>;
 
   return (
     <Badge
@@ -63,17 +70,18 @@ const ToolHeader: FC<ToolHeaderProps> = ({
   className,
   type,
   state,
+  title,
   ...props
 }: ToolHeaderProps) => (
   <CollapsibleTrigger
     className={cn(
-      'flex w-full items-center justify-between gap-4 p-3',
+      'group flex w-full items-center justify-between gap-4 p-3',
       className
     )}
     {...props}>
     <div className='flex items-center gap-2'>
       <WrenchIcon className='size-4 text-muted-foreground' />
-      <span className='font-medium text-sm'>{type}</span>
+      <span className='font-medium text-sm'>{title ?? type}</span>
       {getStatusBadge(state)}
     </div>
     <ChevronDownIcon className='size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180' />

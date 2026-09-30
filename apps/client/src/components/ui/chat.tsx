@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { type DynamicToolUIPart, getToolName, type ToolUIPart } from 'ai';
 import { ArrowDownIcon, SendHorizontalIcon } from 'lucide-react';
 
+import { CodeBlock } from '@/components/code-block';
+import { Tool } from '@/components/tool';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Bubble,
@@ -190,6 +193,54 @@ const ChatBubble = ({
   );
 };
 
+type ChatToolPart = ToolUIPart | DynamicToolUIPart;
+
+const renderToolOutput = (output: unknown): React.ReactNode => {
+  if (output === undefined || output === null) {
+    return null;
+  }
+
+  if (typeof output === 'string') {
+    return <div className='whitespace-pre-wrap p-3'>{output}</div>;
+  }
+
+  return (
+    <CodeBlock
+      code={JSON.stringify(output, null, 2)}
+      language='json'
+    />
+  );
+};
+
+interface ChatToolProps
+  extends Omit<React.ComponentProps<typeof Tool>, 'children' | 'part'> {
+  part: ChatToolPart;
+}
+
+const ChatTool = ({
+  part,
+  className,
+  ...props
+}: ChatToolProps): React.ReactElement => (
+  <Tool
+    data-slot='chat-tool'
+    className={cn('mb-0', className)}
+    {...props}>
+    <Tool.Header
+      type={part.type}
+      title={getToolName(part)}
+      state={part.state}
+    />
+    <Tool.Content>
+      {part.input !== undefined && <Tool.Input input={part.input} />}
+      <Tool.Output
+        output={renderToolOutput(part.output)}
+        errorText={part.errorText}
+      />
+    </Tool.Content>
+  </Tool>
+);
+
 const ChatMarker = ({
   variant = 'separator',
   children,
@@ -220,6 +271,10 @@ const ChatTypingIndicator = ({
   );
 };
 
+interface ChatComposerHandle {
+  send: (text: string) => void;
+}
+
 interface ChatComposerProps
   extends Omit<React.ComponentProps<'form'>, 'onSubmit'> {
   onSend: (text: string) => void;
@@ -228,74 +283,94 @@ interface ChatComposerProps
   isPending?: boolean;
 }
 
-const ChatComposer = ({
-  onSend,
-  placeholder,
-  isDisabled = false,
-  isPending = false,
-  className,
-  children,
-  ...props
-}: ChatComposerProps): React.ReactElement => {
-  const { t } = useTranslation();
-  const [text, setText] = React.useState('');
-  const trimmedText = text.trim();
-  const canSend = !!trimmedText && !isDisabled && !isPending;
+// eslint-disable-next-line react/display-name
+const ChatComposer = React.forwardRef<ChatComposerHandle, ChatComposerProps>(
+  (
+    {
+      onSend,
+      placeholder,
+      isDisabled = false,
+      isPending = false,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const { t } = useTranslation();
+    const [text, setText] = React.useState('');
+    const trimmedText = text.trim();
+    const canSend = !!trimmedText && !isDisabled && !isPending;
 
-  const submit = (): void => {
-    if (!canSend) return;
-    setText('');
-    onSend(trimmedText);
-  };
+    React.useImperativeHandle(
+      ref,
+      () => ({
+        send: (message: string) => {
+          const trimmed = message.trim();
+          if (!trimmed || isDisabled || isPending) {
+            return;
+          }
+          onSend(trimmed);
+        },
+      }),
+      [isDisabled, isPending, onSend]
+    );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    submit();
-  };
+    const submit = (): void => {
+      if (!canSend) return;
+      setText('');
+      onSend(trimmedText);
+    };
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
-  ): void => {
-    if (
-      event.key === 'Enter' &&
-      !event.shiftKey &&
-      !event.nativeEvent.isComposing
-    ) {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault();
       submit();
-    }
-  };
+    };
 
-  return (
-    <form
-      data-slot='chat-composer'
-      className={cn('flex items-end gap-2 border-t p-3', className)}
-      onSubmit={handleSubmit}
-      {...props}>
-      {children}
-      <Textarea
-        value={text}
-        onChange={(event) => {
-          setText(event.target.value);
-        }}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder ?? t('chat.composer.placeholder')}
-        disabled={isDisabled}
-        aria-label={placeholder ?? t('chat.composer.placeholder')}
-        rows={1}
-        className='max-h-40 min-h-9 flex-1 resize-none'
-      />
-      <Button
-        type='submit'
-        size='icon'
-        disabled={!canSend}
-        aria-busy={isPending}>
-        <SendHorizontalIcon />
-        <span className='sr-only'>{t('chat.composer.send')}</span>
-      </Button>
-    </form>
-  );
-};
+    const handleKeyDown = (
+      event: React.KeyboardEvent<HTMLTextAreaElement>
+    ): void => {
+      if (
+        event.key === 'Enter' &&
+        !event.shiftKey &&
+        !event.nativeEvent.isComposing
+      ) {
+        event.preventDefault();
+        submit();
+      }
+    };
+
+    return (
+      <form
+        data-slot='chat-composer'
+        className={cn('flex items-end gap-2 border-t p-3', className)}
+        onSubmit={handleSubmit}
+        {...props}>
+        {children}
+        <Textarea
+          value={text}
+          onChange={(event) => {
+            setText(event.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder ?? t('chat.composer.placeholder')}
+          disabled={isDisabled}
+          aria-label={placeholder ?? t('chat.composer.placeholder')}
+          rows={1}
+          className='max-h-40 min-h-9 flex-1 resize-none'
+        />
+        <Button
+          type='submit'
+          size='icon'
+          disabled={!canSend}
+          aria-busy={isPending}>
+          <SendHorizontalIcon />
+          <span className='sr-only'>{t('chat.composer.send')}</span>
+        </Button>
+      </form>
+    );
+  }
+);
 
 export {
   Chat,
@@ -303,11 +378,14 @@ export {
   ChatBubble,
   BubbleGroup as ChatBubbleGroup,
   ChatComposer,
+  type ChatComposerHandle,
   ChatEmpty,
   ChatMarker,
   ChatMessage,
   MessageFooter as ChatMessageFooter,
   MessageHeader as ChatMessageHeader,
   ChatMessages,
+  ChatTool,
+  type ChatToolPart,
   ChatTypingIndicator,
 };
