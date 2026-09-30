@@ -10,6 +10,7 @@ interface ImportMetaEnv {
   readonly VITE_ENVIRONMENT: 'local' | 'development' | 'qa' | 'production';
   readonly VITE_PORT: string;
   readonly VITE_BACKEND_URL: string;
+  readonly VITE_AGENTS_URL: string;
   readonly VITE_SUPPRESS_WARNINGS?: 'true' | 'false';
 }
 

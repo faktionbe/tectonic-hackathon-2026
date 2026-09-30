@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport, isTextUIPart, type UIMessage } from 'ai';
 
 import {
   Chat,
@@ -7,46 +9,78 @@ import {
   ChatBubble,
   ChatComposer,
   ChatEmpty,
-  ChatMarker,
   ChatMessage,
   ChatMessageHeader,
   ChatMessages,
+  ChatTypingIndicator,
 } from '@/components/ui/chat';
+import { Response } from '@/components/ui/response';
+import { env } from '@/env';
+import { useAuth } from '@/providers/auth-provider';
 
-interface ChatEntry {
-  id: string;
-  author: 'user' | 'assistant';
-  text: string;
-}
+const CHAT_THREAD_STORAGE_KEY = 'chat.threadId';
 
-const MOCK_CONVERSATION = [
-  { id: 'welcome', author: 'assistant', key: 'chat.mock.welcome' },
-  { id: 'how', author: 'user', key: 'chat.mock.how' },
-  { id: 'evidence', author: 'assistant', key: 'chat.mock.evidence' },
-  { id: 'confirm', author: 'user', key: 'chat.mock.confirm' },
-  { id: 'plan', author: 'assistant', key: 'chat.mock.plan' },
-  { id: 'savings-yes', author: 'user', key: 'chat.mock.savingsYes' },
-  { id: 'done', author: 'assistant', key: 'chat.mock.done' },
-] as const;
+const getOrCreateThreadId = (): string => {
+  const existing = sessionStorage.getItem(CHAT_THREAD_STORAGE_KEY);
+  if (existing) {
+    return existing;
+  }
+
+  const threadId = crypto.randomUUID();
+  sessionStorage.setItem(CHAT_THREAD_STORAGE_KEY, threadId);
+  return threadId;
+};
+
+const getMessageText = (message: UIMessage): string =>
+  message.parts
+    .filter(isTextUIPart)
+    .map((part) => part.text)
+    .join('');
 
 const ChatScreen = () => {
   const { t } = useTranslation();
-  const [sentMessages, setSentMessages] = useState<Array<ChatEntry>>([]);
+  const { user } = useAuth();
+  const resourceId = user?.username ?? 'anonymous';
+  const threadId = useMemo(() => getOrCreateThreadId(), []);
 
-  const messages: Array<ChatEntry> = [
-    ...MOCK_CONVERSATION.map((message) => ({
-      id: message.id,
-      author: message.author,
-      text: t(message.key),
-    })),
-    ...sentMessages,
-  ];
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: `${env.VITE_AGENTS_URL}/chat`,
+        prepareSendMessagesRequest({ messages }) {
+          const lastMessage = messages.at(-1);
+          return {
+            body: {
+              messages: lastMessage ? [lastMessage] : [],
+              memory: {
+                thread: threadId,
+                resource: resourceId,
+              },
+            },
+          };
+        },
+      }),
+    [resourceId, threadId]
+  );
+
+  const { messages, sendMessage, status, error } = useChat({
+    id: threadId,
+    transport,
+  });
+
+  const isPending = status === 'submitted' || status === 'streaming';
+  const lastMessage = messages.at(-1);
+  const showTyping =
+    isPending &&
+    (!lastMessage ||
+      lastMessage.role === 'user' ||
+      (lastMessage.role === 'assistant' &&
+        !lastMessage.parts.some(
+          (part) => isTextUIPart(part) && part.text.length > 0
+        )));
 
   const handleSend = (text: string): void => {
-    setSentMessages((prev) => [
-      ...prev,
-      { id: `sent-${prev.length + 1}`, author: 'user', text },
-    ]);
+    sendMessage({ text }).catch(() => undefined);
   };
 
   return (
@@ -57,45 +91,62 @@ const ChatScreen = () => {
         defaultScrollPosition: 'last-anchor',
         scrollPreviousItemPeek: 64,
       }}>
-      {messages.length === 0 ? (
+      {messages.length === 0 && !showTyping ? (
         <ChatEmpty>{t('chat.empty')}</ChatEmpty>
       ) : (
         <ChatMessages>
-          <ChatMessage messageId='date'>
-            <ChatMarker>{t('chat.mock.date')}</ChatMarker>
-          </ChatMessage>
           {messages.map((message) => {
-            const name =
-              message.author === 'user'
-                ? t('chat.author.user')
-                : t('chat.author.assistant');
+            if (message.role === 'system') {
+              return null;
+            }
+
+            const isUser = message.role === 'user';
+            const name = isUser
+              ? t('chat.author.user')
+              : t('chat.author.assistant');
+            const text = getMessageText(message);
 
             return (
               <ChatMessage
                 key={message.id}
                 messageId={message.id}
-                align={message.author === 'user' ? 'end' : 'start'}
-                isScrollAnchor={message.author === 'user'}
+                align={isUser ? 'end' : 'start'}
+                isScrollAnchor={isUser}
                 avatar={
                   <ChatAvatar
                     name={name}
-                    src={
-                      message.author === 'assistant'
-                        ? '/kbc-logo.png'
-                        : undefined
-                    }
+                    src={isUser ? undefined : '/kbc-logo.png'}
                   />
                 }>
                 <ChatMessageHeader>{name}</ChatMessageHeader>
                 <ChatBubble>
-                  <span className='whitespace-pre-line'>{message.text}</span>
+                  {isUser ? (
+                    <span className='whitespace-pre-line'>{text}</span>
+                  ) : (
+                    <Response>{text}</Response>
+                  )}
                 </ChatBubble>
               </ChatMessage>
             );
           })}
+          {!!showTyping && (
+            <ChatMessage messageId='typing'>
+              <ChatTypingIndicator />
+            </ChatMessage>
+          )}
         </ChatMessages>
       )}
-      <ChatComposer onSend={handleSend} />
+      {!!error && (
+        <p
+          role='alert'
+          className='text-destructive px-3 pb-1 text-sm'>
+          {t('chat.error')}
+        </p>
+      )}
+      <ChatComposer
+        onSend={handleSend}
+        isPending={isPending}
+      />
     </Chat>
   );
 };
