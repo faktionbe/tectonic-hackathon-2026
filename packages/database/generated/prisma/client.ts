@@ -40,7 +40,222 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model User
+ * Model user
  * 
  */
-export type User = Prisma.UserModel
+export type user = Prisma.userModel
+/**
+ * Model profile
+ * 
+ */
+export type profile = Prisma.profileModel
+/**
+ * Model mastra_agent_versions
+ * 
+ */
+export type mastra_agent_versions = Prisma.mastra_agent_versionsModel
+/**
+ * Model mastra_agents
+ * 
+ */
+export type mastra_agents = Prisma.mastra_agentsModel
+/**
+ * Model mastra_ai_spans
+ * 
+ */
+export type mastra_ai_spans = Prisma.mastra_ai_spansModel
+/**
+ * Model mastra_background_tasks
+ * 
+ */
+export type mastra_background_tasks = Prisma.mastra_background_tasksModel
+/**
+ * Model mastra_channel_config
+ * 
+ */
+export type mastra_channel_config = Prisma.mastra_channel_configModel
+/**
+ * Model mastra_channel_installations
+ * 
+ */
+export type mastra_channel_installations = Prisma.mastra_channel_installationsModel
+/**
+ * Model mastra_dataset_items
+ * 
+ */
+export type mastra_dataset_items = Prisma.mastra_dataset_itemsModel
+/**
+ * Model mastra_dataset_versions
+ * 
+ */
+export type mastra_dataset_versions = Prisma.mastra_dataset_versionsModel
+/**
+ * Model mastra_datasets
+ * 
+ */
+export type mastra_datasets = Prisma.mastra_datasetsModel
+/**
+ * Model mastra_experiment_results
+ * 
+ */
+export type mastra_experiment_results = Prisma.mastra_experiment_resultsModel
+/**
+ * Model mastra_experiments
+ * 
+ */
+export type mastra_experiments = Prisma.mastra_experimentsModel
+/**
+ * Model mastra_favorites
+ * 
+ */
+export type mastra_favorites = Prisma.mastra_favoritesModel
+/**
+ * Model mastra_knowledge_activity
+ * 
+ */
+export type mastra_knowledge_activity = Prisma.mastra_knowledge_activityModel
+/**
+ * Model mastra_knowledge_cursors
+ * 
+ */
+export type mastra_knowledge_cursors = Prisma.mastra_knowledge_cursorsModel
+/**
+ * Model mastra_knowledge_mentions
+ * 
+ */
+export type mastra_knowledge_mentions = Prisma.mastra_knowledge_mentionsModel
+/**
+ * Model mastra_knowledge_nodes
+ * 
+ */
+export type mastra_knowledge_nodes = Prisma.mastra_knowledge_nodesModel
+/**
+ * Model mastra_knowledge_records
+ * 
+ */
+export type mastra_knowledge_records = Prisma.mastra_knowledge_recordsModel
+/**
+ * Model mastra_knowledge_semantic_outbox
+ * 
+ */
+export type mastra_knowledge_semantic_outbox = Prisma.mastra_knowledge_semantic_outboxModel
+/**
+ * Model mastra_mcp_client_versions
+ * 
+ */
+export type mastra_mcp_client_versions = Prisma.mastra_mcp_client_versionsModel
+/**
+ * Model mastra_mcp_clients
+ * 
+ */
+export type mastra_mcp_clients = Prisma.mastra_mcp_clientsModel
+/**
+ * Model mastra_mcp_server_versions
+ * 
+ */
+export type mastra_mcp_server_versions = Prisma.mastra_mcp_server_versionsModel
+/**
+ * Model mastra_mcp_servers
+ * 
+ */
+export type mastra_mcp_servers = Prisma.mastra_mcp_serversModel
+/**
+ * Model mastra_messages
+ * 
+ */
+export type mastra_messages = Prisma.mastra_messagesModel
+/**
+ * Model mastra_observational_memory
+ * 
+ */
+export type mastra_observational_memory = Prisma.mastra_observational_memoryModel
+/**
+ * Model mastra_prompt_block_versions
+ * 
+ */
+export type mastra_prompt_block_versions = Prisma.mastra_prompt_block_versionsModel
+/**
+ * Model mastra_prompt_blocks
+ * 
+ */
+export type mastra_prompt_blocks = Prisma.mastra_prompt_blocksModel
+/**
+ * Model mastra_resources
+ * 
+ */
+export type mastra_resources = Prisma.mastra_resourcesModel
+/**
+ * Model mastra_schedule_triggers
+ * 
+ */
+export type mastra_schedule_triggers = Prisma.mastra_schedule_triggersModel
+/**
+ * Model mastra_schedules
+ * 
+ */
+export type mastra_schedules = Prisma.mastra_schedulesModel
+/**
+ * Model mastra_scorer_definition_versions
+ * 
+ */
+export type mastra_scorer_definition_versions = Prisma.mastra_scorer_definition_versionsModel
+/**
+ * Model mastra_scorer_definitions
+ * 
+ */
+export type mastra_scorer_definitions = Prisma.mastra_scorer_definitionsModel
+/**
+ * Model mastra_scorers
+ * 
+ */
+export type mastra_scorers = Prisma.mastra_scorersModel
+/**
+ * Model mastra_skill_blobs
+ * 
+ */
+export type mastra_skill_blobs = Prisma.mastra_skill_blobsModel
+/**
+ * Model mastra_skill_versions
+ * 
+ */
+export type mastra_skill_versions = Prisma.mastra_skill_versionsModel
+/**
+ * Model mastra_skills
+ * 
+ */
+export type mastra_skills = Prisma.mastra_skillsModel
+/**
+ * Model mastra_thread_state
+ * 
+ */
+export type mastra_thread_state = Prisma.mastra_thread_stateModel
+/**
+ * Model mastra_threads
+ * 
+ */
+export type mastra_threads = Prisma.mastra_threadsModel
+/**
+ * Model mastra_tool_provider_connections
+ * 
+ */
+export type mastra_tool_provider_connections = Prisma.mastra_tool_provider_connectionsModel
+/**
+ * Model mastra_workflow_definitions
+ * 
+ */
+export type mastra_workflow_definitions = Prisma.mastra_workflow_definitionsModel
+/**
+ * Model mastra_workflow_snapshot
+ * This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+ */
+export type mastra_workflow_snapshot = Prisma.mastra_workflow_snapshotModel
+/**
+ * Model mastra_workspace_versions
+ * 
+ */
+export type mastra_workspace_versions = Prisma.mastra_workspace_versionsModel
+/**
+ * Model mastra_workspaces
+ * 
+ */
+export type mastra_workspaces = Prisma.mastra_workspacesModel

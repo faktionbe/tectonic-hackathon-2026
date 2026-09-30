@@ -51,7 +51,50 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  user: 'user',
+  profile: 'profile',
+  mastra_agent_versions: 'mastra_agent_versions',
+  mastra_agents: 'mastra_agents',
+  mastra_ai_spans: 'mastra_ai_spans',
+  mastra_background_tasks: 'mastra_background_tasks',
+  mastra_channel_config: 'mastra_channel_config',
+  mastra_channel_installations: 'mastra_channel_installations',
+  mastra_dataset_items: 'mastra_dataset_items',
+  mastra_dataset_versions: 'mastra_dataset_versions',
+  mastra_datasets: 'mastra_datasets',
+  mastra_experiment_results: 'mastra_experiment_results',
+  mastra_experiments: 'mastra_experiments',
+  mastra_favorites: 'mastra_favorites',
+  mastra_knowledge_activity: 'mastra_knowledge_activity',
+  mastra_knowledge_cursors: 'mastra_knowledge_cursors',
+  mastra_knowledge_mentions: 'mastra_knowledge_mentions',
+  mastra_knowledge_nodes: 'mastra_knowledge_nodes',
+  mastra_knowledge_records: 'mastra_knowledge_records',
+  mastra_knowledge_semantic_outbox: 'mastra_knowledge_semantic_outbox',
+  mastra_mcp_client_versions: 'mastra_mcp_client_versions',
+  mastra_mcp_clients: 'mastra_mcp_clients',
+  mastra_mcp_server_versions: 'mastra_mcp_server_versions',
+  mastra_mcp_servers: 'mastra_mcp_servers',
+  mastra_messages: 'mastra_messages',
+  mastra_observational_memory: 'mastra_observational_memory',
+  mastra_prompt_block_versions: 'mastra_prompt_block_versions',
+  mastra_prompt_blocks: 'mastra_prompt_blocks',
+  mastra_resources: 'mastra_resources',
+  mastra_schedule_triggers: 'mastra_schedule_triggers',
+  mastra_schedules: 'mastra_schedules',
+  mastra_scorer_definition_versions: 'mastra_scorer_definition_versions',
+  mastra_scorer_definitions: 'mastra_scorer_definitions',
+  mastra_scorers: 'mastra_scorers',
+  mastra_skill_blobs: 'mastra_skill_blobs',
+  mastra_skill_versions: 'mastra_skill_versions',
+  mastra_skills: 'mastra_skills',
+  mastra_thread_state: 'mastra_thread_state',
+  mastra_threads: 'mastra_threads',
+  mastra_tool_provider_connections: 'mastra_tool_provider_connections',
+  mastra_workflow_definitions: 'mastra_workflow_definitions',
+  mastra_workflow_snapshot: 'mastra_workflow_snapshot',
+  mastra_workspace_versions: 'mastra_workspace_versions',
+  mastra_workspaces: 'mastra_workspaces'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,8 +115,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  firstName: 'firstName',
-  lastName: 'lastName',
+  first_name: 'first_name',
+  last_name: 'last_name',
   email: 'email',
   password: 'password',
   role: 'role',
@@ -84,6 +127,919 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const ProfileScalarFieldEnum = {
+  id: 'id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  date_of_birth: 'date_of_birth',
+  email: 'email',
+  phone: 'phone',
+  customer_reference: 'customer_reference',
+  marital_status: 'marital_status',
+  dependent_count: 'dependent_count',
+  street: 'street',
+  city: 'city',
+  postal_code: 'postal_code',
+  country: 'country',
+  housing_status: 'housing_status',
+  monthly_housing_cost: 'monthly_housing_cost',
+  employment_status: 'employment_status',
+  occupation: 'occupation',
+  employer: 'employer',
+  employment_start_date: 'employment_start_date',
+  currency: 'currency',
+  monthly_net_income: 'monthly_net_income',
+  other_monthly_income: 'other_monthly_income',
+  financial_literacy: 'financial_literacy',
+  risk_tolerance: 'risk_tolerance',
+  goals: 'goals',
+  service_interests: 'service_interests',
+  monthly_essential_expenses: 'monthly_essential_expenses',
+  monthly_discretionary_expenses: 'monthly_discretionary_expenses',
+  monthly_savings_target: 'monthly_savings_target',
+  liquid_savings: 'liquid_savings',
+  investment_balance: 'investment_balance',
+  pension_balance: 'pension_balance',
+  real_estate_value: 'real_estate_value',
+  mortgage_balance: 'mortgage_balance',
+  consumer_debt_balance: 'consumer_debt_balance',
+  other_debt_balance: 'other_debt_balance',
+  has_life_insurance: 'has_life_insurance',
+  has_home_insurance: 'has_home_insurance',
+  has_health_insurance: 'has_health_insurance',
+  has_brokerage_account: 'has_brokerage_account',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+
+
+export const Mastra_agent_versionsScalarFieldEnum = {
+  id: 'id',
+  agentId: 'agentId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  instructions: 'instructions',
+  model: 'model',
+  tools: 'tools',
+  defaultOptions: 'defaultOptions',
+  workflows: 'workflows',
+  agents: 'agents',
+  integrationTools: 'integrationTools',
+  toolProviders: 'toolProviders',
+  inputProcessors: 'inputProcessors',
+  outputProcessors: 'outputProcessors',
+  memory: 'memory',
+  scorers: 'scorers',
+  mcpClients: 'mcpClients',
+  requestContextSchema: 'requestContextSchema',
+  workspace: 'workspace',
+  skills: 'skills',
+  skillsFormat: 'skillsFormat',
+  durable: 'durable',
+  browser: 'browser',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_agent_versionsScalarFieldEnum = (typeof Mastra_agent_versionsScalarFieldEnum)[keyof typeof Mastra_agent_versionsScalarFieldEnum]
+
+
+export const Mastra_agentsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  visibility: 'visibility',
+  metadata: 'metadata',
+  favoriteCount: 'favoriteCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_agentsScalarFieldEnum = (typeof Mastra_agentsScalarFieldEnum)[keyof typeof Mastra_agentsScalarFieldEnum]
+
+
+export const Mastra_ai_spansScalarFieldEnum = {
+  traceId: 'traceId',
+  spanId: 'spanId',
+  name: 'name',
+  spanType: 'spanType',
+  isEvent: 'isEvent',
+  startedAt: 'startedAt',
+  parentSpanId: 'parentSpanId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  entityName: 'entityName',
+  parentEntityType: 'parentEntityType',
+  parentEntityId: 'parentEntityId',
+  parentEntityName: 'parentEntityName',
+  rootEntityType: 'rootEntityType',
+  rootEntityId: 'rootEntityId',
+  rootEntityName: 'rootEntityName',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  resourceId: 'resourceId',
+  runId: 'runId',
+  sessionId: 'sessionId',
+  threadId: 'threadId',
+  requestId: 'requestId',
+  environment: 'environment',
+  serviceName: 'serviceName',
+  scope: 'scope',
+  entityVersionId: 'entityVersionId',
+  parentEntityVersionId: 'parentEntityVersionId',
+  rootEntityVersionId: 'rootEntityVersionId',
+  experimentId: 'experimentId',
+  source: 'source',
+  metadata: 'metadata',
+  tags: 'tags',
+  attributes: 'attributes',
+  links: 'links',
+  input: 'input',
+  output: 'output',
+  error: 'error',
+  endedAt: 'endedAt',
+  requestContext: 'requestContext',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  startedAtZ: 'startedAtZ',
+  endedAtZ: 'endedAtZ',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_ai_spansScalarFieldEnum = (typeof Mastra_ai_spansScalarFieldEnum)[keyof typeof Mastra_ai_spansScalarFieldEnum]
+
+
+export const Mastra_background_tasksScalarFieldEnum = {
+  id: 'id',
+  tool_call_id: 'tool_call_id',
+  tool_name: 'tool_name',
+  agent_id: 'agent_id',
+  run_id: 'run_id',
+  thread_id: 'thread_id',
+  resource_id: 'resource_id',
+  status: 'status',
+  args: 'args',
+  result: 'result',
+  error: 'error',
+  suspend_payload: 'suspend_payload',
+  retry_count: 'retry_count',
+  max_retries: 'max_retries',
+  timeout_ms: 'timeout_ms',
+  createdAt: 'createdAt',
+  startedAt: 'startedAt',
+  suspendedAt: 'suspendedAt',
+  completedAt: 'completedAt',
+  createdAtZ: 'createdAtZ',
+  startedAtZ: 'startedAtZ',
+  suspendedAtZ: 'suspendedAtZ',
+  completedAtZ: 'completedAtZ'
+} as const
+
+export type Mastra_background_tasksScalarFieldEnum = (typeof Mastra_background_tasksScalarFieldEnum)[keyof typeof Mastra_background_tasksScalarFieldEnum]
+
+
+export const Mastra_channel_configScalarFieldEnum = {
+  platform: 'platform',
+  data: 'data',
+  updatedAt: 'updatedAt',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_channel_configScalarFieldEnum = (typeof Mastra_channel_configScalarFieldEnum)[keyof typeof Mastra_channel_configScalarFieldEnum]
+
+
+export const Mastra_channel_installationsScalarFieldEnum = {
+  id: 'id',
+  platform: 'platform',
+  agentId: 'agentId',
+  status: 'status',
+  webhookId: 'webhookId',
+  data: 'data',
+  configHash: 'configHash',
+  error: 'error',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_channel_installationsScalarFieldEnum = (typeof Mastra_channel_installationsScalarFieldEnum)[keyof typeof Mastra_channel_installationsScalarFieldEnum]
+
+
+export const Mastra_dataset_itemsScalarFieldEnum = {
+  id: 'id',
+  datasetId: 'datasetId',
+  datasetVersion: 'datasetVersion',
+  externalId: 'externalId',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  validTo: 'validTo',
+  isDeleted: 'isDeleted',
+  input: 'input',
+  groundTruth: 'groundTruth',
+  requestContext: 'requestContext',
+  metadata: 'metadata',
+  source: 'source',
+  expectedTrajectory: 'expectedTrajectory',
+  toolMocks: 'toolMocks',
+  unmockedToolPolicy: 'unmockedToolPolicy',
+  scorerIds: 'scorerIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_dataset_itemsScalarFieldEnum = (typeof Mastra_dataset_itemsScalarFieldEnum)[keyof typeof Mastra_dataset_itemsScalarFieldEnum]
+
+
+export const Mastra_dataset_versionsScalarFieldEnum = {
+  id: 'id',
+  datasetId: 'datasetId',
+  version: 'version',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_dataset_versionsScalarFieldEnum = (typeof Mastra_dataset_versionsScalarFieldEnum)[keyof typeof Mastra_dataset_versionsScalarFieldEnum]
+
+
+export const Mastra_datasetsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  metadata: 'metadata',
+  inputSchema: 'inputSchema',
+  groundTruthSchema: 'groundTruthSchema',
+  requestContextSchema: 'requestContextSchema',
+  tags: 'tags',
+  targetType: 'targetType',
+  targetIds: 'targetIds',
+  scorerIds: 'scorerIds',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  candidateKey: 'candidateKey',
+  candidateId: 'candidateId',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_datasetsScalarFieldEnum = (typeof Mastra_datasetsScalarFieldEnum)[keyof typeof Mastra_datasetsScalarFieldEnum]
+
+
+export const Mastra_experiment_resultsScalarFieldEnum = {
+  id: 'id',
+  experimentId: 'experimentId',
+  itemId: 'itemId',
+  itemDatasetVersion: 'itemDatasetVersion',
+  input: 'input',
+  output: 'output',
+  groundTruth: 'groundTruth',
+  metadata: 'metadata',
+  error: 'error',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  retryCount: 'retryCount',
+  attempt: 'attempt',
+  traceId: 'traceId',
+  status: 'status',
+  tags: 'tags',
+  comment: 'comment',
+  toolMockReport: 'toolMockReport',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  createdAt: 'createdAt',
+  startedAtZ: 'startedAtZ',
+  completedAtZ: 'completedAtZ',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_experiment_resultsScalarFieldEnum = (typeof Mastra_experiment_resultsScalarFieldEnum)[keyof typeof Mastra_experiment_resultsScalarFieldEnum]
+
+
+export const Mastra_experimentsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  metadata: 'metadata',
+  provenance: 'provenance',
+  runnerAttestation: 'runnerAttestation',
+  experimentSetId: 'experimentSetId',
+  comparisonId: 'comparisonId',
+  variantId: 'variantId',
+  trialIndex: 'trialIndex',
+  datasetId: 'datasetId',
+  datasetVersion: 'datasetVersion',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  scorerIds: 'scorerIds',
+  status: 'status',
+  totalItems: 'totalItems',
+  succeededCount: 'succeededCount',
+  failedCount: 'failedCount',
+  skippedCount: 'skippedCount',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  agentVersion: 'agentVersion',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  startedAtZ: 'startedAtZ',
+  completedAtZ: 'completedAtZ',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_experimentsScalarFieldEnum = (typeof Mastra_experimentsScalarFieldEnum)[keyof typeof Mastra_experimentsScalarFieldEnum]
+
+
+export const Mastra_favoritesScalarFieldEnum = {
+  userId: 'userId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_favoritesScalarFieldEnum = (typeof Mastra_favoritesScalarFieldEnum)[keyof typeof Mastra_favoritesScalarFieldEnum]
+
+
+export const Mastra_knowledge_activityScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  recordType: 'recordType',
+  recordId: 'recordId',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  sourceThreadId: 'sourceThreadId',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_knowledge_activityScalarFieldEnum = (typeof Mastra_knowledge_activityScalarFieldEnum)[keyof typeof Mastra_knowledge_activityScalarFieldEnum]
+
+
+export const Mastra_knowledge_cursorsScalarFieldEnum = {
+  sourceThreadId: 'sourceThreadId',
+  agent: 'agent',
+  lastKnowledgeId: 'lastKnowledgeId',
+  updatedAt: 'updatedAt',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_knowledge_cursorsScalarFieldEnum = (typeof Mastra_knowledge_cursorsScalarFieldEnum)[keyof typeof Mastra_knowledge_cursorsScalarFieldEnum]
+
+
+export const Mastra_knowledge_mentionsScalarFieldEnum = {
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  recordId: 'recordId'
+} as const
+
+export type Mastra_knowledge_mentionsScalarFieldEnum = (typeof Mastra_knowledge_mentionsScalarFieldEnum)[keyof typeof Mastra_knowledge_mentionsScalarFieldEnum]
+
+
+export const Mastra_knowledge_nodesScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  name: 'name',
+  canonicalName: 'canonicalName',
+  kind: 'kind',
+  content: 'content',
+  description: 'description',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  version: 'version',
+  mergedInto: 'mergedInto',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_knowledge_nodesScalarFieldEnum = (typeof Mastra_knowledge_nodesScalarFieldEnum)[keyof typeof Mastra_knowledge_nodesScalarFieldEnum]
+
+
+export const Mastra_knowledge_recordsScalarFieldEnum = {
+  id: 'id',
+  node: 'node',
+  text: 'text',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  sourceThreadId: 'sourceThreadId',
+  capturedAt: 'capturedAt',
+  when: 'when',
+  maxScope: 'maxScope',
+  metadata: 'metadata',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
+  capturedAtZ: 'capturedAtZ',
+  whenZ: 'whenZ',
+  deletedAtZ: 'deletedAtZ'
+} as const
+
+export type Mastra_knowledge_recordsScalarFieldEnum = (typeof Mastra_knowledge_recordsScalarFieldEnum)[keyof typeof Mastra_knowledge_recordsScalarFieldEnum]
+
+
+export const Mastra_knowledge_semantic_outboxScalarFieldEnum = {
+  id: 'id',
+  idempotencyKey: 'idempotencyKey',
+  documentId: 'documentId',
+  documentType: 'documentType',
+  operation: 'operation',
+  scope: 'scope',
+  scopeKey: 'scopeKey',
+  status: 'status',
+  attempts: 'attempts',
+  availableAt: 'availableAt',
+  claimedAt: 'claimedAt',
+  claimedBy: 'claimedBy',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt',
+  availableAtZ: 'availableAtZ',
+  claimedAtZ: 'claimedAtZ',
+  createdAtZ: 'createdAtZ',
+  completedAtZ: 'completedAtZ'
+} as const
+
+export type Mastra_knowledge_semantic_outboxScalarFieldEnum = (typeof Mastra_knowledge_semantic_outboxScalarFieldEnum)[keyof typeof Mastra_knowledge_semantic_outboxScalarFieldEnum]
+
+
+export const Mastra_mcp_client_versionsScalarFieldEnum = {
+  id: 'id',
+  mcpClientId: 'mcpClientId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  servers: 'servers',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_mcp_client_versionsScalarFieldEnum = (typeof Mastra_mcp_client_versionsScalarFieldEnum)[keyof typeof Mastra_mcp_client_versionsScalarFieldEnum]
+
+
+export const Mastra_mcp_clientsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_mcp_clientsScalarFieldEnum = (typeof Mastra_mcp_clientsScalarFieldEnum)[keyof typeof Mastra_mcp_clientsScalarFieldEnum]
+
+
+export const Mastra_mcp_server_versionsScalarFieldEnum = {
+  id: 'id',
+  mcpServerId: 'mcpServerId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  version: 'version',
+  description: 'description',
+  instructions: 'instructions',
+  repository: 'repository',
+  releaseDate: 'releaseDate',
+  isLatest: 'isLatest',
+  packageCanonical: 'packageCanonical',
+  tools: 'tools',
+  agents: 'agents',
+  workflows: 'workflows',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_mcp_server_versionsScalarFieldEnum = (typeof Mastra_mcp_server_versionsScalarFieldEnum)[keyof typeof Mastra_mcp_server_versionsScalarFieldEnum]
+
+
+export const Mastra_mcp_serversScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_mcp_serversScalarFieldEnum = (typeof Mastra_mcp_serversScalarFieldEnum)[keyof typeof Mastra_mcp_serversScalarFieldEnum]
+
+
+export const Mastra_messagesScalarFieldEnum = {
+  id: 'id',
+  thread_id: 'thread_id',
+  content: 'content',
+  role: 'role',
+  type: 'type',
+  createdAt: 'createdAt',
+  resourceId: 'resourceId',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_messagesScalarFieldEnum = (typeof Mastra_messagesScalarFieldEnum)[keyof typeof Mastra_messagesScalarFieldEnum]
+
+
+export const Mastra_observational_memoryScalarFieldEnum = {
+  id: 'id',
+  lookupKey: 'lookupKey',
+  scope: 'scope',
+  resourceId: 'resourceId',
+  threadId: 'threadId',
+  activeObservations: 'activeObservations',
+  activeObservationsPendingUpdate: 'activeObservationsPendingUpdate',
+  originType: 'originType',
+  config: 'config',
+  generationCount: 'generationCount',
+  lastObservedAt: 'lastObservedAt',
+  lastReflectionAt: 'lastReflectionAt',
+  pendingMessageTokens: 'pendingMessageTokens',
+  totalTokensObserved: 'totalTokensObserved',
+  observationTokenCount: 'observationTokenCount',
+  isObserving: 'isObserving',
+  isReflecting: 'isReflecting',
+  observedMessageIds: 'observedMessageIds',
+  observedTimezone: 'observedTimezone',
+  bufferedObservations: 'bufferedObservations',
+  bufferedObservationTokens: 'bufferedObservationTokens',
+  bufferedMessageIds: 'bufferedMessageIds',
+  bufferedReflection: 'bufferedReflection',
+  bufferedReflectionTokens: 'bufferedReflectionTokens',
+  bufferedReflectionInputTokens: 'bufferedReflectionInputTokens',
+  reflectedObservationLineCount: 'reflectedObservationLineCount',
+  bufferedObservationChunks: 'bufferedObservationChunks',
+  isBufferingObservation: 'isBufferingObservation',
+  isBufferingReflection: 'isBufferingReflection',
+  lastBufferedAtTokens: 'lastBufferedAtTokens',
+  lastBufferedAtTime: 'lastBufferedAtTime',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastObservedAtZ: 'lastObservedAtZ',
+  lastReflectionAtZ: 'lastReflectionAtZ',
+  lastBufferedAtTimeZ: 'lastBufferedAtTimeZ',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_observational_memoryScalarFieldEnum = (typeof Mastra_observational_memoryScalarFieldEnum)[keyof typeof Mastra_observational_memoryScalarFieldEnum]
+
+
+export const Mastra_prompt_block_versionsScalarFieldEnum = {
+  id: 'id',
+  blockId: 'blockId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  content: 'content',
+  rules: 'rules',
+  requestContextSchema: 'requestContextSchema',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_prompt_block_versionsScalarFieldEnum = (typeof Mastra_prompt_block_versionsScalarFieldEnum)[keyof typeof Mastra_prompt_block_versionsScalarFieldEnum]
+
+
+export const Mastra_prompt_blocksScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_prompt_blocksScalarFieldEnum = (typeof Mastra_prompt_blocksScalarFieldEnum)[keyof typeof Mastra_prompt_blocksScalarFieldEnum]
+
+
+export const Mastra_resourcesScalarFieldEnum = {
+  id: 'id',
+  workingMemory: 'workingMemory',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_resourcesScalarFieldEnum = (typeof Mastra_resourcesScalarFieldEnum)[keyof typeof Mastra_resourcesScalarFieldEnum]
+
+
+export const Mastra_schedule_triggersScalarFieldEnum = {
+  id: 'id',
+  schedule_id: 'schedule_id',
+  run_id: 'run_id',
+  scheduled_fire_at: 'scheduled_fire_at',
+  actual_fire_at: 'actual_fire_at',
+  outcome: 'outcome',
+  error: 'error',
+  trigger_kind: 'trigger_kind',
+  parent_trigger_id: 'parent_trigger_id',
+  metadata: 'metadata'
+} as const
+
+export type Mastra_schedule_triggersScalarFieldEnum = (typeof Mastra_schedule_triggersScalarFieldEnum)[keyof typeof Mastra_schedule_triggersScalarFieldEnum]
+
+
+export const Mastra_schedulesScalarFieldEnum = {
+  id: 'id',
+  target: 'target',
+  cron: 'cron',
+  timezone: 'timezone',
+  status: 'status',
+  next_fire_at: 'next_fire_at',
+  last_fire_at: 'last_fire_at',
+  last_run_id: 'last_run_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  metadata: 'metadata',
+  owner_type: 'owner_type',
+  owner_id: 'owner_id'
+} as const
+
+export type Mastra_schedulesScalarFieldEnum = (typeof Mastra_schedulesScalarFieldEnum)[keyof typeof Mastra_schedulesScalarFieldEnum]
+
+
+export const Mastra_scorer_definition_versionsScalarFieldEnum = {
+  id: 'id',
+  scorerDefinitionId: 'scorerDefinitionId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  model: 'model',
+  instructions: 'instructions',
+  scoreRange: 'scoreRange',
+  presetConfig: 'presetConfig',
+  defaultSampling: 'defaultSampling',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_scorer_definition_versionsScalarFieldEnum = (typeof Mastra_scorer_definition_versionsScalarFieldEnum)[keyof typeof Mastra_scorer_definition_versionsScalarFieldEnum]
+
+
+export const Mastra_scorer_definitionsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_scorer_definitionsScalarFieldEnum = (typeof Mastra_scorer_definitionsScalarFieldEnum)[keyof typeof Mastra_scorer_definitionsScalarFieldEnum]
+
+
+export const Mastra_scorersScalarFieldEnum = {
+  id: 'id',
+  scorerId: 'scorerId',
+  traceId: 'traceId',
+  spanId: 'spanId',
+  runId: 'runId',
+  scorer: 'scorer',
+  preprocessStepResult: 'preprocessStepResult',
+  extractStepResult: 'extractStepResult',
+  analyzeStepResult: 'analyzeStepResult',
+  score: 'score',
+  reason: 'reason',
+  metadata: 'metadata',
+  preprocessPrompt: 'preprocessPrompt',
+  extractPrompt: 'extractPrompt',
+  generateScorePrompt: 'generateScorePrompt',
+  generateReasonPrompt: 'generateReasonPrompt',
+  analyzePrompt: 'analyzePrompt',
+  reasonPrompt: 'reasonPrompt',
+  input: 'input',
+  output: 'output',
+  additionalContext: 'additionalContext',
+  requestContext: 'requestContext',
+  entityType: 'entityType',
+  entity: 'entity',
+  entityId: 'entityId',
+  source: 'source',
+  resourceId: 'resourceId',
+  threadId: 'threadId',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  batchId: 'batchId',
+  datasetId: 'datasetId',
+  datasetItemId: 'datasetItemId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_scorersScalarFieldEnum = (typeof Mastra_scorersScalarFieldEnum)[keyof typeof Mastra_scorersScalarFieldEnum]
+
+
+export const Mastra_skill_blobsScalarFieldEnum = {
+  hash: 'hash',
+  content: 'content',
+  size: 'size',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_skill_blobsScalarFieldEnum = (typeof Mastra_skill_blobsScalarFieldEnum)[keyof typeof Mastra_skill_blobsScalarFieldEnum]
+
+
+export const Mastra_skill_versionsScalarFieldEnum = {
+  id: 'id',
+  skillId: 'skillId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  instructions: 'instructions',
+  license: 'license',
+  compatibility: 'compatibility',
+  source: 'source',
+  references: 'references',
+  scripts: 'scripts',
+  assets: 'assets',
+  files: 'files',
+  metadata: 'metadata',
+  tree: 'tree',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_skill_versionsScalarFieldEnum = (typeof Mastra_skill_versionsScalarFieldEnum)[keyof typeof Mastra_skill_versionsScalarFieldEnum]
+
+
+export const Mastra_skillsScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  visibility: 'visibility',
+  favoriteCount: 'favoriteCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_skillsScalarFieldEnum = (typeof Mastra_skillsScalarFieldEnum)[keyof typeof Mastra_skillsScalarFieldEnum]
+
+
+export const Mastra_thread_stateScalarFieldEnum = {
+  threadId: 'threadId',
+  type: 'type',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_thread_stateScalarFieldEnum = (typeof Mastra_thread_stateScalarFieldEnum)[keyof typeof Mastra_thread_stateScalarFieldEnum]
+
+
+export const Mastra_threadsScalarFieldEnum = {
+  id: 'id',
+  resourceId: 'resourceId',
+  title: 'title',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_threadsScalarFieldEnum = (typeof Mastra_threadsScalarFieldEnum)[keyof typeof Mastra_threadsScalarFieldEnum]
+
+
+export const Mastra_tool_provider_connectionsScalarFieldEnum = {
+  authorId: 'authorId',
+  providerId: 'providerId',
+  connectionId: 'connectionId',
+  toolkit: 'toolkit',
+  label: 'label',
+  scope: 'scope',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_tool_provider_connectionsScalarFieldEnum = (typeof Mastra_tool_provider_connectionsScalarFieldEnum)[keyof typeof Mastra_tool_provider_connectionsScalarFieldEnum]
+
+
+export const Mastra_workflow_definitionsScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  metadata: 'metadata',
+  inputSchema: 'inputSchema',
+  outputSchema: 'outputSchema',
+  stateSchema: 'stateSchema',
+  requestContextSchema: 'requestContextSchema',
+  graph: 'graph',
+  schedule: 'schedule',
+  status: 'status',
+  source: 'source',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_workflow_definitionsScalarFieldEnum = (typeof Mastra_workflow_definitionsScalarFieldEnum)[keyof typeof Mastra_workflow_definitionsScalarFieldEnum]
+
+
+export const Mastra_workflow_snapshotScalarFieldEnum = {
+  workflow_name: 'workflow_name',
+  run_id: 'run_id',
+  resourceId: 'resourceId',
+  snapshot: 'snapshot',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_workflow_snapshotScalarFieldEnum = (typeof Mastra_workflow_snapshotScalarFieldEnum)[keyof typeof Mastra_workflow_snapshotScalarFieldEnum]
+
+
+export const Mastra_workspace_versionsScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  versionNumber: 'versionNumber',
+  name: 'name',
+  description: 'description',
+  filesystem: 'filesystem',
+  sandbox: 'sandbox',
+  mounts: 'mounts',
+  search: 'search',
+  skills: 'skills',
+  tools: 'tools',
+  autoSync: 'autoSync',
+  operationTimeout: 'operationTimeout',
+  changedFields: 'changedFields',
+  changeMessage: 'changeMessage',
+  createdAt: 'createdAt',
+  createdAtZ: 'createdAtZ'
+} as const
+
+export type Mastra_workspace_versionsScalarFieldEnum = (typeof Mastra_workspace_versionsScalarFieldEnum)[keyof typeof Mastra_workspace_versionsScalarFieldEnum]
+
+
+export const Mastra_workspacesScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  activeVersionId: 'activeVersionId',
+  authorId: 'authorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdAtZ: 'createdAtZ',
+  updatedAtZ: 'updatedAtZ'
+} as const
+
+export type Mastra_workspacesScalarFieldEnum = (typeof Mastra_workspacesScalarFieldEnum)[keyof typeof Mastra_workspacesScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -92,10 +1048,42 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

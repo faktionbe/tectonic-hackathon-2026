@@ -10,14 +10,14 @@ async function main() {
       {
         email: 'sw@faktion.com',
         password: await hash('password123'),
-        firstName: 'SW',
-        lastName: 'Faktion',
+        first_name: 'SW',
+        last_name: 'Faktion',
       },
       {
         email: 'ml@faktion.com',
         password: await hash('password123'),
-        firstName: 'ML',
-        lastName: 'Faktion',
+        first_name: 'ML',
+        last_name: 'Faktion',
       },
     ],
   });

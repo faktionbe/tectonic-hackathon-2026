@@ -6,6 +6,10 @@ export interface IUser {
   id: string;
   email: string;
   role: string;
+  firstName: string;
+  lastName: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const User = createParamDecorator(
